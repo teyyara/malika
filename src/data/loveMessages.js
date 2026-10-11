@@ -2,7 +2,7 @@ export const messageCategories = [
   { id: "all", label: "Everything" },
   { id: "reasons", label: "Little reasons" },
   { id: "adore", label: "Things I adore" },
-  { id: "memories", label: "Our memories" },
+  { id: "memories", label: "Little dreams for us" },
   { id: "wishes", label: "Birthday wishes" },
   { id: "secret", label: "Secret letters" }
 ];

@@ -1,0 +1,8 @@
+.birthday-date { display:inline-flex; align-items:center; gap:8px; margin:0 0 17px; padding:8px 12px; border:1px solid rgba(217,190,255,.22); border-radius:999px; color:#e7d2ff; background:rgba(47,29,77,.5); font-size:10px; letter-spacing:.11em; text-transform:uppercase; box-shadow:inset 0 0 18px rgba(191,142,255,.05); }
+.birthday-date::before, .birthday-date::after { content:"✦"; color:#f2c1ea; font-size:9px; }
+.modal-signature { letter-spacing:.04em; }
+.finale-date { margin:12px 0 0; color:#d1bbe9; font-size:10px; letter-spacing:.14em; text-transform:uppercase; }
+.collection-signoff { padding-top:10px; }
+@media (max-width:720px) {
+  .welcome-copy .birthday-date { margin-inline:auto; }
+}

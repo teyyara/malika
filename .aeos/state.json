@@ -1,42 +1,35 @@
 {
   "schemaVersion": "1.0",
-  "rulebookVersion": "Autonomous Website Engineering Operating System v3",
-  "runId": "malika-20261012-001",
+  "runId": "malika-20261012-002",
   "activeKeyphrase": "read the master strategy",
-  "activatedAt": "2026-10-12T00:30:00+01:00",
-  "researchStatus": "COMPLETE",
   "repository": "teyyara/malika",
   "releaseBranch": "main",
   "progressionBranch": "aeos/progression",
-  "currentLoop": 1,
-  "candidate": "malika-foundation-001",
-  "state": "WAITING_FOR_CONTINUE",
-  "latestCheckpointCommit": "ea12047929d590611cb7ccbf0856684a4b386d2d",
+  "currentLoop": 2,
+  "candidate": "malika-birthday-002",
+  "status": "VALIDATION_PENDING",
+  "latestCheckpointCommit": "TO_RECONCILE_AFTER_COMMIT",
   "knownGoodApplicationCommit": "ea12047929d590611cb7ccbf0856684a4b386d2d",
-  "lastValidation": {
-    "provider": "GitHub Actions",
-    "runId": 38185526508,
-    "url": "https://github.com/teyyara/malika/actions/runs/38185526508",
-    "headSha": "ea12047929d590611cb7ccbf0856684a4b386d2d",
-    "conclusion": "success",
-    "checks": {
-      "dependencyInstall": "PASS",
-      "nodeTests": "PASS",
-      "productionBuild": "PASS"
-    }
+  "personalization": {
+    "recipientName": "Malika",
+    "senderName": "Zack",
+    "birthday": "12 October"
   },
-  "deployment": { "target": null, "status": "NOT_CONFIGURED" },
-  "validation": {
-    "gameUnitTests": "PASS_ON_GITHUB_ACTIONS",
-    "productionBuild": "PASS_ON_GITHUB_ACTIONS",
-    "browserQA": "NOT_YET_OBSERVED",
-    "screenReaderQA": "NOT_YET_OBSERVED",
-    "mobileDeviceQA": "NOT_YET_OBSERVED"
+  "previousValidation": {
+    "url": "https://github.com/teyyara/malika/actions/runs/38185526508",
+    "conclusion": "success"
+  },
+  "currentValidation": "PENDING_GITHUB_ACTIONS",
+  "browserQA": "NOT_YET_OBSERVED",
+  "screenReaderQA": "NOT_YET_OBSERVED",
+  "mobileDeviceQA": "NOT_YET_OBSERVED",
+  "deployment": {
+    "target": null,
+    "status": "NOT_CONFIGURED"
   },
   "nextHighValueWork": [
-    "Run an observed browser journey across all scenes.",
-    "Check 320px mobile layout and interaction target positions.",
-    "Review keyboard navigation, modal focus restoration, and reduced-motion behavior.",
-    "Choose a hosting target only when suitability and access are verified."
+    "Observe the current CI result and repair failures",
+    "Promote the passing application to main for assessment",
+    "Perform browser QA when browser access is available"
   ]
 }

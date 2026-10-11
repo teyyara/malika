@@ -1,21 +1,22 @@
 {
-  "contractVersion": "1.0",
+  "contractVersion": "1.1",
   "capturedAt": "2026-10-12",
+  "personalization": {"recipient":"Malika","sender":"Zack","birthday":"12 October"},
   "accessibilityTarget": "WCAG 2.2 AA",
   "requirements": [
-    {"id":"REQ-001","requirement":"Welcome action begins the experience.","risk":"R1","validation":"manual journey","status":"IMPLEMENTED_UNVERIFIED"},
+    {"id":"REQ-001","requirement":"Welcome action begins a birthday experience personalized for Malika.","risk":"R1","validation":"manual journey","status":"IMPLEMENTED_UNVERIFIED"},
     {"id":"REQ-002","requirement":"All five scenes are reachable.","risk":"R1","validation":"scene navigation smoke test","status":"IMPLEMENTED_UNVERIFIED"},
     {"id":"REQ-003","requirement":"Cat responds; ladybugs open associated notes.","risk":"R1","validation":"manual interaction checks","status":"IMPLEMENTED_UNVERIFIED"},
     {"id":"REQ-004","requirement":"Each heart scores at most once.","risk":"R2","validation":"node:test reducer tests","status":"TESTS_AUTHORED"},
     {"id":"REQ-005","requirement":"Victory occurs at target; score stops after victory.","risk":"R2","validation":"node:test reducer tests","status":"TESTS_AUTHORED"},
-    {"id":"REQ-006","requirement":"Love collection has 30 data-driven messages.","risk":"R1","validation":"data audit","status":"IMPLEMENTED_UNVERIFIED"},
-    {"id":"REQ-007","requirement":"No invented relationship memories or visible name placeholders.","risk":"R1","validation":"content audit","status":"IMPLEMENTED_UNVERIFIED"},
-    {"id":"REQ-008","requirement":"Birthday letter can be read without audio.","risk":"R1","validation":"manual journey","status":"IMPLEMENTED_UNVERIFIED"},
-    {"id":"REQ-009","requirement":"Secret letters unlock at victory; resetting game keeps discovered notes.","risk":"R2","validation":"state/UI checks","status":"IMPLEMENTED_UNVERIFIED"},
-    {"id":"REQ-010","requirement":"Semantic, keyboard-operable interactions with visible focus.","risk":"R2","validation":"keyboard audit","status":"IMPLEMENTED_UNVERIFIED"},
+    {"id":"REQ-006","requirement":"The collection contains 30 notes and five future-facing dream entries.","risk":"R1","validation":"data integrity test","status":"TESTS_AUTHORED"},
+    {"id":"REQ-007","requirement":"Names are filled; no fabricated past relationship memories are presented as fact.","risk":"R1","validation":"content audit","status":"IMPLEMENTED_UNVERIFIED"},
+    {"id":"REQ-008","requirement":"Birthday letter identifies Malika and is signed by Zack, without audio dependency.","risk":"R1","validation":"content/manual journey","status":"IMPLEMENTED_UNVERIFIED"},
+    {"id":"REQ-009","requirement":"Secret letters unlock on victory; game restart preserves discovered notes.","risk":"R2","validation":"state/UI checks","status":"IMPLEMENTED_UNVERIFIED"},
+    {"id":"REQ-010","requirement":"Semantic keyboard-operable interactions with visible focus.","risk":"R2","validation":"keyboard audit","status":"IMPLEMENTED_UNVERIFIED"},
     {"id":"REQ-011","requirement":"Nonessential motion respects reduced-motion preferences.","risk":"R1","validation":"browser preference emulation","status":"IMPLEMENTED_UNVERIFIED"},
-    {"id":"REQ-012","requirement":"Responsive at 320px, tablet and desktop.","risk":"R2","validation":"responsive browser checks","status":"IMPLEMENTED_UNVERIFIED"},
-    {"id":"REQ-013","requirement":"Core needs no backend, paid API, analytics or external service.","risk":"R1","validation":"dependency review","status":"IMPLEMENTED_UNVERIFIED"},
+    {"id":"REQ-012","requirement":"Responsive at 320px, tablet and desktop.","risk":"R2","validation":"browser responsive checks","status":"IMPLEMENTED_UNVERIFIED"},
+    {"id":"REQ-013","requirement":"Core requires no backend, paid API, analytics, or external runtime service.","risk":"R1","validation":"dependency review","status":"IMPLEMENTED_UNVERIFIED"},
     {"id":"REQ-014","requirement":"Repository contains state, provenance, requirements, status and evidence.","risk":"R1","validation":"repository tree inspection","status":"IMPLEMENTED_UNVERIFIED"}
   ]
 }

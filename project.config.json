@@ -1,8 +1,10 @@
 {
-  "project": "Malika",
+  "project": "For Malika, With All My Heart",
   "activeKeyphrase": "read the master strategy",
   "repository": "https://github.com/teyyara/malika.git",
-  "repositoryVisibilityAtIntake": "public",
+  "recipientName": "Malika",
+  "senderName": "Zack",
+  "recipientBirthday": "12 October",
   "framework": "React",
   "buildTool": "Vite",
   "animationLibrary": "Motion for React",
@@ -11,8 +13,10 @@
   "defaultLanguage": "en",
   "deploymentTarget": null,
   "deploymentStatus": "not-configured",
-  "branchPolicy": { "progression": "aeos/progression", "release": "main", "promotion": "human acceptance and certification required" },
+  "branchPolicy": { "progression": "aeos/progression", "release": "main", "promotion": "human-requested assessment on main; deployment still gated" },
   "paidDependenciesAllowed": false,
   "backendRequired": false,
-  "analyticsEnabled": false
+  "analyticsEnabled": false,
+  "historicalMemoriesInvented": false,
+  "personalization": "complete"
 }

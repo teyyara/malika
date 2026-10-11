@@ -3,6 +3,8 @@ import assert from "node:assert/strict";
 import { createInitialGameState, gameReducer } from "./gameLogic.js";
 import { createInitialExperienceState, experienceReducer } from "../app/experienceReducer.js";
 import { loveMessages } from "../data/loveMessages.js";
+import { memories } from "../data/memories.js";
+import { siteConfig } from "../data/siteConfig.js";
 
 function begin(requiredHearts) {
   return gameReducer(createInitialGameState(requiredHearts), { type: "START" });
@@ -27,7 +29,7 @@ test("collecting a heart increments once; repeating its ID is ignored", () => {
 });
 
 test("victory is exact and any subsequent collection is ignored", () => {
-  let state = begin(7);
+  let state = begin(siteConfig.requiredHearts);
   while (state.status === "playing") {
     const heart = state.collectibles.find((item) => item.type === "heart");
     assert.ok(heart, "an active game should retain a collectible heart");
@@ -57,10 +59,22 @@ test("restart resets the game but preserves configured target", () => {
   assert.deepEqual(reset.collectibles, []);
 });
 
-test("the love collection contains 30 uniquely identified messages", () => {
+test("message and dream collection has 35 unique cards", () => {
   assert.equal(loveMessages.length, 30);
-  assert.equal(new Set(loveMessages.map((message) => message.id)).size, 30);
+  assert.equal(memories.length, 5);
+  const all = [...loveMessages, ...memories];
+  assert.equal(all.length, 35);
+  assert.equal(new Set(all.map((message) => message.id)).size, 35);
+  assert.ok(memories.every((item) => item.category === "memories" && /I'd|Let's|One day|I hope/i.test(item.text)));
   assert.ok(loveMessages.some((message) => message.unlock === "game"));
+});
+
+test("birthday copy is fully personalized, with no blank names", () => {
+  assert.equal(siteConfig.recipientName, "Malika");
+  assert.equal(siteConfig.senderName, "Zack");
+  assert.equal(siteConfig.birthdayDate, "12 October");
+  assert.ok(siteConfig.birthdayLetter.length >= 4);
+  assert.ok(siteConfig.birthdayLetter.every((paragraph) => paragraph.length > 40));
 });
 
 test("restarting the mini-game does not clear discovered notes", () => {

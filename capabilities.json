@@ -1,0 +1,26 @@
+{
+  "observedAt": "2026-10-12",
+  "repository": {
+    "githubApiRead": true,
+    "githubApiWrite": true,
+    "reportedPermissions": ["pull", "push", "maintain", "admin"],
+    "localGitNetworkAccess": false,
+    "initialRepositoryWasEmpty": true
+  },
+  "runtime": {
+    "node": "v22.16.0",
+    "npm": "10.9.2",
+    "git": "2.47.3",
+    "packageRegistryReachableFromContainer": false
+  },
+  "validation": {
+    "nodeUnitTests": "available",
+    "localDependencyInstall": "blocked by network name resolution",
+    "localViteBuild": "not executable until dependencies are installed",
+    "githubActions": "configured; outcome not yet observed",
+    "browserAutomation": false,
+    "realMobileDevice": false,
+    "screenReaderTesting": false,
+    "liveDeploymentCredentials": "unknown"
+  }
+}

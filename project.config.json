@@ -1,0 +1,18 @@
+{
+  "project": "Malika",
+  "activeKeyphrase": "read the master strategy",
+  "repository": "https://github.com/teyyara/malika.git",
+  "repositoryVisibilityAtIntake": "public",
+  "framework": "React",
+  "buildTool": "Vite",
+  "animationLibrary": "Motion for React",
+  "packageManager": "npm",
+  "nodeMinimum": "20.19.0",
+  "defaultLanguage": "en",
+  "deploymentTarget": null,
+  "deploymentStatus": "not-configured",
+  "branchPolicy": { "progression": "aeos/progression", "release": "main", "promotion": "human acceptance and certification required" },
+  "paidDependenciesAllowed": false,
+  "backendRequired": false,
+  "analyticsEnabled": false
+}

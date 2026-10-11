@@ -1,0 +1,31 @@
+{
+  "keyphrase": "read the master strategy",
+  "project": "Malika birthday universe",
+  "researchedAt": "2026-10-12",
+  "researchStatus": "COMPLETE",
+  "repository": { "url": "https://github.com/teyyara/malika", "visibility": "public", "defaultBranch": "main", "initialState": "empty", "progressionBranch": "aeos/progression" },
+  "facts": [
+    "The user-supplied brief specifies five scenes and a seven-heart game default.",
+    "No shared memories may be invented.",
+    "The brief requires mobile-first layout, touch/keyboard, reduced motion, and no paid essential dependencies.",
+    "Official docs consulted: React useReducer, Motion React, Vite deployment, WCAG 2.2, MDN dialog/reduced motion, and OWASP frontend security.",
+    "Package pages checked 2026-10-12: React 19.3, Vite 8.1, @vitejs/plugin-react 6.1.2, Motion 14.1.0."
+  ],
+  "inferences": ["A scene-based SPA matches the emotional arc.", "Reducer game logic reduces duplicate collection risk.", "Reusable SVGs provide consistent lightweight character art."],
+  "unknowns": ["Personal names, genuine memories, photos and preferred final language.", "Local install/build blocked by container DNS.", "CI outcome, browser rendering, screen reader behavior, and deployment remain unverified."],
+  "sources": [
+    "https://react.dev/reference/react/useReducer",
+    "https://motion.dev/docs/react",
+    "https://motion.dev/docs/react-accessibility",
+    "https://vite.dev/guide/static-deploy.html",
+    "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html",
+    "https://www.w3.org/WAI/WCAG22/Understanding/keyboard.html",
+    "https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dialog",
+    "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/%40media/prefers-reduced-motion",
+    "https://cheatsheetseries.owasp.org/cheatsheets/Frontend_Security_Cheat_Sheet.html",
+    "https://www.npmjs.com/package/react",
+    "https://www.npmjs.com/package/vite",
+    "https://www.npmjs.com/package/@vitejs/plugin-react",
+    "https://www.npmjs.com/package/motion"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "malika-birthday-universe",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "A little interactive birthday universe made with love.",
+  "engines": { "node": ">=20.19.0" },
+  "scripts": { "dev": "vite", "build": "vite build", "preview": "vite preview", "test": "node --test src/game/gameLogic.test.js" },
+  "dependencies": { "motion": "^14.1.0", "react": "^19.3.0", "react-dom": "^19.3.0" },
+  "devDependencies": { "@vitejs/plugin-react": "^6.1.2", "vite": "^8.1.0" }
+}

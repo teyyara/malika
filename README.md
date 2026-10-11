@@ -1,23 +1,21 @@
 # Malika — A Little Universe Made for You
 
-A romantic, interactive birthday experience built with React and Vite.
+A romantic, interactive birthday experience built with React, Vite, and Motion. One continuous world connects the welcome, garden, heart game, love collection, and birthday finale.
 
-## Project intent
+## Quick start
 
-Create a coherent moonlit lavender garden with animated cats, red ladybugs, floating purple hearts, discoverable affectionate messages, a heart-collection mini-game, and a birthday-letter finale.
+Requirement: Node.js 20.19 or newer.
 
-## Engineering rules
+1. Run npm install.
+2. Run npm run dev.
+3. Open the local URL printed by Vite.
 
-- Keep personal details editable and never invent relationship-specific memories.
-- No paid APIs or essential third-party runtime dependencies.
-- Support touch, keyboard, responsive layouts, and reduced-motion preferences.
-- Use repository-visible AEOS state, evidence, and checkpoint history.
-- Do not claim validation or deployment without recorded evidence.
+Use npm test for game-state tests and npm run build for a production build. npm run preview is a local preview, not a production server.
 
-## Current state
+## Personalization
 
-This file bootstraps the previously empty repository. The implementation and progression state are maintained on the AEOS progression branch once initialized.
+Edit src/data/siteConfig.js for optional names, headings, the game goal, and birthday letter. Edit src/data/loveMessages.js to change notes. Add only genuine, user-approved shared memories to src/data/memories.js; the app intentionally contains no invented relationship events.
 
-## Development
+The project defaults to English based on the supplied brief. No external services, paid APIs, backend, tracking, or audio are needed for the core experience.
 
-The app's run and test commands will be documented here as the project foundation is committed.
+See AEOS_STATUS.md, .aeos/state.json, the versioned product contract, and evidence/ for the checkpoint and what has or has not been validated. GitHub Actions runs the unit tests and production build. No deployment is configured or claimed yet.

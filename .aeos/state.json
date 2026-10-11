@@ -7,29 +7,22 @@
   "progressionBranch": "aeos/progression",
   "currentLoop": 2,
   "candidate": "malika-birthday-002",
-  "status": "VALIDATION_PENDING",
-  "latestCheckpointCommit": "TO_RECONCILE_AFTER_COMMIT",
-  "knownGoodApplicationCommit": "ea12047929d590611cb7ccbf0856684a4b386d2d",
-  "personalization": {
-    "recipientName": "Malika",
-    "senderName": "Zack",
-    "birthday": "12 October"
+  "status": "VALIDATED_AND_ON_MAIN",
+  "latestCheckpointCommit": "4e730fab7a48bcb2155120c8e332ce1ff65e9949",
+  "knownGoodApplicationCommit": "4e730fab7a48bcb2155120c8e332ce1ff65e9949",
+  "personalization": {"recipientName":"Malika","senderName":"Zack","birthday":"12 October"},
+  "validation": {
+    "runId": 38186034612,
+    "url": "https://github.com/teyyara/malika/actions/runs/38186034612",
+    "conclusion": "success",
+    "testsPassed": 8,
+    "testsFailed": 0,
+    "productionBuild": "PASS"
   },
-  "previousValidation": {
-    "url": "https://github.com/teyyara/malika/actions/runs/38185526508",
-    "conclusion": "success"
-  },
-  "currentValidation": "PENDING_GITHUB_ACTIONS",
+  "mainPromotion": {"method":"fast-forward","verified":true,"sha":"4e730fab7a48bcb2155120c8e332ce1ff65e9949"},
   "browserQA": "NOT_YET_OBSERVED",
   "screenReaderQA": "NOT_YET_OBSERVED",
   "mobileDeviceQA": "NOT_YET_OBSERVED",
-  "deployment": {
-    "target": null,
-    "status": "NOT_CONFIGURED"
-  },
-  "nextHighValueWork": [
-    "Observe the current CI result and repair failures",
-    "Promote the passing application to main for assessment",
-    "Perform browser QA when browser access is available"
-  ]
+  "deployment": {"target":null,"status":"NOT_CONFIGURED"},
+  "nextHighValueWork": ["Run browser QA across scenes and narrow mobile widths", "Check keyboard-only completion and modal focus", "Configure hosting only after target and access are verified"]
 }

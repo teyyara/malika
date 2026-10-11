@@ -2,27 +2,34 @@
 
 Date: 2026-10-12
 Candidate: malika-birthday-002
-Branch: aeos/progression
+Source commit: 4e730fab7a48bcb2155120c8e332ce1ff65e9949
+Branch at validation: aeos/progression
+Assessment branch: main
 
-## User-confirmed details
+## Confirmed personalization
 - Recipient: Malika.
 - Sender: Zack.
-- Birthday: 12 October, interpreted as day/month based on local date and the user's wording.
-- User requested the implementation be promoted to main for assessment.
+- Birthday: 12 October.
+- User explicitly requested promotion to main for boss assessment.
 
-## Work in this loop
-- Personalized title, welcome line/date, garden, navigation, footer, note modal, and birthday finale.
-- Rewrote the birthday letter.
-- Filled the previously empty memories shelf with five future-facing dreams, explicitly not claims about past events.
-- Included dreams in shared note-modal lookup so these cards open correctly.
-- Added data integrity tests for 35 unique message/dream cards and filled personalization.
-- Updated product contract, requirements, assumptions and decisions.
+## Changes
+- Personalized the title, welcome/date, garden, note modal, footer, collection, and birthday finale.
+- Wrote a five-paragraph birthday letter.
+- Replaced empty memory copy with five future-facing dreams, not invented past events.
+- Included all 35 note/dream cards in the same open-note registry.
+- Added tests for the 35 unique items and filled names/date.
+- Updated product contract, requirements, assumptions, decisions, and persistent state.
 
-## Baseline evidence
-The parent implementation (ea12047929d590611cb7ccbf0856684a4b386d2d) passed GitHub Actions dependency installation, seven Node tests, and the Vite production build. That prior result does not certify this changed revision.
+## Observed CI evidence
+Run: https://github.com/teyyara/malika/actions/runs/38186034612
+Commit under test: 4e730fab7a48bcb2155120c8e332ce1ff65e9949
+- Dependency install: PASS
+- Node tests: 8 passed, 0 failed
+- Vite production build: PASS
+- Overall workflow: success
 
-## Current verification
-Fresh GitHub Actions result is pending for Loop 002's source commit. Promotion to main follows only after its head SHA is verified green.
+## Branch promotion evidence
+The user requested the work on main. GitHub confirmed a successful fast-forward to 4e730fab7a48bcb2155120c8e332ce1ff65e9949, and a subsequent branch read returned that exact SHA.
 
-## Not yet observed
-Browser rendering, mobile overflow, physical touch, keyboard-only walkthrough, screen reader behavior, and deployment.
+## Open quality gates
+No browser screenshot, physical touch device, keyboard-only walkthrough, or screen-reader behavior was observed. No hosting target has been configured. This is a passing source/build/test checkpoint, not a deployed release.

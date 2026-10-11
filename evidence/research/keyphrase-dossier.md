@@ -1,13 +1,15 @@
-# Updated Reconnaissance — Loop 002
+# Loop 002 Research Result
 
-Active keyphrase: read the master strategy. Date: 2026-10-12.
+Date: 2026-10-12. Keyphrase: read the master strategy.
 
-Confirmed by user: recipient Malika, sender Zack, birthday 12 October. The user asked for all visible names/content to be filled and the work promoted to main for the boss's assessment.
+User-provided details: recipient Malika; sender Zack; birthday 12 October. User asked that the work be moved to main for assessment.
 
-Technical basis remains the supplied birthday website brief: React + Vite + Motion; a scene-based welcome/garden/game/collection/finale; purple hearts, cats, ladybugs; keyboard/touch support, reduced motion, responsive layout; no paid essential APIs; do not fabricate personal past events.
+Personalization choices: names and date appear in the welcome, site chrome, note modal and finale. The birthday letter is rewritten for Malika from Zack. The empty memory shelf now contains five imagined future dreams, not invented claims about past events. The message collection has 30 notes and five dreams.
 
-Personalization decision: the empty memories area has become five forward-facing wishes/ideas. These are written as possible future moments, not past facts. The project now renders 30 notes plus five dreams, and the shared note registry includes both so all 35 are openable. A fresh CI run is required for this revision. The previous version passed GitHub Actions dependency install, seven tests and production build, but that evidence does not carry across source changes.
+Validated source commit: 4e730fab7a48bcb2155120c8e332ce1ff65e9949.
+CI result: https://github.com/teyyara/malika/actions/runs/38186034612 — dependency install passed, 8 tests passed with 0 failures, production build passed.
+Main branch fast-forward and remote SHA check passed.
 
-Official technical references: https://react.dev/reference/react/useReducer ; https://motion.dev/docs/react ; https://motion.dev/docs/react-accessibility ; https://vite.dev/guide/static-deploy.html ; https://www.w3.org/WAI/WCAG22/Understanding/keyboard.html ; https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/%40media/prefers-reduced-motion .
+Unverified: live browser screenshots, narrow-mobile layout, physical touch, keyboard-only journey, screen-reader behavior, and deployment.
 
-Unknown: actual browser screenshots, screen-reader behavior, real device touch and hosting credentials. This dossier is not release certification.
+Technical references: https://react.dev/reference/react/useReducer ; https://motion.dev/docs/react ; https://vite.dev/guide/static-deploy.html ; https://www.w3.org/WAI/WCAG22/Understanding/keyboard.html .

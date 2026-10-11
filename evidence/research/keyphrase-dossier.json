@@ -4,18 +4,23 @@
   "researchDate": "2026-10-12",
   "personalization": {"recipient":"Malika","sender":"Zack","birthday":"12 October"},
   "researchStatus": "COMPLETE_FOR_LOOP_002",
-  "requirements": ["React + Vite + Motion", "five connected scenes", "seven-heart collection game", "purple hearts, cat and ladybugs", "touch and keyboard support", "reduced-motion and responsive layout", "no paid essential service", "do not invent past relationship memories"],
-  "decision": "Replace the empty memory shelf with five forward-looking dreams rather than claimed past events.",
-  "collection": {"loveMessages":30,"futureDreams":5,"total":35},
-  "previousValidation": {"commit":"ea12047929d590611cb7ccbf0856684a4b386d2d","conclusion":"success","url":"https://github.com/teyyara/malika/actions/runs/38185526508"},
-  "currentRevisionValidation": "PENDING_GITHUB_ACTIONS",
-  "unknown": ["browser screenshots", "screen reader behavior", "real device touch", "deployment credentials"],
+  "collection": {"loveMessages":30,"futureDreams":5,"uniqueTotal":35},
+  "validation": {
+    "commit":"4e730fab7a48bcb2155120c8e332ce1ff65e9949",
+    "runId":38186034612,
+    "url":"https://github.com/teyyara/malika/actions/runs/38186034612",
+    "conclusion":"success",
+    "testsPassed":8,
+    "testsFailed":0,
+    "productionBuild":"success"
+  },
+  "mainPromotion": {"method":"fast-forward","verified":true,"sha":"4e730fab7a48bcb2155120c8e332ce1ff65e9949"},
+  "contentPolicy": "Future-facing dreams used rather than fabricated past memories.",
+  "unverified": ["browser screenshots","mobile device QA","keyboard-only walkthrough","screen-reader behavior","deployment"],
   "sources": [
     "https://react.dev/reference/react/useReducer",
     "https://motion.dev/docs/react",
-    "https://motion.dev/docs/react-accessibility",
     "https://vite.dev/guide/static-deploy.html",
-    "https://www.w3.org/WAI/WCAG22/Understanding/keyboard.html",
-    "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/%40media/prefers-reduced-motion"
+    "https://www.w3.org/WAI/WCAG22/Understanding/keyboard.html"
   ]
 }

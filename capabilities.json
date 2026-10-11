@@ -1,1 +1,24 @@
-{"observedAt":"2026-10-12","repository":"teyyara/malika","progressionBranch":"aeos/progression","assessmentBranch":"main","recipient":"Malika","sender":"Zack","birthday":"12 October","previousBuildTests":"PASS","currentRevision":"PENDING_GITHUB_ACTIONS","browserQA":false,"mobileDeviceQA":false,"screenReaderQA":false,"deployment":"NOT_CONFIGURED"}
+{
+  "observedAt": "2026-10-12",
+  "repository": "teyyara/malika",
+  "progressionBranch": "aeos/progression",
+  "assessmentBranch": "main",
+  "mainHead": "4e730fab7a48bcb2155120c8e332ce1ff65e9949",
+  "recipient": "Malika",
+  "sender": "Zack",
+  "birthday": "12 October",
+  "personalizationComplete": true,
+  "currentCI": {
+    "url": "https://github.com/teyyara/malika/actions/runs/38186034612",
+    "headSha": "4e730fab7a48bcb2155120c8e332ce1ff65e9949",
+    "conclusion": "success",
+    "testsPassed": 8,
+    "testsFailed": 0,
+    "productionBuild": "success"
+  },
+  "localPackageRegistry": "unavailable from working container",
+  "browserAutomation": false,
+  "realMobileDevice": false,
+  "screenReaderTesting": false,
+  "deployment": "not configured"
+}

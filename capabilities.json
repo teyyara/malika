@@ -3,22 +3,20 @@
   "repository": "teyyara/malika",
   "progressionBranch": "aeos/progression",
   "assessmentBranch": "main",
-  "mainHead": "4e730fab7a48bcb2155120c8e332ce1ff65e9949",
-  "recipient": "Malika",
-  "sender": "Zack",
-  "birthday": "12 October",
-  "personalizationComplete": true,
+  "validatedApplicationCommit": "4e730fab7a48bcb2155120c8e332ce1ff65e9949",
+  "personalization": {"recipient":"Malika","sender":"Zack","birthday":"12 October","complete":true},
   "currentCI": {
-    "url": "https://github.com/teyyara/malika/actions/runs/38186034612",
-    "headSha": "4e730fab7a48bcb2155120c8e332ce1ff65e9949",
-    "conclusion": "success",
-    "testsPassed": 8,
-    "testsFailed": 0,
-    "productionBuild": "success"
+    "url":"https://github.com/teyyara/malika/actions/runs/38186034612",
+    "headSha":"4e730fab7a48bcb2155120c8e332ce1ff65e9949",
+    "conclusion":"success",
+    "testsPassed":8,
+    "testsFailed":0,
+    "productionBuild":"success"
   },
-  "localPackageRegistry": "unavailable from working container",
-  "browserAutomation": false,
-  "realMobileDevice": false,
-  "screenReaderTesting": false,
-  "deployment": "not configured"
+  "mainPromotion":"fast-forward completed and verified at the validated application commit",
+  "localPackageRegistry":"unavailable from working container",
+  "browserAutomation":false,
+  "realMobileDevice":false,
+  "screenReaderTesting":false,
+  "deployment":"not configured"
 }

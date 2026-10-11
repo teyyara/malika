@@ -7,25 +7,35 @@
 - Repository: https://github.com/teyyara/malika
 - Progression branch: aeos/progression
 - Release branch: main
-- Current loop: 001
+- Current loop: 001 — COMPLETE
+- Current state: WAITING_FOR_CONTINUE
 - Candidate: malika-foundation-001
-- Current state: source foundation checkpoint being established; validation result pending observation
+- Latest implementation checkpoint: ea12047929d590611cb7ccbf0856684a4b386d2d
+- Validation result: PASS — [GitHub Actions run #1](https://github.com/teyyara/malika/actions/runs/38185526508). Dependency installation, seven Node tests, and Vite production build all succeeded.
+- Browser/mobile/screen-reader QA: NOT YET OBSERVED
 - Deployment: not configured; no live URL is claimed
 - Personal content: generic affectionate notes only; no fabricated shared memories and no visible name placeholders
 - How to run: Node.js 20.19+; npm install, then npm run dev
 - Last updated: 2026-10-12
 
-## Loop 001 scope
+## Loop 001 delivered
 
-Establish the initial React/Vite application, single-page scene flow, reusable inline-SVG characters and background, reducer-controlled seven-heart game, 30 data-driven messages, empty-but-editable genuine-memory store, reduced-motion support, responsive styles, semantic controls, product contract, requirement baseline, AEOS records, and automated CI.
+Created the React/Vite app, connected five-scene flow, custom inline-SVG cat and ladybug, animated moonlit garden, seven-heart mini-game, 30 data-driven love messages, locked post-game letters, birthday finale, centralized editable copy, empty genuine-memory store, reduced-motion handling, responsive styles, keyboard focus patterns, automated tests, GitHub Actions validation, product contract, requirement baseline, research dossier, and AEOS records.
 
-## Validation
+## Validation evidence
 
-Tests and production build are configured in GitHub Actions; their result must be inspected before claiming PASS. Local dependency installation is blocked by container DNS/network access. Browser rendering, keyboard journeys, narrow-mobile view, screen-reader behavior, and deployment remain unverified. This is a development checkpoint, not release certification.
+Observed green GitHub Actions run #1 on commit ea12047929d590611cb7ccbf0856684a4b386d2d:
+- Dependency installation: PASS
+- Game/state tests: PASS (7 tests)
+- Vite production build: PASS
+
+Local installation remains unavailable in this container because its DNS cannot resolve package registry hosts. CI proved the dependency install/build path works on GitHub's runner. Browser rendering, narrow-mobile screenshots, real-device input, and screen-reader behavior remain to be checked in a subsequent loop.
 
 ## Next high-value work
 
-1. Observe GitHub Actions and repair test/build failures.
-2. Capture desktop/mobile screenshots and perform visual QA when a browser is available.
-3. Refine focus management and complete keyboard/reduced-motion checks.
-4. Select a hosting target only when suitability and access are verified.
+1. Browser-level walkthrough with desktop and narrow mobile layouts.
+2. Inspect keyboard navigation, modal focus restoration, reduced-motion behavior, and touch targets.
+3. Refine any layout or interaction problems found during observed QA.
+4. Select and verify a hosting target before deployment.
+
+This is a validated development checkpoint, not a production release certification.

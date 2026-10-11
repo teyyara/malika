@@ -5,7 +5,9 @@
     "githubApiWrite": true,
     "reportedPermissions": ["pull", "push", "maintain", "admin"],
     "localGitNetworkAccess": false,
-    "initialRepositoryWasEmpty": true
+    "initialRepositoryWasEmpty": true,
+    "progressionBranch": "aeos/progression",
+    "implementationCheckpoint": "ea12047929d590611cb7ccbf0856684a4b386d2d"
   },
   "runtime": {
     "node": "v22.16.0",
@@ -14,10 +16,11 @@
     "packageRegistryReachableFromContainer": false
   },
   "validation": {
-    "nodeUnitTests": "available",
-    "localDependencyInstall": "blocked by network name resolution",
-    "localViteBuild": "not executable until dependencies are installed",
-    "githubActions": "configured; outcome not yet observed",
+    "githubActionsRun": "https://github.com/teyyara/malika/actions/runs/38185526508",
+    "githubActionsConclusion": "success",
+    "dependencyInstall": "PASS_ON_GITHUB_ACTIONS",
+    "nodeTests": "PASS_ON_GITHUB_ACTIONS",
+    "viteProductionBuild": "PASS_ON_GITHUB_ACTIONS",
     "browserAutomation": false,
     "realMobileDevice": false,
     "screenReaderTesting": false,

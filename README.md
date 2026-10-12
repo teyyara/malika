@@ -39,6 +39,10 @@ All names, date, welcome copy, game target, and birthday letter are centralized 
 
 The project has no backend, analytics, paid API, sound dependency, or external runtime image service. Custom cat/ladybug art is inline SVG. Keyboard focus patterns and reduced-motion support are included.
 
+## Deploy to Vercel
+
+See `docs/vercel-deployment.md` for the exact import settings. Use the repository root, the **Vite** framework preset, `npm run build`, and `dist` as the output directory. The experience uses one browser route with scene state inside React, so the current app does not require a custom `vercel.json`. No environment variables or paid APIs are needed. Vercel is not connected from this workspace yet, so no public URL is claimed.
+
 ## Validation and project state
 
-See AEOS_STATUS.md, .aeos/state.json, docs/product-contract-v1.1.md, and evidence/. GitHub Actions runs dependency installation, Node tests, a Vite production build, and Chromium browser checks. Visual review by a person, physical-device touch QA, screen-reader QA, and deployment are separate gates; no live URL is claimed.
+See `AEOS_STATUS.md`, `.aeos/state.json`, `docs/product-contract-v1.1.md`, and `evidence/`. GitHub Actions runs dependency installation, Node tests, a Vite production build, and Chromium browser checks. Manual visual review, physical-device touch QA, screen-reader QA, and deployment remain separate gates.

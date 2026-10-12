@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
-import { playCuteSound } from "../audio/soundEffects.js";
+import { playCuteSound, subscribeToAnimalVoice } from "../audio/soundEffects.js";
 
 const reactions = ["idle", "curious", "delighted", "sleepy", "love", "surprised"];
 const danceSparkles = ["♥", "✦", "✧", "♡"];
@@ -14,11 +14,26 @@ export default function CatCharacter({ mood = "curious", onClick, label = "A lit
   const petStreak = useRef({ count: 0, lastAt: 0 });
   const danceTimer = useRef(null);
   const meowTimer = useRef(null);
+  const artRef = useRef(null);
 
   useEffect(() => () => {
     window.clearTimeout(danceTimer.current);
     window.clearTimeout(meowTimer.current);
   }, []);
+
+  useEffect(() => {
+    if (reduceMotion) return undefined;
+    return subscribeToAnimalVoice(({ active, level }) => {
+      const svg = artRef.current;
+      if (!svg) return;
+      const energy = active ? Math.max(0, Math.min(1, level)) : 0;
+      svg.style.setProperty("--mimi-voice-level", energy.toFixed(3));
+      svg.style.setProperty("--mimi-mouth-open", (active ? 0.14 + energy * 0.86 : 0.14).toFixed(3));
+      svg.style.setProperty("--mimi-head-rise", (energy * 1.1).toFixed(3) + "px");
+      svg.style.setProperty("--mimi-head-tilt", ((energy - 0.38) * 1.5).toFixed(3) + "deg");
+      svg.style.setProperty("--mimi-glow-blur", (active ? 1.5 + energy * 8.5 : 0).toFixed(2) + "px");
+    });
+  }, [reduceMotion]);
 
   let animation;
   let duration = 3.7;
@@ -100,7 +115,7 @@ export default function CatCharacter({ mood = "curious", onClick, label = "A lit
     event.currentTarget.style.setProperty("--gaze-y", gazeY.toFixed(2) + "px");
   }
 
-  const art = <motion.svg className={"cat-art cat-art-" + mood + " cat-reaction-" + reaction + (isDancing ? " cat-is-dancing" : "") + (voiceReaction === "meow" ? " cat-is-meowing" : "") + (voiceReaction === "purr" ? " cat-is-purring" : "")}
+  const art = <motion.svg ref={artRef} className={"cat-art cat-art-" + mood + " cat-reaction-" + reaction + (isDancing ? " cat-is-dancing" : "") + (voiceReaction === "meow" ? " cat-is-meowing" : "") + (voiceReaction === "purr" ? " cat-is-purring" : "")}
     viewBox="0 0 240 220" aria-hidden="true" initial={false} animate={animation}
     transition={{ duration, repeat, ease: isDancing ? "easeInOut" : "easeInOut" }}>
     <ellipse cx="122" cy="196" rx="68" ry="12" fill="#090515" opacity=".4" />

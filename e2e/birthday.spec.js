@@ -174,7 +174,7 @@ test("optional secret clues progress from gentle hints to an explicit spoiler ma
   await expect(guide.locator(".curiosity-guide-spoilers")).toContainText("MALIKA");
   await expect(guide.locator(".curiosity-guide-spoilers")).toContainText("MIMI");
   await expect(guide.locator(".curiosity-guide-spoilers")).toContainText("Keeper of Little Wonders");
-  await expect(guide.locator(".curiosity-guide-spoilers")).toContainText("↑ ↓ ← →");
+  await expect(guide.locator(".curiosity-guide-spoilers")).toContainText("↑ ↑ ↓ ↓ ← → ← → B A");
 
   const dimensions = await guide.evaluate((element) => ({
     clientWidth: element.clientWidth,

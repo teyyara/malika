@@ -1,6 +1,6 @@
 # For Malika, With All My Heart 💜
 
-A romantic, interactive birthday experience made by Zack for Malika, whose birthday is **12 October**. Built with React, Vite, and Motion: one connected world with a moonlit lavender garden, a gently animated kitten named Mimi, red ladybugs, purple hearts, and a heart-collection game.
+A romantic, interactive birthday experience made by Zack for Malika, whose birthday is **12 October**. Built with React, Vite, and Motion: a connected moonlit universe of a lavender garden, Mimi the kitten, red ladybugs, purple hearts, hidden wishes, and a heart-collection game.
 
 ## Run locally
 
@@ -9,7 +9,7 @@ Requirement: Node.js 20.19 or newer.
     npm install
     npm run dev
 
-Open the local URL printed by Vite. Use a separate terminal for validation.
+Open the local URL printed by Vite.
 
 ## Automated validation
 
@@ -18,31 +18,37 @@ Run the reducer/content checks and production build:
     npm test
     npm run build
 
-The browser suite uses Playwright and Chromium against the built production preview. Install Chromium once, then run the browser tests:
+For browser tests:
 
     npx playwright install chromium
     npm run test:e2e
 
-GitHub Actions installs Chromium's operating-system dependencies automatically and stores the Playwright HTML report as a workflow artifact. The browser suite covers keyboard entry/navigation, the complete heart-collection unlock path, modal close/focus behavior, reduced-motion preference, and horizontal overflow at 320px, 375px, and 768px. These automated checks improve confidence but do not replace a human screen-reader or physical-device review.
+GitHub Actions installs Chromium's operating-system dependencies, runs the suite against the production build, and retains both the Playwright HTML report and rendered screenshot evidence. The final Loop 004 checkpoint passed **8 Node tests and 7 Chromium browser tests**, plus the Vite production build. The browser suite covers navigation, the heart-game unlock path, modal focus/Escape handling, responsive overflow at 320/375/768px, reduced motion, Mimi's reactions, the garden constellation, pointer-responsive ambience, and a six-frame visual-capture journey.
 
 ## The experience
 
-- **Birthday welcome:** a personalized opening for Malika from Zack.
-- **Interactive garden:** tap ladybugs to open notes and tap Mimi for a playful birthday greeting.
-- **Mimi's Little Heart Garden:** collect seven purple hearts; each collectible scores only once.
-- **Love collection:** 30 notes plus five future-facing little dreams; secret letters unlock when the game is won.
-- **Birthday finale:** a personal letter from Zack to Malika and an optional final reveal.
+- **Personal welcome:** an opening written for Malika from Zack.
+- **Interactive garden:** pet Mimi, follow fluttering ladybugs, touch a flower for a wish, and trace three stars to reveal a heart-shaped constellation.
+- **Mimi's Little Heart Garden:** collect seven purple hearts; each collectible scores only once, with an animated victory and secret-letter unlock.
+- **Love collection:** 30 affectionate notes plus five future-facing little dreams; secret letters unlock at victory.
+- **Birthday finale:** a personal letter revealed in a measured sequence and an optional final surprise.
 
 ## Personalization
 
-All names, date, welcome copy, game target, and birthday letter are centralized in src/data/siteConfig.js. Edit notes in src/data/loveMessages.js. The five ideas in src/data/memories.js are explicitly imagined future moments, not claims that an event has already happened.
+Names, date, welcome copy, game target, and the birthday letter are centralized in `src/data/siteConfig.js`. Edit notes in `src/data/loveMessages.js`. The five entries in `src/data/memories.js` are explicitly imagined future moments, not claims that an event already happened.
 
-The project has no backend, analytics, paid API, sound dependency, or external runtime image service. Custom cat/ladybug art is inline SVG. Keyboard focus patterns and reduced-motion support are included.
+The experience has no backend, analytics, paid API, sound dependency, or remote image service. Cat and ladybug artwork is inline SVG. Keyboard focus patterns and reduced-motion support are included.
 
-## Deploy to Vercel
+## Vercel deployment
 
-See `docs/vercel-deployment.md` for the exact import settings. Use the repository root, the **Vite** framework preset, `npm run build`, and `dist` as the output directory. The experience uses one browser route with scene state inside React, so the current app does not require a custom `vercel.json`. No environment variables or paid APIs are needed. Vercel is not connected from this workspace yet, so no public URL is claimed.
+The Vercel project **malika-birthday** is connected to this GitHub repository. The validated application checkpoint is deployed to `main` with Vercel reporting **Ready**. A branch preview is also **Ready**:
 
-## Validation and project state
+**Preview URL:** https://malika-birthday-git-aeos-progression-tyyr1.vercel.app
 
-See `AEOS_STATUS.md`, `.aeos/state.json`, `docs/product-contract-v1.1.md`, and `evidence/`. GitHub Actions runs dependency installation, Node tests, a Vite production build, and Chromium browser checks. Manual visual review, physical-device touch QA, screen-reader QA, and deployment remain separate gates.
+Vercel reports SSO protection on Vercel-hosted domains, so a plain URL may ask the reviewer to authenticate. A time-limited shareable bypass link was generated for the intended reviewer on 12 October 2026; the secret is intentionally not committed to this repository. Use the private bypass link supplied by the release operator if the reviewer cannot authenticate. The production deployment's verified aliases are `malika-birthday-kappa.vercel.app`, `malika-birthday-tyyr1.vercel.app`, and `malika-birthday-git-main-tyyr1.vercel.app`. See [docs/vercel-deployment.md](docs/vercel-deployment.md) for deployment evidence and verification steps.
+
+Vercel settings: Framework **Vite**, build command `npm run build`, output directory `dist`, root directory `./`, no environment variables. A custom `vercel.json` is unnecessary because scene changes stay inside React at the root path.
+
+## Project status and evidence
+
+See `AEOS_STATUS.md`, `.aeos/state.json`, `docs/product-contract-v1.1.md`, and `evidence/loop-004-release.md`. Automated tests pass; screen-reader validation and physical-device touch QA remain separate, unobserved gates.

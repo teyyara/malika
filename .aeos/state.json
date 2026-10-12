@@ -1,27 +1,28 @@
 {
   "schemaVersion": "1.0",
-  "runId": "malika-20261012-003",
+  "runId": "malika-20261012-004",
   "activeKeyphrase": "read the master strategy",
   "repository": "teyyara/malika",
   "releaseBranch": "main",
   "progressionBranch": "aeos/progression",
-  "currentLoop": 3,
-  "candidate": "malika-birthday-003-browser-qa",
-  "status": "PROMOTED_AUTOMATED_QA_PASS",
+  "currentLoop": 4,
+  "candidate": "malika-birthday-004-alive-garden",
+  "status": "PROMOTED_AUTOMATED_QA_PASS_DEPLOYMENT_READY",
   "orchestrationState": "WAITING_FOR_CONTINUE",
-  "validatedApplicationCheckpoint": "e54e4760f5c3ad4d5434fe275dad9a894cbe9000",
+  "validatedApplicationCheckpoint": "8fe4b6363a748f7987d17b8f9ede8e7682d4a9e8",
   "latestPassingWorkflowForCandidate": {
-    "runId": 38186715386,
-    "url": "https://github.com/teyyara/malika/actions/runs/38186715386",
-    "headSha": "e54e4760f5c3ad4d5434fe275dad9a894cbe9000",
+    "runId": 38188085348,
+    "url": "https://github.com/teyyara/malika/actions/runs/38188085348",
+    "headSha": "8fe4b6363a748f7987d17b8f9ede8e7682d4a9e8",
     "conclusion": "success",
     "nodeTestsPassed": 8,
     "nodeTestsFailed": 0,
-    "playwrightTestsPassed": 4,
+    "playwrightTestsPassed": 7,
     "playwrightTestsFailed": 0,
     "productionBuild": "PASS",
     "browser": "Chromium",
-    "browserReportArtifact": "https://github.com/teyyara/malika/actions/runs/38186715386/artifacts/11719981697"
+    "browserReportArtifact": "https://github.com/teyyara/malika/actions/runs/38188085348/artifacts/11720472630",
+    "visualScreenshotArtifact": "https://github.com/teyyara/malika/actions/runs/38188085348/artifacts/11720173606"
   },
   "personalization": {
     "recipientName": "Malika",
@@ -31,33 +32,45 @@
   "mainPromotion": {
     "method": "fast-forward",
     "verified": true,
-    "promotedApplicationCheckpoint": "e54e4760f5c3ad4d5434fe275dad9a894cbe9000",
-    "mainHeadObservedAfterPromotion": "e54e4760f5c3ad4d5434fe275dad9a894cbe9000",
-    "pullRequest": "https://github.com/teyyara/malika/pull/1",
+    "promotedApplicationCheckpoint": "8fe4b6363a748f7987d17b8f9ede8e7682d4a9e8",
+    "pullRequest": "https://github.com/teyyara/malika/pull/2",
     "pullRequestMerged": true
   },
   "automatedBrowserQA": {
     "status": "PASS",
-    "specsPassed": 4,
+    "specsPassed": 7,
     "coverage": [
-      "Keyboard-first entry and navigation across all five scenes",
-      "Seven-heart victory and secret-note unlock",
-      "Modal focus cycle, Escape close and focus restoration",
+      "Keyboard entry and scene navigation with no JavaScript runtime errors",
+      "Seven-heart win, secret-note unlock, modal keyboard focus, and Escape behavior",
       "No horizontal overflow at 320px, 375px, and 768px across five scenes",
-      "Reduced-motion preference and page runtime-error observation"
+      "Reduced-motion support",
+      "Mimi reactions, three-star constellation reveal, and flower wish",
+      "Fine-pointer parallax behavior",
+      "Six-frame screenshot capture through the full birthday journey"
     ],
     "note": "Automated Chromium checks do not certify physical-device or screen-reader behavior."
   },
-  "manualVisualQA": "NOT_YET_OBSERVED",
+  "manualVisualQA": "SCREENSHOTS_CAPTURED_AND_VISUALLY_INSPECTED",
   "screenReaderQA": "NOT_YET_OBSERVED",
   "realMobileDeviceQA": "NOT_TESTED",
   "deployment": {
-    "target": null,
-    "status": "NOT_CONFIGURED"
+    "target": "Vercel",
+    "projectName": "malika-birthday",
+    "projectDashboard": "https://vercel.com/tyyr1/malika-birthday",
+    "productionStatus": "READY",
+    "productionCommit": "8fe4b6363a748f7987d17b8f9ede8e7682d4a9e8",
+    "productionAliases": [
+      "malika-birthday-kappa.vercel.app",
+      "malika-birthday-tyyr1.vercel.app",
+      "malika-birthday-git-main-tyyr1.vercel.app"
+    ],
+    "previewStatus": "READY",
+    "previewUrl": "https://malika-birthday-git-aeos-progression-tyyr1.vercel.app",
+    "accessProtection": "Vercel project metadata reports SSO protection enabled for Vercel-hosted domains."
   },
   "nextHighValueWork": [
-    "Perform additional accessibility verification, ideally automated axe-based checks of the main scenes and modal states",
-    "Only configure a static host when repository Pages/deployment capability can be verified",
-    "Keep physical-device and screen-reader QA claims separate from browser automation"
+    "Perform human mobile-device touch/viewport QA",
+    "Perform screen-reader QA",
+    "Continue visual polish only if a new CONTINUE authorizes another loop"
   ]
 }

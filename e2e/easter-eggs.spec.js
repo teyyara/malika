@@ -15,6 +15,14 @@ test("the classic Konami sequence opens the Secret Arcade with five side quests"
   await expect(page.getByRole("button", { name: /Pawprint rhythm/ })).toBeVisible();
   await expect(page.getByRole("button", { name: /Firefly hunt/ })).toBeVisible();
   await expect(page.getByRole("button", { name: /The little wish jar/ })).toBeVisible();
+  await page.getByRole("button", { name: "Close secret surprise" }).click();
+
+  // The visible brand heart is another concealed entrance.
+  await page.goto("/");
+  await page.getByRole("button", { name: /Open your birthday surprise/ }).click();
+  const heartMark = page.locator(".brand-heart");
+  for (let i = 0; i < 5; i += 1) await heartMark.click();
+  await expect(page.getByRole("dialog", { name: "The secret arcade" })).toBeVisible();
 });
 
 test("typing MALIKA creates a starfall and typing MIMI opens Memory Match directly", async ({ page }) => {

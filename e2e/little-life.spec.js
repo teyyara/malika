@@ -118,7 +118,7 @@ test("Mimi, love-note music and game effects can be mixed independently", async 
   const effectsVolume = page.getByRole("slider", { name: "Game and effects volume" });
   await effectsVolume.focus();
   await effectsVolume.press("ArrowDown");
-  await expect(page.getByText("99%", { exact: true })).toHaveCount(2);
+  await expect(effectsVolume).toHaveValue("99");
   await expect.poll(() => page.evaluate(() => window.__soundMixerChannels.ramps.some((ramp) => ramp.channel === 0 && ramp.value === 0.99))).toBeTruthy();
 });
 

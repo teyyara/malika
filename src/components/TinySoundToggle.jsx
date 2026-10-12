@@ -17,7 +17,7 @@ export default function TinySoundToggle({ floating = false }) {
     <button type="button" className={"tiny-sound-toggle" + (enabled ? " is-enabled" : "")}
       onClick={toggleSound} aria-pressed={enabled}
       aria-label={enabled ? "Turn off tiny sounds" : "Turn on tiny sounds"}
-      title={enabled ? "Tiny sounds are on — click to hush the universe" : "Turn on a few tiny synthesized chimes"}>
+      title={enabled ? "Mimi’s meows, purrs and music are on — click to hush the universe" : "Turn on Mimi’s recorded meows, purrs, love song and tiny rewards"}>
       <span className="tiny-sound-glyph" aria-hidden="true">{enabled ? "♫" : "♪"}</span>
       <span>{enabled ? "Sound on" : "Sound off"}</span>
     </button>

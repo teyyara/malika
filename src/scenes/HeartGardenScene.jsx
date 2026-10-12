@@ -28,11 +28,11 @@ const burstFragments = Array.from({ length: 18 }, (_, index) => ({
 
 function HeartCaptureBurst({ burst, reduceMotion, onFinish }) {
   return <motion.div className="heart-capture-burst" style={{ left: burst.x + "%", top: burst.y + "%" }}
-    initial={{ opacity: 1, scale: 0.22, rotate: -12 }}
+    initial={reduceMotion ? { opacity: 1, scale: 1, rotate: 0 } : { opacity: 1, scale: 0.22, rotate: -12 }}
     animate={reduceMotion
-      ? { opacity: [1, 0], scale: [0.7, 1] }
+      ? { opacity: 0, scale: 1, rotate: 0 }
       : { opacity: [1, 1, 0], scale: [0.22, 1.25, 2.05], rotate: [-12, 12, 32] }}
-    transition={{ duration: reduceMotion ? 0.14 : 1.08, ease: "easeOut" }}
+    transition={{ duration: reduceMotion ? 0.01 : 1.08, ease: "easeOut" }}
     onAnimationComplete={onFinish}>
     <span className="heart-capture-core" aria-hidden="true">♥</span>
     <span className="heart-capture-ring heart-capture-ring-one" aria-hidden="true" />
@@ -40,21 +40,23 @@ function HeartCaptureBurst({ burst, reduceMotion, onFinish }) {
     {burstFragments.map((fragment) =>
       <motion.span key={fragment.id} className="heart-capture-fragment"
         style={{ color: fragment.id % 3 === 0 ? "#ffd1ef" : fragment.id % 3 === 1 ? "#d4b2ff" : "#fff0ff" }}
-        initial={{ opacity: 0, scale: 0.2, x: 0, y: 0, rotate: 0 }}
+        initial={reduceMotion ? { opacity: 0, scale: 1, x: 0, y: 0, rotate: 0 } : { opacity: 0, scale: 0.2, x: 0, y: 0, rotate: 0 }}
         animate={reduceMotion
-          ? { opacity: 0, scale: 0 }
+          ? { opacity: 0, scale: 1, x: 0, y: 0, rotate: 0 }
           : { opacity: [0, 1, 0], scale: [0.2, 1, 0.12],
             x: Math.cos(fragment.angle) * fragment.distance,
             y: Math.sin(fragment.angle) * fragment.distance,
             rotate: fragment.rotate }}
-        transition={{ duration: 0.85, delay: fragment.id * 0.009, ease: "easeOut" }}>
+        transition={{ duration: reduceMotion ? 0.01 : 0.85, delay: reduceMotion ? 0 : fragment.id * 0.009, ease: "easeOut" }}>
         {fragment.glyph}
       </motion.span>
     )}
   </motion.div>;
 }
 
-function VictoryField() {
+function VictoryField({ reduceMotion }) {
+  if (reduceMotion) return null;
+
   return <div className="celebration-field" aria-hidden="true">
     {celebrationGlyphs.map((particle) =>
       <motion.span key={particle.id} className="celebration-particle"
@@ -117,7 +119,8 @@ export default function HeartGardenScene({ game, onGameAction, onBonusNote, onGo
           <span>Mimi</span>
         </div>
         {game.count > 0 && <motion.span key={game.count} className="game-progress-celebration" aria-hidden="true"
-          initial={{ opacity: 0, y: 12, scale: 0.8 }} animate={{ opacity: [0, 1, 0], y: [12, -18, -36], scale: [0.8, 1.1, 0.9] }}
+          initial={reduceMotion ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 12, scale: 0.8 }}
+          animate={reduceMotion ? { opacity: 1, y: 0, scale: 1 } : { opacity: [0, 1, 0], y: [12, -18, -36], scale: [0.8, 1.1, 0.9] }}
           transition={{ duration: reduceMotion ? 0.01 : 0.95, ease: "easeOut" }}>+1 little heart</motion.span>}
         {game.collectibles.map((item) => item.type === "heart" ? <motion.button key={item.id} className="collectible-heart" type="button"
           style={{ left: item.x + "%", top: item.y + "%" }} aria-label={"Collect purple heart " + (game.count + 1)}
@@ -141,7 +144,7 @@ export default function HeartGardenScene({ game, onGameAction, onBonusNote, onGo
       initial={{ opacity: 0, scale: reduceMotion ? 1 : 0.94, y: reduceMotion ? 0 : 12 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
       transition={{ duration: reduceMotion ? 0.01 : 0.72, type: "spring", stiffness: 140, damping: 18 }}>
-      <VictoryField />
+      <VictoryField reduceMotion={reduceMotion} />
       <div className="victory-sparkles" aria-hidden="true">✦　♥　✧　♥　✦</div>
       <div className="victory-cat"><span className="victory-halo" /><CatCharacter mood="happy" /></div>
       <p className="eyebrow">every last heart found</p><h2>You found every heart…</h2>

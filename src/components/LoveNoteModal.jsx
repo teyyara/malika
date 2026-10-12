@@ -22,12 +22,17 @@ export default function LoveNoteModal({ message, onClose, senderName = "Zack" })
       if (event.key === "Escape") onClose();
       if (event.key === "Tab") {
         const dialog = closeRef.current?.closest('[role="dialog"]');
-        const controls = dialog ? [...dialog.querySelectorAll('button:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])')] : [];
+        const controls = dialog
+          ? [...dialog.querySelectorAll('button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])')]
+            .filter((control) => !control.disabled && !control.closest('[hidden], [aria-hidden="true"]')
+              && control.getClientRects().length > 0 && window.getComputedStyle(control).visibility !== "hidden")
+          : [];
         if (controls.length === 0) return;
         const first = controls[0];
         const last = controls[controls.length - 1];
-        if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
-        else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+        const focusOutsideDialog = dialog && !dialog.contains(document.activeElement);
+        if (event.shiftKey && (document.activeElement === first || focusOutsideDialog)) { event.preventDefault(); last.focus(); }
+        else if (!event.shiftKey && (document.activeElement === last || focusOutsideDialog)) { event.preventDefault(); first.focus(); }
       }
     }
     document.addEventListener("keydown", onKeyDown);

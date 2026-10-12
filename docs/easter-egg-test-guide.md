@@ -1,4 +1,4 @@
-# Complete easter-egg guide — Loop 022
+# Complete easter-egg guide — Loop 023
 
 **Full spoilers.** This is the complete walkthrough for Zack, not a hint sheet to hand to Malika before she explores. The website's hidden progress exists only in the current page session: it is not written to a server, browser storage, or analytics. Reloading starts a fresh hunt. None of these secrets is required to read the birthday letter or finish the main heart game.
 
@@ -243,7 +243,23 @@ The levels change smoothly to avoid abrupt clicks. Muting still stops all active
 
 **Automated coverage:** the browser suite instruments the Web Audio graph, checks that music, Mimi, and effects are routed through distinct gain nodes, and confirms each channel fader changes its own gain. It also covers the master fader, recorded meow/purr audition controls, soundtrack lifecycle, quick-pet race protection, and muting. This verifies routing and browser behavior; it cannot substitute for listening tests on physical speakers.
 
-## 12. Progress, accessibility, and reset behavior
+## 12. Loop 023 — Mimi listens to her own voice
+
+Mimi's face now follows the **actual recorded meow or purr waveform envelope**. This is no longer just an animation timer that happens to last as long as the sound.
+
+### See her voice come through
+1. Turn **Sound off** on to enable the recordings.
+2. Pet Mimi once. Her little mouth opens more on louder portions of the real meow and relaxes during quieter gaps. A soft lavender-pink halo and tiny head tilt respond to the same live sound level.
+3. Pet her again for the recorded purr. The mouth stays quiet, while tiny head motion and a warmer halo breathe with the measured purr level.
+4. When the clip finishes, the audio meter stops, the glow fades out, and her face settles back to neutral. Starting another pet cancels the previous visual meter alongside the previous audio voice.
+
+The browser reads a small time-domain sample from an **AnalyserNode** attached to the very same locally bundled sound that is playing. The analyser is in the cat's audio path and is transparent to the sound; the voice/music/effects mixer still determines the audible level. No microphone, recording, speech-recognition service, or network audio endpoint is used.
+
+The analyser loop exists only while a cat recording is active, and is cancelled on the clip end, mute, or tab hide. Reduced-motion preference disables the audio-reactive face movement while preserving the recording itself and the sound/mute controls.
+
+**Automated coverage:** a Chromium test observes the actual live meter values while Mimi meows, checks the mouth and halo variables react, and confirms both settle to neutral at clip end. This verifies the DOM/audio-meter lifecycle; it is not a listening-quality certification on a physical device.
+
+## 13. Progress, accessibility, and reset behavior
 
 - The arcade tracks completed quests and found secrets only in page memory for this visit. Refreshing the page resets them; no third-party storage, account, API, or paid service is involved.
 - Dialogs can be closed with their close button or **Escape**. Focus returns to the opener and stays inside the dialog while it is open.

@@ -534,3 +534,48 @@
 @media (max-width: 420px) {
   .tiny-sound-mixer-panel { width: 292px; }
 }
+
+
+/* Loop 023 — Mimi's face listens to the real cat recording, not a fixed timer. */
+.cat-art.cat-is-meowing .cat-meow-mouth {
+  opacity: 1;
+  transform: scaleY(var(--mimi-mouth-open, .14));
+  transform-origin: center;
+  transition: transform 52ms linear, opacity 100ms ease;
+  animation: none !important;
+}
+.cat-art.cat-is-meowing .cat-head {
+  transform-box: fill-box;
+  transform-origin: center 70%;
+  transform: translateY(calc(0px - var(--mimi-head-rise, 0px))) rotate(var(--mimi-head-tilt, 0deg));
+  transition: transform 60ms linear;
+  animation: none !important;
+}
+.cat-art.cat-is-purring .cat-head {
+  transform-box: fill-box;
+  transform-origin: center 72%;
+  transform: translateY(var(--mimi-head-rise, 0px)) rotate(var(--mimi-head-tilt, 0deg));
+  transition: transform 65ms linear;
+  animation: none !important;
+}
+.cat-art.cat-is-meowing,
+.cat-art.cat-is-purring {
+  filter: drop-shadow(0 0 var(--mimi-glow-blur, 0px) rgba(255, 190, 230, .34));
+  transition: filter 70ms linear;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cat-art.cat-is-meowing .cat-meow-mouth {
+    transform: scaleY(.14);
+    transition: none;
+  }
+  .cat-art.cat-is-meowing .cat-head,
+  .cat-art.cat-is-purring .cat-head {
+    transform: none;
+    transition: none;
+  }
+  .cat-art.cat-is-meowing,
+  .cat-art.cat-is-purring {
+    filter: none;
+    transition: none;
+  }
+}

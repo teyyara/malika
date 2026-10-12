@@ -13,6 +13,10 @@ const decodedAnimalAudio = new Map();
 const loadingAnimalAudio = new Map();
 const activeAnimalVoices = new Set();
 const activeOneShotTones = new Set();
+const animalVoiceListeners = new Set();
+let animalVoiceState = { active: false, kind: null, level: 0 };
+let meteredAnimalVoice = null;
+let animalVoiceFrame = null;
 let nextMeowVariant = 0;
 let animalPlaybackRequest = 0;
 const softEchoBuses = new Map();
@@ -235,7 +239,67 @@ function preloadAnimalAudio(context) {
   return Promise.all(Object.keys(animalAudio).map((key) => loadAnimalAudio(context, key)));
 }
 
+function publishAnimalVoiceState(nextState) {
+  animalVoiceState = nextState;
+  animalVoiceListeners.forEach((listener) => {
+    try {
+      listener({ ...animalVoiceState });
+    } catch {
+      // A decorative subscriber must never interrupt audio playback.
+    }
+  });
+}
+
+export function subscribeToAnimalVoice(listener) {
+  animalVoiceListeners.add(listener);
+  listener({ ...animalVoiceState });
+  return () => animalVoiceListeners.delete(listener);
+}
+
+function stopAnimalVoiceMeter(voice = null) {
+  if (voice && meteredAnimalVoice !== voice) return;
+  if (animalVoiceFrame !== null && typeof window !== "undefined") {
+    window.cancelAnimationFrame(animalVoiceFrame);
+  }
+  animalVoiceFrame = null;
+  const wasActive = Boolean(meteredAnimalVoice);
+  meteredAnimalVoice = null;
+  if (wasActive) publishAnimalVoiceState({ active: false, kind: null, level: 0 });
+}
+
+function startAnimalVoiceMeter(voice) {
+  stopAnimalVoiceMeter();
+  meteredAnimalVoice = voice;
+  voice.lastLevel = 0.12;
+  publishAnimalVoiceState({ active: true, kind: voice.kind, level: voice.lastLevel });
+
+  const samples = new Uint8Array(voice.analyser.fftSize);
+  const sampleVoice = () => {
+    if (meteredAnimalVoice !== voice || !enabled
+      || (typeof document !== "undefined" && document.hidden)) {
+      stopAnimalVoiceMeter(voice);
+      return;
+    }
+
+    voice.analyser.getByteTimeDomainData(samples);
+    let sumSquares = 0;
+    for (let index = 0; index < samples.length; index += 1) {
+      const sample = (samples[index] - 128) / 128;
+      sumSquares += sample * sample;
+    }
+    const rms = Math.sqrt(sumSquares / samples.length);
+    const instantLevel = Math.min(1, Math.max(0, (rms - 0.006) * 8.5));
+    const level = voice.lastLevel * 0.58 + instantLevel * 0.42;
+    voice.lastLevel = level;
+    publishAnimalVoiceState({ active: true, kind: voice.kind, level });
+    animalVoiceFrame = window.requestAnimationFrame(sampleVoice);
+  };
+
+  if (typeof window !== "undefined") animalVoiceFrame = window.requestAnimationFrame(sampleVoice);
+}
+
 function fadeActiveAnimalVoices(fadeSeconds = 0.05) {
+  stopAnimalVoiceMeter();
   const release = Math.max(0.02, fadeSeconds);
   for (const voice of activeAnimalVoices) {
     try {
@@ -299,6 +363,9 @@ function playAnimalBuffer(context, key, request) {
     const now = context.currentTime;
     const source = context.createBufferSource();
     const gain = context.createGain();
+    const analyser = context.createAnalyser();
+    analyser.fftSize = 256;
+    analyser.smoothingTimeConstant = 0.28;
     const isPurr = key === "purr";
     // Keep authentic recordings close to their recorded pitch; very small variation
     // prevents the two meows feeling like a perfectly mechanical A/B sequence.
@@ -323,11 +390,16 @@ function playAnimalBuffer(context, key, request) {
     gain.gain.exponentialRampToValueAtTime(0.0001, stopAt);
 
     source.connect(gain);
-    gain.connect(getCategoryOutput(context, "mimi"));
-    const voice = { context, source, gain };
+    gain.connect(analyser);
+    analyser.connect(getCategoryOutput(context, "mimi"));
+    const voice = { context, source, gain, analyser, kind: isPurr ? "purr" : "meow" };
     activeAnimalVoices.add(voice);
-    source.addEventListener("ended", () => activeAnimalVoices.delete(voice), { once: true });
+    source.addEventListener("ended", () => {
+      activeAnimalVoices.delete(voice);
+      stopAnimalVoiceMeter(voice);
+    }, { once: true });
     source.start(now, offset);
+    startAnimalVoiceMeter(voice);
     source.stop(stopAt + 0.03);
   }).catch(() => {});
   return true;

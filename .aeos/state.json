@@ -1,28 +1,28 @@
 {
   "schemaVersion": "1.0",
-  "runId": "malika-20261012-006",
+  "runId": "malika-20261012-008",
   "activeKeyphrase": "read the master strategy",
   "repository": "teyyara/malika",
   "releaseBranch": "main",
-  "progressionBranch": "aeos/loop-006-arcade-master",
-  "currentLoop": 6,
-  "candidate": "malika-birthday-006-grand-secret",
-  "status": "PROMOTED_AUTOMATED_QA_PASS_DEPLOYMENT_READY",
-  "orchestrationState": "WAITING_FOR_CONTINUE",
-  "validatedApplicationCheckpoint": "4c364e7fed62e8604985520bc223589e7030fd21",
+  "progressionBranch": "feature/loop-008-gentle-secret-hints",
+  "currentLoop": 8,
+  "candidate": "malika-birthday-008-gentle-secret-hints",
+  "status": "LOOP_007_VALIDATED_LOOP_008_CANDIDATE_IN_PROGRESS",
+  "orchestrationState": "VALIDATING_LOOP_008",
+  "validatedApplicationCheckpoint": "5fdbd292707e27a84ae85b8782fe4cc3c27c5e8f",
   "latestPassingWorkflowForCandidate": {
-    "runId": 38193692834,
-    "url": "https://github.com/teyyara/malika/actions/runs/38193692834",
-    "headSha": "945779a7dd4e81771d17ce4cae7f898c3a8accf8",
+    "runId": 38247015295,
+    "url": "https://github.com/teyyara/malika/actions/runs/38247015295",
+    "headSha": "088f3b4905a26439314c9ff645254bbd99ae6942",
     "conclusion": "success",
     "nodeTestsPassed": 8,
     "nodeTestsFailed": 0,
-    "playwrightTestsPassed": 16,
+    "playwrightTestsPassed": 20,
     "playwrightTestsFailed": 0,
     "productionBuild": "PASS",
     "browser": "Chromium",
-    "browserReportArtifact": "https://github.com/teyyara/malika/actions/runs/38193692834/artifacts/11722602714",
-    "visualScreenshotArtifact": "https://github.com/teyyara/malika/actions/runs/38193692834/artifacts/11722792359"
+    "browserReportArtifact": "https://github.com/teyyara/malika/actions/runs/38247015295/artifacts/11746037344",
+    "visualScreenshotArtifact": "https://github.com/teyyara/malika/actions/runs/38247015295/artifacts/11746552624"
   },
   "personalization": {
     "recipientName": "Malika",
@@ -30,30 +30,25 @@
     "birthday": "12 October"
   },
   "pullRequest": {
-    "url": "https://github.com/teyyara/malika/pull/6",
-    "number": 6,
+    "url": "https://github.com/teyyara/malika/pull/8",
+    "number": 8,
     "state": "MERGED",
-    "mergeCommitSha": "4c364e7fed62e8604985520bc223589e7030fd21"
+    "mergeCommitSha": "5fdbd292707e27a84ae85b8782fe4cc3c27c5e8f"
   },
   "automatedBrowserQA": {
     "status": "PASS",
-    "specsPassed": 15,
+    "specsPassed": 20,
     "coverage": [
-      "Core keyboard navigation and all primary scenes",
-      "Heart-game win, secret-note unlock, dialog focus and Escape",
-      "Responsive overflow at 320px, 375px, and 768px",
-      "Reduced-motion preference",
-      "Mimi reactions and original three-star constellation",
-      "Pointer-responsive background",
-      "Six-frame visual capture",
-      "Konami code plus header-heart arcade entrance",
-      "MALIKA typed starfall and MIMI shortcut",
-      "Seven-star catcher win",
-      "Memory-match three pairs",
-      "Pawprint rhythm code",
-      "Five-firefly hunt",
-      "Seven-click moon reveal and fifth-pet Mimi reveal",
-      "Footer-star thank-you and ladybug trail"
+      "Core navigation and primary birthday scenes",
+      "Heart game reset and successful retry",
+      "Responsive layouts including 320px",
+      "Reduced motion",
+      "Mimi and constellation interactions",
+      "All five arcade games plus 5/5 grand reveal",
+      "Wrong Memory Match pair and recovery",
+      "Wrong Pawprint Rhythm input and retry",
+      "Ladybug toast auto-dismiss after panel switch",
+      "Keyboard operation of footer-star secret"
     ],
     "note": "Automated Chromium checks do not certify physical-device or screen-reader behavior."
   },
@@ -61,25 +56,27 @@
     "target": "Vercel",
     "projectName": "malika-birthday",
     "projectDashboard": "https://vercel.com/tyyr1/malika-birthday",
-    "productionStatus": "READY",
-    "productionCommit": "4c364e7fed62e8604985520bc223589e7030fd21",
-    "productionDeploymentId": "dpl_GAPT4dsdgMftCmutnPxjPnxaLUEq",
-    "productionDeploymentUrl": "malika-birthday-rie1qfp8s-tyyr1.vercel.app",
-    "productionAliases": [
+    "productionStatus": "LATEST_MAIN_DEPLOYMENT_FAILED",
+    "latestMainCommit": "5fdbd292707e27a84ae85b8782fe4cc3c27c5e8f",
+    "failedDeploymentId": "dpl_GrbCE3RnoKGws4A54c3NvJyoV7TE",
+    "failedDeploymentDashboard": "https://vercel.com/tyyr1/malika-birthday/GrbCE3RnoKGws4A54c3NvJyoV7TE",
+    "lastKnownReadyCommit": "be66face920cffdc16dce08213ae7c232938d7d5",
+    "lastKnownReadyDeploymentId": "dpl_CzGS17bNAaTbaUCH7uLAP7XR6rQv",
+    "stableAliases": [
       "malika-birthday-kappa.vercel.app",
       "malika-birthday-tyyr1.vercel.app",
       "malika-birthday-git-main-tyyr1.vercel.app"
     ],
-    "accessProtection": "Vercel-hosted domains may require SSO or a time-limited reviewer link."
+    "accessProblem": "Current Vercel connector cannot access team deployment logs; latest production version not confirmed Ready."
   },
-  "manualVisualQA": "EXISTING_LOOP_004_SCREENSHOTS_REVIEWED; LOOP_006 FULL ARCADE JOURNEY PASSES AUTOMATED CHROMIUM",
+  "manualVisualQA": "Loop007 CI visual screenshot artifact available; real device and screen-reader QA not yet observed.",
   "screenReaderQA": "NOT_YET_OBSERVED",
   "realMobileDeviceQA": "NOT_TESTED",
   "nextHighValueWork": [
-    "Share current production reviewer link and grand-secret testing walkthrough",
+    "Finish Loop008 clue-guide tests and promote only after CI passes",
+    "Inspect and resolve current Vercel production deployment failure",
     "Perform human mobile-device touch/viewport QA",
-    "Perform screen-reader QA",
-    "Continue to another work loop only after a standalone CONTINUE"
+    "Perform screen-reader QA"
   ],
   "arcadeMastery": {
     "games": [

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { playCuteSound } from "../audio/soundEffects.js";
+import { playCuteSound, setMusicOverride } from "../audio/soundEffects.js";
 
 const KONAMI = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"];
 const STAR_TARGET_COUNT = 8;
@@ -142,6 +142,9 @@ export default function EasterEggSystem() {
   const dialogRef = useRef(null);
   const openerRef = useRef(null);
   const [activeGame, setActiveGame] = useState(null);
+  const [arcadeUnlocked, setArcadeUnlocked] = useState(false);
+  const [arcadePassword, setArcadePassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
   const [revealId, setRevealId] = useState("moon");
   const [unlocked, setUnlocked] = useState([]);
   const [completedGames, setCompletedGames] = useState([]);
@@ -180,10 +183,26 @@ export default function EasterEggSystem() {
   function openArcade(achievement) {
     if (!panel) openerRef.current = document.activeElement;
     if (achievement) addUnique(setUnlocked, achievement);
-    setPanel("cabinet");
     setActiveGame(null);
     setCelebrationId(null);
     setGameWon(false);
+    setPasswordError("");
+    setArcadePassword("");
+    setPanel(arcadeUnlocked ? "cabinet" : "gate");
+  }
+
+  function submitArcadePassword(event) {
+    event.preventDefault();
+    if (arcadePassword.trim().toLowerCase() !== "iloveyou") {
+      setPasswordError("That password doesn't quite fit. Try once more.");
+      playCuteSound("tease");
+      return;
+    }
+    setArcadeUnlocked(true);
+    setArcadePassword("");
+    setPasswordError("");
+    setPanel("cabinet");
+    playCuteSound("reveal");
   }
 
   function openReveal(id) {
@@ -205,6 +224,8 @@ export default function EasterEggSystem() {
     } else {
       setPanel(null);
       setActiveGame(null);
+      setArcadePassword("");
+      setPasswordError("");
     }
   }
 
@@ -299,8 +320,8 @@ export default function EasterEggSystem() {
           openReveal("starfall");
         } else if (typedBuffer.current.endsWith("MIMI")) {
           typedBuffer.current = "";
-          startGame("memory");
           addUnique(setUnlocked, "mimi-code");
+          openArcade("mimi-code");
         }
       } else if (event.key.length === 1) {
         typedBuffer.current = "";
@@ -329,7 +350,8 @@ export default function EasterEggSystem() {
       }
     }
 
-    if (panel) dialogRef.current?.querySelector(".egg-close")?.focus();
+    if (panel === "gate") dialogRef.current?.querySelector(".egg-password-input")?.focus();
+    else if (panel) dialogRef.current?.querySelector(".egg-close")?.focus();
     else if (openerRef.current && !dialogRef.current) {
       openerRef.current.focus?.();
       openerRef.current = null;
@@ -567,9 +589,15 @@ export default function EasterEggSystem() {
   const isGrand = panel === "reveal" && revealId === "grand";
   const reveal = REVEALS[revealId] || REVEALS.moon;
   const reward = GAME_REWARDS[celebrationId] || GAME_REWARDS.stars;
-  const title = panel === "cabinet" ? "The secret arcade" : isCelebration ? reward.title : isGame
+  const title = panel === "gate" ? "A door only you can open" : panel === "cabinet" ? "The secret arcade" : isCelebration ? reward.title : isGame
     ? ({ stars: "Mimi's constellation chase", memory: "Mimi's memory match", rhythm: "Mimi's pawprint rhythm", fireflies: "Firefly hunt", wishes: "The little wish jar" }[activeGame] || "A tiny secret")
     : reveal.title;
+
+  useEffect(() => {
+    const theme = panel === "game" && activeGame ? "arcade-" + activeGame : null;
+    setMusicOverride("arcade-game", theme);
+    return () => setMusicOverride("arcade-game", null);
+  }, [panel, activeGame]);
 
   return <>
     {toast && <div className="egg-toast" role="status"><span aria-hidden="true">✦</span><span>{toast}</span><button type="button" onClick={() => openArcade("firefly-trail")}>Open Secret Arcade</button><button className="egg-toast-dismiss" type="button" aria-label="Dismiss secret discovery" onClick={() => setToast("")}>×</button></div>}
@@ -668,6 +696,18 @@ export default function EasterEggSystem() {
             <p className="grand-finale-footnote">For the wonder you bring into the world — and all the wonder still to come.</p>
           </div>
         </div>}
+        {panel === "gate" && <form className="egg-password-gate" onSubmit={submitArcadePassword}>
+          <div className="egg-password-orbit" aria-hidden="true"><span>✦</span><i /><i /><i /><b>♡</b></div>
+          <p className="egg-password-kicker">A PRIVATE LITTLE UNIVERSE</p>
+          <p className="egg-password-copy">There’s a little door hidden in this birthday world. One small word is all that stands between you and the wonders inside.</p>
+          <label className="egg-password-label" htmlFor="egg-arcade-password">The secret password</label>
+          <input id="egg-arcade-password" className="egg-password-input" data-testid="arcade-password" type="password"
+            value={arcadePassword} onChange={(event) => { setArcadePassword(event.target.value); setPasswordError(""); }}
+            placeholder="A word only you know" autoComplete="off" autoCapitalize="none" spellCheck={false} required />
+          {passwordError && <p className="egg-password-error" role="alert">{passwordError}</p>}
+          <button type="submit" className="egg-action-button egg-password-submit">Unlock the Secret Arcade <span aria-hidden="true">↗</span></button>
+          <p className="egg-password-footnote">A tiny secret, kept just for this visit. ♡</p>
+        </form>}
         {panel === "cabinet" && <div className="egg-cabinet-content">
           <p className="egg-subtitle">You found the door behind the stars. Choose a little side quest; none of these games has a timer.</p>
           <div className="egg-arcade-progress" aria-label={completedGames.length + " of 5 games completed"}>

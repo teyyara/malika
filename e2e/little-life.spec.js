@@ -99,6 +99,8 @@ test("Mimi, love-note music and game effects can be mixed independently", async 
 
   const note = page.getByRole("dialog", { name: "Brave new chapters" });
   await expect(note).toBeVisible();
+  await note.getByRole("button", { name: "Keep this close" }).click();
+  await expect(note).not.toBeVisible();
   await page.getByText("Mixer", { exact: true }).click();
 
   const musicVolume = page.getByRole("slider", { name: "Love-note music volume" });
@@ -108,8 +110,6 @@ test("Mimi, love-note music and game effects can be mixed independently", async 
   await expect(page.getByText("99%", { exact: true })).toBeVisible();
   await expect.poll(() => page.evaluate(() => window.__soundMixerChannels.ramps.some((ramp) => ramp.channel === 1 && ramp.value === 0.99))).toBeTruthy();
 
-  await note.getByRole("button", { name: "Keep this close" }).click();
-  await expect(note).not.toBeVisible();
   await page.getByRole("button", { name: "Hear a meow" }).click();
   await expect.poll(() => page.evaluate(() => window.__soundMixerChannels.channelNodes.length)).toBeGreaterThanOrEqual(3);
   const mimiVolume = page.getByRole("slider", { name: "Mimi voice volume" });

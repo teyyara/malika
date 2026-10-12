@@ -11,9 +11,10 @@ test("the wax seal reveals its extra note on the third tap, including keyboard a
   await page.emulateMedia({ reducedMotion: "reduce" });
   await openBirthdayLetter(page);
 
-  const seal = page.getByRole("button", { name: "Tap the wax seal three times to uncover a final secret" });
+  const seal = page.locator(".letter-seal-trigger");
   const reveal = page.locator(".seal-secret-reveal");
   await expect(seal).toBeVisible();
+  await expect(seal).toHaveAttribute("aria-label", "Tap the wax seal three times to uncover a final secret");
 
   await seal.click();
   await seal.click();
@@ -31,7 +32,7 @@ test("the wax-seal reveal fits a 320px phone viewport", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await openBirthdayLetter(page);
 
-  const seal = page.getByRole("button", { name: "Tap the wax seal three times to uncover a final secret" });
+  const seal = page.locator(".letter-seal-trigger");
   for (let tap = 0; tap < 3; tap += 1) await seal.click();
 
   const reveal = page.locator(".seal-secret-reveal");

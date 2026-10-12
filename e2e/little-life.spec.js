@@ -235,6 +235,32 @@ test("Mimi makes a real local cat meow and opens her mouth with the sound", asyn
   expect(durations.some((duration) => duration >= 1.3 && duration <= 2.5)).toBeTruthy();
 });
 
+test("Mimi's mouth and glow follow the changing envelope of her recorded meow", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Turn on tiny sounds" }).click();
+  const mimi = page.getByRole("button", { name: "Pet Mimi to wake her up" });
+  const svg = mimi.locator("svg.cat-art");
+
+  await page.evaluate(() => {
+    const art = document.querySelector("svg.cat-art");
+    window.__mimiAudioEnvelopeValues = [];
+    const observer = new MutationObserver(() => {
+      const value = art.style.getPropertyValue("--mimi-voice-level");
+      if (value) window.__mimiAudioEnvelopeValues.push(value);
+    });
+    observer.observe(art, { attributes: true, attributeFilter: ["style"] });
+  });
+
+  await mimi.click();
+  await expect(svg).toHaveClass(/cat-is-meowing/);
+  await expect.poll(() => page.evaluate(() => new Set(window.__mimiAudioEnvelopeValues).size)).toBeGreaterThan(2);
+  await expect.poll(() => svg.evaluate((element) => Number(element.style.getPropertyValue("--mimi-mouth-open")))).toBeGreaterThan(0.14);
+  await expect.poll(() => svg.evaluate((element) => parseFloat(element.style.getPropertyValue("--mimi-glow-blur")))).toBeGreaterThan(1.5);
+
+  await expect.poll(() => svg.evaluate((element) => element.style.getPropertyValue("--mimi-voice-level"))).toBe("0.000");
+  await expect.poll(() => svg.evaluate((element) => element.style.getPropertyValue("--mimi-glow-blur"))).toBe("0.00px");
+});
+
 test("Mimi answers a second pet with a longer recorded purr and the mute control cuts it off", async ({ page }) => {
   await page.addInitScript(() => {
     window.__malikaAudioProbe = { sources: [], stops: 0 };

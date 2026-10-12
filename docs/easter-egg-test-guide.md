@@ -271,7 +271,7 @@ The analyser loop exists only while a cat recording is active, and is cancelled 
 Loop 024 unifies the design across the welcome, garden, heart game, love collection, note dialogs, hidden arcade, and birthday letter:
 - A near-black ink and deep-plum backdrop, with restrained antique-champagne accents, warm ivory typography, and quiet rose details instead of the previous bright violet-heavy glow
 - More editorial serif display typography and more intentional spacing, clearer navigation, finer hairlines, and calmer hover states
-- Jewel-like garden/game frames, individually finished keepsake cards, and a warm parchment-style final letter with an oxblood wax seal
+- Jewel-like garden/game frames, individually finished keepsake cards, and a warm parchment-style final letter with an oxblood wax seal; the three constellation stars now receive their intended CSS position classes, tracing the drawn heart and leaving Mimi's tap target clear
 - A matching warm-toned sound mixer, focus treatments, mobile breakpoints, and reduced-motion overrides
 
 The change is a styling pass over the existing experiences; it preserves the same scenes, secrets, games, note copy, and progress behavior.

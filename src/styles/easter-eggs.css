@@ -476,7 +476,7 @@
 .grand-heart-depth, .grand-heart-face { position:absolute; display:block; color:#ff88c8; font-family:Georgia,serif; font-size:clamp(100px,19vh,172px); line-height:1; }
 .grand-heart-depth {
   transform:translate3d(0,var(--heart-offset-y,0px),var(--heart-depth-z,0px)) scale(var(--heart-scale,1));
-  color:var(--depth-color,#be4a9c); text-shadow:0 0 14px rgba(255,119,205,.25); filter:brightness(calc(.56 + var(--heart-depth,0) * .028));
+  color:var(--depth-color,#be4a9c); text-shadow:0 0 14px rgba(255,119,205,.25); filter:brightness(var(--heart-brightness,1));
 }
 .grand-heart-depth:nth-child(3n) { --depth-color:#a53b8e; }
 .grand-heart-depth:nth-child(3n + 1) { --depth-color:#d84a9c; }

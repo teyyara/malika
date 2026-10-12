@@ -78,7 +78,7 @@ test("the keepsake picture can come alive and settle back into a still moment", 
   await enterGarden(page);
   await page.getByRole("tab", { name: "Living picture" }).click();
 
-  const frame = page.getByRole("button", { name: /Bring the framed picture of Mimi and a ladybug to life/ });
+  const frame = page.locator(".living-picture-frame");
   await frame.click();
   await expect(frame).toHaveClass(/is-alive/);
   await expect(frame).toHaveAttribute("aria-pressed", "true");

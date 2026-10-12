@@ -98,8 +98,10 @@ test("Mimi, love-note music and game effects can be mixed independently", async 
 
   const note = page.getByRole("dialog", { name: "Brave new chapters" });
   await expect(note).toBeVisible();
+  await expect.poll(() => page.locator("html").getAttribute("data-soundtrack-theme")).toBe("love-note");
   await note.getByRole("button", { name: "Keep this close" }).click();
   await expect(note).not.toBeVisible();
+  await expect.poll(() => page.locator("html").getAttribute("data-soundtrack-theme")).toBe("garden");
   await page.getByText("Mixer", { exact: true }).click();
 
   const musicVolume = page.getByRole("slider", { name: "Love-note music volume" });

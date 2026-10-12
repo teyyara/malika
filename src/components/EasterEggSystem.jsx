@@ -389,6 +389,15 @@ export default function EasterEggSystem() {
           <div className="egg-celebration-atmosphere" aria-hidden="true">
             <div className="egg-celebration-aurora" />
             <div className="egg-celebration-rings"><i /><i /><i /></div>
+            <div className="egg-celebration-shockwaves"><i /><i /><i /></div>
+            <div className="egg-celebration-heart-burst">
+              {Array.from({ length: 24 }, (_, index) => <i key={index} style={{
+                "--heart-angle": (index * 15) + "deg",
+                "--heart-delay": (index % 8) * 0.025 + "s",
+                "--heart-distance": (120 + (index % 9) * 30) + "px",
+                "--heart-size": (13 + (index % 4) * 5) + "px"
+              }}>{index % 3 === 0 ? "♥" : index % 3 === 1 ? "♡" : "✦"}</i>)}
+            </div>
             <div className="egg-celebration-particles">
               {Array.from({ length: 96 }, (_, index) => <i className="egg-celebration-particle" key={index} style={{
                 "--particle-x": ((index * 37 + 11) % 100) + "%",

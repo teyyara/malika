@@ -41,7 +41,7 @@ const GAME_REWARDS = {
   stars: { theme: "starlight", eyebrow: "THE SKY IS CHEERING FOR YOU", title: "You found the heart in the stars.", glyph: "✦", copy: "Eight stars, four decoys, and one very smug kitten. You followed the trail in order and found the heart she tried so hard to hide.", detail: "A constellation earned one careful tap at a time.", score: "8 / 8 trail stars found" },
   memory: { theme: "memory", eyebrow: "EVERY LITTLE THING MATTERS", title: "You remembered every little wonder.", glyph: "💜", copy: "Eight shuffled cards, four pairs, and a kitten who absolutely did not peek. Mimi has decided your memory deserves its very own constellation.", detail: "Four perfect pairs. A thousand tiny connections.", score: "4 / 4 matching pairs" },
   rhythm: { theme: "rhythm", eyebrow: "MAKE SOME NOISE, LITTLE STAR", title: "Mimi's tiny concert is a HIT!", glyph: "🐾", copy: "Six beats, one tricky echo, and a flawless little dance. Mimi would take a bow, if she weren't busy looking unbearably pleased with herself.", detail: "A six-beat code, remembered one paw at a time.", score: "6 / 6 beats in sync" },
-  fireflies: { theme: "fireflies", eyebrow: "YOU MADE THE NIGHT GLOW", title: "You just lit up the whole garden.", glyph: "✧", copy: "Five fireflies have found their light, and suddenly the whole garden feels like a secret summer evening.", detail: "Five golden sparks, all glowing because of you.", score: "5 / 5 fireflies caught" },
+  fireflies: { theme: "fireflies", eyebrow: "YOU MADE THE NIGHT GLOW", title: "You just lit up the whole garden.", glyph: "✧", copy: "Five fireflies have found their light, and suddenly the whole garden feels like a secret summer evening.", detail: "Five little pearl lights, all glowing because of you.", score: "5 / 5 fireflies caught" },
   wishes: { theme: "wishes", eyebrow: "A LITTLE MAGIC FOR THE FUTURE", title: "Five wishes. One very bright future.", glyph: "♡", copy: "You solved every riddle and opened the jar's future-facing wishes. They're not promises about what has happened — they're soft hopes for all the lovely things still waiting ahead.", detail: "Five wishes found. Your next little chapter is wide open.", score: "5 / 5 wishes unlocked" }
 };
 const REWARD_SPARKS = ["✦", "✧", "♡", "♥", "✺", "✶", "✷", "💜", "⋆", "❋"];
@@ -541,7 +541,7 @@ export default function EasterEggSystem() {
     </div>;
 
     if (activeGame === "fireflies") return <div className="egg-game-content">
-      <p className="egg-game-instructions">The ladybugs led you here. Catch five golden fireflies; the dim violet lights are decoys Mimi put there to test you. Tap the golden ones in any order. No timer—but she is watching.</p>
+      <p className="egg-game-instructions">The ladybugs led you here. Catch five bright pearl fireflies; the dim violet lights are decoys Mimi put there to test you. Tap the bright ones in any order. No timer—but she is watching.</p>
       <div className="egg-firefly-field">
         {FIREFLIES.map((fly) => {
           const caught = caughtFireflies.includes(fly.id);
@@ -551,7 +551,7 @@ export default function EasterEggSystem() {
             aria-label={caught ? "Firefly " + fly.id + " caught" : "Tap glowing firefly " + fly.id}
             onClick={() => {
               if (!fly.isTarget) {
-                announce("Mimi planted a fake light. Nice try. The real fireflies glow gold; the violet ones are just showing off.");
+                announce("Mimi planted a fake light. Nice try. The real fireflies glow pearl-white; the violet ones are just showing off.");
                 return;
               }
               const next = [...caughtFireflies, fly.id];
@@ -564,7 +564,7 @@ export default function EasterEggSystem() {
         })}
       </div>
       <p className="egg-progress" aria-live="polite">{caughtFireflies.length} / 5 real fireflies caught</p>
-      {gameWon && <p className="egg-win" role="status">The garden is glowing a little brighter because of you. Mimi says the golden ones were “obvious.” She is lying. ✨</p>}
+      {gameWon && <p className="egg-win" role="status">The garden is glowing a little brighter because of you. Mimi says the bright ones were “obvious.” She is lying. ✨</p>}
     </div>;
 
     const activeRiddle = WISH_RIDDLES[Math.min(wishIndex + 1, WISH_RIDDLES.length - 1)];
@@ -720,7 +720,7 @@ export default function EasterEggSystem() {
             <button type="button" className={completedGames.includes("stars") ? "egg-game-tile is-complete" : "egg-game-tile"} onClick={() => startGame("stars")}><span>✧</span><strong>Mimi's constellation chase</strong><small>{completedGames.includes("stars") ? "✓ Complete · play again" : "Trace a heart in order; dodge four decoys"}</small></button>
             <button type="button" className={completedGames.includes("memory") ? "egg-game-tile is-complete" : "egg-game-tile"} onClick={() => startGame("memory")}><span>🌙</span><strong>Mimi's memory match</strong><small>{completedGames.includes("memory") ? "✓ Complete · play again" : "Eight shuffled cards, four pairs"}</small></button>
             <button type="button" className={completedGames.includes("rhythm") ? "egg-game-tile is-complete" : "egg-game-tile"} onClick={() => startGame("rhythm")}><span>🐾</span><strong>Pawprint rhythm</strong><small>{completedGames.includes("rhythm") ? "✓ Complete · play again" : "Memorize Mimi's six-beat code"}</small></button>
-            <button type="button" className={completedGames.includes("fireflies") ? "egg-game-tile is-complete" : "egg-game-tile"} onClick={() => startGame("fireflies")}><span>✦</span><strong>Firefly hunt</strong><small>{completedGames.includes("fireflies") ? "✓ Complete · play again" : "Catch five gold lights; dodge violet decoys"}</small></button>
+            <button type="button" className={completedGames.includes("fireflies") ? "egg-game-tile is-complete" : "egg-game-tile"} onClick={() => startGame("fireflies")}><span>✦</span><strong>Firefly hunt</strong><small>{completedGames.includes("fireflies") ? "✓ Complete · play again" : "Catch five pearl lights; dodge violet decoys"}</small></button>
             <button type="button" className={completedGames.includes("wishes") ? "egg-game-tile is-complete" : "egg-game-tile"} onClick={() => startGame("wishes")}><span>🫙</span><strong>The little wish jar</strong><small>{completedGames.includes("wishes") ? "✓ Complete · play again" : "Solve five tiny riddles to unlock the wishes"}</small></button>
           </div>
           <div className="egg-unlock-counter"><span>Secrets uncovered</span><strong>{unlocked.length}</strong></div>

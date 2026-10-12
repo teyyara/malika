@@ -187,7 +187,7 @@ test("completing all five arcade quests unlocks the grand-secret finale", async 
   const grandBounds = await grandSecret.boundingBox();
   expect(grandBounds.width, "the grand secret must fill the viewport width").toBeGreaterThanOrEqual(grandViewport.width - 1);
   expect(grandBounds.height, "the grand secret must fill the viewport height").toBeGreaterThanOrEqual(grandViewport.height - 1);
-  await page.waitForTimeout(2600); // Let the heart, title, treasures and final actions finish their staged entrance.
+  await page.waitForTimeout(1300); // Entrance sequence completes in about 1.15s after the performance pass.
   const desktopBackdrop = await grandSecret.locator("xpath=..").evaluate((element) => ({
     className: element.className,
     position: getComputedStyle(element).position,
@@ -209,9 +209,17 @@ test("completing all five arcade quests unlocks the grand-secret finale", async 
     scrollWidth: element.scrollWidth
   }));
   expect(mobileSizes.scrollWidth, "the finale content should fit a 320px phone").toBeLessThanOrEqual(mobileSizes.clientWidth);
-  await page.waitForTimeout(2600); // Capture the fully staged phone-sized finale, not its initial fade frame.
+  await page.waitForTimeout(1300); // Capture the staged phone-sized finale without an unnecessary extra wait.
   await page.screenshot({ path: "test-results/screenshots/loop-010-grand-finale-mobile.png", fullPage: false });
-  await mobileGrand.getByRole("button", { name: "Keep this little wonder" }).click();
+  const keepWonder = mobileGrand.getByRole("button", { name: "Keep this little wonder" });
+  // Reset the pointer from the previous desktop position, then verify hover feedback does not move the CTA.
+  await page.mouse.move(0, 0);
+  await keepWonder.hover();
+  const beforeHover = await keepWonder.boundingBox();
+  await page.waitForTimeout(250);
+  const afterHover = await keepWonder.boundingBox();
+  expect(Math.abs(afterHover.y - beforeHover.y), "hover glow must not shift the mobile CTA").toBeLessThan(0.5);
+  await keepWonder.click();
   await expect(mobileGrand).toHaveCount(0);
 });
 

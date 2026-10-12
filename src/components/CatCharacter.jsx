@@ -122,7 +122,7 @@ export default function CatCharacter({ mood = "curious", onClick, label = "A lit
     onPointerLeave={(event) => { event.currentTarget.style.setProperty("--gaze-x", "0px"); event.currentTarget.style.setProperty("--gaze-y", "0px"); }}>
     {art}
     {isDancing && !reduceMotion && <span className="cat-dance-sparkles" aria-hidden="true">
-      {danceSparkles.map((glyph, index) => <i key={index} style={{ "--dance-index": index, "--dance-offset": (index % 2 ? 1 : -1) * (18 + index * 4) + "px" }}>{glyph}</i>)}
+      {danceSparkles.map((glyph, index) => <i key={index} style={{ "--dance-index": index, "--dance-offset": (index % 2 ? 1 : -1) * (18 + index * 4) + "px", "--dance-delay": index * 0.13 + "s", "--dance-top": (17 + (index % 2) * 20) + "%", "--dance-size": (11 + (index % 3) * 4) + "px" }}>{glyph}</i>)}
     </span>}
     <span className="character-hint">{isDancing ? "Mimi is dancing!" : "tap for a hello"}</span>
   </button>;

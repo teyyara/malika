@@ -131,7 +131,7 @@ export default function GardenScene({ discoveredCount, requiredHearts, onOpenNot
     </div>
     <div className="garden-interaction-row">
       <div className="cat-reply" aria-live="polite"><span className="reply-sparkle" aria-hidden="true">✦</span><span>{catMessage || "Mimi is on birthday duty, keeping a tiny eye on the stars."}</span></div>
-      <div className="discovery-counter"><span aria-hidden="true">♡</span> {discoveredCount} / {noteCount} little notes discovered</div>
+      <div className="discovery-counter" aria-live="polite" aria-atomic="true"><span aria-hidden="true">♡</span> {discoveredCount} / {noteCount} little notes discovered</div>
     </div>
     <div className="garden-destinations">
       <button className="destination-link destination-game" type="button" onClick={onGoToGame}><span className="destination-icon" aria-hidden="true">♥</span><span><strong>Mimi's heart garden</strong><small>Help her find {requiredHearts} little hearts</small></span><span className="destination-arrow" aria-hidden="true">↗</span></button>

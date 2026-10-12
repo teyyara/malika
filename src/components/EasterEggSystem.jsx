@@ -199,16 +199,21 @@ export default function EasterEggSystem() {
     function onKeyDown(event) {
       if (panel && event.key === "Tab") {
         const dialog = dialogRef.current;
-        const focusable = dialog ? Array.from(dialog.querySelectorAll('button:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])')) : [];
+        const focusable = dialog
+          ? Array.from(dialog.querySelectorAll('button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'))
+            .filter((control) => !control.disabled && !control.closest('[hidden], [aria-hidden="true"]')
+              && control.getClientRects().length > 0 && window.getComputedStyle(control).visibility !== "hidden")
+          : [];
         if (focusable.length) {
           const first = focusable[0];
           const last = focusable[focusable.length - 1];
-          if (event.shiftKey && (document.activeElement === first || !dialog.contains(document.activeElement))) {
+          const focusOutsideDialog = dialog && !dialog.contains(document.activeElement);
+          if (event.shiftKey && (document.activeElement === first || focusOutsideDialog)) {
             event.preventDefault();
             last.focus();
             return;
           }
-          if (!event.shiftKey && document.activeElement === last) {
+          if (!event.shiftKey && (document.activeElement === last || focusOutsideDialog)) {
             event.preventDefault();
             first.focus();
             return;

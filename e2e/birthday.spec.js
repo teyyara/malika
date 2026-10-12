@@ -81,6 +81,11 @@ test("collecting seven hearts unlocks a secret note and the dialog supports keyb
   await expect(dialog).toBeVisible();
   await expect(closeButton).toBeFocused();
 
+  // A stray focus behind a modal must not let Tab escape into the page.
+  await page.getByRole("button", { name: "Return to Malika's birthday garden" }).evaluate((node) => node.focus());
+  await page.keyboard.press("Tab");
+  await expect(closeButton).toBeFocused();
+
   await page.keyboard.press("Tab");
   await expect(dialog.getByRole("button", { name: "Keep this close" })).toBeFocused();
   await page.keyboard.press("Tab");
@@ -291,5 +296,20 @@ test("capture rendered art direction across the birthday journey", async ({ page
   await expect(page.getByRole("status")).toBeVisible();
   await expect(page.locator(".extra-surprise")).toHaveCSS("opacity", "1");
   await page.screenshot({ path: "test-results/screenshots/06-final-surprise.png", fullPage: true });
+});
+
+
+
+test("reduced motion removes the heart game's floating JavaScript victory particles", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await enterGarden(page);
+  await page.getByRole("button", { name: "Heart game", exact: true }).click();
+  await page.getByRole("button", { name: /Let's find some hearts/ }).click();
+
+  const hearts = page.getByRole("button", { name: /Collect purple heart/ });
+  for (let count = 0; count < 7; count += 1) await hearts.first().click();
+
+  await expect(page.getByRole("heading", { name: "You found every heart…" })).toBeVisible();
+  await expect(page.locator(".celebration-particle")).toHaveCount(0);
 });
 

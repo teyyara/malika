@@ -277,3 +277,21 @@ test("the Secret Arcade fits a narrow phone viewport and can always be closed", 
   await expect(dialog).toHaveCount(0);
   await expect(brandMark).toBeFocused();
 });
+
+
+test("Secret Arcade keeps keyboard focus inside its dialog when focus starts behind it", async ({ page }) => {
+  await openArcade(page);
+
+  const dialog = page.getByRole("dialog", { name: "The secret arcade" });
+  const closeButton = dialog.getByRole("button", { name: "Close secret surprise" });
+  const lastFocusable = dialog.locator('button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])').last();
+  await expect(closeButton).toBeFocused();
+
+  await page.getByRole("button", { name: /Open your birthday surprise/ }).evaluate((node) => node.focus());
+  await page.keyboard.press("Tab");
+  await expect(closeButton).toBeFocused();
+
+  await page.keyboard.press("Shift+Tab");
+  await expect(lastFocusable).toBeFocused();
+});
+

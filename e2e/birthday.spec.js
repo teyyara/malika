@@ -331,3 +331,145 @@ test("Mimi teases a shortcut when the constellation is traced out of order", asy
   await expect(page.locator(".constellation-hint")).toContainText("1/3");
 });
 
+
+
+test("standard laptop viewports keep the welcome, garden, game, collection and letter carefully composed", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+
+  for (const viewport of [
+    { width: 1280, height: 800 },
+    { width: 1366, height: 768 },
+    { width: 1440, height: 900 }
+  ]) {
+    await page.setViewportSize(viewport);
+    await page.goto("/");
+    await expect(page.getByRole("heading", { name: "Malika, this little universe is yours." })).toBeVisible();
+
+    const welcome = await page.evaluate(() => {
+      const rect = (selector) => {
+        const element = document.querySelector(selector);
+        if (!element) return null;
+        const box = element.getBoundingClientRect();
+        return { x: box.x, y: box.y, width: box.width, height: box.height, right: box.right, bottom: box.bottom };
+      };
+      return {
+        viewportHeight: window.innerHeight,
+        documentWidth: document.documentElement.scrollWidth,
+        scene: rect(".welcome-scene"),
+        character: rect(".welcome-character"),
+        cta: rect(".welcome-cta")
+      };
+    });
+    expect(welcome.documentWidth, "welcome must not overflow at " + viewport.width).toBeLessThanOrEqual(viewport.width);
+    expect(welcome.scene.height, "welcome composition should fit the laptop viewport").toBeLessThanOrEqual(viewport.height + 2);
+    expect(welcome.character.height, "Mimi should feel prominent without dominating the welcome layout").toBeLessThanOrEqual(440);
+    expect(welcome.cta.bottom, "the welcome action should be visible without a scroll").toBeLessThanOrEqual(viewport.height + 2);
+
+    await page.getByRole("button", { name: /Open your birthday surprise/ }).click();
+    await expect(page.getByRole("heading", { name: /A garden full of little things/ })).toBeVisible();
+
+    const header = await page.evaluate(() => {
+      const box = (selector) => {
+        const element = document.querySelector(selector);
+        const r = element.getBoundingClientRect();
+        return { x: r.x, y: r.y, right: r.right, bottom: r.bottom, width: r.width, height: r.height };
+      };
+      return {
+        viewportWidth: window.innerWidth,
+        documentWidth: document.documentElement.scrollWidth,
+        brand: box(".brand-mark"),
+        nav: box(".scene-navigation"),
+        tools: box(".header-tools"),
+        garden: box(".garden-landscape"),
+        destinations: [...document.querySelectorAll(".garden-destinations .destination-link")].map((node) => {
+          const r = node.getBoundingClientRect();
+          return { x: r.x, y: r.y, right: r.right, height: r.height, width: r.width };
+        })
+      };
+    });
+    expect(header.documentWidth, "garden must not overflow at " + viewport.width).toBeLessThanOrEqual(viewport.width);
+    expect(header.brand.right, "brand and navigation should not collide").toBeLessThanOrEqual(header.nav.x + 1);
+    expect(header.nav.right, "navigation and sound tools should not collide").toBeLessThanOrEqual(header.tools.x + 1);
+    expect(header.garden.height).toBeGreaterThanOrEqual(285);
+    expect(header.garden.height).toBeLessThanOrEqual(385);
+    expect(header.destinations).toHaveLength(3);
+    expect(Math.max(...header.destinations.map((card) => card.y)) - Math.min(...header.destinations.map((card) => card.y)),
+      "the three garden destinations should line up in one deliberate row").toBeLessThanOrEqual(2);
+
+    await page.getByRole("button", { name: "Heart game", exact: true }).click();
+    await expect(page.getByRole("heading", { name: "Mimi's Little Heart Garden" })).toBeVisible();
+    await page.getByRole("button", { name: /Let's find some hearts/ }).click();
+    const arena = await page.locator(".game-arena").boundingBox();
+    expect(arena.height, "the heart arena should be sized for a laptop, not a giant desktop").toBeLessThanOrEqual(352);
+    expect(arena.height).toBeGreaterThanOrEqual(245);
+    await expectNoHorizontalOverflow(page, viewport.width, "laptop heart game");
+
+    await page.getByRole("button", { name: "Love notes", exact: true }).click();
+    await expect(page.getByRole("heading", { name: "The love collection" })).toBeVisible();
+    const collection = await page.evaluate(() => {
+      const grid = document.querySelector(".message-grid");
+      return {
+        documentWidth: document.documentElement.scrollWidth,
+        columns: getComputedStyle(grid).gridTemplateColumns.trim().split(/\\s+/).length,
+        firstCard: grid.querySelector(".message-card")?.getBoundingClientRect().toJSON()
+      };
+    });
+    expect(collection.documentWidth).toBeLessThanOrEqual(viewport.width);
+    expect(collection.columns).toBe(3);
+    expect(collection.firstCard.width).toBeGreaterThan(220);
+
+    await page.getByRole("button", { name: "Birthday letter", exact: true }).click();
+    await expect(page.getByRole("heading", { name: /Happy birthday, Malika/ })).toBeVisible();
+    const finale = await page.evaluate(() => {
+      const rect = (selector) => {
+        const r = document.querySelector(selector).getBoundingClientRect();
+        return { x: r.x, y: r.y, right: r.right, bottom: r.bottom, width: r.width, height: r.height };
+      };
+      return {
+        documentWidth: document.documentElement.scrollWidth,
+        viewportWidth: window.innerWidth,
+        art: rect(".finale-top-art"),
+        letter: rect(".finale-letter-wrap"),
+        paper: rect(".letter-card")
+      };
+    });
+    expect(finale.documentWidth).toBeLessThanOrEqual(viewport.width);
+    expect(finale.art.right, "birthday art and letter should never collide").toBeLessThanOrEqual(finale.letter.x + 1);
+    expect(finale.art.height).toBeLessThanOrEqual(392);
+    expect(finale.paper.width).toBeGreaterThan(440);
+  }
+});
+
+test("the Secret Arcade and mini-game overlays fit a standard 1366 by 768 laptop", async ({ page }) => {
+  await page.setViewportSize({ width: 1366, height: 768 });
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  await page.getByRole("button", { name: /Open your birthday surprise/ }).click();
+
+  for (const key of ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"]) {
+    await page.keyboard.press(key);
+  }
+
+  const gate = page.getByRole("dialog", { name: "A door only you can open" });
+  await expect(gate).toBeVisible();
+  await gate.getByLabel("The secret password").fill("iloveyou");
+  await gate.getByRole("button", { name: "Unlock the Secret Arcade" }).click();
+
+  const arcade = page.getByRole("dialog", { name: "The secret arcade" });
+  await expect(arcade).toBeVisible();
+  let bounds = await arcade.boundingBox();
+  expect(bounds.x).toBeGreaterThanOrEqual(0);
+  expect(bounds.y).toBeGreaterThanOrEqual(0);
+  expect(bounds.x + bounds.width).toBeLessThanOrEqual(1366);
+  expect(bounds.y + bounds.height).toBeLessThanOrEqual(768);
+  await expectNoHorizontalOverflow(page, 1366, "laptop secret arcade");
+
+  await arcade.getByRole("button", { name: /Firefly hunt/ }).click();
+  await expect(page.locator(".egg-firefly-field")).toBeVisible();
+  bounds = await page.getByRole("dialog", { name: "Firefly hunt" }).boundingBox();
+  expect(bounds.x).toBeGreaterThanOrEqual(0);
+  expect(bounds.y).toBeGreaterThanOrEqual(0);
+  expect(bounds.x + bounds.width).toBeLessThanOrEqual(1366);
+  expect(bounds.y + bounds.height).toBeLessThanOrEqual(768);
+  await expectNoHorizontalOverflow(page, 1366, "laptop firefly hunt");
+});

@@ -240,7 +240,7 @@ test("Mimi makes a real local cat meow and opens her mouth with the sound", asyn
   expect(audioResponses.every((item) => item.status === 200)).toBeTruthy();
   expect(audioResponses.every((item) => new URL(item.url).origin === new URL(page.url()).origin)).toBeTruthy();
 
-  const mimi = page.getByRole("button", { name: "Pet Mimi to wake her up" });
+  const mimi = page.getByRole("button", { name: "Pet Mimi the kitten and hear a new greeting" });
   await mimi.click();
   await expect(mimi.locator("svg.cat-art")).toHaveClass(/cat-is-meowing/);
   await expect(mimi).toContainText("Mimi says meow!");
@@ -401,7 +401,6 @@ test("a love note starts its romantic score and stops it when the note closes", 
   await page.goto("/");
   await page.getByRole("button", { name: /Open your birthday surprise/ }).click();
   const beforeNote = await page.evaluate(() => window.__malikaAudioProbe.starts);
-  await page.getByRole("button", { name: /Open your birthday surprise/ }).click();
   await page.getByRole("button", { name: "Touch the pink flower to find a birthday wish" }).click();
 
   const note = page.getByRole("dialog", { name: "Brave new chapters" });

@@ -452,13 +452,14 @@ test("each main scene and all five arcade games select their own soundtrack", as
   await expect.poll(() => page.locator("html").getAttribute("data-soundtrack-theme")).toBe("none");
   await page.getByRole("button", { name: /Open your birthday surprise/ }).click();
   await expect.poll(() => page.locator("html").getAttribute("data-soundtrack-theme")).toBe("garden");
-  await page.getByRole("button", { name: "Heart game" }).click();
+  const sceneNav = page.getByRole("navigation", { name: "Explore Malika's birthday universe" });
+  await sceneNav.getByRole("button", { name: "Heart game", exact: true }).click();
   await expect.poll(() => page.locator("html").getAttribute("data-soundtrack-theme")).toBe("heart-game");
-  await page.getByRole("button", { name: "Love notes" }).click();
+  await sceneNav.getByRole("button", { name: "Love notes", exact: true }).click();
   await expect.poll(() => page.locator("html").getAttribute("data-soundtrack-theme")).toBe("love-notes");
-  await page.getByRole("button", { name: "Birthday letter" }).click();
+  await sceneNav.getByRole("button", { name: "Birthday letter", exact: true }).click();
   await expect.poll(() => page.locator("html").getAttribute("data-soundtrack-theme")).toBe("birthday-letter");
-  await page.getByRole("button", { name: "The garden", exact: true }).click();
+  await sceneNav.getByRole("button", { name: "The garden", exact: true }).click();
   await expect.poll(() => page.locator("html").getAttribute("data-soundtrack-theme")).toBe("garden");
 
   for (const key of ["ArrowUp","ArrowUp","ArrowDown","ArrowDown","ArrowLeft","ArrowRight","ArrowLeft","ArrowRight","b","a"]) {

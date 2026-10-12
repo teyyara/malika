@@ -1,5 +1,7 @@
 let audioContext = null;
-let enabled = false;
+// Sound is enabled by default. Browsers still require the first real user gesture
+// before audio can become audible, so the welcome CTA unlocks it immediately.
+let enabled = true;
 const listeners = new Set();
 let loveThemeSession = null;
 let loveThemeRequested = false;

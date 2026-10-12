@@ -1,7 +1,8 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import CatCharacter from "../components/CatCharacter.jsx";
 import Ladybug from "../components/Ladybug.jsx";
+import { playCuteSound } from "../audio/soundEffects.js";
 import { siteConfig } from "../data/siteConfig.js";
 
 const celebrationGlyphs = Array.from({ length: 24 }, (_, index) => ({
@@ -73,11 +74,18 @@ function VictoryField({ reduceMotion }) {
 export default function HeartGardenScene({ game, onGameAction, onBonusNote, onGoToFinale, onGoToGarden }) {
   const reduceMotion = useReducedMotion();
   const arenaRef = useRef(null);
+  const previousStatus = useRef(game.status);
   const burstSequence = useRef(0);
   const [bursts, setBursts] = useState([]);
   const progress = Math.min(100, (game.count / game.requiredHearts) * 100);
 
+  useEffect(() => {
+    if (game.status === "won" && previousStatus.current !== "won") playCuteSound("reward");
+    previousStatus.current = game.status;
+  }, [game.status]);
+
   function collect(item, event) {
+    if (item.type === "heart" && game.count + 1 < game.requiredHearts) playCuteSound("collect");
     if (item.type === "heart" && event?.currentTarget && arenaRef.current) {
       const arenaRect = arenaRef.current.getBoundingClientRect();
       const itemRect = event.currentTarget.getBoundingClientRect();

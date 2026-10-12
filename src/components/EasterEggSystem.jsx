@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { playCuteSound } from "../audio/soundEffects.js";
 
 const KONAMI = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"];
 const STAR_TARGET_COUNT = 8;
@@ -165,6 +166,7 @@ export default function EasterEggSystem() {
   const mismatchTimer = useRef(null);
 
   function announce(text) {
+    playCuteSound("tease");
     setToast(text);
     window.clearTimeout(toastTimer.current);
     toastTimer.current = window.setTimeout(() => setToast(""), 6200);
@@ -185,6 +187,7 @@ export default function EasterEggSystem() {
   }
 
   function openReveal(id) {
+    playCuteSound("reveal");
     if (!panel || panel === "celebration") openerRef.current = document.activeElement;
     setRevealId(id);
     setPanel("reveal");
@@ -206,6 +209,7 @@ export default function EasterEggSystem() {
   }
 
   function finishGame(id, achievement) {
+    playCuteSound("reward");
     addUnique(setCompletedGames, id);
     if (achievement) addUnique(setUnlocked, achievement);
     setCelebrationId(id);
@@ -363,6 +367,7 @@ export default function EasterEggSystem() {
         mismatchTimer.current = null;
         setMemoryMismatch(false);
         const pairs = [...matchedCards, ...next];
+        if (pairs.length < MEMORY_CARDS.length) playCuteSound("collect");
         setMatchedCards(pairs);
         if (pairs.length === MEMORY_CARDS.length) {
           setGameWon(true);
@@ -402,6 +407,7 @@ export default function EasterEggSystem() {
     if (gameWon || rhythmPlaybackActive) return;
     if (symbol === RHYTHM_SEQUENCE[rhythmStep]) {
       const next = rhythmStep + 1;
+      if (next < RHYTHM_SEQUENCE.length) playCuteSound("collect");
       setRhythmStep(next);
       if (next === RHYTHM_SEQUENCE.length) {
         setGameWon(true);
@@ -428,6 +434,8 @@ export default function EasterEggSystem() {
     if (next === WISHES.length - 1) {
       setGameWon(true);
       finishGame("wishes", "five-wishes");
+    } else {
+      playCuteSound("collect");
     }
   }
 
@@ -462,6 +470,8 @@ export default function EasterEggSystem() {
               if (next.length >= STAR_TARGET_COUNT) {
                 setGameWon(true);
                 finishGame("stars", "seven-stars");
+              } else {
+                playCuteSound("collect");
               }
             }}>
             {caught ? "✦" : "✧"}
@@ -525,6 +535,7 @@ export default function EasterEggSystem() {
               const next = [...caughtFireflies, fly.id];
               setCaughtFireflies(next);
               if (next.length >= 5) { setGameWon(true); finishGame("fireflies", "five-fireflies"); }
+              else playCuteSound("collect");
             }}>
             {caught ? "✧" : "✦"}
           </button>;
@@ -581,11 +592,11 @@ export default function EasterEggSystem() {
             </div>
           </div>
           <div className="egg-celebration-content">
-            <div className="egg-reward-medallion" aria-hidden="true">
+            <button type="button" className="egg-reward-medallion" aria-label="Tap your prize to replay the victory chime" onClick={() => playCuteSound("reward")}>
               <span className="egg-reward-medallion-orbit">✧　·　♡　·　✦</span>
               <span className="egg-reward-medallion-symbol">{reward.glyph}</span>
               <span className="egg-reward-medallion-caption">A LITTLE WIN FOR YOU</span>
-            </div>
+            </button>
             <p className="egg-reward-kicker">{reward.eyebrow}</p>
             <p className="egg-reward-stamp"><span aria-hidden="true">✦</span> SIDE QUEST COMPLETE <span aria-hidden="true">✦</span></p>
             <h2 id="egg-dialog-title">{reward.title}</h2>

@@ -278,12 +278,15 @@
   scrollbar-width:thin; scrollbar-color:rgba(238,205,255,.35) transparent;
 }
 .egg-reward-medallion {
-  position:relative; display:grid; place-items:center; flex:0 0 auto; width:clamp(118px,17vh,174px); height:clamp(118px,17vh,174px);
+  position:relative; display:grid; place-items:center; flex:0 0 auto; width:clamp(118px,17vh,174px); height:clamp(118px,17vh,174px); padding:0; cursor:pointer; color:inherit; touch-action:manipulation;
   margin:0 auto 17px; border:1px solid color-mix(in srgb,var(--reward-accent) 35%,transparent); border-radius:50%;
   background:radial-gradient(circle at 38% 28%,color-mix(in srgb,var(--reward-accent) 30%,transparent),transparent 44%),radial-gradient(circle,color-mix(in srgb,var(--reward-hot) 16%,transparent),transparent 69%);
   box-shadow:0 0 0 8px color-mix(in srgb,var(--reward-accent) 3%,transparent),0 0 65px color-mix(in srgb,var(--reward-hot) 18%,transparent),inset 0 0 28px color-mix(in srgb,var(--reward-accent) 10%,transparent);
   animation:egg-reward-medallion-arrive .9s cubic-bezier(.16,.9,.2,1.1) both,egg-reward-medallion-breathe 3.2s ease-in-out 1s infinite;
 }
+.egg-reward-medallion:hover { filter:brightness(1.13) saturate(1.08); box-shadow:0 0 0 11px color-mix(in srgb,var(--reward-accent) 5%,transparent),0 0 78px color-mix(in srgb,var(--reward-hot) 28%,transparent),inset 0 0 32px color-mix(in srgb,var(--reward-accent) 14%,transparent); }
+.egg-reward-medallion:active { filter:brightness(1.2) saturate(1.15); }
+.egg-reward-medallion:focus-visible { outline:3px solid var(--focus); outline-offset:7px; }
 .egg-reward-medallion::before, .egg-reward-medallion::after { content:""; position:absolute; inset:-15px; border:1px solid color-mix(in srgb,var(--reward-accent) 24%,transparent); border-radius:50%; animation:egg-reward-orbit 14s linear infinite; }
 .egg-reward-medallion::after { inset:-28px; border-style:dashed; opacity:.42; animation-direction:reverse; animation-duration:21s; }
 .egg-reward-medallion-orbit { position:absolute; top:9%; color:var(--reward-accent); font-size:12px; letter-spacing:.15em; }

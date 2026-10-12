@@ -1,12 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
+import { playCuteSound } from "../audio/soundEffects.js";
 
 const reactions = ["idle", "curious", "delighted", "sleepy", "love", "surprised"];
+const danceSparkles = ["♥", "✦", "✧", "♡"];
 
 export default function CatCharacter({ mood = "curious", onClick, label = "A little lavender kitten" }) {
   const reduceMotion = useReducedMotion();
   const [reactionIndex, setReactionIndex] = useState(0);
+  const [isDancing, setIsDancing] = useState(false);
   const reaction = reactions[reactionIndex];
+  const petStreak = useRef({ count: 0, lastAt: 0 });
+  const danceTimer = useRef(null);
+
+  useEffect(() => () => window.clearTimeout(danceTimer.current), []);
 
   let animation;
   let duration = 3.7;
@@ -35,14 +42,42 @@ export default function CatCharacter({ mood = "curious", onClick, label = "A lit
     animation = { y: [0, -4, 0], rotate: [0, -2, 2, 0] };
     duration = 0.72;
     repeat = 0;
+  } else if (mood === "happy") {
+    animation = { y: [0, -6, -2, -8, 0], rotate: [0, -2, 2, -1, 0], scale: [1, 1.02, 1, 1.025, 1] };
+    duration = 2.8;
+    repeat = Infinity;
   } else {
-    animation = mood === "happy" ? { y: [0, -7, 0], rotate: [0, -2, 2, 0] } : { y: [0, -3, 0] };
-    duration = mood === "happy" ? 0.8 : 3.7;
-    repeat = mood === "happy" ? 0 : Infinity;
+    animation = { y: [0, -3, 0], rotate: [0, -0.6, 0.6, 0] };
+    duration = 4.2;
+    repeat = Infinity;
+  }
+
+  if (isDancing && !reduceMotion) {
+    animation = {
+      y: [0, -10, 1, -14, 0, -8, 0],
+      rotate: [0, -10, 8, -9, 9, -5, 0],
+      scale: [1, 1.06, 0.98, 1.075, 1, 1.04, 1]
+    };
+    duration = 0.58;
+    repeat = 3;
   }
 
   function reactToPet() {
+    const now = Date.now();
+    const previous = petStreak.current;
+    const streak = previous.lastAt && now - previous.lastAt <= 4200 ? previous.count + 1 : 1;
+    const startedDance = streak >= 3;
+    petStreak.current = startedDance ? { count: 0, lastAt: 0 } : { count: streak, lastAt: now };
+
     setReactionIndex((current) => (current + 1) % reactions.length);
+    if (startedDance) {
+      setIsDancing(true);
+      window.clearTimeout(danceTimer.current);
+      danceTimer.current = window.setTimeout(() => setIsDancing(false), 2450);
+      playCuteSound("dance");
+    } else {
+      playCuteSound("pet");
+    }
     onClick?.();
   }
 
@@ -56,9 +91,9 @@ export default function CatCharacter({ mood = "curious", onClick, label = "A lit
     event.currentTarget.style.setProperty("--gaze-y", gazeY.toFixed(2) + "px");
   }
 
-  const art = <motion.svg className={"cat-art cat-art-" + mood + " cat-reaction-" + reaction}
+  const art = <motion.svg className={"cat-art cat-art-" + mood + " cat-reaction-" + reaction + (isDancing ? " cat-is-dancing" : "")}
     viewBox="0 0 240 220" aria-hidden="true" initial={false} animate={animation}
-    transition={{ duration, repeat, ease: "easeInOut" }}>
+    transition={{ duration, repeat, ease: isDancing ? "easeInOut" : "easeInOut" }}>
     <ellipse cx="122" cy="196" rx="68" ry="12" fill="#090515" opacity=".4" />
     <path className="cat-tail" d="M164 157 C208 162 211 127 192 120 C178 114 171 128 183 132" fill="none" stroke="#cbb4ef" strokeWidth="16" strokeLinecap="round" />
     <ellipse cx="122" cy="164" rx="40" ry="27" fill="#faf4ff" opacity=".92" />
@@ -82,9 +117,13 @@ export default function CatCharacter({ mood = "curious", onClick, label = "A lit
   </motion.svg>;
 
   if (!onClick) return <div className="cat-character">{art}</div>;
-  return <button className="cat-character cat-character-button" type="button" aria-label={label}
+  return <button className={"cat-character cat-character-button" + (isDancing ? " is-dancing" : "")} type="button" aria-label={label}
     onClick={reactToPet} onPointerMove={followPointer}
     onPointerLeave={(event) => { event.currentTarget.style.setProperty("--gaze-x", "0px"); event.currentTarget.style.setProperty("--gaze-y", "0px"); }}>
-    {art}<span className="character-hint">tap for a hello</span>
+    {art}
+    {isDancing && !reduceMotion && <span className="cat-dance-sparkles" aria-hidden="true">
+      {danceSparkles.map((glyph, index) => <i key={index} style={{ "--dance-index": index, "--dance-offset": (index % 2 ? 1 : -1) * (18 + index * 4) + "px", "--dance-delay": index * 0.13 + "s", "--dance-top": (17 + (index % 2) * 20) + "%", "--dance-size": (11 + (index % 3) * 4) + "px" }}>{glyph}</i>)}
+    </span>}
+    <span className="character-hint">{isDancing ? "Mimi is dancing!" : "tap for a hello"}</span>
   </button>;
 }

@@ -10,3 +10,4 @@ import "./styles/personalization.css";
 createRoot(document.getElementById("root")).render(
   <React.StrictMode><App /></React.StrictMode>
 );
+import "./styles/magic.css";

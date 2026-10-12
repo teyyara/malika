@@ -12,7 +12,9 @@ async function expectCelebration(page, title, theme, score) {
   const reward = page.getByRole("dialog", { name: title });
   await expect(reward).toBeVisible();
   await expect(reward.locator(".egg-celebration")).toHaveClass(new RegExp("egg-celebration-theme-" + theme));
-  await expect(reward.locator(".egg-celebration-particle")).toHaveCount(64);
+  await expect(reward.locator(".egg-celebration-particle")).toHaveCount(96);
+  await expect(reward.locator(".egg-celebration-heart-burst i")).toHaveCount(24);
+  await expect(reward.locator(".egg-celebration-shockwaves i")).toHaveCount(3);
   await expect(reward.locator(".egg-reward-score")).toHaveText(score);
   const viewport = await page.evaluate(() => ({ width: window.innerWidth, height: window.innerHeight }));
   const bounds = await reward.boundingBox();
@@ -176,6 +178,31 @@ test("completing all five arcade quests unlocks the grand-secret finale", async 
   const grandSecret = page.getByRole("dialog", { name: "Keeper of Little Wonders" });
   await expect(grandSecret).toBeVisible();
   await expect(grandSecret).toContainText("The grand secret was never just the stars or the prizes");
+  await expect(grandSecret.locator(".egg-grand-finale")).toBeVisible();
+  await expect(grandSecret.locator(".grand-flight-object")).toHaveCount(112);
+  await expect(grandSecret.locator(".grand-comet-trails i")).toHaveCount(9);
+  await expect(grandSecret.locator(".grand-heart-depth")).toHaveCount(13);
+  await expect(grandSecret.locator(".grand-treasure")).toHaveCount(5);
+  const grandViewport = await page.evaluate(() => ({ width: window.innerWidth, height: window.innerHeight }));
+  const grandBounds = await grandSecret.boundingBox();
+  expect(grandBounds.width, "the grand secret must fill the viewport width").toBeGreaterThanOrEqual(grandViewport.width - 1);
+  expect(grandBounds.height, "the grand secret must fill the viewport height").toBeGreaterThanOrEqual(grandViewport.height - 1);
+  await page.screenshot({ path: "test-results/screenshots/loop-010-grand-finale-desktop.png", fullPage: true });
+  await grandSecret.getByRole("button", { name: "Return to your Secret Arcade" }).click();
+  await expect(page.getByRole("dialog", { name: "The secret arcade" })).toBeVisible();
+
+  await page.setViewportSize({ width: 320, height: 740 });
+  await page.getByRole("button", { name: "Open the grand secret" }).click();
+  const mobileGrand = page.getByRole("dialog", { name: "Keeper of Little Wonders" });
+  await expect(mobileGrand).toBeVisible();
+  const mobileSizes = await mobileGrand.locator(".grand-finale-content").evaluate((element) => ({
+    clientWidth: element.clientWidth,
+    scrollWidth: element.scrollWidth
+  }));
+  expect(mobileSizes.scrollWidth, "the finale content should fit a 320px phone").toBeLessThanOrEqual(mobileSizes.clientWidth);
+  await page.screenshot({ path: "test-results/screenshots/loop-010-grand-finale-mobile.png", fullPage: true });
+  await mobileGrand.getByRole("button", { name: "Keep this little wonder" }).click();
+  await expect(mobileGrand).toHaveCount(0);
 });
 
 

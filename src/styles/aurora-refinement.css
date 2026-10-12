@@ -132,3 +132,45 @@ body {
 .egg-reward-medallion[data-sound-cue^="achievement-"] { border-color:rgba(191,176,238,.33); background-color:rgba(153,132,225,.06); }
 .egg-reward-medallion[data-sound-cue^="achievement-"]:hover .egg-reward-medallion-symbol,
 .egg-reward-medallion[data-sound-cue^="achievement-"]:focus-visible .egg-reward-medallion-symbol { filter:brightness(1.12) drop-shadow(0 0 13px rgba(191,176,238,.42)); }
+
+/* Carry the cooler accent all the way through the hidden games and final rewards. */
+.game-ready-cat { border-color:rgba(191,176,238,.17); }
+.game-won { box-shadow:var(--lux-shadow),inset 0 1px 0 rgba(237,232,255,.045); }
+.egg-firefly-token { color:#f0edff; text-shadow:0 0 8px rgba(207,196,255,.82),0 0 25px rgba(179,163,249,.62); }
+.egg-firefly-token:hover,.egg-firefly-token:focus-visible { background:rgba(194,180,255,.12); }
+.egg-firefly-token.is-real-firefly { color:#f7f5ff; text-shadow:0 0 8px rgba(236,232,255,.95),0 0 24px rgba(177,161,247,.88); }
+.egg-firefly-token.is-decoy-firefly { color:#a899da; text-shadow:0 0 6px rgba(139,119,209,.5); }
+.egg-firefly-token.is-decoy-firefly:hover,.egg-firefly-token.is-decoy-firefly:focus-visible { background:rgba(153,132,225,.16); }
+@keyframes egg-firefly-float {
+  0%,100% { opacity:.72; filter:drop-shadow(0 0 5px rgba(196,183,255,.48)); }
+  50% { opacity:1; filter:drop-shadow(0 0 16px rgba(224,219,255,.92)); }
+}
+.egg-celebration { --reward-gold:#e8e2ff; }
+.egg-celebration-theme-memory { --reward-gold:#f7f5ff; }
+.egg-celebration-theme-rhythm { --reward-gold:#f7f5ff; }
+.egg-celebration-theme-fireflies {
+  --reward-accent:#d9d2ff;
+  --reward-hot:#a8b9ff;
+  --reward-gold:#f7f5ff;
+  background:radial-gradient(ellipse at 50% 30%,rgba(127,111,210,.24),transparent 43%),
+    radial-gradient(ellipse at 80% 90%,rgba(105,133,205,.16),transparent 42%),#101321;
+}
+.egg-celebration-theme-wishes {
+  --reward-accent:#e0d5ff;
+  --reward-hot:#dfc4e2;
+  --reward-gold:#f7f5ff;
+  background:radial-gradient(ellipse at 50% 25%,rgba(181,151,236,.2),transparent 43%),
+    radial-gradient(ellipse at 20% 95%,rgba(135,131,209,.14),transparent 42%),#170f22;
+}
+.egg-reveal-grand { color:#e7e2ff; background:radial-gradient(circle,rgba(183,165,244,.19),rgba(121,108,203,.065) 60%,transparent 68%); border-color:rgba(191,176,238,.28); box-shadow:0 0 85px rgba(157,140,235,.12),0 0 55px rgba(199,163,255,.1); }
+.grand-cosmos { --grand-gold:#e9e4ff; }
+.grand-orbit i { box-shadow:0 0 12px 4px rgba(192,180,255,.4),0 0 38px rgba(185,165,255,.32); }
+.grand-supernova>span { color:#f7f5ff; text-shadow:0 0 26px rgba(191,176,238,.85); }
+.grand-heart-star { color:#ece7ff; text-shadow:0 0 20px rgba(210,198,255,.72); }
+.grand-finale-label { color:#e9e4ff; text-shadow:0 0 22px rgba(190,173,248,.34); }
+.grand-finale-signature span { color:#f7f5ff; text-shadow:0 0 16px rgba(191,176,238,.6); }
+.grand-treasure-3 { color:#e9e4ff; }
+.grand-finale-primary { background:linear-gradient(110deg,#f7f5ff,#e2d9ff 55%,#c9bafb); box-shadow:0 7px 30px rgba(181,161,245,.22),0 0 55px rgba(203,160,255,.12); }
+@media(prefers-reduced-motion:reduce) {
+  .egg-firefly-token { animation:none!important; }
+}

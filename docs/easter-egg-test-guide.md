@@ -93,7 +93,7 @@ The last two beats echo the first pair. A wrong beat resets the combo, but you c
 Reward: *Mimi's tiny concert is a HIT!*
 
 ### Quest 4 — Firefly Hunt
-Catch the **five bright golden fireflies** and leave the three dim violet decoys alone. Their positions are: upper-left side, near the top just left of centre, right-middle, lower-right of centre, and lower-left. A dim violet light is a decoy; clicking it gives a teasing message but does not erase progress.
+Catch the **five bright pearl-white fireflies** and leave the three dim violet decoys alone. Their positions are: upper-left side, near the top just left of centre, right-middle, lower-right of centre, and lower-left. A dim violet light is a decoy; clicking it gives a teasing message but does not erase progress.
 
 Reward: *You just lit up the whole garden.*
 

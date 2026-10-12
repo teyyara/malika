@@ -458,9 +458,11 @@ if (typeof document !== "undefined") {
         softEchoBus.wet.gain.cancelScheduledValues(audioContext.currentTime);
         softEchoBus.wet.gain.setValueAtTime(0, audioContext.currentTime);
       }
-    } else if (loveThemeRequested && enabled) startLoveTheme();
-    else if (enabled && softEchoBus?.context === audioContext) {
+      return;
+    }
+    if (enabled && softEchoBus?.context === audioContext) {
       softEchoBus.wet.gain.setValueAtTime(0.13, audioContext.currentTime);
     }
+    if (loveThemeRequested && enabled) startLoveTheme();
   });
 }

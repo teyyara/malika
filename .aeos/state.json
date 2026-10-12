@@ -1,28 +1,28 @@
 {
   "schemaVersion": "1.0",
-  "runId": "malika-20261012-005",
+  "runId": "malika-20261012-006",
   "activeKeyphrase": "read the master strategy",
   "repository": "teyyara/malika",
   "releaseBranch": "main",
-  "progressionBranch": "aeos/loop-005-easter-eggs",
-  "currentLoop": 5,
-  "candidate": "malika-birthday-005-secret-arcade",
+  "progressionBranch": "aeos/loop-006-arcade-master",
+  "currentLoop": 6,
+  "candidate": "malika-birthday-006-grand-secret",
   "status": "PROMOTED_AUTOMATED_QA_PASS_DEPLOYMENT_READY",
   "orchestrationState": "WAITING_FOR_CONTINUE",
-  "validatedApplicationCheckpoint": "b98500c32e4c289ad6ead2d503f3ed7951d32f02",
+  "validatedApplicationCheckpoint": "4c364e7fed62e8604985520bc223589e7030fd21",
   "latestPassingWorkflowForCandidate": {
-    "runId": 38191948403,
-    "url": "https://github.com/teyyara/malika/actions/runs/38191948403",
-    "headSha": "d3705a0cd196c8fd1011c7d58c7b61a5f30e6264",
+    "runId": 38193692834,
+    "url": "https://github.com/teyyara/malika/actions/runs/38193692834",
+    "headSha": "945779a7dd4e81771d17ce4cae7f898c3a8accf8",
     "conclusion": "success",
     "nodeTestsPassed": 8,
     "nodeTestsFailed": 0,
-    "playwrightTestsPassed": 15,
+    "playwrightTestsPassed": 16,
     "playwrightTestsFailed": 0,
     "productionBuild": "PASS",
     "browser": "Chromium",
-    "browserReportArtifact": "https://github.com/teyyara/malika/actions/runs/38191948403/artifacts/11721995838",
-    "visualScreenshotArtifact": "https://github.com/teyyara/malika/actions/runs/38191948403/artifacts/11722375079"
+    "browserReportArtifact": "https://github.com/teyyara/malika/actions/runs/38193692834/artifacts/11722602714",
+    "visualScreenshotArtifact": "https://github.com/teyyara/malika/actions/runs/38193692834/artifacts/11722792359"
   },
   "personalization": {
     "recipientName": "Malika",
@@ -30,10 +30,10 @@
     "birthday": "12 October"
   },
   "pullRequest": {
-    "url": "https://github.com/teyyara/malika/pull/4",
-    "number": 4,
+    "url": "https://github.com/teyyara/malika/pull/6",
+    "number": 6,
     "state": "MERGED",
-    "mergeCommitSha": "a831f4f614d56f3a24bd98ef548566c76e31aa94"
+    "mergeCommitSha": "4c364e7fed62e8604985520bc223589e7030fd21"
   },
   "automatedBrowserQA": {
     "status": "PASS",
@@ -62,21 +62,36 @@
     "projectName": "malika-birthday",
     "projectDashboard": "https://vercel.com/tyyr1/malika-birthday",
     "productionStatus": "READY",
-    "productionCommit": "a831f4f614d56f3a24bd98ef548566c76e31aa94",
+    "productionCommit": "4c364e7fed62e8604985520bc223589e7030fd21",
+    "productionDeploymentId": "dpl_GAPT4dsdgMftCmutnPxjPnxaLUEq",
+    "productionDeploymentUrl": "malika-birthday-rie1qfp8s-tyyr1.vercel.app",
     "productionAliases": [
       "malika-birthday-kappa.vercel.app",
       "malika-birthday-tyyr1.vercel.app",
       "malika-birthday-git-main-tyyr1.vercel.app"
     ],
-    "accessProtection": "Vercel-hosted domains may require SSO or a time-limited shareable link."
+    "accessProtection": "Vercel-hosted domains may require SSO or a time-limited reviewer link."
   },
-  "manualVisualQA": "EXISTING_LOOP_004_SCREENSHOTS_REVIEWED; NEW_GAME_UI_BROWSER_TESTED",
+  "manualVisualQA": "EXISTING_LOOP_004_SCREENSHOTS_REVIEWED; LOOP_006 FULL ARCADE JOURNEY PASSES AUTOMATED CHROMIUM",
   "screenReaderQA": "NOT_YET_OBSERVED",
   "realMobileDeviceQA": "NOT_TESTED",
   "nextHighValueWork": [
-    "Provide the current Vercel review link and spoiler walkthrough for manual exploration",
+    "Share current production reviewer link and grand-secret testing walkthrough",
     "Perform human mobile-device touch/viewport QA",
     "Perform screen-reader QA",
     "Continue to another work loop only after a standalone CONTINUE"
-  ]
+  ],
+  "arcadeMastery": {
+    "games": [
+      "stars",
+      "memory",
+      "rhythm",
+      "fireflies",
+      "wishes"
+    ],
+    "completionProgress": "per-visit",
+    "grandRevealTitle": "Keeper of Little Wonders",
+    "unlockRequirement": "Complete all five games, including all five wish-jar wishes.",
+    "automatedTest": "Completing all five arcade quests unlocks the grand-secret finale."
+  }
 }

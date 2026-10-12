@@ -45,7 +45,7 @@ export default function TinySoundToggle({ floating = false }) {
           <label htmlFor={volumeId}>Overall volume</label>
           <output htmlFor={volumeId}>{volume}%</output>
         </div>
-        <input id={volumeId} className="tiny-sound-volume" type="range" min="0" max="100" step="5"
+        <input id={volumeId} className="tiny-sound-volume" type="range" min="0" max="100" step="1"
           value={volume} onChange={changeVolume} aria-label="Overall sound volume" />
         <p className="tiny-sound-mixer-caption">A little sound check for Mimi</p>
         <div className="tiny-sound-preview-buttons">

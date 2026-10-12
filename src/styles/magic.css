@@ -322,3 +322,48 @@ button.constellation-star:hover, button.constellation-star:focus-visible, button
   .ambient-world::before { transition: none !important; }
   .cat-eye, .ladybug-wing, .ladybug-button svg, .welcome-moon, .welcome-flower, .garden-halo, .constellation-star, .victory-sparkles, .finale-cat .cat-art { animation: none !important; }
 }
+
+
+/* Final art direction details and accessible hit states for the new interactions. */
+.garden-plant.interactive-flower {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+}
+.garden-plant.interactive-flower::before { pointer-events: none; }
+.garden-plant.interactive-flower i, .garden-plant.interactive-flower b { pointer-events: none; }
+.constellation-star-a { top: calc(17% - 22px); left: calc(21% - 22px); }
+.constellation-star-b { top: calc(17% - 22px); right: calc(21% - 22px); }
+.constellation-star-c { top: calc(61% - 22px); left: calc(50% - 22px); }
+.victory-cat .cat-character { width: 118px; }
+.victory-cat .cat-art { width: 100%; }
+.finale-mote {
+  position: absolute;
+  z-index: 0;
+  color: #e7ceff;
+  font-size: 15px;
+  opacity: .55;
+  text-shadow: 0 0 14px rgba(218,179,255,.62);
+}
+.finale-mote:nth-child(4n + 1) { color: #ffc7e8; font-size: 11px; }
+.finale-mote:nth-child(4n + 2) { font-size: 8px; }
+.reveal-spark-field { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.reveal-spark {
+  position: absolute;
+  top: 58%;
+  z-index: 0;
+  color: #f7c8ee;
+  font-size: 14px;
+  text-shadow: 0 0 11px rgba(255,185,231,.5);
+}
+.extra-surprise { isolation: isolate; }
+.extra-surprise > *:not(.reveal-spark-field) { position: relative; z-index: 1; }
+.extra-surprise-friends .cat-character { width: 110px; }
+.extra-surprise-friends .cat-art { width: 100%; }
+.button-primary:focus-visible { box-shadow: 0 0 0 4px rgba(245,216,255,.18), 0 9px 30px rgba(196,145,255,.28); }
+@media (prefers-reduced-motion: reduce) {
+  .cat-tail, .cat-character-button::after, .button-primary::before, .letter-card::before,
+  .extra-surprise::before, .interactive-flower b { animation: none !important; transition: none !important; }
+}

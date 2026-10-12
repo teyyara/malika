@@ -9,8 +9,11 @@ const greetings = [
   "Prrr… Zack asked me to remind you to be wonderfully kind to yourself today.",
   "A tiny paw wave for Malika, delivered with an unreasonable amount of affection.",
   "Mimi has inspected this garden. Verdict: its birthday girl is absolutely wonderful.",
-  "Breaking news: one small cat has prescribed a cozy break and at least three smiles."
+  "Breaking news: one small cat has prescribed a cozy break and at least three smiles.",
+  "Mimi has noticed how carefully you're exploring. She's saving her best purr for you.",
+  "The stars are brighter now. Mimi suspects somebody lovely is making a wish."
 ];
+
 const bugs = [
   { id: "reason-01", label: "A little thought" },
   { id: "adore-02", label: "A compliment" },
@@ -18,28 +21,89 @@ const bugs = [
   { id: "reason-06", label: "A gentle reminder" }
 ];
 
+const constellationStars = [
+  "Trace the first star of a hidden birthday wish",
+  "Trace the second star of a hidden birthday wish",
+  "Trace the last star to reveal a secret wish"
+];
+
 export default function GardenScene({ discoveredCount, requiredHearts, onOpenNote, onGoToGame, onGoToCollection, onOpenLetter }) {
   const [catMessage, setCatMessage] = useState("");
   const [greetingIndex, setGreetingIndex] = useState(-1);
+  const [constellationStep, setConstellationStep] = useState(0);
+  const [constellationFound, setConstellationFound] = useState(false);
   const noteCount = loveMessages.length + memories.length;
+
   function greetCat() {
     const next = (greetingIndex + 1) % greetings.length;
     setGreetingIndex(next);
-    setCatMessage(greetings[next]);
+    if (constellationFound) {
+      setCatMessage("You found the wish hidden in the stars! Mimi would absolutely like credit for the discovery.");
+    } else if (discoveredCount >= 10 && next % 2 === 0) {
+      setCatMessage("You've found " + discoveredCount + " little notes already. Mimi has a feeling you haven't discovered everything yet…");
+    } else {
+      setCatMessage(greetings[next]);
+    }
+  }
+
+  function traceStar(index) {
+    if (constellationFound) {
+      onOpenNote("wish-05");
+      return;
+    }
+    if (index !== constellationStep) {
+      setConstellationStep(index === 0 ? 1 : 0);
+      return;
+    }
+    const nextStep = constellationStep + 1;
+    setConstellationStep(nextStep);
+    if (nextStep === constellationStars.length) {
+      setConstellationFound(true);
+      setCatMessage("The three stars made a heart just for you. A little wish was tucked inside.");
+      onOpenNote("wish-05");
+    }
   }
 
   return <section className="garden-scene scene-pane" aria-labelledby="garden-heading">
     <div className="scene-heading garden-heading">
       <p className="eyebrow">✦ a birthday garden, just for Malika</p>
       <h1 id="garden-heading">A garden full of little things <em>just for you.</em></h1>
-      <p>Zack tucked a few tiny surprises between the stars. Wander slowly, tap a ladybug, say hello to Mimi, and find the little reminders waiting among the flowers.</p>
+      <p>Zack tucked tiny surprises between the stars. Wander slowly, tap a ladybug, say hello to Mimi, and let the garden give up its little secrets one by one.</p>
     </div>
     <div className="garden-landscape">
-      <div className="garden-halo" aria-hidden="true" /><div className="garden-star garden-star-a" aria-hidden="true">✧</div><div className="garden-star garden-star-b" aria-hidden="true">✦</div><div className="garden-star garden-star-c" aria-hidden="true">✧</div>
-      <div className="garden-ground" aria-hidden="true" /><div className="garden-plant plant-left" aria-hidden="true"><i /><i /><i /><b /></div><div className="garden-plant plant-right" aria-hidden="true"><i /><i /><i /><b /></div>
-      <div className="garden-cat-wrap"><CatCharacter mood="curious" onClick={greetCat} label="Say hello to Mimi the kitten" /></div>
-      {bugs.map((bug, index) => <div className={"garden-bug garden-bug-" + (index + 1)} key={bug.id}><Ladybug label={"Reveal: " + bug.label} onClick={() => onOpenNote(bug.id)} /></div>)}
-      <div className="garden-heart garden-heart-one" aria-hidden="true">♥</div><div className="garden-heart garden-heart-two" aria-hidden="true">♥</div><div className="garden-signature">for Malika, with love · Zack</div>
+      <div className="garden-halo" aria-hidden="true" />
+      <svg className="garden-constellation-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <path className={constellationStep >= 1 ? "is-lit" : ""} d="M21 17 L76 30" />
+        <path className={constellationStep >= 2 ? "is-lit" : ""} d="M76 30 L61 15" />
+        <path className={constellationFound ? "is-complete" : ""} d="M21 17 L76 30 L61 15 Z" />
+      </svg>
+      {[0, 1, 2].map((index) =>
+        <button key={index}
+          className={"garden-star constellation-star constellation-star-" + ["a", "b", "c"][index]}
+          type="button" aria-label={constellationFound ? "Open the wish from the heart constellation" : constellationStars[index]}
+          aria-pressed={constellationFound || index < constellationStep}
+          onClick={() => traceStar(index)}>
+          {constellationFound || index < constellationStep ? "✦" : "✧"}
+        </button>
+      )}
+      <div className="garden-ground" aria-hidden="true" />
+      <div className="garden-plant plant-left" aria-hidden="true"><i /><i /><i /><b /></div>
+      <button className="garden-plant plant-right interactive-flower" type="button"
+        aria-label="Touch the pink flower to find a birthday wish" onClick={() => onOpenNote("wish-04")}>
+        <i /><i /><i /><b />
+      </button>
+      <div className="garden-cat-wrap"><CatCharacter mood="curious" onClick={greetCat} label="Pet Mimi the kitten and hear a new greeting" /></div>
+      {bugs.map((bug, index) =>
+        <div className={"garden-bug garden-bug-" + (index + 1)} key={bug.id}>
+          <Ladybug label={"Follow this ladybug: " + bug.label} onClick={() => onOpenNote(bug.id)} />
+        </div>
+      )}
+      <div className="garden-heart garden-heart-one" aria-hidden="true">♥</div>
+      <div className="garden-heart garden-heart-two" aria-hidden="true">♥</div>
+      <div className="garden-signature">for Malika, with love · Zack</div>
+      <div className="constellation-hint" aria-live="polite">
+        {constellationFound ? "♡ a heart-shaped wish was found" : "Psst… trace the three stars · " + constellationStep + "/3"}
+      </div>
     </div>
     <div className="garden-interaction-row">
       <div className="cat-reply" aria-live="polite"><span className="reply-sparkle" aria-hidden="true">✦</span><span>{catMessage || "Mimi is on birthday duty, keeping a tiny eye on the stars."}</span></div>

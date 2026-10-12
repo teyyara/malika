@@ -11,6 +11,7 @@ import "./styles/easter-eggs.css";
 import "./styles/world-upgrade.css";
 import "./styles/performance.css";
 import "./styles/seal-secret.css";
+import "./styles/little-life.css";
 
 createRoot(document.getElementById("root")).render(
   <React.StrictMode><App /></React.StrictMode>

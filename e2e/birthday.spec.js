@@ -313,3 +313,16 @@ test("reduced motion removes the heart game's floating JavaScript victory partic
   await expect(page.locator(".celebration-particle")).toHaveCount(0);
 });
 
+
+
+test("Mimi teases a shortcut when the constellation is traced out of order", async ({ page }) => {
+  await enterGarden(page);
+  const secondStar = page.getByRole("button", { name: "Trace the second star of a hidden birthday wish" });
+  await secondStar.click();
+
+  await expect(page.locator(".cat-reply")).toContainText("Caught you skipping ahead");
+  await expect(page.locator(".constellation-hint")).toContainText("0/3");
+  await page.getByRole("button", { name: "Trace the first star of a hidden birthday wish" }).click();
+  await expect(page.locator(".constellation-hint")).toContainText("1/3");
+});
+

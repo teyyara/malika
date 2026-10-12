@@ -1,16 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
 
 const KONAMI = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"];
+const STAR_TARGET_COUNT = 8;
+const STAR_TRAIL_PATH = "M22 30 C22 21 28 16 34 20 C40 17 46 24 50 32 C54 24 60 17 66 20 C72 16 78 21 78 30 C77 42 62 51 50 59 C38 51 23 42 22 30";
 const STARS = [
-  { id: 1, x: 13, y: 24 }, { id: 2, x: 31, y: 14 }, { id: 3, x: 50, y: 30 },
-  { id: 4, x: 72, y: 18 }, { id: 5, x: 87, y: 38 }, { id: 6, x: 23, y: 54 },
-  { id: 7, x: 43, y: 65 }, { id: 8, x: 67, y: 53 }, { id: 9, x: 82, y: 76 },
-  { id: 10, x: 12, y: 81 }, { id: 11, x: 55, y: 84 }, { id: 12, x: 93, y: 16 }
+  { id: 1, x: 22, y: 30, step: 1 }, { id: 2, x: 34, y: 20, step: 2 },
+  { id: 3, x: 43, y: 24, step: 3 }, { id: 4, x: 50, y: 32, step: 4 },
+  { id: 5, x: 57, y: 24, step: 5 }, { id: 6, x: 66, y: 20, step: 6 },
+  { id: 7, x: 78, y: 30, step: 7 }, { id: 8, x: 50, y: 59, step: 8 },
+  { id: 9, x: 14, y: 51 }, { id: 10, x: 86, y: 51 },
+  { id: 11, x: 18, y: 15 }, { id: 12, x: 83, y: 14 }
 ];
 const FIREFLIES = [
-  { id: 1, x: 12, y: 28 }, { id: 2, x: 34, y: 18 }, { id: 3, x: 76, y: 27 },
-  { id: 4, x: 88, y: 55 }, { id: 5, x: 63, y: 73 }, { id: 6, x: 37, y: 62 },
-  { id: 7, x: 18, y: 77 }, { id: 8, x: 52, y: 42 }
+  { id: 1, x: 12, y: 28, isTarget: true }, { id: 2, x: 34, y: 18, isTarget: true },
+  { id: 3, x: 76, y: 27, isTarget: false }, { id: 4, x: 88, y: 55, isTarget: true },
+  { id: 5, x: 63, y: 73, isTarget: true }, { id: 6, x: 37, y: 62, isTarget: false },
+  { id: 7, x: 18, y: 77, isTarget: true }, { id: 8, x: 52, y: 42, isTarget: false }
 ];
 const MEMORY_CARDS = [
   { id: "moon-a", pair: "moon", symbol: "🌙", label: "moon" },
@@ -18,16 +23,25 @@ const MEMORY_CARDS = [
   { id: "heart-a", pair: "heart", symbol: "💜", label: "purple heart" },
   { id: "heart-b", pair: "heart", symbol: "💜", label: "purple heart" },
   { id: "moon-b", pair: "moon", symbol: "🌙", label: "moon" },
-  { id: "paw-b", pair: "paw", symbol: "🐾", label: "pawprints" }
+  { id: "paw-b", pair: "paw", symbol: "🐾", label: "pawprints" },
+  { id: "sparkle-a", pair: "sparkle", symbol: "✨", label: "sparkle" },
+  { id: "sparkle-b", pair: "sparkle", symbol: "✨", label: "sparkle" }
 ];
-const RHYTHM = ["🐾", "🌙", "💜", "✨"];
+const MEMORY_PAIR_COUNT = MEMORY_CARDS.length / 2;
+const RHYTHM_KEYS = [
+  { symbol: "🐾", label: "pawprints" },
+  { symbol: "🌙", label: "moon" },
+  { symbol: "💜", label: "purple heart" },
+  { symbol: "✨", label: "sparkle" }
+];
+const RHYTHM_SEQUENCE = ["🐾", "🌙", "💜", "✨", "🐾", "🌙"];
 const ARCADE_GAMES = ["stars", "memory", "rhythm", "fireflies", "wishes"];
 const GAME_REWARDS = {
-  stars: { theme: "starlight", eyebrow: "THE SKY IS CHEERING FOR YOU", title: "A whole galaxy belongs to you.", glyph: "✦", copy: "Seven little lights were hiding in the dark, and you found every single one. Look what happens when curiosity gets to lead.", detail: "A pocketful of stardust, collected just for you.", score: "7 / 7 stars caught" },
-  memory: { theme: "memory", eyebrow: "EVERY LITTLE THING MATTERS", title: "You remembered every little wonder.", glyph: "💜", copy: "Moon, pawprints, and purple hearts — every pair found its way home. Mimi has decided your memory deserves its very own constellation.", detail: "Three perfect pairs. A thousand tiny connections.", score: "3 / 3 matching pairs" },
-  rhythm: { theme: "rhythm", eyebrow: "MAKE SOME NOISE, LITTLE STAR", title: "Mimi's tiny concert is a HIT!", glyph: "🐾", copy: "Paw, moon, heart, sparkle — four beats, one flawless little dance. Mimi would take a bow, if she weren't busy celebrating you.", detail: "Perfect rhythm. Maximum tiny-paw energy.", score: "4 / 4 beats in sync" },
+  stars: { theme: "starlight", eyebrow: "THE SKY IS CHEERING FOR YOU", title: "You found the heart in the stars.", glyph: "✦", copy: "Eight stars, four decoys, and one very smug kitten. You followed the trail in order and found the heart she tried so hard to hide.", detail: "A constellation earned one careful tap at a time.", score: "8 / 8 trail stars found" },
+  memory: { theme: "memory", eyebrow: "EVERY LITTLE THING MATTERS", title: "You remembered every little wonder.", glyph: "💜", copy: "Eight shuffled cards, four pairs, and a kitten who absolutely did not peek. Mimi has decided your memory deserves its very own constellation.", detail: "Four perfect pairs. A thousand tiny connections.", score: "4 / 4 matching pairs" },
+  rhythm: { theme: "rhythm", eyebrow: "MAKE SOME NOISE, LITTLE STAR", title: "Mimi's tiny concert is a HIT!", glyph: "🐾", copy: "Six beats, one tricky echo, and a flawless little dance. Mimi would take a bow, if she weren't busy looking unbearably pleased with herself.", detail: "A six-beat code, remembered one paw at a time.", score: "6 / 6 beats in sync" },
   fireflies: { theme: "fireflies", eyebrow: "YOU MADE THE NIGHT GLOW", title: "You just lit up the whole garden.", glyph: "✧", copy: "Five fireflies have found their light, and suddenly the whole garden feels like a secret summer evening.", detail: "Five golden sparks, all glowing because of you.", score: "5 / 5 fireflies caught" },
-  wishes: { theme: "wishes", eyebrow: "A LITTLE MAGIC FOR THE FUTURE", title: "Five wishes. One very bright future.", glyph: "♡", copy: "You opened every tiny wish tucked inside the jar. They're not promises about what has happened — they're soft hopes for all the lovely things still waiting ahead.", detail: "Five wishes found. Your next little chapter is wide open.", score: "5 / 5 wishes revealed" }
+  wishes: { theme: "wishes", eyebrow: "A LITTLE MAGIC FOR THE FUTURE", title: "Five wishes. One very bright future.", glyph: "♡", copy: "You solved every riddle and opened the jar's future-facing wishes. They're not promises about what has happened — they're soft hopes for all the lovely things still waiting ahead.", detail: "Five wishes found. Your next little chapter is wide open.", score: "5 / 5 wishes unlocked" }
 };
 const REWARD_SPARKS = ["✦", "✧", "♡", "♥", "✺", "✶", "✷", "💜", "⋆", "❋"];
 
@@ -87,6 +101,20 @@ const WISHES = [
   "One day, a perfect quiet evening will include a very spoiled cat.",
   "May this next chapter bring brave plans, gentle surprises, and bright mornings."
 ];
+const WISH_KEYS = [
+  { id: "moon", symbol: "🌙", label: "the moon" },
+  { id: "paws", symbol: "🐾", label: "pawprints" },
+  { id: "heart", symbol: "💜", label: "a purple heart" },
+  { id: "star", symbol: "✦", label: "a star" },
+  { id: "shooting-star", symbol: "✨", label: "a shooting star" }
+];
+const WISH_RIDDLES = [
+  { question: "I borrow sunlight but never shine by myself. I change shape through the month. Who am I?", answer: "🌙", hint: "Look up at night: I wax and wane, but I am not a star." },
+  { question: "I follow Mimi without shoes, leaving tiny stamps wherever she goes. What am I?", answer: "🐾", hint: "Mimi leaves them on the floor and in your heart." },
+  { question: "You can give me away and still have more to give. What am I?", answer: "💜", hint: "Zack tucked one into this whole little universe." },
+  { question: "I twinkle in the dark, but I will never burn your fingers. What am I?", answer: "✦", hint: "Think of the tiny lights scattered above the garden." },
+  { question: "I am a wish with a glittering trail through the night sky. What am I?", answer: "✨", hint: "Not the moon—the brief shimmer that races across the sky." }
+];
 const REVEALS = {
   moon: { title: "The moon kept a secret", copy: "You tapped seven times and woke up the little moon. It has one wish for Malika: may your next chapter be full of soft landings and impossible-looking stars.", glyph: "☾" },
   paws: { title: "Mimi's fifth hello", copy: "That was not an ordinary pet. Mimi has been rehearsing a tiny birthday dance and has officially promoted you to Head of Cat Appreciation.", glyph: "🐾" },
@@ -97,6 +125,15 @@ const REVEALS = {
 
 function addUnique(setter, id) {
   setter((previous) => previous.includes(id) ? previous : [...previous, id]);
+}
+
+function shuffledMemoryCards() {
+  const cards = [...MEMORY_CARDS];
+  for (let index = cards.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(Math.random() * (index + 1));
+    [cards[index], cards[swapIndex]] = [cards[swapIndex], cards[index]];
+  }
+  return cards;
 }
 
 export default function EasterEggSystem() {
@@ -110,10 +147,14 @@ export default function EasterEggSystem() {
   const [toast, setToast] = useState("");
   const [caughtStars, setCaughtStars] = useState([]);
   const [caughtFireflies, setCaughtFireflies] = useState([]);
+  const [memoryDeck, setMemoryDeck] = useState(MEMORY_CARDS);
   const [openedCards, setOpenedCards] = useState([]);
   const [matchedCards, setMatchedCards] = useState([]);
   const [memoryMismatch, setMemoryMismatch] = useState(false);
   const [rhythmStep, setRhythmStep] = useState(0);
+  const [rhythmCueIndex, setRhythmCueIndex] = useState(-1);
+  const [rhythmPlaybackActive, setRhythmPlaybackActive] = useState(false);
+  const rhythmTimers = useRef([]);
   const [gameWon, setGameWon] = useState(false);
   const [celebrationId, setCelebrationId] = useState(null);
   const [wishIndex, setWishIndex] = useState(-1);
@@ -127,6 +168,11 @@ export default function EasterEggSystem() {
     setToast(text);
     window.clearTimeout(toastTimer.current);
     toastTimer.current = window.setTimeout(() => setToast(""), 6200);
+  }
+
+  function clearRhythmTimers() {
+    rhythmTimers.current.forEach((timer) => window.clearTimeout(timer));
+    rhythmTimers.current = [];
   }
 
   function openArcade(achievement) {
@@ -167,16 +213,20 @@ export default function EasterEggSystem() {
   }
 
   function startGame(id) {
+    clearRhythmTimers();
     setActiveGame(id);
     setPanel("game");
     setCaughtStars([]);
     setCaughtFireflies([]);
+    if (id === "memory") setMemoryDeck(shuffledMemoryCards());
     window.clearTimeout(mismatchTimer.current);
     mismatchTimer.current = null;
     setOpenedCards([]);
     setMatchedCards([]);
     setMemoryMismatch(false);
     setRhythmStep(0);
+    setRhythmCueIndex(-1);
+    setRhythmPlaybackActive(false);
     setGameWon(false);
     setCelebrationId(null);
     setWishIndex(-1);
@@ -291,6 +341,7 @@ export default function EasterEggSystem() {
   useEffect(() => () => {
     window.clearTimeout(toastTimer.current);
     window.clearTimeout(mismatchTimer.current);
+    rhythmTimers.current.forEach((timer) => window.clearTimeout(timer));
   }, []);
 
   function flipCard(id) {
@@ -329,24 +380,49 @@ export default function EasterEggSystem() {
     }
   }
 
+  function showRhythm() {
+    if (gameWon || rhythmPlaybackActive) return;
+    clearRhythmTimers();
+    setRhythmStep(0);
+    setRhythmCueIndex(-1);
+    setRhythmPlaybackActive(true);
+
+    RHYTHM_SEQUENCE.forEach((symbol, index) => {
+      rhythmTimers.current.push(window.setTimeout(() => setRhythmCueIndex(index), 80 + index * 650));
+      rhythmTimers.current.push(window.setTimeout(() => setRhythmCueIndex(-1), 470 + index * 650));
+    });
+    rhythmTimers.current.push(window.setTimeout(() => {
+      setRhythmCueIndex(-1);
+      setRhythmPlaybackActive(false);
+      rhythmTimers.current = [];
+    }, 4000));
+  }
+
   function playRhythm(symbol) {
-    if (gameWon) return;
-    if (symbol === RHYTHM[rhythmStep]) {
+    if (gameWon || rhythmPlaybackActive) return;
+    if (symbol === RHYTHM_SEQUENCE[rhythmStep]) {
       const next = rhythmStep + 1;
       setRhythmStep(next);
-      if (next === RHYTHM.length) {
+      if (next === RHYTHM_SEQUENCE.length) {
         setGameWon(true);
+        clearRhythmTimers();
         finishGame("rhythm", "mimi-rhythm");
       }
     } else {
-      setRhythmStep(symbol === RHYTHM[0] ? 1 : 0);
-      announce("Mimi blinked! The rhythm starts with pawprints. Give it another try.");
+      const missedBeat = rhythmStep + 1;
+      setRhythmStep(0);
+      announce("Mimi flicked her tail at beat " + missedBeat + ". Your combo is gone. (She is pretending not to be smug.) Watch the rhythm again and have another go.");
     }
   }
 
-  function shakeWishJar() {
+  function answerWish(symbol) {
     if (gameWon) return;
-    const next = (wishIndex + 1) % WISHES.length;
+    const next = wishIndex + 1;
+    const riddle = WISH_RIDDLES[next];
+    if (symbol !== riddle.answer) {
+      announce("Mimi tips the jar away with one very judgmental paw. " + riddle.hint);
+      return;
+    }
     setWishIndex(next);
     addUnique(setUnlocked, "wish-jar");
     if (next === WISHES.length - 1) {
@@ -357,67 +433,119 @@ export default function EasterEggSystem() {
 
   function renderMiniGame() {
     if (activeGame === "stars") return <div className="egg-game-content">
-      <p className="egg-game-instructions">Catch seven stars before the night hides them again. Every star is a button, and there is no timer.</p>
-      <div className="egg-star-field" aria-label="Secret star field">
-        {STARS.map((star) => <button key={star.id} type="button" className={caughtStars.includes(star.id) ? "egg-star-token is-caught" : "egg-star-token"}
-          style={{ left: star.x + "%", top: star.y + "%" }} disabled={caughtStars.includes(star.id)}
-          aria-label={caughtStars.includes(star.id) ? "Star " + star.id + " caught" : "Catch secret star " + star.id}
-          onClick={() => { const next = [...caughtStars, star.id]; setCaughtStars(next); if (next.length >= 7) { setGameWon(true); finishGame("stars", "seven-stars"); } }}>
-          {caughtStars.includes(star.id) ? "✦" : "✧"}
-        </button>)}
+      <p className="egg-game-instructions">Mimi drew a heart in the sky, then scattered four glittery decoys. Trace the eight-star trail in order, starting at the left curl and finishing at the bottom tip. Wrong taps do not erase progress—but Mimi will absolutely notice.</p>
+      <div className="egg-star-field" aria-label="A heart-shaped constellation with eight stars and four decoys">
+        <svg className="egg-star-trail" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <path className="egg-star-trail-line" d={STAR_TRAIL_PATH} />
+          <path className="egg-star-trail-progress" pathLength="100" d={STAR_TRAIL_PATH}
+            style={{ strokeDasharray: 100, strokeDashoffset: 100 - (caughtStars.length / STAR_TARGET_COUNT) * 100 }} />
+        </svg>
+        {STARS.map((star) => {
+          const caught = caughtStars.includes(star.id);
+          return <button key={star.id} type="button"
+            data-testid={star.step ? "star-target-" + star.step : "star-decoy-" + star.id}
+            className={(caught ? "egg-star-token is-caught" : "egg-star-token") + (star.step ? " is-trail-star" : " is-decoy-star")}
+            style={{ left: star.x + "%", top: star.y + "%" }} disabled={caught}
+            aria-label={caught ? "Star " + star.id + " caught" : "Tap sky star " + star.id}
+            onClick={() => {
+              if (!star.step) {
+                announce("A glittery decoy! Mimi made it extra convincing on purpose. Follow the faint heart trail, detective.");
+                return;
+              }
+              const expectedStep = caughtStars.length + 1;
+              if (star.step !== expectedStep) {
+                announce("Mimi caught you skipping ahead. The heart trail starts at the left curl and must be followed in order. No progress lost—yet.");
+                return;
+              }
+              const next = [...caughtStars, star.id];
+              setCaughtStars(next);
+              if (next.length >= STAR_TARGET_COUNT) {
+                setGameWon(true);
+                finishGame("stars", "seven-stars");
+              }
+            }}>
+            {caught ? "✦" : "✧"}
+          </button>;
+        })}
       </div>
-      <p className="egg-progress" aria-live="polite">{caughtStars.length} / 7 stars caught</p>
-      {gameWon && <p className="egg-win" role="status">Star shower! Seven tiny lights are now yours. ✨</p>}
+      <p className="egg-progress" aria-live="polite">{caughtStars.length} / {STAR_TARGET_COUNT} trail stars found</p>
+      {gameWon && <p className="egg-win" role="status">You found the heart Mimi tried to hide. She says she was “testing your curiosity.” Obviously. ✨</p>}
     </div>;
 
     if (activeGame === "memory") return <div className="egg-game-content">
-      <p className="egg-game-instructions">Find the three matching pairs: moon, pawprints, and a purple heart. If two cards do not match, choose another to turn them down.</p>
+      <p className="egg-game-instructions">Eight cards, four pairs—and Mimi shuffled them while you were reading this. Turn over two at a time and remember where each symbol lives. The card labels will not give the pairs away. Mimi is not above a little mischief.</p>
       <div className="egg-memory-grid">
-        {MEMORY_CARDS.map((card) => {
+        {memoryDeck.map((card, index) => {
           const shown = openedCards.includes(card.id) || matchedCards.includes(card.id);
           const mismatch = memoryMismatch && openedCards.includes(card.id) && !matchedCards.includes(card.id);
-          return <button key={card.id} type="button" className={"egg-memory-card" + (shown ? " is-open" : "") + (mismatch ? " is-mismatch" : "")}
-            aria-label={shown ? card.label : "Turn over memory card " + card.id}
+          return <button key={card.id} type="button" data-testid={"memory-card-" + card.id}
+            className={"egg-memory-card" + (shown ? " is-open" : "") + (mismatch ? " is-mismatch" : "")}
+            aria-label={shown ? "Memory card showing " + card.label : "Turn over memory card " + (index + 1)}
             aria-pressed={shown} onClick={() => flipCard(card.id)}>
             {shown ? card.symbol : "✧"}
           </button>;
         })}
       </div>
-      <p className="egg-progress" aria-live="polite">{memoryMismatch ? "Not a match — the cards will turn back over shortly." : matchedCards.length / 2 + " / 3 matching pairs found"}</p>
+      <p className="egg-progress" aria-live="polite">{memoryMismatch ? "No match! Mimi saw that. She is pretending not to judge you." : matchedCards.length / 2 + " / " + MEMORY_PAIR_COUNT + " matching pairs found"}</p>
       {gameWon && <p className="egg-win" role="status">Mimi remembers all the little things. Memory keeper unlocked! 🐾</p>}
     </div>;
 
     if (activeGame === "rhythm") return <div className="egg-game-content">
-      <p className="egg-game-instructions">Repeat Mimi's four-beat rhythm in the right order. The secret pattern begins with pawprints.</p>
-      <div className="egg-rhythm-pad">
-        {RHYTHM.map((symbol, index) => <button type="button" key={symbol} className="egg-rhythm-key" aria-label={"Play " + ["pawprints", "moon", "purple heart", "sparkle"][index]}
-          onClick={() => playRhythm(symbol)} disabled={gameWon}>{symbol}</button>)}
+      <p className="egg-game-instructions">Mimi has a six-beat secret. Watch the symbols one at a time, then repeat them from memory. The final two beats echo the opening pair. Miss a beat and your combo resets—but you can replay the cue whenever you need.</p>
+      <div className={"egg-rhythm-cue" + (rhythmCueIndex >= 0 ? " is-showing" : "")} data-testid="rhythm-cue"
+        role="status" aria-live="polite" aria-label={rhythmCueIndex >= 0 ? "Mimi's cue beat " + (rhythmCueIndex + 1) + " of " + RHYTHM_SEQUENCE.length : "Waiting for Mimi's rhythm cue"}>
+        <span className="egg-rhythm-cue-symbol">{rhythmCueIndex >= 0 ? RHYTHM_SEQUENCE[rhythmCueIndex] : "✧"}</span>
+        <small>{rhythmPlaybackActive ? "BEAT " + (rhythmCueIndex + 1) + " / " + RHYTHM_SEQUENCE.length : rhythmStep ? "YOUR COMBO · " + rhythmStep + " / " + RHYTHM_SEQUENCE.length : "THE CODE IS HIDING"}</small>
       </div>
-      <p className="egg-progress" aria-live="polite">{gameWon ? "Perfect rhythm!" : "Beats repeated: " + rhythmStep + " / " + RHYTHM.length}</p>
-      {gameWon && <p className="egg-win" role="status">Paw, moon, heart, sparkle! Mimi does a little victory dance. ✨</p>}
+      <button type="button" className="egg-action-button egg-rhythm-watch" onClick={showRhythm} disabled={gameWon || rhythmPlaybackActive}>
+        {rhythmPlaybackActive ? "Watch closely…" : rhythmStep ? "Watch the rhythm again" : "Watch Mimi's rhythm"} <span aria-hidden="true">✧</span>
+      </button>
+      <div className="egg-rhythm-pad">
+        {RHYTHM_KEYS.map(({ symbol, label }) => <button type="button" key={symbol} className="egg-rhythm-key" aria-label={"Play " + label}
+          onClick={() => playRhythm(symbol)} disabled={gameWon || rhythmPlaybackActive}>{symbol}</button>)}
+      </div>
+      <p className="egg-progress" aria-live="polite">{gameWon ? "Perfect rhythm!" : rhythmPlaybackActive ? "Shh… Mimi is showing you the code." : "Beats repeated: " + rhythmStep + " / " + RHYTHM_SEQUENCE.length}</p>
+      {gameWon && <p className="egg-win" role="status">Paw, moon, heart, sparkle, paw, moon! Mimi does a victory dance and acts like she knew you could do it. ✨</p>}
     </div>;
 
     if (activeGame === "fireflies") return <div className="egg-game-content">
-      <p className="egg-game-instructions">The ladybugs led you here. Catch five glowing fireflies, and the garden will give you a little extra light.</p>
+      <p className="egg-game-instructions">The ladybugs led you here. Catch five golden fireflies; the dim violet lights are decoys Mimi put there to test you. Tap the golden ones in any order. No timer—but she is watching.</p>
       <div className="egg-firefly-field">
-        {FIREFLIES.map((fly) => <button type="button" key={fly.id} className={caughtFireflies.includes(fly.id) ? "egg-firefly-token is-caught" : "egg-firefly-token"}
-          style={{ left: fly.x + "%", top: fly.y + "%" }} disabled={caughtFireflies.includes(fly.id)}
-          aria-label={caughtFireflies.includes(fly.id) ? "Firefly " + fly.id + " caught" : "Catch glowing firefly " + fly.id}
-          onClick={() => { const next = [...caughtFireflies, fly.id]; setCaughtFireflies(next); if (next.length >= 5) { setGameWon(true); finishGame("fireflies", "five-fireflies"); } }}>
-          {caughtFireflies.includes(fly.id) ? "✧" : "✦"}
-        </button>)}
+        {FIREFLIES.map((fly) => {
+          const caught = caughtFireflies.includes(fly.id);
+          return <button type="button" key={fly.id} data-testid={fly.isTarget ? "firefly-target-" + fly.id : "firefly-decoy-" + fly.id}
+            className={(caught ? "egg-firefly-token is-caught" : "egg-firefly-token") + (fly.isTarget ? " is-real-firefly" : " is-decoy-firefly")}
+            style={{ left: fly.x + "%", top: fly.y + "%" }} disabled={caught}
+            aria-label={caught ? "Firefly " + fly.id + " caught" : "Tap glowing firefly " + fly.id}
+            onClick={() => {
+              if (!fly.isTarget) {
+                announce("Mimi planted a fake light. Nice try. The real fireflies glow gold; the violet ones are just showing off.");
+                return;
+              }
+              const next = [...caughtFireflies, fly.id];
+              setCaughtFireflies(next);
+              if (next.length >= 5) { setGameWon(true); finishGame("fireflies", "five-fireflies"); }
+            }}>
+            {caught ? "✧" : "✦"}
+          </button>;
+        })}
       </div>
-      <p className="egg-progress" aria-live="polite">{caughtFireflies.length} / 5 fireflies caught</p>
-      {gameWon && <p className="egg-win" role="status">The garden is glowing a little brighter because of you. ✨</p>}
+      <p className="egg-progress" aria-live="polite">{caughtFireflies.length} / 5 real fireflies caught</p>
+      {gameWon && <p className="egg-win" role="status">The garden is glowing a little brighter because of you. Mimi says the golden ones were “obvious.” She is lying. ✨</p>}
     </div>;
 
+    const activeRiddle = WISH_RIDDLES[Math.min(wishIndex + 1, WISH_RIDDLES.length - 1)];
     return <div className="egg-game-content">
-      <p className="egg-game-instructions">A glass jar holds future-facing wishes, not memories. Shake it gently to discover one.</p>
+      <p className="egg-game-instructions">A glass jar holds five future-facing wishes, not memories. Mimi has locked it with five tiny riddles. Choose the symbol that answers each clue; a wrong guess earns a nudge, not a penalty.</p>
       <div className={wishIndex >= 0 ? "egg-wish-jar has-wish" : "egg-wish-jar"} aria-hidden="true">🫙<span>✧</span><span>♡</span><span>✦</span></div>
-      <button type="button" className="egg-action-button" onClick={shakeWishJar} disabled={gameWon}>
-        {gameWon ? "All five wishes revealed" : "Shake the wish jar"} <span aria-hidden="true">✧</span>
-      </button>
-      <p className="egg-progress" aria-live="polite">{Math.max(0, wishIndex + 1)} / {WISHES.length} wishes revealed</p>
+      {!gameWon && <p className="egg-wish-riddle" data-testid="wish-riddle">{activeRiddle.question}</p>}
+      <div className="egg-wish-keys">
+        {WISH_KEYS.map((key) => <button type="button" key={key.id} className="egg-wish-key" data-testid={"wish-key-" + key.id}
+          aria-label={"Choose " + key.label} onClick={() => answerWish(key.symbol)} disabled={gameWon}>
+          <span aria-hidden="true">{key.symbol}</span><small>{key.label}</small>
+        </button>)}
+      </div>
+      <p className="egg-progress" aria-live="polite">{Math.max(0, wishIndex + 1)} / {WISHES.length} wishes unlocked</p>
       {wishIndex >= 0 && <p className="egg-wish-copy" key={wishIndex} role="status">{WISHES[wishIndex]}</p>}
       {gameWon && <p className="egg-win" role="status">All five wishes are yours. The final secret is now waiting in the arcade. ♡</p>}
     </div>;
@@ -429,7 +557,7 @@ export default function EasterEggSystem() {
   const reveal = REVEALS[revealId] || REVEALS.moon;
   const reward = GAME_REWARDS[celebrationId] || GAME_REWARDS.stars;
   const title = panel === "cabinet" ? "The secret arcade" : isCelebration ? reward.title : isGame
-    ? ({ stars: "Seven-star catcher", memory: "Mimi's memory match", rhythm: "Mimi's pawprint rhythm", fireflies: "Firefly hunt", wishes: "The little wish jar" }[activeGame] || "A tiny secret")
+    ? ({ stars: "Mimi's constellation chase", memory: "Mimi's memory match", rhythm: "Mimi's pawprint rhythm", fireflies: "Firefly hunt", wishes: "The little wish jar" }[activeGame] || "A tiny secret")
     : reveal.title;
 
   return <>
@@ -538,11 +666,11 @@ export default function EasterEggSystem() {
             </div>
           </div>
           <div className="egg-game-list">
-            <button type="button" className={completedGames.includes("stars") ? "egg-game-tile is-complete" : "egg-game-tile"} onClick={() => startGame("stars")}><span>✧</span><strong>Seven-star catcher</strong><small>{completedGames.includes("stars") ? "✓ Complete · play again" : "Catch 7 of 12 hidden stars"}</small></button>
-            <button type="button" className={completedGames.includes("memory") ? "egg-game-tile is-complete" : "egg-game-tile"} onClick={() => startGame("memory")}><span>🌙</span><strong>Mimi's memory match</strong><small>{completedGames.includes("memory") ? "✓ Complete · play again" : "Find the moon, paw, and heart pairs"}</small></button>
-            <button type="button" className={completedGames.includes("rhythm") ? "egg-game-tile is-complete" : "egg-game-tile"} onClick={() => startGame("rhythm")}><span>🐾</span><strong>Pawprint rhythm</strong><small>{completedGames.includes("rhythm") ? "✓ Complete · play again" : "Repeat Mimi's four-beat code"}</small></button>
-            <button type="button" className={completedGames.includes("fireflies") ? "egg-game-tile is-complete" : "egg-game-tile"} onClick={() => startGame("fireflies")}><span>✦</span><strong>Firefly hunt</strong><small>{completedGames.includes("fireflies") ? "✓ Complete · play again" : "Catch 5 glowing fireflies"}</small></button>
-            <button type="button" className={completedGames.includes("wishes") ? "egg-game-tile is-complete" : "egg-game-tile"} onClick={() => startGame("wishes")}><span>🫙</span><strong>The little wish jar</strong><small>{completedGames.includes("wishes") ? "✓ Complete · play again" : "Reveal all five future-facing wishes"}</small></button>
+            <button type="button" className={completedGames.includes("stars") ? "egg-game-tile is-complete" : "egg-game-tile"} onClick={() => startGame("stars")}><span>✧</span><strong>Mimi's constellation chase</strong><small>{completedGames.includes("stars") ? "✓ Complete · play again" : "Trace a heart in order; dodge four decoys"}</small></button>
+            <button type="button" className={completedGames.includes("memory") ? "egg-game-tile is-complete" : "egg-game-tile"} onClick={() => startGame("memory")}><span>🌙</span><strong>Mimi's memory match</strong><small>{completedGames.includes("memory") ? "✓ Complete · play again" : "Eight shuffled cards, four pairs"}</small></button>
+            <button type="button" className={completedGames.includes("rhythm") ? "egg-game-tile is-complete" : "egg-game-tile"} onClick={() => startGame("rhythm")}><span>🐾</span><strong>Pawprint rhythm</strong><small>{completedGames.includes("rhythm") ? "✓ Complete · play again" : "Memorize Mimi's six-beat code"}</small></button>
+            <button type="button" className={completedGames.includes("fireflies") ? "egg-game-tile is-complete" : "egg-game-tile"} onClick={() => startGame("fireflies")}><span>✦</span><strong>Firefly hunt</strong><small>{completedGames.includes("fireflies") ? "✓ Complete · play again" : "Catch five gold lights; dodge violet decoys"}</small></button>
+            <button type="button" className={completedGames.includes("wishes") ? "egg-game-tile is-complete" : "egg-game-tile"} onClick={() => startGame("wishes")}><span>🫙</span><strong>The little wish jar</strong><small>{completedGames.includes("wishes") ? "✓ Complete · play again" : "Solve five tiny riddles to unlock the wishes"}</small></button>
           </div>
           <div className="egg-unlock-counter"><span>Secrets uncovered</span><strong>{unlocked.length}</strong></div>
           {unlocked.length > 0 && <p className="egg-tiny-note">Your discoveries are kept for this visit only.</p>}

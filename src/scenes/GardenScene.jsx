@@ -62,6 +62,9 @@ export default function GardenScene({ discoveredCount, requiredHearts, onOpenNot
     }
     if (index !== constellationStep) {
       setConstellationStep(index === 0 ? 1 : 0);
+      setCatMessage(index === 0
+        ? "Mimi saw that almost-shortcut. Fine, you can restart at the first twinkle—but she is absolutely keeping score."
+        : "Caught you skipping ahead. Mimi taps the left curl with one tiny paw: follow the heart in order, detective.");
       return;
     }
     const nextStep = constellationStep + 1;
@@ -77,7 +80,7 @@ export default function GardenScene({ discoveredCount, requiredHearts, onOpenNot
     <div className="scene-heading garden-heading">
       <p className="eyebrow">✦ a birthday garden, just for Malika</p>
       <h1 id="garden-heading">A garden full of little things <em>just for you.</em></h1>
-      <p>Zack tucked tiny surprises between the stars. Wander slowly, tap a ladybug, say hello to Mimi, and let the garden give up its little secrets one by one.</p>
+      <p>Zack tucked tiny surprises between the stars. Wander slowly, tap a ladybug, say hello to Mimi, and let the garden give up its little secrets one by one. Mimi may pretend she did not notice your shortcuts. She is a terrible liar.</p>
     </div>
     <div className="garden-landscape">
       <div className="garden-sky-depth" aria-hidden="true">

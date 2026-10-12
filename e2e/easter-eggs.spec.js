@@ -143,7 +143,7 @@ test("completing all five arcade quests unlocks the grand-secret finale", async 
 
   await page.getByRole("button", { name: /The little wish jar/ }).click();
   for (let i = 0; i < 5; i += 1) {
-    await page.getByRole("button", { name: "Shake the wish jar" }).click();
+    await page.getByRole("button", { name: /^Shake the wish jar/ }).click();
   }
   await expect(page.getByRole("status").filter({ hasText: "All five wishes are yours" })).toBeVisible();
   await expect(page.locator(".egg-progress")).toHaveText("5 / 5 wishes revealed");

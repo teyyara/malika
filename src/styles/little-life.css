@@ -353,3 +353,39 @@
 @media (prefers-reduced-motion: reduce) {
   .cat-art.cat-is-purring .cat-head { animation: none !important; }
 }
+
+
+/* Loop 020 — make Mimi's purr feel alive, not just labelled. */
+.cat-art.cat-is-purring .cat-head {
+  transform-box: fill-box;
+  transform-origin: center 72%;
+  animation: mimi-real-purr-head .16s ease-in-out infinite;
+}
+.cat-art.cat-is-purring .cat-tail {
+  transform-box: fill-box;
+  transform-origin: 16% 72%;
+  animation: mimi-real-purr-tail .54s ease-in-out infinite alternate;
+}
+.cat-art.cat-is-purring .cat-cheek {
+  animation: mimi-purr-blush .72s ease-in-out infinite alternate;
+}
+@keyframes mimi-real-purr-head {
+  0%, 100% { transform: translateX(0) translateY(0); }
+  25% { transform: translateX(-.45px) translateY(.2px); }
+  75% { transform: translateX(.45px) translateY(-.2px); }
+}
+@keyframes mimi-real-purr-tail {
+  from { transform: rotate(-2deg); }
+  to { transform: rotate(4deg); }
+}
+@keyframes mimi-purr-blush {
+  from { opacity: .55; }
+  to { opacity: .94; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cat-art.cat-is-purring .cat-head,
+  .cat-art.cat-is-purring .cat-tail,
+  .cat-art.cat-is-purring .cat-cheek {
+    animation: none !important;
+  }
+}

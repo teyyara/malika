@@ -1,4 +1,4 @@
-# Complete easter-egg guide — Loop 019
+# Complete easter-egg guide — Loop 020
 
 **Full spoilers.** This is the complete walkthrough for Zack, not a hint sheet to hand to Malika before she explores. The website's hidden progress exists only in the current page session: it is not written to a server, browser storage, or analytics. Reloading starts a fresh hunt. None of these secrets is required to read the birthday letter or finish the main heart game.
 
@@ -191,7 +191,23 @@ The love-note score and achievement fanfares remain original Web Audio arrangeme
 
 **Regression coverage:** e2e/little-life.spec.js verifies that all three audio files load successfully from the site's own origin, a real meow buffer plays, the second pet plays the purr recording, and the mute control interrupts active playback. It also checks the romantic score lifecycle and each prize's achievement cue. These automated checks validate loading, playback scheduling, and stop behavior—not a subjective headphone or speaker listening test.
 
-## 9. Progress, accessibility, and reset behavior
+## 9. Loop 020 — A more natural little soundscape
+
+This refinement keeps the recorded cat sounds from Loop 019 and focuses on timing, layering, and the movement that accompanies Mimi's voice.
+
+### Let the cat recordings sound like recordings
+- Mimi's two meows still alternate between the locally bundled recordings; playback-rate variation is deliberately small so a real cat's call is not turned into a cartoon voice by heavy pitch shifting.
+- A second quick pet gives Mimi a **3.2-second purr passage** from the bundled purr recording. A short fade-in and longer fade-out keep the beginning and ending softer.
+- A new pet gently fades the previous animal voice. If a sound file is still decoding, only the newest pet request is allowed to play; rapid clicks no longer queue delayed meows and purrs over one another.
+- Mimi's meow-mouth stays animated for roughly the voice clip's length, while her purr adds a quiet head tremble, tail sway, and warm cheek glow. Reduced-motion settings suppress these ornamental movements without disabling sound.
+
+### Give the love song and rewards more body
+The love-note soundtrack now layers softly filtered chord pads with gentle upper harmonics, a more rounded arpeggio, a melodic line, subtle left/right placement, and the existing short echo. The extra layers remain quiet under the letter rather than competing with its text. Prize chimes keep their individual motifs, while note music remains limited to the time a love note is open and sound is enabled.
+
+### What the automated checks can and cannot prove
+The browser suite now verifies that the recorded purr is scheduled for about 3.2 seconds and that rapid petting during delayed audio decoding plays only the latest cat voice. It also continues to check local asset loading, muting, romantic-score lifecycle, and the five prize-sound mapping. These are playback and interaction checks—not a human listening test of tone quality on every speaker or device.
+
+## 10. Progress, accessibility, and reset behavior
 
 - The arcade tracks completed quests and found secrets only in page memory for this visit. Refreshing the page resets them; no third-party storage, account, API, or paid service is involved.
 - Dialogs can be closed with their close button or **Escape**. Focus returns to the opener and stays inside the dialog while it is open.

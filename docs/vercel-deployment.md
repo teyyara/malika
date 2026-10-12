@@ -6,13 +6,17 @@ The app is a React + Vite single-page experience. Scene changes happen in React 
 
 - **Vercel project:** [malika-birthday](https://vercel.com/tyyr1/malika-birthday)
 - **GitHub repository:** [teyyara/malika](https://github.com/teyyara/malika)
-- **Production branch to verify:** `main`
-- **Vercel-reported Ready preview:** https://malika-birthday-git-aeos-progression-tyyr1.vercel.app
-- **Vercel bot evidence:** [PR #2 deployment update](https://github.com/teyyara/malika/pull/2#issuecomment-6115512987)
-- **Validated app checkpoint:** `8fe4b6363a748f7987d17b8f9ede8e7682d4a9e8`
+- **Production commit:** `8fe4b6363a748f7987d17b8f9ede8e7682d4a9e8` on `main`
+- **Production status:** Vercel reports **Ready**
+- **Production aliases reported by Vercel:**
+  - https://malika-birthday-kappa.vercel.app
+  - https://malika-birthday-tyyr1.vercel.app
+  - https://malika-birthday-git-main-tyyr1.vercel.app
+- **Ready branch preview:** https://malika-birthday-git-aeos-progression-tyyr1.vercel.app
+- **Vercel GitHub bot evidence:** [PR #2 deployment update](https://github.com/teyyara/malika/pull/2#issuecomment-6115512987)
 - **Automated release run:** [Validate Malika · run 38188085348](https://github.com/teyyara/malika/actions/runs/38188085348)
 
-The Preview URL above was posted by Vercel's GitHub integration with status **Ready** after the final source candidate was pushed. It is a public, shareable HTTPS preview. The Vercel production/custom-domain alias is not separately recorded in the available deployment status, so do not infer that a common project-name URL is the production alias.
+Vercel's project metadata reports SSO protection enabled for Vercel-hosted domains (with custom domains excluded from that setting). A time-limited shareable bypass was generated for the intended reviewer on 12 October 2026. Its secret is deliberately not stored in this repository; use the private bypass URL supplied by the release operator if the reviewer cannot authenticate normally. Do not publish the bypass secret in GitHub issues, commits, or this file.
 
 ## Exact project settings
 
@@ -21,23 +25,19 @@ The Preview URL above was posted by Vercel's GitHub integration with status **Re
 - **Install command:** `npm install` (default)
 - **Build command:** `npm run build`
 - **Output directory:** `dist`
-- **Node.js:** a supported Node 22 runtime; package requires Node.js 20.19 or newer
+- **Node.js:** Vercel project currently reports Node 24.x; package requires Node.js 20.19 or newer
 - **Environment variables:** none
 - **External or paid runtime APIs:** none
 
 A custom `vercel.json` is intentionally omitted: the current app uses only the root browser path with React-managed scene state, so it does not need an SPA deep-link rewrite.
 
-## Confirm the production URL
+## Reviewer smoke test
 
-1. Open the [Vercel project dashboard](https://vercel.com/tyyr1/malika-birthday).
-2. In **Settings → Git**, confirm the production branch is `main`.
-3. Open **Deployments** and select the newest deployment associated with the latest `main` commit. Wait for its status to be **Ready**, then use Vercel's **Visit** action.
-4. If a stable production domain is assigned, inspect **Settings → Domains** and copy the exact domain Vercel lists. Do not substitute a guessed `*.vercel.app` hostname.
-5. On the production URL, verify the welcome, petting Mimi, the three-star constellation, ladybug/flower notes, seven-heart win, birthday letter, and final surprise on desktop and a phone-sized viewport.
-6. For an immediate share while confirming the production alias, the Vercel-reported Ready preview above is the known HTTPS URL.
-
-No new Vercel project import is necessary: the GitHub/Vercel project integration is already present. If that integration is later disconnected, use [Vercel New Project](https://vercel.com/new) to import `teyyara/malika` and apply the settings above.
+1. Open the private preview link supplied by the release operator, or authenticate to Vercel if prompted.
+2. Test the welcome, petting Mimi, the three-star constellation, ladybug/flower notes, seven-heart win, birthday letter, and final surprise.
+3. Check a desktop viewport and a phone-sized viewport.
+4. For mobile or screen-reader certification, use a real device and assistive technology; automated Chromium results are not a substitute.
 
 ## Privacy note
 
-The HTML uses `noindex, nofollow` to discourage search indexing, but this is not access control. Anyone with the shareable URL can open the birthday site.
+The HTML uses `noindex, nofollow` to discourage search indexing, but this is not access control. The shareable bypass URL is a bearer link: anyone who receives it can use it until it expires, so send it privately and do not commit it to the repository.

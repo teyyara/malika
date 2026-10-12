@@ -9,7 +9,7 @@ Everything below is intentionally discoverable, local-only, and spoiler-filled. 
 3. **Mimi's shortcut** — type `MIMI` on the page. It jumps straight into Mimi's Memory Match.
 4. **The wish moon** — on the welcome screen, click the large moon seven times within nine seconds. The moon opens its private birthday wish.
 5. **Mimi's fifth hello** — pet Mimi five times within eight seconds. The fifth interaction triggers her animated paw parade.
-6. **A quiet thank-you** — after entering the garden, click the tiny footer star (✦) three times within seven seconds for a small reveal.
+6. **A quiet thank-you** — after entering the garden, click or keyboard-activate the little footer star button (✦) three times within seven seconds for a small reveal.
 7. **Ladybug trail** — click any ladybug four times within nine seconds, closing each love-note popup in between. A small toast appears with an arcade shortcut.
 8. **The heart-mark door** — once the header is visible, click the little heart inside “for Malika” five times within seven seconds. This opens the Secret Arcade directly.
 
@@ -23,7 +23,7 @@ Open the arcade from any entrance above.
 Choose **Seven-star catcher**. Click any seven of the twelve twinkling stars. Each star can only count once; after seven, the star-shower victory message appears.
 
 ### 2. Mimi's memory match
-Choose **Mimi's memory match**. Find the moon pair, pawprint pair, and purple-heart pair. A mismatched pair stays visible until you select another card. For a quick smoke test, the card IDs are `moon-a` + `moon-b`, `paw-a` + `paw-b`, and `heart-a` + `heart-b`.
+Choose **Mimi's memory match**. Find the moon pair, pawprint pair, and purple-heart pair. A mismatched pair gets a soft rose outline and a live hint, then turns face-down after a brief pause. Choosing a third card during that pause moves on immediately. There is no game countdown. For a quick smoke test, the card IDs are moon-a + moon-b, paw-a + paw-b, and heart-a + heart-b.
 
 Typing `MIMI` starts this game directly.
 
@@ -43,12 +43,12 @@ Choose **The little wish jar**. Press **Shake the wish jar** repeatedly. Each sh
 - The secret dialog blooms in with blur/scale easing and a layered lavender night-sky panel.
 - Each reveal gets its own animated glyph: moon-glow, paw dance, comet/starfall, or a tiny sparkle thank-you.
 - Stars float and shimmer; caught stars sparkle away.
-- Memory cards flip into view; the rhythm buttons press in; fireflies glow/flicker.
+- Memory cards flip into view; a mismatched pair gets a brief rose outline and flips back after a short feedback pause; the rhythm buttons press in; fireflies glow/flicker.
 - The wish jar gently rocks while its wishes appear.
 - A “Secrets uncovered” counter rises as you discover entrances and win games.
 
 ## Accessibility and test notes
 
-Every target is a button or is inside a keyboard-addressable flow. Dialogs can be closed with **Escape** or the close button. Reduced-motion preferences disable the nonessential keyframe animations. Automated browser tests are in `e2e/easter-eggs.spec.js`; run them with `npm run test:e2e`.
+Every target is a button or is inside a keyboard-addressable flow. The footer star is a labelled, keyboard-focusable button rather than decorative text. Dialogs can be closed with **Escape** or the close button. Reduced-motion preferences disable the nonessential keyframe animations. Automated browser tests are in `e2e/easter-eggs.spec.js`; run them with `npm run test:e2e`.
 
 The Easter-egg counters and achievements are ephemeral (not stored in a server or local storage). Reloading the page starts a fresh hunt. The hidden content does not block the birthday letter, existing notes, constellation, or main heart game.

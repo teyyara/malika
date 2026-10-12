@@ -1,19 +1,19 @@
 {
   "schemaVersion": "1.0",
-  "runId": "malika-20261012-008",
+  "runId": "malika-20261012-009",
   "activeKeyphrase": "read the master strategy",
   "repository": "teyyara/malika",
   "releaseBranch": "main",
-  "progressionBranch": "feature/loop-008-gentle-secret-hints",
-  "currentLoop": 8,
-  "candidate": "malika-birthday-008-gentle-secret-hints",
-  "status": "MERGED_VALIDATED_PRODUCTION_UNVERIFIED",
+  "progressionBranch": "feature/loop-009-dopamine-celebrations",
+  "currentLoop": 9,
+  "candidate": "malika-birthday-009-dopamine-celebrations",
+  "status": "MERGED_VALIDATED_DEPLOYMENT_OWNER_HANDOFF",
   "orchestrationState": "WAITING_FOR_CONTINUE",
-  "validatedApplicationCheckpoint": "a2b011bbb876c8e1be01e27b039dc04227676f42",
+  "validatedApplicationCheckpoint": "8d40e627acff41fdc6cd2e7681cc563ed8a65392",
   "latestPassingWorkflowForCandidate": {
-    "runId": 38248660014,
-    "url": "https://github.com/teyyara/malika/actions/runs/38248660014",
-    "headSha": "07368333c4f6d5261d1e1c507ebf38ac2ac0a74d",
+    "runId": 38256068964,
+    "url": "https://github.com/teyyara/malika/actions/runs/38256068964",
+    "headSha": "175ac1a4244dfc898919a1a3a51d6aa83e913b27",
     "conclusion": "success",
     "nodeTestsPassed": 8,
     "nodeTestsFailed": 0,
@@ -21,8 +21,8 @@
     "playwrightTestsFailed": 0,
     "productionBuild": "PASS",
     "browser": "Chromium",
-    "browserReportArtifact": "https://github.com/teyyara/malika/actions/runs/38248660014/artifacts/11747565850",
-    "visualScreenshotArtifact": "https://github.com/teyyara/malika/actions/runs/38248660014/artifacts/11747600863"
+    "browserReportArtifact": "https://github.com/teyyara/malika/actions/runs/38256068964/artifacts/11750432061",
+    "visualScreenshotArtifact": "https://github.com/teyyara/malika/actions/runs/38256068964/artifacts/11750586910"
   },
   "personalization": {
     "recipientName": "Malika",
@@ -30,10 +30,10 @@
     "birthday": "12 October"
   },
   "pullRequest": {
-    "url": "https://github.com/teyyara/malika/pull/9",
-    "number": 9,
+    "url": "https://github.com/teyyara/malika/pull/11",
+    "number": 11,
     "state": "MERGED",
-    "mergeCommitSha": "a2b011bbb876c8e1be01e27b039dc04227676f42"
+    "mergeCommitSha": "8d40e627acff41fdc6cd2e7681cc563ed8a65392"
   },
   "automatedBrowserQA": {
     "status": "PASS",
@@ -44,12 +44,14 @@
       "Responsive layouts including 320px mobile viewport",
       "Reduced-motion preference",
       "Mimi and three-star constellation interactions",
-      "All five arcade games plus 5/5 grand reveal",
+      "All five arcade games open their own fullscreen reward treatment",
+      "Each reward includes 64 sparkle particles, score, distinct theme and viewport-sized presentation",
+      "Completing all five games still unlocks Keeper of Little Wonders",
       "Wrong Memory Match pair and recovery",
       "Wrong Pawprint Rhythm input and retry",
       "Ladybug toast auto-dismiss after panel switch",
       "Keyboard operation of footer-star secret",
-      "Progressive clue guide keyboard opening and spoiler opt-in"
+      "Garden clue guide has no spoiler-map disclosure or contents"
     ],
     "note": "Automated Chromium checks do not certify physical-device or screen-reader behavior."
   },
@@ -57,28 +59,28 @@
     "target": "Vercel",
     "projectName": "malika-birthday",
     "projectDashboard": "https://vercel.com/tyyr1/malika-birthday",
-    "productionStatus": "UNVERIFIED_AFTER_LOOP008_MERGE",
-    "latestMainCommit": "a2b011bbb876c8e1be01e27b039dc04227676f42",
-    "latestMainStatus": "No Vercel status returned through GitHub at last check.",
+    "productionStatus": "NOT_VERIFIED_OWNER_HANDOFF",
+    "latestMainCommit": "8d40e627acff41fdc6cd2e7681cc563ed8a65392",
+    "latestMainStatus": "Vercel status was pending at last check. Owner will handle redeployment; public alias was not independently verified.",
     "lastKnownReadyCommit": "be66face920cffdc16dce08213ae7c232938d7d5",
     "lastKnownReadyDeploymentId": "dpl_CzGS17bNAaTbaUCH7uLAP7XR6rQv",
     "previousFailedMainCommit": "5fdbd292707e27a84ae85b8782fe4cc3c27c5e8f",
     "previousFailedDeploymentId": "dpl_GrbCE3RnoKGws4A54c3NvJyoV7TE",
     "previousFailedDashboard": "https://vercel.com/tyyr1/malika-birthday/GrbCE3RnoKGws4A54c3NvJyoV7TE",
-    "latestPreviewCommit": "07368333c4f6d5261d1e1c507ebf38ac2ac0a74d",
-    "latestPreviewStatus": "Completed successfully",
+    "latestPreviewCommit": "175ac1a4244dfc898919a1a3a51d6aa83e913b27",
+    "latestPreviewStatus": "Vercel commit status success (preview; not production verification)",
     "stableAliases": [
       "malika-birthday-kappa.vercel.app",
       "malika-birthday-tyyr1.vercel.app",
       "malika-birthday-git-main-tyyr1.vercel.app"
     ],
-    "accessProblem": "Vercel connector returns access denied for deployment details and logs; current production alias cannot be confirmed to be serving latest main."
+    "accessProblem": "Production was not inspected or verified by assistant per owner request; do not infer readiness from a preview status."
   },
-  "manualVisualQA": "Loop008 rendered screenshot artifact exists; real device and screen-reader QA not yet observed.",
+  "manualVisualQA": "Playwright rendered screenshot artifact exists for Loop 009; no physical-device visual QA was performed.",
   "screenReaderQA": "NOT_YET_OBSERVED",
   "realMobileDeviceQA": "NOT_TESTED",
   "nextHighValueWork": [
-    "Verify latest main commit deployment in Vercel using authorized project access",
+    "Owner to redeploy and confirm production alias after Loop 009 merge",
     "Perform human touch/viewport QA on a physical phone",
     "Perform screen-reader QA with VoiceOver/NVDA"
   ],

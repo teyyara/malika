@@ -1,4 +1,4 @@
-# Complete easter-egg guide — Loop 016
+# Complete easter-egg guide — Loop 017
 
 **Full spoilers.** This is the complete walkthrough for Zack, not a hint sheet to hand to Malika before she explores. The website's hidden progress exists only in the current page session: it is not written to a server, browser storage, or analytics. Reloading starts a fresh hunt. None of these secrets is required to read the birthday letter or finish the main heart game.
 
@@ -115,7 +115,32 @@ Reward: *Five wishes. One very bright future.*
 ### The grand secret — Keeper of Little Wonders
 Finish **all five** arcade quests. Reopen the Secret Arcade and press **Open the grand secret**, which only appears after all five are complete. This reveals the full-screen *Keeper of Little Wonders* finale: a layered heart, nine comet trails, 112 flying symbols, and five treasures.
 
-## 6. Progress, accessibility, and reset behavior
+## 6. Loop 017 — The little life layer
+
+These are new interactive touches across the birthday journey, not extra gates needed to finish it.
+
+### Turn the tiny sounds on
+Sound is **off by default**. Click **Sound off** in the upper-right on the welcome scene, or in the header when exploring the other scenes. This enables a small set of soft, locally synthesized chimes: Mimi's pet/dance notes, note-opening chimes, heart-collection pips, little sounds for correct puzzle moves, and a brighter victory melody. Click **Sound on** any time to hush it again.
+
+The sounds are generated inside the browser with the Web Audio API. There are no audio files, recordings, network requests, external services, or autoplay; the toggle requires an explicit user action. Sound preference lives in page memory and resets when the page is reloaded.
+
+### Make Mimi dance
+Pet Mimi **three times within about 4 seconds**. She breaks into a little dance, wiggles her ears and tail, and gets a flurry of tiny heart/sparkle particles. Continue petting her: the existing **fifth hello** birthday secret is still there, so the extra dance does not replace the hidden paw parade.
+
+Mimi also has more life when she is not being petted: she blinks, swishes her tail, and the happy-version Mimi in the birthday finale keeps up a gentle little bob. Browsers with reduced-motion preferences suppress the dance's decorative movement.
+
+### Send a heart back from any love note
+Open a note from a ladybug, the flower, or the Love Collection. Tap the **floating heart** beneath the note text. It bounces and glows, a small confirmation appears — *A little heart has found its way back to Zack. Mimi approves.* — and an optional soft chime plays if sounds are enabled. Each newly opened note resets this tiny interaction so every note can receive its own heart.
+
+### Little sounds and movement across the experience
+- Finding a heart, solving a memory pair, entering a correct rhythm beat, catching a real firefly, or solving a wish makes a subtle success chime when sound is on.
+- Secret reveals get a soft three-note shimmer; each finished arcade quest earns a short celebratory melody.
+- Wrong puzzle choices get a lower, playful “Mimi caught you” cue. The game mechanics and progress are unchanged by sound.
+- The letter's seal, the floating hearts, the prize medallions, the garden flowers, the love-note title, and the animated finale still work with sound off.
+
+Everything remains client-side, optional, and temporary. No new dependencies, paid service, remote audio, persistence, analytics, or backend were added.
+
+## 7. Progress, accessibility, and reset behavior
 
 - The arcade tracks completed quests and found secrets only in page memory for this visit. Refreshing the page resets them; no third-party storage, account, API, or paid service is involved.
 - Dialogs can be closed with their close button or **Escape**. Focus returns to the opener and stays inside the dialog while it is open.

@@ -105,3 +105,30 @@ body {
 .egg-dialog.is-gate .egg-dialog-stars { color:#c7b8f9; }
 @media(max-width:680px) { .egg-password-gate { gap:13px; } .egg-password-orbit { width:72px; height:72px; } .egg-dialog.is-gate { padding:28px 22px 26px; } }
 @media(prefers-reduced-motion:reduce) { .egg-password-orbit>i { animation:none!important; } }
+
+/* Replace the last hard-coded gold flecks from the previous art direction. */
+.garden-shooting-star { color:#e3dcff; filter:drop-shadow(0 0 8px rgba(184,165,244,.55)); }
+.cat-reply { border-color:rgba(191,176,238,.15); color:#d2cde0; background:linear-gradient(100deg,rgba(43,35,67,.66),rgba(21,18,34,.6)); }
+.discovery-counter { border-color:rgba(191,176,238,.16); color:#c9c4d8; background:rgba(153,132,225,.045); }
+.destination-icon { border-color:rgba(191,176,238,.23); color:#e6e0ff; background:rgba(153,132,225,.06); }
+.game-won { border-color:rgba(191,176,238,.24); background:radial-gradient(ellipse at 50% 0%,rgba(150,126,225,.1),transparent 55%),linear-gradient(145deg,rgba(36,30,54,.96),rgba(17,14,26,.96)); }
+.progress-track>span { background:linear-gradient(90deg,#8f7bd4,#d5cbff); box-shadow:0 0 18px rgba(177,159,246,.2); }
+.heart-dot { color:rgba(202,189,246,.25); }
+.collection-search-label,.collection-search-icon,.message-glyph,.message-card-footer,.message-state { color:#c3b5f5; }
+.collection-search-field:focus-within { border-color:rgba(190,174,246,.48); box-shadow:0 0 0 3px rgba(171,154,241,.08),0 12px 35px rgba(0,0,0,.2); background:rgba(31,25,49,.94); }
+.category-tab.is-active { color:#eeeaff; border-color:rgba(190,174,246,.39); background:rgba(153,132,225,.11); }
+.finale-star,.finale-floating-heart { color:#d4c8ff; text-shadow:0 0 15px rgba(183,165,244,.28); }
+.extra-surprise-portal .extra-portal-ring { border-color:rgba(191,176,238,.3); }
+.love-note-modal { border-color:rgba(191,176,238,.32); }
+.note-score-indicator { border-color:rgba(191,176,238,.2); background:rgba(22,18,36,.82); }
+.note-score-glyph { color:#e4dcff; text-shadow:0 0 11px rgba(191,176,238,.3); }
+.note-score-bars i { background:linear-gradient(to top,#8f7bd4,#e4dcff); }
+.tiny-sound-toggle.is-enabled { border-color:rgba(191,176,238,.42); color:#e5ddff; background:linear-gradient(120deg,rgba(77,62,126,.58),rgba(37,29,60,.84)); box-shadow:0 0 20px rgba(163,143,238,.075),inset 0 1px 0 rgba(245,242,255,.06); }
+.tiny-sound-glyph { color:#e4dcff; }
+.tiny-sound-volume-heading output { color:#e6e0ff; }
+.tiny-sound-volume { accent-color:#b6a5f4; }
+.tiny-sound-preview-buttons button { border-color:rgba(191,176,238,.22); color:#e3dcff; background:rgba(153,132,225,.07); }
+.tiny-sound-preview-buttons button:hover:not(:disabled) { border-color:rgba(205,192,249,.48); background:rgba(153,132,225,.13); }
+.egg-reward-medallion[data-sound-cue^="achievement-"] { border-color:rgba(191,176,238,.33); background-color:rgba(153,132,225,.06); }
+.egg-reward-medallion[data-sound-cue^="achievement-"]:hover .egg-reward-medallion-symbol,
+.egg-reward-medallion[data-sound-cue^="achievement-"]:focus-visible .egg-reward-medallion-symbol { filter:brightness(1.12) drop-shadow(0 0 13px rgba(191,176,238,.42)); }

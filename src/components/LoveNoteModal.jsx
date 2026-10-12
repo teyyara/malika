@@ -1,5 +1,6 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { playCuteSound } from "../audio/soundEffects.js";
 
 const noteMotes = Array.from({ length: 12 }, (_, index) => ({
   id: index,
@@ -12,11 +13,14 @@ const noteMotes = Array.from({ length: 12 }, (_, index) => ({
 
 export default function LoveNoteModal({ message, onClose, senderName = "Zack" }) {
   const closeRef = useRef(null);
+  const [heartSent, setHeartSent] = useState(false);
   const reduceMotion = useReducedMotion();
 
   useEffect(() => {
     if (!message) return undefined;
     const previousFocus = document.activeElement;
+    setHeartSent(false);
+    playCuteSound("note");
     closeRef.current?.focus();
     function onKeyDown(event) {
       if (event.key === "Escape") onClose();
@@ -42,6 +46,12 @@ export default function LoveNoteModal({ message, onClose, senderName = "Zack" })
     };
   }, [message, onClose]);
 
+  function sendHeart() {
+    if (heartSent) return;
+    setHeartSent(true);
+    playCuteSound("love");
+  }
+
   return <AnimatePresence>
     {message && <motion.div className="modal-backdrop" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
       transition={{ duration: reduceMotion ? 0.01 : 0.28 }}
@@ -66,11 +76,18 @@ export default function LoveNoteModal({ message, onClose, senderName = "Zack" })
         <div className="note-sparkle" aria-hidden="true">✦</div>
         <button ref={closeRef} className="icon-button modal-close" type="button" onClick={onClose} aria-label="Close love note">×</button>
         <motion.p className="eyebrow" initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: reduceMotion ? 0 : 0.05 }}>A little note from {senderName}</motion.p>
-        <motion.h2 id="love-note-title" initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: reduceMotion ? 0 : 0.09 }}>{message?.title}</motion.h2>
+        <motion.h2 id="love-note-title" initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} whileHover={reduceMotion ? undefined : { scale: 1.025, rotate: -0.4 }} transition={{ delay: reduceMotion ? 0 : 0.09 }}>{message?.title}</motion.h2>
         <motion.p id="love-note-copy" className="modal-copy" initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: reduceMotion ? 0 : 0.13 }}>{message?.text}</motion.p>
-        <motion.div className="modal-heart" aria-hidden="true"
-          animate={reduceMotion ? { scale: 1 } : { scale: [1, 1.12, 1], rotate: [0, -7, 0] }}
-          transition={{ duration: 2.7, repeat: reduceMotion ? 0 : Infinity, ease: "easeInOut" }}>♥</motion.div>
+        <motion.button type="button" className={"modal-heart modal-heart-button" + (heartSent ? " is-sent" : "")}
+          aria-label={heartSent ? "A heart was sent back to Zack" : "Tap the floating heart to send a little heart back to Zack"}
+          aria-pressed={heartSent} onClick={sendHeart}
+          whileTap={reduceMotion ? undefined : { scale: 1.32, rotate: [0, -14, 14, 0] }}
+          animate={reduceMotion ? { scale: 1 } : heartSent ? { scale: [1, 1.22, 1], rotate: [0, -10, 10, 0] } : { scale: [1, 1.12, 1], rotate: [0, -7, 0] }}
+          transition={{ duration: reduceMotion ? 0.01 : heartSent ? 0.58 : 2.7, repeat: !reduceMotion && !heartSent ? Infinity : 0, ease: "easeInOut" }}>♥</motion.button>
+        {heartSent && <motion.p className="note-heart-confirmation" role="status"
+          initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: 5 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: reduceMotion ? 0.01 : 0.2 }}>A little heart has found its way back to Zack. Mimi approves. ♡</motion.p>}
         <p className="modal-signature">all my love, {senderName} ♡</p>
         <button className="button button-secondary" type="button" onClick={onClose}>Keep this close</button>
       </motion.section>

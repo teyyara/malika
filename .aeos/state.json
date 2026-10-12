@@ -1,28 +1,59 @@
 {
   "schemaVersion": "1.0",
-  "runId": "malika-20261012-002",
+  "runId": "malika-20261012-003",
   "activeKeyphrase": "read the master strategy",
   "repository": "teyyara/malika",
   "releaseBranch": "main",
   "progressionBranch": "aeos/progression",
-  "currentLoop": 2,
-  "candidate": "malika-birthday-002",
-  "status": "VALIDATED_AND_ON_MAIN",
-  "latestCheckpointCommit": "4e730fab7a48bcb2155120c8e332ce1ff65e9949",
+  "currentLoop": 3,
+  "candidate": "malika-birthday-003-browser-qa",
+  "status": "WAITING_FOR_CI_EVIDENCE",
+  "orchestrationState": "WAITING_FOR_CONTINUE",
+  "candidateSourceCheckpoint": "18b3fb092a9107a2dd7b3eefc68d3f37c49886dd",
   "knownGoodApplicationCommit": "4e730fab7a48bcb2155120c8e332ce1ff65e9949",
-  "personalization": {"recipientName":"Malika","senderName":"Zack","birthday":"12 October"},
-  "validation": {
-    "runId": 38186034612,
-    "url": "https://github.com/teyyara/malika/actions/runs/38186034612",
-    "conclusion": "success",
-    "testsPassed": 8,
-    "testsFailed": 0,
-    "productionBuild": "PASS"
+  "lastKnownGoodMainHead": "3500c67226e419f073923518645fd0abf73af833",
+  "personalization": {
+    "recipientName": "Malika",
+    "senderName": "Zack",
+    "birthday": "12 October"
   },
-  "mainPromotion": {"method":"fast-forward","verified":true,"sha":"4e730fab7a48bcb2155120c8e332ce1ff65e9949"},
-  "browserQA": "NOT_YET_OBSERVED",
+  "knownGoodValidation": {
+    "runId": 38186209651,
+    "url": "https://github.com/teyyara/malika/actions/runs/38186209651",
+    "headSha": "3500c67226e419f073923518645fd0abf73af833",
+    "conclusion": "success",
+    "nodeTestsPassed": 8,
+    "nodeTestsFailed": 0,
+    "productionBuild": "PASS",
+    "scopeNote": "This run predates the new Playwright browser suite."
+  },
+  "loop003CandidateValidation": {
+    "pullRequest": "https://github.com/teyyara/malika/pull/1",
+    "status": "NOT_OBSERVED_VIA_AVAILABLE_CONNECTOR",
+    "browserSpecsAdded": 4,
+    "promotedToMain": false,
+    "promotionReason": "No verified successful Actions result was available; fail closed."
+  },
+  "mainPromotion": {
+    "method": "fast-forward",
+    "verified": true,
+    "sha": "3500c67226e419f073923518645fd0abf73af833",
+    "loop003Promotion": "ON_HOLD_PENDING_CI_EVIDENCE"
+  },
+  "automatedBrowserTests": "ADDED_NOT_YET_OBSERVED_PASSING",
+  "manualVisualQA": "NOT_YET_OBSERVED",
+  "keyboardQA": "AUTOMATION_ADDED_RESULT_UNOBSERVED",
   "screenReaderQA": "NOT_YET_OBSERVED",
-  "mobileDeviceQA": "NOT_YET_OBSERVED",
-  "deployment": {"target":null,"status":"NOT_CONFIGURED"},
-  "nextHighValueWork": ["Run browser QA across scenes and narrow mobile widths", "Check keyboard-only completion and modal focus", "Configure hosting only after target and access are verified"]
+  "mobileLayoutQA": "AUTOMATION_ADDED_RESULT_UNOBSERVED",
+  "realMobileDevice": "NOT_TESTED",
+  "deployment": {
+    "target": null,
+    "status": "NOT_CONFIGURED"
+  },
+  "nextHighValueWork": [
+    "Observe the GitHub Actions run for PR #1 and inspect the browser-test report",
+    "Repair any failing test or implementation issue and rerun validation",
+    "Promote only the exact passing checkpoint to main",
+    "Keep human visual, physical-device, and screen-reader checks as separate release gates"
+  ]
 }

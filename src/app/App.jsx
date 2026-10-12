@@ -51,7 +51,7 @@ export default function App() {
         </motion.div>
       </AnimatePresence>
     </main>
-    {state.scene !== "welcome" && <footer className="site-footer"><span>a tiny birthday universe · made by Zack for Malika · 12 October</span><span aria-hidden="true">✦</span></footer>}
+    {state.scene !== "welcome" && <footer className="site-footer"><span>a tiny birthday universe · made by Zack for Malika · 12 October</span><button className="footer-star-trigger" type="button" aria-label="Reveal the tiny footer star’s secret — click three times" title="A little secret is hiding here">✦</button></footer>}
     <LoveNoteModal message={activeMessage} onClose={closeNote} senderName={siteConfig.senderName} />
     <EasterEggSystem />
   </div>;

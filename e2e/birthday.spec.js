@@ -120,6 +120,31 @@ test("welcome, garden, game, collection, and finale avoid page overflow at phone
   }
 });
 
+test("the heart game can reset halfway and still complete a fresh run", async ({ page }) => {
+  // This test checks state/restart behavior; the independent visual tests cover floating animation.
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await enterGarden(page);
+  await page.getByRole("button", { name: "Heart game", exact: true }).click();
+  await page.getByRole("button", { name: /Let's find some hearts/ }).click();
+
+  const hearts = page.getByRole("button", { name: /Collect purple heart/ });
+  await expect(hearts).toHaveCount(4);
+  await hearts.first().click();
+  await hearts.first().click();
+  await expect(page.locator(".game-progress-copy strong span")).toHaveText("2");
+
+  await page.getByRole("button", { name: "Start over" }).click();
+  await expect(page.getByRole("button", { name: /Let's find some hearts/ })).toBeVisible();
+  await expect(page.locator(".collectible-heart")).toHaveCount(0);
+  await page.getByRole("button", { name: /Let's find some hearts/ }).click();
+
+  const freshHearts = page.getByRole("button", { name: /Collect purple heart/ });
+  await expect(freshHearts).toHaveCount(4);
+  for (let count = 0; count < 7; count += 1) await freshHearts.first().click();
+  await expect(page.getByRole("heading", { name: "You found every heart…" })).toBeVisible();
+  await expect(page.locator(".header-heart-count")).toHaveAttribute("aria-label", "Hearts collected: 7 of 7");
+});
+
 test("reduced-motion preference reaches the application shell", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");

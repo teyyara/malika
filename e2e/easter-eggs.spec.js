@@ -95,8 +95,12 @@ test("three footer stars reveal a wish, and four ladybug discoveries hint at the
   await page.goto("/");
   await page.getByRole("button", { name: /Open your birthday surprise/ }).click();
 
-  const footerStar = page.locator(".site-footer > span:last-child");
-  for (let i = 0; i < 3; i += 1) await footerStar.click();
+  const footerStar = page.getByRole("button", { name: /Reveal the tiny footer star/ });
+  await footerStar.click();
+  await footerStar.click();
+  await footerStar.focus();
+  await expect(footerStar).toBeFocused();
+  await page.keyboard.press("Enter");
   await expect(page.getByRole("dialog", { name: "A tiny star said thank you" })).toBeVisible();
   await page.getByRole("button", { name: "Close secret surprise" }).click();
 
@@ -109,6 +113,8 @@ test("three footer stars reveal a wish, and four ladybug discoveries hint at the
   await expect(page.locator(".egg-toast")).toContainText("Four ladybugs, one hidden trail");
   await page.getByRole("button", { name: "Open Secret Arcade" }).click();
   await expect(page.getByRole("dialog", { name: "The secret arcade" })).toBeVisible();
+  // The toast timer must survive opening the arcade and still dismiss itself.
+  await expect(page.locator(".egg-toast")).toHaveCount(0, { timeout: 8500 });
 });
 
 
@@ -140,6 +146,8 @@ test("completing all five arcade quests unlocks the grand-secret finale", async 
   for (let i = 0; i < 5; i += 1) await flies.first().click();
   await expect(page.getByRole("status").filter({ hasText: "garden is glowing a little brighter" })).toBeVisible();
   await page.getByRole("button", { name: /Back to arcade/ }).click();
+  await expect(page.getByRole("progressbar", { name: "Arcade games completed" })).toHaveAttribute("aria-valuenow", "4");
+  await expect(page.getByRole("button", { name: "Open the grand secret" })).toHaveCount(0);
 
   await page.getByRole("button", { name: /The little wish jar/ }).click();
   for (let i = 0; i < 5; i += 1) {
@@ -156,4 +164,67 @@ test("completing all five arcade quests unlocks the grand-secret finale", async 
   const grandSecret = page.getByRole("dialog", { name: "Keeper of Little Wonders" });
   await expect(grandSecret).toBeVisible();
   await expect(grandSecret).toContainText("The grand secret was never just the stars or the prizes");
+});
+
+
+test("Memory Match explains a wrong pair, flips it back, and remains winnable", async ({ page }) => {
+  await openArcade(page);
+  await page.getByRole("button", { name: /Mimi's memory match/ }).click();
+
+  await page.getByRole("button", { name: "Turn over memory card moon-a" }).click();
+  await page.getByRole("button", { name: "Turn over memory card paw-a" }).click();
+  await expect(page.locator(".egg-memory-card.is-mismatch")).toHaveCount(2);
+  await expect(page.locator(".egg-progress")).toContainText("Not a match");
+  await expect(page.getByRole("button", { name: "Turn over memory card moon-a" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Turn over memory card paw-a" })).toBeVisible();
+
+  await page.getByRole("button", { name: "Turn over memory card moon-a" }).click();
+  await page.getByRole("button", { name: "Turn over memory card paw-a" }).click();
+  await expect(page.locator(".egg-memory-card.is-mismatch")).toHaveCount(2);
+  await page.getByRole("button", { name: "Turn over memory card heart-a" }).click();
+  await expect(page.locator(".egg-memory-card.is-open")).toHaveCount(1);
+  await page.waitForTimeout(1200);
+  await expect(page.locator(".egg-memory-card.is-open")).toHaveCount(1);
+
+  await page.getByRole("button", { name: "Turn over memory card heart-b" }).click();
+  await page.getByRole("button", { name: "Turn over memory card moon-a" }).click();
+  await page.getByRole("button", { name: "Turn over memory card moon-b" }).click();
+  await page.getByRole("button", { name: "Turn over memory card paw-a" }).click();
+  await page.getByRole("button", { name: "Turn over memory card paw-b" }).click();
+  await expect(page.getByRole("status").filter({ hasText: "Mimi remembers all the little things" })).toBeVisible();
+  await expect(page.locator(".egg-progress")).toHaveText("3 / 3 matching pairs found");
+});
+
+test("Pawprint rhythm gives a recoverable wrong-input hint", async ({ page }) => {
+  await openArcade(page);
+  await page.getByRole("button", { name: /Pawprint rhythm/ }).click();
+  await page.getByRole("button", { name: "Play moon" }).click();
+  await expect(page.locator(".egg-progress")).toHaveText("Beats repeated: 0 / 4");
+  await expect(page.locator(".egg-toast")).toContainText("The rhythm starts with pawprints");
+
+  for (const symbol of ["Play pawprints", "Play moon", "Play purple heart", "Play sparkle"]) {
+    await page.getByRole("button", { name: symbol }).click();
+  }
+  await expect(page.getByRole("status").filter({ hasText: "Mimi does a little victory dance" })).toBeVisible();
+});
+
+test("the Secret Arcade fits a narrow phone viewport and can always be closed", async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 740 });
+  await page.goto("/");
+  await page.getByRole("button", { name: /Open your birthday surprise/ }).click();
+  const brandMark = page.getByRole("button", { name: "Return to Malika's birthday garden" });
+  const heart = page.locator(".brand-heart");
+  for (let tap = 0; tap < 5; tap += 1) await heart.click();
+
+  const dialog = page.getByRole("dialog", { name: "The secret arcade" });
+  await expect(dialog).toBeVisible();
+  const dimensions = await dialog.evaluate((element) => ({
+    clientWidth: element.clientWidth,
+    scrollWidth: element.scrollWidth
+  }));
+  expect(dimensions.scrollWidth, "the arcade must not overflow horizontally on a 320px phone").toBeLessThanOrEqual(dimensions.clientWidth);
+  await expect(dialog.getByRole("button", { name: "Close secret surprise" })).toBeVisible();
+  await page.getByRole("button", { name: "Close secret surprise" }).click();
+  await expect(dialog).toHaveCount(0);
+  await expect(brandMark).toBeFocused();
 });

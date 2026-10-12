@@ -252,14 +252,12 @@ function LivingPicture() {
   const reduceMotion = useReducedMotion();
 
   function wakePicture() {
-    setAlive((current) => {
-      const next = !current;
-      if (next) {
-        setPictureCount((count) => count + 1);
-        playCuteSound("reveal");
-      }
-      return next;
-    });
+    const next = !alive;
+    setAlive(next);
+    if (next) {
+      setPictureCount((count) => count + 1);
+      playCuteSound("reveal");
+    }
   }
 
   return <div className="living-picture-layout">

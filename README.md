@@ -23,12 +23,12 @@ For browser tests:
     npx playwright install chromium
     npm run test:e2e
 
-GitHub Actions installs Chromium's operating-system dependencies, runs the suite against the production build, and retains both the Playwright HTML report and rendered screenshot evidence. The final Loop 004 checkpoint passed **8 Node tests and 7 Chromium browser tests**, plus the Vite production build. The browser suite covers navigation, the heart-game unlock path, modal focus/Escape handling, responsive overflow at 320/375/768px, reduced motion, Mimi's reactions, the garden constellation, pointer-responsive ambience, and a six-frame visual-capture journey.
+GitHub Actions installs Chromium's operating-system dependencies, runs the suite against the production build, and retains the Playwright HTML report and rendered screenshots. The merged Loop 007 checkpoint passed **8 Node tests, the Vite production build, and 20 Chromium browser journeys** in [CI run 38247015295](https://github.com/teyyara/malika/actions/runs/38247015295). Journeys include navigation, wrong-move recovery, reset/retry, arcade mastery, keyboard secrets, and a narrow 320px viewport. Loop 008 adds a progressive secret-hint guide and its own browser test.
 
 ## The experience
 
 - **Personal welcome:** an opening written for Malika from Zack.
-- **Interactive garden:** pet Mimi, follow fluttering ladybugs, touch a flower for a wish, and trace three stars to reveal a heart-shaped constellation.
+- **Interactive garden:** pet Mimi, follow fluttering ladybugs, touch a flower for a wish, trace three stars for a heart-shaped constellation, and optionally open the progressive clue guide.
 - **Mimi's Little Heart Garden:** collect seven purple hearts; each collectible scores only once, with an animated victory and secret-letter unlock.
 - **Love collection:** 30 affectionate notes plus five future-facing little dreams; secret letters unlock at victory.
 - **Birthday finale:** a personal letter revealed in a measured sequence and an optional final surprise.
@@ -41,17 +41,13 @@ The experience has no backend, analytics, paid API, sound dependency, or remote 
 
 ## Vercel deployment
 
-The Vercel project **malika-birthday** is connected to this GitHub repository. The validated application checkpoint is deployed to `main` with Vercel reporting **Ready**. A branch preview is also **Ready**:
+The Vercel project **malika-birthday** is connected to this repository. The last previously confirmed production deployment is recorded at the [Vercel deployment dashboard](https://vercel.com/tyyr1/malika-birthday/CzGS17bNAaTbaUCH7uLAP7XR6rQv). The production attempt for Loop 007 commit `5fdbd292707e27a84ae85b8782fe4cc3c27c5e8f` reported **failed** in the Vercel status check ([deployment details](https://vercel.com/tyyr1/malika-birthday/GrbCE3RnoKGws4A54c3NvJyoV7TE)). Its root cause remains unverified because the current Vercel integration cannot access build logs. Do not assume the latest release is live until Vercel reports **Ready**. No access-bypass token is stored in this repository.
 
-**Preview URL:** https://malika-birthday-git-aeos-progression-tyyr1.vercel.app
-
-Vercel reports SSO protection on Vercel-hosted domains, so a plain URL may ask the reviewer to authenticate. A time-limited shareable bypass link was generated for the intended reviewer on 12 October 2026; the secret is intentionally not committed to this repository. Use the private bypass link supplied by the release operator if the reviewer cannot authenticate. The production deployment's verified aliases are `malika-birthday-kappa.vercel.app`, `malika-birthday-tyyr1.vercel.app`, and `malika-birthday-git-main-tyyr1.vercel.app`. See [docs/vercel-deployment.md](docs/vercel-deployment.md) for deployment evidence and verification steps.
-
-Vercel settings: Framework **Vite**, build command `npm run build`, output directory `dist`, root directory `./`, no environment variables. A custom `vercel.json` is unnecessary because scene changes stay inside React at the root path.
+Framework: **Vite**, build command `npm run build`, output directory `dist`, root directory `./`, no environment variables.
 
 ## Hidden Easter eggs and mini-games
 
-The extra secrets are optional; all core birthday scenes stay available without finding any of them. The five-game Secret Arcade, keyboard codes, moon/paw/footnote triggers, and spoiler walkthrough are documented in [docs/easter-egg-test-guide.md](docs/easter-egg-test-guide.md). After completing all five games, a mastery bar unlocks the animated **Keeper of Little Wonders** finale; test it using [docs/loop-006-grand-secret.md](docs/loop-006-grand-secret.md). Browser regression coverage lives in `e2e/easter-eggs.spec.js`. Loop 006 passed 8 Node tests, the Vite production build, and all 16 Chromium browser journeys; see [evidence/loop-006-grand-secret.md](evidence/loop-006-grand-secret.md).
+The extra secrets are optional; all core birthday scenes stay available without finding any of them. The garden includes a gentle-to-clear-to-spoiler hint trail that starts closed and only reveals the full map when requested. See [docs/loop-008-gentle-secret-hints.md](docs/loop-008-gentle-secret-hints.md) and the walkthrough in [docs/easter-egg-test-guide.md](docs/easter-egg-test-guide.md). After completing all five games, a mastery bar unlocks the animated **Keeper of Little Wonders** finale; see [docs/loop-006-grand-secret.md](docs/loop-006-grand-secret.md). Browser regression coverage lives in `e2e/easter-eggs.spec.js` and `e2e/birthday.spec.js`.
 
 ## Project status and evidence
 

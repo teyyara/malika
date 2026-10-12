@@ -54,6 +54,7 @@ export default function EasterEggSystem() {
   const [caughtFireflies, setCaughtFireflies] = useState([]);
   const [openedCards, setOpenedCards] = useState([]);
   const [matchedCards, setMatchedCards] = useState([]);
+  const [memoryMismatch, setMemoryMismatch] = useState(false);
   const [rhythmStep, setRhythmStep] = useState(0);
   const [gameWon, setGameWon] = useState(false);
   const [wishIndex, setWishIndex] = useState(-1);
@@ -61,6 +62,7 @@ export default function EasterEggSystem() {
   const typedBuffer = useRef("");
   const counters = useRef({});
   const toastTimer = useRef(null);
+  const mismatchTimer = useRef(null);
 
   function announce(text) {
     setToast(text);
@@ -93,8 +95,11 @@ export default function EasterEggSystem() {
     setPanel("game");
     setCaughtStars([]);
     setCaughtFireflies([]);
+    window.clearTimeout(mismatchTimer.current);
+    mismatchTimer.current = null;
     setOpenedCards([]);
     setMatchedCards([]);
+    setMemoryMismatch(false);
     setRhythmStep(0);
     setGameWon(false);
     setWishIndex(-1);
@@ -184,7 +189,7 @@ export default function EasterEggSystem() {
           announce("Four ladybugs, one hidden trail. A firefly game just fluttered into the Secret Arcade.");
         });
       }
-      if (event.target.closest(".site-footer > span:last-child")) {
+      if (event.target.closest(".footer-star-trigger")) {
         bump("footerStar", 3, 7000, () => openReveal("footer"));
       }
     }
@@ -199,13 +204,20 @@ export default function EasterEggSystem() {
     return () => {
       window.removeEventListener("keydown", onKeyDown);
       document.removeEventListener("click", onClick);
-      window.clearTimeout(toastTimer.current);
     };
   }, [panel]);
+
+  useEffect(() => () => {
+    window.clearTimeout(toastTimer.current);
+    window.clearTimeout(mismatchTimer.current);
+  }, []);
 
   function flipCard(id) {
     if (matchedCards.includes(id) || openedCards.includes(id) || gameWon) return;
     if (openedCards.length >= 2) {
+      window.clearTimeout(mismatchTimer.current);
+      mismatchTimer.current = null;
+      setMemoryMismatch(false);
       setOpenedCards([id]);
       return;
     }
@@ -215,12 +227,23 @@ export default function EasterEggSystem() {
       const first = MEMORY_CARDS.find((card) => card.id === next[0]);
       const second = MEMORY_CARDS.find((card) => card.id === next[1]);
       if (first.pair === second.pair) {
+        window.clearTimeout(mismatchTimer.current);
+        mismatchTimer.current = null;
+        setMemoryMismatch(false);
         const pairs = [...matchedCards, ...next];
         setMatchedCards(pairs);
         if (pairs.length === MEMORY_CARDS.length) {
           setGameWon(true);
           finishGame("memory", "memory-keeper");
         }
+      } else {
+        setMemoryMismatch(true);
+        window.clearTimeout(mismatchTimer.current);
+        mismatchTimer.current = window.setTimeout(() => {
+          setOpenedCards((current) => current.length === 2 ? [] : current);
+          setMemoryMismatch(false);
+          mismatchTimer.current = null;
+        }, 1050);
       }
     }
   }
@@ -271,14 +294,15 @@ export default function EasterEggSystem() {
       <div className="egg-memory-grid">
         {MEMORY_CARDS.map((card) => {
           const shown = openedCards.includes(card.id) || matchedCards.includes(card.id);
-          return <button key={card.id} type="button" className={shown ? "egg-memory-card is-open" : "egg-memory-card"}
+          const mismatch = memoryMismatch && openedCards.includes(card.id) && !matchedCards.includes(card.id);
+          return <button key={card.id} type="button" className={"egg-memory-card" + (shown ? " is-open" : "") + (mismatch ? " is-mismatch" : "")}
             aria-label={shown ? card.label : "Turn over memory card " + card.id}
             aria-pressed={shown} onClick={() => flipCard(card.id)}>
             {shown ? card.symbol : "✧"}
           </button>;
         })}
       </div>
-      <p className="egg-progress" aria-live="polite">{matchedCards.length / 2} / 3 matching pairs found</p>
+      <p className="egg-progress" aria-live="polite">{memoryMismatch ? "Not a match — the cards will turn back over shortly." : matchedCards.length / 2 + " / 3 matching pairs found"}</p>
       {gameWon && <p className="egg-win" role="status">Mimi remembers all the little things. Memory keeper unlocked! 🐾</p>}
     </div>;
 

@@ -189,7 +189,8 @@ test("three footer stars reveal a wish, and four ladybug discoveries hint at the
   }
   await expect(page.locator(".egg-toast")).toContainText("Four ladybugs, one hidden trail");
   await page.getByRole("button", { name: "Open Secret Arcade" }).click();
-  await expect(page.getByRole("dialog", { name: "The secret arcade" })).toBeVisible();
+  await expect(page.getByRole("dialog", { name: "A door only you can open" })).toBeVisible();
+  await unlockArcade(page);
   // The toast timer must survive opening the arcade and still dismiss itself.
   await expect(page.locator(".egg-toast")).toHaveCount(0, { timeout: 8500 });
 });
@@ -341,6 +342,10 @@ test("the Secret Arcade fits a narrow phone viewport and can always be closed", 
   const heart = page.locator(".brand-heart");
   for (let tap = 0; tap < 5; tap += 1) await heart.click();
 
+  const gate = page.getByRole("dialog", { name: "A door only you can open" });
+  await expect(gate).toBeVisible();
+  await gate.getByLabel("The secret password").fill("iloveyou");
+  await gate.getByRole("button", { name: "Unlock the Secret Arcade" }).click();
   const dialog = page.getByRole("dialog", { name: "The secret arcade" });
   await expect(dialog).toBeVisible();
   const dimensions = await dialog.evaluate((element) => ({

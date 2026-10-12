@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { playCuteSound } from "../audio/soundEffects.js";
+import { isCuteSoundEnabled, playCuteSound, startLoveTheme, stopLoveTheme, subscribeToCuteSounds } from "../audio/soundEffects.js";
 
 const noteMotes = Array.from({ length: 12 }, (_, index) => ({
   id: index,
@@ -14,7 +14,16 @@ const noteMotes = Array.from({ length: 12 }, (_, index) => ({
 export default function LoveNoteModal({ message, onClose, senderName = "Zack" }) {
   const closeRef = useRef(null);
   const [heartSent, setHeartSent] = useState(false);
+  const [soundEnabled, setSoundEnabled] = useState(isCuteSoundEnabled);
   const reduceMotion = useReducedMotion();
+
+  useEffect(() => subscribeToCuteSounds(setSoundEnabled), []);
+
+  useEffect(() => {
+    if (message && soundEnabled) startLoveTheme();
+    else stopLoveTheme();
+    return () => stopLoveTheme();
+  }, [message, soundEnabled]);
 
   useEffect(() => {
     if (!message) return undefined;
@@ -56,7 +65,7 @@ export default function LoveNoteModal({ message, onClose, senderName = "Zack" })
     {message && <motion.div className="modal-backdrop" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
       transition={{ duration: reduceMotion ? 0.01 : 0.28 }}
       onMouseDown={(event) => { if (event.target === event.currentTarget) onClose(); }}>
-      <motion.section className="love-note-modal" role="dialog" aria-modal="true" aria-labelledby="love-note-title" aria-describedby="love-note-copy"
+      <motion.section className={"love-note-modal" + (soundEnabled ? " is-score-playing" : "")} role="dialog" aria-modal="true" aria-labelledby="love-note-title" aria-describedby="love-note-copy"
         initial={reduceMotion ? false : { opacity: 0, y: 12, scale: 0.94, rotateX: 3 }}
         animate={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
         exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 6, scale: 0.985 }}
@@ -73,6 +82,10 @@ export default function LoveNoteModal({ message, onClose, senderName = "Zack" })
             </motion.span>
           )}
         </div>
+        {soundEnabled && <motion.div className="note-score-indicator" aria-hidden="true" initial={{ opacity: 0, x: -6 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: reduceMotion ? 0.01 : 0.45 }}>
+          <span className="note-score-glyph">♫</span><span>our little love song</span>
+          <span className="note-score-bars">{[0, 1, 2, 3, 4].map((bar) => <i key={bar} style={{ "--score-bar": bar }} />)}</span>
+        </motion.div>}
         <div className="note-sparkle" aria-hidden="true">✦</div>
         <button ref={closeRef} className="icon-button modal-close" type="button" onClick={onClose} aria-label="Close love note">×</button>
         <motion.p className="eyebrow" initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: reduceMotion ? 0 : 0.05 }}>A little note from {senderName}</motion.p>

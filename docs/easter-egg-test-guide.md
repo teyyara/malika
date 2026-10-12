@@ -1,58 +1,124 @@
-# Easter-egg testing guide — Loop 005
+# Complete easter-egg guide — Loop 016
 
-Everything below is intentionally discoverable, local-only, and spoiler-filled. No sound, paid API, account, or backend is required. The five mini-games have no timer; the secret progress counter lasts for the current visit only.
+**Full spoilers.** This is the complete walkthrough for Zack, not a hint sheet to hand to Malika before she explores. The website's hidden progress exists only in the current page session: it is not written to a server, browser storage, or analytics. Reloading starts a fresh hunt. None of these secrets is required to read the birthday letter or finish the main heart game.
 
-## Hidden entrances
+## 1. Hidden entrances to the Secret Arcade
 
-1. **The classic Secret Arcade** — on any scene, type the keyboard sequence: Up, Up, Down, Down, Left, Right, Left, Right, B, A. The cabinet opens with five games.
-2. **Her name in the sky** — type `MALIKA` on the page. An animated starfall reveal appears; its button takes you to the arcade.
-3. **Mimi's shortcut** — type `MIMI` on the page. It jumps straight into Mimi's Memory Match.
-4. **The wish moon** — on the welcome screen, click the large moon seven times within nine seconds. The moon opens its private birthday wish.
-5. **Mimi's fifth hello** — pet Mimi five times within eight seconds. The fifth interaction triggers her animated paw parade.
-6. **A quiet thank-you** — after entering the garden, click or keyboard-activate the little footer star button (✦) three times within seven seconds for a small reveal.
-7. **Ladybug trail** — click any ladybug four times within nine seconds, closing each love-note popup in between. A small toast appears with an arcade shortcut.
-8. **The heart-mark door** — once the header is visible, click the little heart inside “for Malika” five times within seven seconds. This opens the Secret Arcade directly.
+There are several ways in. Any one is enough.
 
-Triggers are case-insensitive for the typed words. The timing windows are intentionally forgiving, and these are extra rewards; none are required to finish the main birthday experience.
+1. **The classic controller code:** on the page, press **Up, Up, Down, Down, Left, Right, Left, Right, B, A**. The Secret Arcade opens.
+2. **Spell her name:** type **MALIKA** on the keyboard. A starfall reveal appears, titled *Her name lit up the sky*. Press **Enter the Secret Arcade** in the reveal to continue.
+3. **Call the kitten:** type **MIMI** on the keyboard. Mimi's Memory Match opens directly.
+4. **The heart in the header:** after leaving the welcome screen, tap the small heart inside the “for Malika” header mark **5 times within 7 seconds**.
+5. **The ladybug trail:** in the garden, click a ladybug **4 times within 9 seconds**. Close each love-note popup before clicking again. A toast appears; use **Open Secret Arcade**.
+6. The other hidden entrances are the moon wish, Mimi's fifth hello, the footer star, and the birthday-letter wax seal; each is detailed below.
 
-## Five hidden mini-games
+The typed words are case-insensitive. When using the keyboard shortcuts, type on the page rather than inside a text field. The Secret Arcade contains five optional quests.
 
-Open the arcade from any entrance above.
+## 2. Small secrets in the welcome scene and garden
 
-### 1. Seven-star catcher
-Choose **Seven-star catcher**. Click any seven of the twelve twinkling stars. Each star can only count once; after seven, the star-shower victory message appears.
+### The moon's birthday wish
+On the **welcome screen**, tap the large moon **7 times within 9 seconds**. The reveal is titled *The moon kept a secret* and offers a private wish for Malika.
 
-### 2. Mimi's memory match
-Choose **Mimi's memory match**. Find the moon pair, pawprint pair, and purple-heart pair. A mismatched pair gets a soft rose outline and a live hint, then turns face-down after a brief pause. Choosing a third card during that pause moves on immediately. There is no game countdown. For a quick smoke test, the card IDs are moon-a + moon-b, paw-a + paw-b, and heart-a + heart-b.
+### Mimi's fifth hello
+Pet any visible Mimi **5 times within 8 seconds**. Her fifth hello opens *Mimi's fifth hello*, with her animated paw parade and a tiny birthday dance. Mimi reacts to ordinary pets too, so the early taps are not wasted.
 
-Typing `MIMI` starts this game directly.
+### The little footer star
+After entering the garden (or another scene with the footer), click the small **✦ button at the bottom of the page 3 times within 7 seconds**. It opens *A tiny star said thank you*. The footer star is a real keyboard-focusable button too.
 
-### 3. Pawprint rhythm
-Choose **Pawprint rhythm**. Click the four symbols in this order: **🐾 pawprints → 🌙 moon → 💜 purple heart → ✨ sparkle**. A wrong tap resets progress, with a gentle hint.
+### Follow the ladybugs
+Each interactive ladybug opens its own love note. To reveal the extra trail clue, click a ladybug **4 times within 9 seconds**, closing the note between taps; then press **Open Secret Arcade** in the toast.
 
-### 4. Firefly hunt
-Choose **Firefly hunt**. Catch any five of the eight glowing fireflies. Each only counts once; there is no countdown.
+### Trace the heart-shaped constellation
+In the garden landscape, find the three small twinkling constellation stars and activate them in order: **left star → middle star → right star**. Mimi teases you if you skip ahead; a wrong order does not award progress. Completing all three traces the heart and opens the hidden wish, *A little more wonder*.
 
-The fourth ladybug discovery displays a toast that points you back to the arcade and this game.
+### Touch the pink flower
+Tap the pink flower on the right side of the garden landscape. It opens the love note **Brave new chapters**.
 
-### 5. The little wish jar
-Choose **The little wish jar**. Press **Shake the wish jar** repeatedly. Each shake animates the jar and reveals the next of five optimistic, future-facing wishes. They are wishes, not fabricated memories of events that happened.
+### Mimi has bonus lines
+Pet Mimi in the garden to hear her changing little replies. The reply text also reacts if you get impatient with the constellation and try to skip ahead. Those comments are playful feedback, not a timed challenge.
 
-## Expected visual effects
+### Optional clue trail
+Under the garden destinations, open **Need a tiny nudge?** for a gentle hint. Open **Give me a clearer clue** for the more explicit clue: the numbers **3, 4, 5, and 7**, pointing toward the constellation, ladybugs, Mimi/header heart, and moon/footer-star interactions. The clue trail intentionally stops before giving away the full arcade solutions.
 
-- The secret dialog blooms in with blur/scale easing and a layered lavender night-sky panel.
-- Each reveal gets its own animated glyph: moon-glow, paw dance, comet/starfall, or a tiny sparkle thank-you.
-- Stars float and shimmer; caught stars sparkle away.
-- Memory cards flip into view; a mismatched pair gets a brief rose outline and flips back after a short feedback pause; the rhythm buttons press in; fireflies glow/flicker.
-- The wish jar gently rocks while its wishes appear.
-- A “Secrets uncovered” counter rises as you discover entrances and win games.
+## 3. Mimi's Little Heart Garden
 
-## Need a hint?
+Open **Heart game** in the header or the garden destination card, then choose **Let's find some hearts**.
 
-The garden includes an optional **Need a tiny nudge?** clue trail. It starts with a gentle hint and only shows the full spoiler map when that nested section is opened. On a small screen you can use the header heart or the ladybug trail instead of typing keyboard codes. The walkthrough and QA scope are in [Loop 008 — Gentle secret clues](loop-008-gentle-secret-hints.md).
+- Collect **7 purple hearts**. There is no countdown; each heart counts once. Restart is available if you want a fresh run.
+- Winning opens the *You found every heart…* celebration and unlocks the secret letter **A letter behind the stars** in **Love notes**. Open that newly unlocked card to read it.
+- While the game is running, pet Mimi for a bonus secret compliment.
+- The bonus ladybug gives you another little note. It never takes away a heart.
 
-## Accessibility and test notes
+The core game and its notes remain available even if no arcade entrance is ever found.
 
-Every target is a button or is inside a keyboard-addressable flow. The footer star is a labelled, keyboard-focusable button rather than decorative text. Dialogs can be closed with **Escape** or the close button. Reduced-motion preferences disable the nonessential keyframe animations. Automated browser tests are in `e2e/easter-eggs.spec.js`; run them with `npm run test:e2e`.
+## 4. The Love Collection and birthday letter
 
-The Easter-egg counters and achievements are ephemeral (not stored in a server or local storage). Reloading the page starts a fresh hunt. The hidden content does not block the birthday letter, existing notes, constellation, or main heart game.
+### The locked letter
+The Love Collection contains the regular notes, birthday wishes, and imagined future dreams. The card **A letter behind the stars** starts locked. Complete the seven-heart game to unlock it, then revisit **Love notes** and open it.
+
+### One last little surprise
+In **Birthday letter**, press **One last little surprise…** under the letter. This opens an extra animated birthday wish with a glowing portal, hearts, Mimi, and a ladybug.
+
+### NEW — the wax-seal secret
+Stay on the **Birthday letter** scene and tap the purple wax-seal heart at the top of Zack's letter **3 times within 7 seconds**. It opens a hidden note directly beneath the letter. The seal is a keyboard-accessible button; focus it and press Enter or Space for each tap.
+
+## 5. All five Secret Arcade quests — full solutions
+
+Enter through any hidden entrance above. Each quest has its own full-screen victory celebration. Decoys and wrong answers give feedback but do not permanently block the game.
+
+### Quest 1 — Mimi's Constellation Chase
+Find the eight stars that trace a heart and click them in this order:
+
+**left outer curve → upper-left peak → inner-left curve → centre notch → inner-right curve → upper-right peak → right outer curve → bottom point.**
+
+There are also four decoy stars. Avoid those and do not skip ahead in the heart trail. If progress stays at 0, start with the left-side star rather than a decoy.
+
+Reward: *You found the heart in the stars.*
+
+### Quest 2 — Mimi's Memory Match
+Turn over two cards at a time and match all **four pairs**: **🌙 moon, 🐾 pawprints, 💜 purple heart, and ✨ sparkle**. The cards shuffle whenever a new round starts, so pair positions change. Memorize revealed positions; an incorrect pair briefly stays visible and then turns back. You can keep playing after a mismatch.
+
+Typing **MIMI** is a shortcut directly into this game.
+
+Reward: *You remembered every little wonder.*
+
+### Quest 3 — Pawprint Rhythm
+Press **Watch Mimi's rhythm** and listen to/watch the six symbols one at a time. Then tap this exact sequence:
+
+**🐾 pawprints → 🌙 moon → 💜 purple heart → ✨ sparkle → 🐾 pawprints → 🌙 moon**
+
+The last two beats echo the first pair. A wrong beat resets the combo, but you can replay the cue whenever you need it.
+
+Reward: *Mimi's tiny concert is a HIT!*
+
+### Quest 4 — Firefly Hunt
+Catch the **five bright golden fireflies** and leave the three dim violet decoys alone. Their positions are: upper-left side, near the top just left of centre, right-middle, lower-right of centre, and lower-left. A dim violet light is a decoy; clicking it gives a teasing message but does not erase progress.
+
+Reward: *You just lit up the whole garden.*
+
+### Quest 5 — The Little Wish Jar
+Solve the five riddles by picking the correct symbol in order:
+
+| Riddle clue | Choose |
+|---|---|
+| Borrows sunlight, changes shape through the month | 🌙 Moon |
+| Mimi leaves tiny stamps wherever she goes | 🐾 Pawprints |
+| You can give it away and still have more to give | 💜 Purple heart |
+| Twinkles in the dark but will not burn your fingers | ✦ Star |
+| A wish with a glittering trail through the night sky | ✨ Shooting star |
+
+Wrong symbols reveal a hint and do not reset the wishes already solved.
+
+Reward: *Five wishes. One very bright future.*
+
+### The grand secret — Keeper of Little Wonders
+Finish **all five** arcade quests. Reopen the Secret Arcade and press **Open the grand secret**, which only appears after all five are complete. This reveals the full-screen *Keeper of Little Wonders* finale: a layered heart, nine comet trails, 112 flying symbols, and five treasures.
+
+## 6. Progress, accessibility, and reset behavior
+
+- The arcade tracks completed quests and found secrets only in page memory for this visit. Refreshing the page resets them; no third-party storage, account, API, or paid service is involved.
+- Dialogs can be closed with their close button or **Escape**. Focus returns to the opener and stays inside the dialog while it is open.
+- The seal, footer star, constellation, and other actionable secrets are keyboard reachable. The games are usable with buttons, not drag-only gestures.
+- Reduced-motion settings suppress nonessential animation loops.
+- Automated browser journeys are in e2e/easter-eggs.spec.js, e2e/birthday.spec.js, and e2e/wax-seal.spec.js. This is not a claim of physical-device or screen-reader certification.

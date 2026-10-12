@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import CatCharacter from "../components/CatCharacter.jsx";
 import Ladybug from "../components/Ladybug.jsx";
@@ -23,8 +23,26 @@ const revealSparks = Array.from({ length: 32 }, (_, index) => ({
 
 export default function BirthdayFinale({ onGoToGarden }) {
   const [extraSurprise, setExtraSurprise] = useState(false);
+  const [sealSecretOpen, setSealSecretOpen] = useState(false);
+  const sealTapCount = useRef(0);
+  const sealTapStartedAt = useRef(0);
   const reduceMotion = useReducedMotion();
   const heading = "Happy birthday, " + siteConfig.recipientName + " 💜";
+
+  function tapSeal() {
+    if (sealSecretOpen) return;
+    const now = Date.now();
+    if (!sealTapCount.current || now - sealTapStartedAt.current > 7000) {
+      sealTapCount.current = 0;
+      sealTapStartedAt.current = now;
+    }
+    sealTapCount.current += 1;
+    if (sealTapCount.current >= 3) {
+      sealTapCount.current = 0;
+      sealTapStartedAt.current = 0;
+      setSealSecretOpen(true);
+    }
+  }
 
   return <section className="finale-scene scene-pane" aria-labelledby="finale-heading">
     <div className="finale-top-art" aria-hidden="true">
@@ -59,9 +77,12 @@ export default function BirthdayFinale({ onGoToGarden }) {
         animate={{ opacity: 1, y: 0, rotateX: 0, scale: 1 }}
         transition={{ duration: reduceMotion ? 0.01 : 0.44, delay: reduceMotion ? 0 : 0.08, type: "spring", stiffness: 210, damping: 25 }}>
         <div className="letter-top">
-          <motion.span className="letter-seal" aria-hidden="true"
+          <motion.button type="button" className="letter-seal letter-seal-trigger"
+            aria-label={sealSecretOpen ? "The wax seal's secret has been revealed" : "Tap the wax seal three times to uncover a final secret"}
+            onClick={tapSeal}
             animate={reduceMotion ? { scale: 1 } : { scale: [1, 1.08, 1], rotate: [0, -7, 0] }}
-            transition={{ duration: 3.8, repeat: reduceMotion ? 0 : Infinity, ease: "easeInOut" }}>♥</motion.span>
+            transition={{ duration: 3.8, repeat: reduceMotion ? 0 : Infinity, ease: "easeInOut" }}
+            style={{ border: 0, padding: 0, appearance: "none" }}>♥</motion.button>
           <span>for you, with love</span><span className="letter-sprig" aria-hidden="true">✿</span>
           <span className="letter-postmark" aria-hidden="true">12 · X</span>
         </div>
@@ -80,6 +101,17 @@ export default function BirthdayFinale({ onGoToGarden }) {
           </motion.strong>
         </div>
       </motion.div>
+      <AnimatePresence>
+        {sealSecretOpen && <motion.div className="seal-secret-reveal" role="status" aria-live="polite"
+          initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 12, scale: 0.97 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -5, scale: 0.985 }}
+          transition={{ duration: reduceMotion ? 0.01 : 0.24, type: "spring", stiffness: 260, damping: 25 }}>
+          <span className="seal-secret-glyph" aria-hidden="true">♥</span>
+          <p className="eyebrow">a whisper behind the seal</p>
+          <p>Three careful taps, and the little wax seal gives way. Zack tucked one more tiny reminder behind the letter: even after the last page, there is always one more reason to smile. Keep this little secret close. 💜</p>
+        </motion.div>}
+      </AnimatePresence>
       <button className="button button-primary finale-surprise-button" type="button" onClick={() => setExtraSurprise((value) => !value)}>
         {extraSurprise ? "Keep the little magic" : "One last little surprise…"} <span aria-hidden="true">✦</span>
       </button>

@@ -194,6 +194,6 @@ test("capture rendered art direction across the birthday journey", async ({ page
   await page.getByRole("button", { name: /One last little surprise/ }).click();
   await expect(page.getByRole("status")).toBeVisible();
   await expect(page.locator(".extra-surprise")).toHaveCSS("opacity", "1");
-  await page.screenshot({ path: "test-results/screenshots/06-final-surprise.png", fullPage: true);
+  await page.screenshot({ path: "test-results/screenshots/06-final-surprise.png", fullPage: true });
 });
 

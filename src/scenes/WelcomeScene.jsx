@@ -20,7 +20,7 @@ export default function WelcomeScene({ onEnter }) {
     <motion.div className="welcome-character" initial={{ opacity: 0, scale: 0.94, rotate: 1 }}
       animate={{ opacity: 1, scale: 1, rotate: 0 }}
       transition={{ duration: 1.05, delay: 0.12, ease: [0.2, 0.75, 0.2, 1] }}>
-      <div className="welcome-moon" aria-hidden="true" />
+      <button className="welcome-moon secret-moon-trigger" type="button" aria-label="The moon hides a wish—tap 7 times" title="A little wish is hiding in the moon" />
       <div className="welcome-flower" aria-hidden="true"><i /><i /><i /><i /><b /></div>
       <CatCharacter mood="curious" onClick={() => {}} label="Pet Mimi to wake her up" />
       <div className="welcome-bug" aria-hidden="true"><Ladybug decorative /></div>

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { playCuteSound } from "../audio/soundEffects.js";
 
 const KONAMI = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"];
 const STAR_TARGET_COUNT = 8;
@@ -165,6 +166,7 @@ export default function EasterEggSystem() {
   const mismatchTimer = useRef(null);
 
   function announce(text) {
+    playCuteSound("tease");
     setToast(text);
     window.clearTimeout(toastTimer.current);
     toastTimer.current = window.setTimeout(() => setToast(""), 6200);
@@ -185,6 +187,7 @@ export default function EasterEggSystem() {
   }
 
   function openReveal(id) {
+    playCuteSound("reveal");
     if (!panel || panel === "celebration") openerRef.current = document.activeElement;
     setRevealId(id);
     setPanel("reveal");
@@ -206,6 +209,7 @@ export default function EasterEggSystem() {
   }
 
   function finishGame(id, achievement) {
+    playCuteSound("reward");
     addUnique(setCompletedGames, id);
     if (achievement) addUnique(setUnlocked, achievement);
     setCelebrationId(id);
@@ -359,6 +363,7 @@ export default function EasterEggSystem() {
       const first = MEMORY_CARDS.find((card) => card.id === next[0]);
       const second = MEMORY_CARDS.find((card) => card.id === next[1]);
       if (first.pair === second.pair) {
+        playCuteSound("collect");
         window.clearTimeout(mismatchTimer.current);
         mismatchTimer.current = null;
         setMemoryMismatch(false);
@@ -401,6 +406,7 @@ export default function EasterEggSystem() {
   function playRhythm(symbol) {
     if (gameWon || rhythmPlaybackActive) return;
     if (symbol === RHYTHM_SEQUENCE[rhythmStep]) {
+      playCuteSound("collect");
       const next = rhythmStep + 1;
       setRhythmStep(next);
       if (next === RHYTHM_SEQUENCE.length) {
@@ -423,6 +429,7 @@ export default function EasterEggSystem() {
       announce("Mimi tips the jar away with one very judgmental paw. " + riddle.hint);
       return;
     }
+    playCuteSound("collect");
     setWishIndex(next);
     addUnique(setUnlocked, "wish-jar");
     if (next === WISHES.length - 1) {
@@ -457,6 +464,7 @@ export default function EasterEggSystem() {
                 announce("Mimi caught you skipping ahead. The heart trail starts at the left curl and must be followed in order. No progress lost—yet.");
                 return;
               }
+              playCuteSound("collect");
               const next = [...caughtStars, star.id];
               setCaughtStars(next);
               if (next.length >= STAR_TARGET_COUNT) {
@@ -522,6 +530,7 @@ export default function EasterEggSystem() {
                 announce("Mimi planted a fake light. Nice try. The real fireflies glow gold; the violet ones are just showing off.");
                 return;
               }
+              playCuteSound("collect");
               const next = [...caughtFireflies, fly.id];
               setCaughtFireflies(next);
               if (next.length >= 5) { setGameWon(true); finishGame("fireflies", "five-fireflies"); }

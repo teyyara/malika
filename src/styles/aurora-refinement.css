@@ -174,3 +174,17 @@ body {
 @media(prefers-reduced-motion:reduce) {
   .egg-firefly-token { animation:none!important; }
 }
+
+/* The birthday letter keeps its keepsake feel, but the paper is pearl—not beige. */
+.finale-letter-wrap .letter-card {
+  border-color:rgba(182,169,224,.82);
+  color:#342d45;
+  background:linear-gradient(135deg,rgba(252,250,255,.995),rgba(235,230,250,.99));
+  box-shadow:0 30px 78px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.92);
+}
+.letter-top { border-color:rgba(105,89,145,.2); color:#80739d; }
+.letter-card p { color:#4b415e; }
+.letter-seal { color:#f4f0ff; background:radial-gradient(circle at 35% 30%,#9d515d,#6d303b 70%); }
+.letter-signoff { color:#75648d; }
+.letter-signoff strong { color:#40334f; }
+.seal-secret-reveal,.extra-surprise { border-color:rgba(191,176,238,.25); }

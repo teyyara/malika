@@ -219,7 +219,7 @@ test("reduced motion disables decorative CSS animation across scenes and notes",
   await expect.poll(() => page.locator(".garden-mote").first().evaluate((node) => getComputedStyle(node).animationIterationCount)).toBe("1");
   await page.locator(".garden-bug .ladybug-button").first().click();
   await expect(page.getByRole("dialog")).toBeVisible();
-  await expect.poll(() => page.locator(".love-note-modal::before").evaluate((node) => getComputedStyle(node).animationIterationCount)).toBe("1");
+  await expect.poll(() => page.locator(".love-note-modal").evaluate((node) => getComputedStyle(node, "::before").animationIterationCount)).toBe("1");
 });
 
 test("Mimi reacts to a pet and the three-star constellation reveals two environmental wishes", async ({ page }) => {

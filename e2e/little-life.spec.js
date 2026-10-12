@@ -68,37 +68,85 @@ test("a victory prize can replay its chime without dismissing the celebration", 
 });
 
 
-test("Mimi makes a layered cat-like meow and visibly opens her mouth", async ({ page }) => {
+test("Mimi makes a real local cat meow and opens her mouth with the sound", async ({ page }) => {
   await page.addInitScript(() => {
-    window.__malikaAudioProbe = { starts: 0, stops: 0 };
+    window.__malikaAudioProbe = { starts: 0, durations: [], stops: 0 };
     const AudioClass = window.AudioContext || window.webkitAudioContext;
     if (!AudioClass) return;
-    const originalCreate = AudioClass.prototype.createOscillator;
-    AudioClass.prototype.createOscillator = function () {
-      const oscillator = originalCreate.call(this);
-      const start = oscillator.start.bind(oscillator);
-      const stop = oscillator.stop.bind(oscillator);
-      oscillator.start = (...args) => {
+    const originalCreate = AudioClass.prototype.createBufferSource;
+    AudioClass.prototype.createBufferSource = function () {
+      const source = originalCreate.call(this);
+      const start = source.start.bind(source);
+      const stop = source.stop.bind(source);
+      source.start = (...args) => {
         window.__malikaAudioProbe.starts += 1;
+        window.__malikaAudioProbe.durations.push(source.buffer?.duration || 0);
         return start(...args);
       };
-      oscillator.stop = (...args) => {
+      source.stop = (...args) => {
         window.__malikaAudioProbe.stops += 1;
         return stop(...args);
       };
-      return oscillator;
+      return source;
+    };
+  });
+  const audioResponses = [];
+  page.on("response", (response) => {
+    if (response.url().includes("/audio/mimi-")) audioResponses.push({ url: response.url(), status: response.status() });
+  });
+  await page.goto("/");
+  await page.getByRole("button", { name: "Turn on tiny sounds" }).click();
+
+  await expect.poll(() => new Set(audioResponses.map((item) => new URL(item.url).pathname)).size).toBe(3);
+  expect(audioResponses.every((item) => item.status === 200)).toBeTruthy();
+  expect(audioResponses.every((item) => new URL(item.url).origin === new URL(page.url()).origin)).toBeTruthy();
+
+  const mimi = page.getByRole("button", { name: "Pet Mimi to wake her up" });
+  await mimi.click();
+  await expect(mimi.locator("svg.cat-art")).toHaveClass(/cat-is-meowing/);
+  await expect(mimi).toContainText("Mimi says meow!");
+  await expect.poll(() => page.evaluate(() => window.__malikaAudioProbe.starts)).toBeGreaterThan(0);
+
+  const durations = await page.evaluate(() => window.__malikaAudioProbe.durations);
+  expect(durations.some((duration) => duration >= 1.3 && duration <= 2.5)).toBeTruthy();
+});
+
+test("Mimi answers a second pet with a real purr and the mute control cuts it off", async ({ page }) => {
+  await page.addInitScript(() => {
+    window.__malikaAudioProbe = { starts: 0, durations: [], stops: 0 };
+    const AudioClass = window.AudioContext || window.webkitAudioContext;
+    if (!AudioClass) return;
+    const originalCreate = AudioClass.prototype.createBufferSource;
+    AudioClass.prototype.createBufferSource = function () {
+      const source = originalCreate.call(this);
+      const start = source.start.bind(source);
+      const stop = source.stop.bind(source);
+      source.start = (...args) => {
+        window.__malikaAudioProbe.starts += 1;
+        window.__malikaAudioProbe.durations.push(source.buffer?.duration || 0);
+        return start(...args);
+      };
+      source.stop = (...args) => {
+        window.__malikaAudioProbe.stops += 1;
+        return stop(...args);
+      };
+      return source;
     };
   });
   await page.goto("/");
   await page.getByRole("button", { name: "Turn on tiny sounds" }).click();
-  const beforePet = await page.evaluate(() => window.__malikaAudioProbe.starts);
   const mimi = page.getByRole("button", { name: "Pet Mimi to wake her up" });
-  await mimi.click();
 
-  await expect(mimi.locator("svg.cat-art")).toHaveClass(/cat-is-meowing/);
-  await expect(mimi).toContainText("Mimi says meow!");
-  const afterPet = await page.evaluate(() => window.__malikaAudioProbe.starts);
-  expect(afterPet - beforePet).toBeGreaterThanOrEqual(4);
+  await mimi.click();
+  await expect.poll(() => page.evaluate(() => window.__malikaAudioProbe.starts)).toBeGreaterThan(0);
+  await mimi.click();
+  await expect(mimi.locator("svg.cat-art")).toHaveClass(/cat-is-purring/);
+  await expect(mimi).toContainText("Mimi is purring!");
+  await expect.poll(() => page.evaluate(() => window.__malikaAudioProbe.durations.some((duration) => duration >= 7))).toBeTruthy();
+
+  const stopsBeforeMute = await page.evaluate(() => window.__malikaAudioProbe.stops);
+  await page.getByRole("button", { name: "Turn off tiny sounds" }).click();
+  await expect.poll(() => page.evaluate(() => window.__malikaAudioProbe.stops)).toBeGreaterThan(stopsBeforeMute);
 });
 
 test("a love note starts its romantic score and stops it when the note closes", async ({ page }) => {

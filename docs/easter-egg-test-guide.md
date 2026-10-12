@@ -1,4 +1,4 @@
-# Complete easter-egg guide — Loop 018
+# Complete easter-egg guide — Loop 019
 
 **Full spoilers.** This is the complete walkthrough for Zack, not a hint sheet to hand to Malika before she explores. The website's hidden progress exists only in the current page session: it is not written to a server, browser storage, or analytics. Reloading starts a fresh hunt. None of these secrets is required to read the birthday letter or finish the main heart game.
 
@@ -171,7 +171,27 @@ The meow, romantic score, and fanfares are synthesized in-browser with the Web A
 
 **Browser regression checks:** `e2e/little-life.spec.js` verifies Mimi's animated meow, that opening a note schedules the layered soundtrack and closing it stops scheduled notes, and that a quest's prize points to its specific fanfare. The checks observe Web Audio oscillator scheduling, not a human judgment of sound quality or a physical speaker-level listening test.
 
-## 7. Progress, accessibility, and reset behavior
+## 8. Loop 019 — Real cat sounds, warmer music, and a better sound experience
+
+This loop replaces the simulated cat voice from Loop 018 with real recorded cat sounds bundled alongside the site.
+
+### Give Mimi a real meow
+1. Turn on **Sound off** in the welcome screen's upper-right corner (the button changes to **Sound on**).
+2. Tap Mimi once. She now plays a real cat meow while her mouth opens and closes with a matching head movement.
+3. Tap her a second time within the quick-pet window. She responds with a recorded cat purr, and her head/tail show a gentle purring vibration.
+4. Tap Mimi three times quickly to trigger the familiar dance. The dance keeps its own light melody and includes a real meow.
+
+Two different meow recordings alternate for a little natural variety. The purr is trimmed to a short section so it does not drone over the page. Muting sound stops currently playing cat samples and tones; hiding the browser tab quiets them too.
+
+### Local assets and licensing
+The three cat recordings are bundled in the site's own public audio folder, so there are no runtime requests to Pixabay, Mixkit, or another external audio host. This keeps playback reliable and avoids depending on a third-party sound service. The source pages and attribution are listed in [docs/audio-credits.md](audio-credits.md): DRAGON-STUDIO's **Cute Cat Meow**, **Cat Meow**, and **Purring Cat** on Pixabay, each labeled for use under the Pixabay Content License.
+
+### More musical warmth
+The love-note score and achievement fanfares remain original Web Audio arrangements. Their musical layers now have a slightly fuller level and gentle echo, helping the romantic pads, arpeggios, and prize melodies feel less dry. The love-note soundtrack still runs only while a note is open and sound is enabled, and stops when the note closes or sound is muted.
+
+**Regression coverage:** e2e/little-life.spec.js verifies that all three audio files load successfully from the site's own origin, a real meow buffer plays, the second pet plays the purr recording, and the mute control interrupts active playback. It also checks the romantic score lifecycle and each prize's achievement cue. These automated checks validate loading, playback scheduling, and stop behavior—not a subjective headphone or speaker listening test.
+
+## 9. Progress, accessibility, and reset behavior
 
 - The arcade tracks completed quests and found secrets only in page memory for this visit. Refreshing the page resets them; no third-party storage, account, API, or paid service is involved.
 - Dialogs can be closed with their close button or **Escape**. Focus returns to the opener and stays inside the dialog while it is open.

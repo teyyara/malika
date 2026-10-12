@@ -119,7 +119,7 @@ export default function BirthdayFinale({ onGoToGarden, onGrandFinale, wishCount 
       })}>
         {extraSurprise ? "Keep the little magic" : "One last little surprise…"} <span aria-hidden="true">✦</span>
       </button>
-      <AnimatePresence>{extraSurprise && <motion.div className="extra-surprise"
+      <AnimatePresence>{extraSurprise && <motion.div className="extra-surprise is-universe-made-for-you"
         initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 14, scale: 0.96 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 8, scale: 0.98 }}

@@ -410,7 +410,7 @@ test("standard laptop viewports keep the welcome, garden, game, collection and l
       const grid = document.querySelector(".message-grid");
       return {
         documentWidth: document.documentElement.scrollWidth,
-        columns: getComputedStyle(grid).gridTemplateColumns.trim().split(/\\s+/).length,
+        columns: getComputedStyle(grid).gridTemplateColumns.trim().split(/\s+/).length,
         firstCard: grid.querySelector(".message-card")?.getBoundingClientRect().toJSON()
       };
     });

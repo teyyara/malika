@@ -2,7 +2,7 @@
 
 Run: `malika-20261012-004`  
 Active keyphrase: `read the master strategy`  
-Current loop: **004 — immersive interaction, visual QA, and Vercel preview**  
+Current loop: **004 — immersive interaction, visual QA, automated release, and Vercel deployment**  
 Orchestration state: `WAITING_FOR_CONTINUE`  
 Candidate: `malika-birthday-004-alive-garden`  
 Repository: https://github.com/teyyara/malika  
@@ -17,18 +17,18 @@ The experience contains a personalized welcome, moonlit garden with Mimi and lad
 
 ## Loop 004 — completed and promoted
 
-- Added a cursor-reactive atmospheric light and low-amplitude parallax on fine-pointer devices, with reduced-motion/coarse-pointer guards.
+- Added cursor-reactive atmospheric light and low-amplitude parallax on fine-pointer devices, with reduced-motion/coarse-pointer guards.
 - Reworked Mimi to blink, follow the pointer with her pupils, and change whole-body reactions when petted; improved game-scale illustration size.
 - Added fluttering ladybug wings and touch/hover reactions.
 - Added a stable three-star constellation interaction that draws a heart and opens a birthday wish; the flower reveals a separate note.
 - Choreographed game collection feedback and a multi-particle win moment.
 - Added staggered birthday-letter reveal, floating motes, and an optional final sparkle sequence.
-- Added browser regression tests for the new interactions and a deterministic screenshot journey covering welcome, garden, game, victory, letter, and final surprise.
-- Documented Vercel settings and the actual Ready preview URL.
+- Added browser regression tests for new interactions and a deterministic screenshot journey covering welcome, garden, game, victory, letter, and final surprise.
+- Updated deployment and release evidence with the actual Vercel project state.
 
 ## Verified automated validation
 
-**PASS — all automated checks passed on the exact source checkpoint promoted to `main`.**
+**PASS — all automated checks passed on the exact application checkpoint promoted to `main`.**
 
 Validated checkpoint: `8fe4b6363a748f7987d17b8f9ede8e7682d4a9e8`  
 Workflow: [Validate Malika · run 38188085348](https://github.com/teyyara/malika/actions/runs/38188085348)
@@ -41,23 +41,24 @@ Workflow: [Validate Malika · run 38188085348](https://github.com/teyyara/malika
 - Rendered visual review (six PNGs): [download artifact](https://github.com/teyyara/malika/actions/runs/38188085348/artifacts/11720173606).
 - Source checkpoint: [commit 8fe4b63](https://github.com/teyyara/malika/commit/8fe4b6363a748f7987d17b8f9ede8e7682d4a9e8).
 - Pull request #2: [merged](https://github.com/teyyara/malika/pull/2).
-- Branch check immediately after promotion: `main` and `aeos/progression` identical at the validated checkpoint.
 
 ## Vercel status
 
-Vercel's GitHub integration reports a Ready HTTPS preview:
+Vercel reports the production deployment from `main` at the validated application checkpoint as **Ready**. The deployment record lists these aliases:
 
-https://malika-birthday-git-aeos-progression-tyyr1.vercel.app
+- https://malika-birthday-kappa.vercel.app
+- https://malika-birthday-tyyr1.vercel.app
+- https://malika-birthday-git-main-tyyr1.vercel.app
 
-Evidence: [Vercel bot update on PR #2](https://github.com/teyyara/malika/pull/2#issuecomment-6115512987). Project dashboard: https://vercel.com/tyyr1/malika-birthday.
+The branch preview is also **Ready**: https://malika-birthday-git-aeos-progression-tyyr1.vercel.app
 
-The preview is a valid, shareable URL. The production/custom-domain alias was not separately confirmed by the deployment status returned for this loop; check **Deployments → Visit** and **Settings → Domains** in the dashboard before labelling any alias as the production URL.
+Project dashboard: https://vercel.com/tyyr1/malika-birthday. Vercel metadata reports SSO protection enabled for Vercel-hosted domains, with custom domains excluded from that protection setting. A time-limited shareable bypass link was generated for the intended reviewer on 12 October 2026. Its secret is deliberately not stored in the repository; use the private link delivered separately. Do not commit or post that token publicly.
 
 ## Remaining non-automated gates
 
 - Physical-device touch/viewport QA has not been performed.
 - Screen-reader QA has not been performed.
 - The six production-build screenshots were captured and visually inspected, but do not represent device or assistive-technology certification.
-- Production/custom-domain alias remains unverified; the Ready branch preview is the known HTTPS link.
+- The deployment is Ready according to Vercel metadata; this does not imply that every viewer can bypass SSO without the private share link.
 
-Loop 004 has completed implementation, automated QA, screenshot evidence, and source promotion. The next highest-value task is to confirm the production alias and perform human mobile/screen-reader checks.
+Loop 004 has completed implementation, automated QA, screenshot evidence, source promotion, and deployment verification. The next highest-value task is human mobile/screen-reader QA or further visual polish.

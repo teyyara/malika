@@ -363,11 +363,11 @@ export default function EasterEggSystem() {
       const first = MEMORY_CARDS.find((card) => card.id === next[0]);
       const second = MEMORY_CARDS.find((card) => card.id === next[1]);
       if (first.pair === second.pair) {
-        playCuteSound("collect");
         window.clearTimeout(mismatchTimer.current);
         mismatchTimer.current = null;
         setMemoryMismatch(false);
         const pairs = [...matchedCards, ...next];
+        if (pairs.length < MEMORY_CARDS.length) playCuteSound("collect");
         setMatchedCards(pairs);
         if (pairs.length === MEMORY_CARDS.length) {
           setGameWon(true);
@@ -406,8 +406,8 @@ export default function EasterEggSystem() {
   function playRhythm(symbol) {
     if (gameWon || rhythmPlaybackActive) return;
     if (symbol === RHYTHM_SEQUENCE[rhythmStep]) {
-      playCuteSound("collect");
       const next = rhythmStep + 1;
+      if (next < RHYTHM_SEQUENCE.length) playCuteSound("collect");
       setRhythmStep(next);
       if (next === RHYTHM_SEQUENCE.length) {
         setGameWon(true);
@@ -429,12 +429,13 @@ export default function EasterEggSystem() {
       announce("Mimi tips the jar away with one very judgmental paw. " + riddle.hint);
       return;
     }
-    playCuteSound("collect");
     setWishIndex(next);
     addUnique(setUnlocked, "wish-jar");
     if (next === WISHES.length - 1) {
       setGameWon(true);
       finishGame("wishes", "five-wishes");
+    } else {
+      playCuteSound("collect");
     }
   }
 
@@ -464,12 +465,13 @@ export default function EasterEggSystem() {
                 announce("Mimi caught you skipping ahead. The heart trail starts at the left curl and must be followed in order. No progress lost—yet.");
                 return;
               }
-              playCuteSound("collect");
               const next = [...caughtStars, star.id];
               setCaughtStars(next);
               if (next.length >= STAR_TARGET_COUNT) {
                 setGameWon(true);
                 finishGame("stars", "seven-stars");
+              } else {
+                playCuteSound("collect");
               }
             }}>
             {caught ? "✦" : "✧"}
@@ -530,10 +532,10 @@ export default function EasterEggSystem() {
                 announce("Mimi planted a fake light. Nice try. The real fireflies glow gold; the violet ones are just showing off.");
                 return;
               }
-              playCuteSound("collect");
               const next = [...caughtFireflies, fly.id];
               setCaughtFireflies(next);
               if (next.length >= 5) { setGameWon(true); finishGame("fireflies", "five-fireflies"); }
+              else playCuteSound("collect");
             }}>
             {caught ? "✧" : "✦"}
           </button>;

@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { mkdir } from "node:fs/promises";
 
 async function enterGarden(page) {
   await page.goto("/");
@@ -158,5 +159,31 @@ test("the moonlit background gently tracks a fine-pointer movement", async ({ pa
   await expect.poll(async () => page.locator(".ambient-world").evaluate(
     (element) => getComputedStyle(element).getPropertyValue("--parallax-x-near").trim()
   )).not.toBe(firstPosition);
+});
+
+test("capture rendered art direction across the birthday journey", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await mkdir("test-results/screenshots", { recursive: true });
+  await page.goto("/");
+  await page.screenshot({ path: "test-results/screenshots/01-welcome.png", fullPage: true });
+
+  await page.getByRole("button", { name: /Open your birthday surprise/ }).click();
+  await expect(page.getByRole("heading", { name: /A garden full of little things/ })).toBeVisible();
+  await page.screenshot({ path: "test-results/screenshots/02-garden.png", fullPage: true });
+
+  await page.getByRole("button", { name: "Heart game", exact: true }).click();
+  await page.getByRole("button", { name: /Let's find some hearts/ }).click();
+  await page.screenshot({ path: "test-results/screenshots/03-heart-game.png", fullPage: true });
+
+  const hearts = page.getByRole("button", { name: /Collect purple heart/ });
+  for (let count = 0; count < 7; count += 1) {
+    await hearts.first().click();
+  }
+  await expect(page.getByRole("heading", { name: "You found every heart…" })).toBeVisible();
+  await page.screenshot({ path: "test-results/screenshots/04-victory.png", fullPage: true });
+
+  await page.getByRole("button", { name: "Birthday letter", exact: true }).click();
+  await expect(page.getByRole("heading", { name: /Happy birthday, Malika/ })).toBeVisible();
+  await page.screenshot({ path: "test-results/screenshots/05-birthday-letter.png", fullPage: true });
 });
 

@@ -1,4 +1,4 @@
-# Complete easter-egg guide — Loop 024
+# Complete easter-egg guide — Loop 025
 
 **Full spoilers.** This is the complete walkthrough for Zack, not a hint sheet to hand to Malika before she explores. The website's hidden progress exists only in the current page session: it is not written to a server, browser storage, or analytics. Reloading starts a fresh hunt. None of these secrets is required to read the birthday letter or finish the main heart game.
 
@@ -6,14 +6,14 @@
 
 There are several ways in. Any one is enough.
 
-1. **The classic controller code:** on the page, press **Up, Up, Down, Down, Left, Right, Left, Right, B, A**. The Secret Arcade opens.
-2. **Spell her name:** type **MALIKA** on the keyboard. A starfall reveal appears, titled *Her name lit up the sky*. Press **Enter the Secret Arcade** in the reveal to continue.
-3. **Call the kitten:** type **MIMI** on the keyboard. Mimi's Memory Match opens directly.
+1. **The classic controller code:** on the page, press **Up, Up, Down, Down, Left, Right, Left, Right, B, A**. The password door appears.
+2. **Spell her name:** type **MALIKA** on the keyboard. A starfall reveal appears, titled *Her name lit up the sky*. Press **Enter the Secret Arcade** in the reveal to open the password door.
+3. **Call the kitten:** type **MIMI** on the keyboard. The password door appears; it no longer opens Memory Match directly.
 4. **The heart in the header:** after leaving the welcome screen, tap the small heart inside the “for Malika” header mark **5 times within 7 seconds**.
-5. **The ladybug trail:** in the garden, click a ladybug **4 times within 9 seconds**. Close each love-note popup before clicking again. A toast appears; use **Open Secret Arcade**.
+5. **The ladybug trail:** in the garden, click a ladybug **4 times within 9 seconds**. Close each love-note popup before clicking again. A toast appears; use **Open Secret Arcade** to reach the password door.
 6. The other hidden entrances are the moon wish, Mimi's fifth hello, the footer star, and the birthday-letter wax seal; each is detailed below.
 
-The typed words are case-insensitive. When using the keyboard shortcuts, type on the page rather than inside a text field. The Secret Arcade contains five optional quests.
+The typed words are case-insensitive. When using the keyboard shortcuts, type on the page rather than inside a text field. To unlock the Secret Arcade, enter **iloveyou** in the password panel. The five games appear only after the correct password is accepted; the unlock lasts until the page is refreshed.
 
 ## 2. Small secrets in the welcome scene and garden
 
@@ -79,7 +79,7 @@ Reward: *You found the heart in the stars.*
 ### Quest 2 — Mimi's Memory Match
 Turn over two cards at a time and match all **four pairs**: **🌙 moon, 🐾 pawprints, 💜 purple heart, and ✨ sparkle**. The cards shuffle whenever a new round starts, so pair positions change. Memorize revealed positions; an incorrect pair briefly stays visible and then turns back. You can keep playing after a mismatch.
 
-Typing **MIMI** is a shortcut directly into this game.
+Typing **MIMI** opens the Secret Arcade door. Enter **iloveyou** if it is still locked, then choose Memory Match from the game list; this keyboard shortcut no longer bypasses the password gate.
 
 Reward: *You remembered every little wonder.*
 
@@ -93,7 +93,7 @@ The last two beats echo the first pair. A wrong beat resets the combo, but you c
 Reward: *Mimi's tiny concert is a HIT!*
 
 ### Quest 4 — Firefly Hunt
-Catch the **five bright golden fireflies** and leave the three dim violet decoys alone. Their positions are: upper-left side, near the top just left of centre, right-middle, lower-right of centre, and lower-left. A dim violet light is a decoy; clicking it gives a teasing message but does not erase progress.
+Catch the **five bright pearl-white fireflies** and leave the three dim violet decoys alone. Their positions are: upper-left side, near the top just left of centre, right-middle, lower-right of centre, and lower-left. A dim violet light is a decoy; clicking it gives a teasing message but does not erase progress.
 
 Reward: *You just lit up the whole garden.*
 
@@ -278,7 +278,32 @@ The change is a styling pass over the existing experiences; it preserves the sam
 
 **Automated coverage:** the updated browser test checks that the toggle starts on, the first welcome tap actually schedules the opening audio cue, and sound can still be muted and re-enabled. The rest of the suite continues to cover the recorded cat audio, independent mixer channels, interactive secrets, mobile layouts, and the audio-reactive face. Automated screenshot artifacts are still not a substitute for testing on the intended phone or monitor.
 
-## 14. Progress, accessibility, and reset behavior
+## 14. Loop 025 — Nine distinct soundtracks, a password-locked arcade, and violet glass
+
+### Nine distinct looping arrangements
+All music is synthesized in the browser using the existing Web Audio system. No downloaded music files, remote audio service, added package, or paid feature is used.
+- **The garden:** airy arpeggios over a soft sustained harmony.
+- **Heart Game:** a brighter, quicker melodic pulse for the heart-collecting game.
+- **Love Notes collection:** slower, reflective notes with a soft stereo spread.
+- **Birthday letter:** a slower, fuller romantic progression to accompany the final letter.
+- **An open love note:** the existing intimate love theme takes priority while the note is open, then the active scene's music returns when the note closes.
+- **Constellation Chase:** high, sparkling plucks.
+- **Memory Match:** warm, rounded chords.
+- **Pawprint Rhythm:** quicker, more percussive notes.
+- **Firefly Hunt:** delicate, high-register twinkles.
+- **Little Wish Jar:** a slower, dreamlike sequence.
+
+The mixer still controls overall volume and the shared music channel. Muting stops active music and effects; changing scenes or arcade games stops the previous score and switches the theme. Browser policy still requires a first real user interaction before audible playback.
+
+### Password gate for the Secret Arcade
+All hidden entrances now lead to a password panel instead of exposing the arcade immediately: the Konami sequence, header heart, `MALIKA` reveal, and `MIMI` keyboard shortcut. Enter **`iloveyou`** to unlock it. An incorrect password displays a quiet error and keeps all five game tiles hidden. After it is accepted, the arcade stays unlocked for this page visit so game replay and the return-to-arcade flow do not ask repeatedly; refreshing resets the unlock. The `MIMI` shortcut no longer opens Memory Match directly.
+
+### Violet and pearl refinement
+The near-black foundation remains, but the dominant accent moves from antique gold to amethyst/lavender, pearl-white highlights, with quiet rose and cool-blue undertones. Buttons, focus rings, navigation, sound controls, arcade cards, and the password panel now share cooler glass-and-pearl details with restrained glow.
+
+**Verification added:** browser tests cover both wrong and correct password paths, all four main-scene scores, all five mini-game scores, and return to scene music after a game. These tests verify theme selection and Web Audio scheduling in Chromium; they do not replace subjective listening on physical speakers or devices.
+
+## 15. Progress, accessibility, and reset behavior
 
 - The arcade tracks completed quests and found secrets only in page memory for this visit. Refreshing the page resets them; no third-party storage, account, API, or paid service is involved.
 - Dialogs can be closed with their close button or **Escape**. Focus returns to the opener and stays inside the dialog while it is open.

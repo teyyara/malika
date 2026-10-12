@@ -3,8 +3,9 @@ let audioContext = null;
 // before audio can become audible, so the welcome CTA unlocks it immediately.
 let enabled = true;
 const listeners = new Set();
-let loveThemeSession = null;
-let loveThemeRequested = false;
+let musicSession = null;
+let sceneMusicTheme = null;
+const musicOverrides = new Map();
 
 const animalAudio = {
   cuteMeow: { url: "/audio/mimi-meow-cute.mp3", volume: 0.62 },
@@ -138,6 +139,20 @@ const loveProgression = [
   { bass: 98, chord: [196, 246.94, 293.66, 392], arpeggio: [493.88, 587.33, 783.99, 659.25, 587.33], melody: [587.33, 523.25, 440]
   }
 ];
+
+
+const MUSIC_ARRANGEMENTS = {
+  garden:{roots:[48,43,45,41],barSeconds:2.75,chord:[0,4,7,11],arp:[0,4,7,11,7],melody:[11,7,4],chordOctave:12,arpOctave:24,melodyOctave:24,arpStep:.47,arpDuration:.64,bass:.0052,pad:.0036,pluck:.009,lead:.0085,padType:"triangle",pluckType:"sine",leadType:"sine",pan:.18},
+  "heart-game":{roots:[50,45,47,43],barSeconds:2.15,chord:[0,4,7,11],arp:[0,4,7,9,11],melody:[11,9,7],chordOctave:12,arpOctave:24,melodyOctave:24,arpStep:.34,arpDuration:.42,bass:.0048,pad:.003,pluck:.0087,lead:.0087,padType:"triangle",pluckType:"triangle",leadType:"sine",pan:.12},
+  "love-notes":{roots:[53,48,50,45],barSeconds:3.05,chord:[0,3,7,10],arp:[0,3,7,10,7],melody:[10,7,5],chordOctave:12,arpOctave:24,melodyOctave:24,arpStep:.54,arpDuration:.8,bass:.0048,pad:.0038,pluck:.0073,lead:.007,padType:"sine",pluckType:"sine",leadType:"sine",pan:.24},
+  "birthday-letter":{roots:[41,45,48,43],barSeconds:3.3,chord:[0,4,7,11],arp:[0,4,7,11,7,4],melody:[11,9,7],chordOctave:12,arpOctave:24,melodyOctave:24,arpStep:.59,arpDuration:.9,bass:.0058,pad:.0044,pluck:.0071,lead:.010,padType:"triangle",pluckType:"sine",leadType:"sine",pan:.17},
+  "arcade-stars":{roots:[50,45,47,43],barSeconds:2.05,chord:[0,4,7,11],arp:[12,16,19,23,19],melody:[23,19,16],chordOctave:12,arpOctave:24,melodyOctave:24,arpStep:.32,arpDuration:.44,bass:.0036,pad:.0026,pluck:.0095,lead:.008,padType:"sine",pluckType:"sine",leadType:"triangle",pan:.27},
+  "arcade-memory":{roots:[45,50,47,48],barSeconds:2.8,chord:[0,3,7,10],arp:[0,3,7,10,12,10],melody:[10,7,3],chordOctave:12,arpOctave:24,melodyOctave:24,arpStep:.48,arpDuration:.74,bass:.005,pad:.0043,pluck:.0067,lead:.0075,padType:"triangle",pluckType:"sine",leadType:"sine",pan:.13},
+  "arcade-rhythm":{roots:[43,47,45,40],barSeconds:1.72,chord:[0,4,7],arp:[0,7,4,12,7],melody:[12,7,9],chordOctave:12,arpOctave:24,melodyOctave:24,arpStep:.27,arpDuration:.32,bass:.0058,pad:.0028,pluck:.0087,lead:.0078,padType:"triangle",pluckType:"triangle",leadType:"triangle",pan:.08},
+  "arcade-fireflies":{roots:[48,43,45,41],barSeconds:2.55,chord:[0,4,7,11],arp:[19,23,26,23,21],melody:[26,24,23],chordOctave:12,arpOctave:24,melodyOctave:24,arpStep:.42,arpDuration:.68,bass:.0038,pad:.0028,pluck:.0094,lead:.007,padType:"sine",pluckType:"sine",leadType:"sine",pan:.32},
+  "arcade-wishes":{roots:[43,48,50,45],barSeconds:3.35,chord:[0,4,7,9],arp:[0,4,9,7,4],melody:[9,7,4],chordOctave:12,arpOctave:24,melodyOctave:24,arpStep:.62,arpDuration:.92,bass:.0049,pad:.0041,pluck:.0065,lead:.0089,padType:"sine",pluckType:"sine",leadType:"sine",pan:.2}
+};
+const MUSIC_OVERRIDE_PRIORITY = { "arcade-game": 1, "love-note": 2 };
 
 function getAudioContext() {
   if (typeof window === "undefined") return null;
@@ -511,20 +526,108 @@ function scheduleLovePhrase(context, start, session) {
   });
 }
 
-function stopLoveThemeSession() {
-  if (!loveThemeSession) return;
-  const session = loveThemeSession;
-  loveThemeSession = null;
-  if (session.interval !== null) window.clearInterval(session.interval);
+
+function getRequestedMusicTheme() {
+  const overrides = [...musicOverrides.entries()].filter(([, theme]) => Boolean(theme))
+    .sort(([a], [b]) => (MUSIC_OVERRIDE_PRIORITY[b] || 0) - (MUSIC_OVERRIDE_PRIORITY[a] || 0));
+  return overrides[0]?.[1] || sceneMusicTheme;
+}
+
+function stopMusicSession() {
+  if (!musicSession) return;
+  const session = musicSession;
+  musicSession = null;
+  if (session.interval !== null && typeof window !== "undefined") window.clearInterval(session.interval);
   const now = session.context.currentTime;
   session.nodes.forEach((oscillator) => {
-    try {
-      oscillator.stop(now + 0.08);
-    } catch {
-      // Already stopped or already ended.
-    }
+    try { oscillator.stop(now + .08); } catch { /* Already ended or stopping. */ }
   });
   session.nodes.clear();
+}
+
+function midiFrequency(note) { return 440 * Math.pow(2, (note - 69) / 12); }
+
+function scheduleArrangedPhrase(context, start, session, theme) {
+  const track = MUSIC_ARRANGEMENTS[theme];
+  if (!track) return;
+  const bar = track.barSeconds;
+  track.roots.forEach((root, barIndex) => {
+    const at = start + barIndex * bar;
+    scheduleTone(context, { frequency:midiFrequency(root), duration:bar*.94, type:"sine", volume:track.bass, attack:bar*.16, release:bar*.27, filterFrequency:1500, pan:0 }, at, session);
+    track.chord.forEach((interval, i) => scheduleTone(context, {
+      frequency:midiFrequency(root+track.chordOctave+interval), duration:bar*.84, type:track.padType,
+      volume:track.pad*(i===0?1.12:1), attack:bar*.17, release:bar*.24, filterFrequency:3700, harmonic:.04,
+      pan:(i%2===0?-1:1)*track.pan
+    }, at+(i%2)*.045, session));
+    track.arp.forEach((interval, i) => scheduleTone(context, {
+      frequency:midiFrequency(root+track.arpOctave+interval), duration:track.arpDuration, type:track.pluckType,
+      volume:track.pluck, attack:.055, release:track.arpDuration*.4, filterFrequency:4700, harmonic:.07,
+      pan:i%2===0?-track.pan:track.pan
+    }, at+.08+i*track.arpStep, session));
+    const positions=[.16,.48,.77];
+    track.melody.forEach((interval, i) => scheduleTone(context, {
+      frequency:midiFrequency(root+track.melodyOctave+interval), duration:bar*.38, type:track.leadType,
+      volume:track.lead, attack:.095, release:bar*.15, filterFrequency:4500, harmonic:.055,
+      pan:i===1?track.pan*.6:-track.pan*.4
+    }, at+positions[i]*bar, session));
+  });
+}
+
+function phraseLength(theme) {
+  return theme==="love-note" ? LOVE_THEME_PHRASE_SECONDS : (MUSIC_ARRANGEMENTS[theme]?.barSeconds || 2.5)*4;
+}
+
+function scheduleMusicPhrase(context, start, session, theme) {
+  if (theme==="love-note") scheduleLovePhrase(context,start,session);
+  else scheduleArrangedPhrase(context,start,session,theme);
+}
+
+function startMusicTheme(theme) {
+  if (!theme || !enabled || (typeof document!=="undefined" && document.hidden)) { stopMusicSession(); return false; }
+  const context=getAudioContext();
+  if (!context) return false;
+  if (context.state!=="running") {
+    context.resume().then(()=>{ if(getRequestedMusicTheme()===theme && enabled) syncMusicTheme(); }).catch(()=>{});
+    return false;
+  }
+  if (musicSession?.context===context && musicSession.theme===theme) return true;
+  stopMusicSession();
+  const session={context,theme,nodes:new Set(),interval:null};
+  musicSession=session;
+  const length=phraseLength(theme);
+  let nextAt=context.currentTime+.09;
+  scheduleMusicPhrase(context,nextAt,session,theme);
+  nextAt+=length;
+  session.interval=window.setInterval(()=>{
+    if(!enabled || getRequestedMusicTheme()!==theme || (typeof document!=="undefined" && document.hidden)) {
+      stopMusicSession();
+      if(enabled && typeof document!=="undefined" && !document.hidden) syncMusicTheme();
+      return;
+    }
+    const horizon=context.currentTime+1.5;
+    while(nextAt<horizon) { scheduleMusicPhrase(context,nextAt,session,theme); nextAt+=length; }
+  },420);
+  return true;
+}
+
+function syncMusicTheme() {
+  const theme=getRequestedMusicTheme();
+  if(typeof document!=="undefined" && document.documentElement) document.documentElement.dataset.soundtrackTheme=theme||"none";
+  if(!enabled || !theme || (typeof document!=="undefined" && document.hidden)) { stopMusicSession(); return false; }
+  return startMusicTheme(theme);
+}
+
+export function setSceneMusic(theme) {
+  sceneMusicTheme=Object.hasOwn(MUSIC_ARRANGEMENTS,theme)?theme:null;
+  return syncMusicTheme();
+}
+
+export function setMusicOverride(owner,theme) {
+  if(!owner) return false;
+  if(theme===null || theme===undefined || theme==="") musicOverrides.delete(owner);
+  else if(theme==="love-note" || Object.hasOwn(MUSIC_ARRANGEMENTS,theme)) musicOverrides.set(owner,theme);
+  else musicOverrides.delete(owner);
+  return syncMusicTheme();
 }
 
 export function isCuteSoundEnabled() {
@@ -613,6 +716,7 @@ export async function setCuteSoundEnabled(nextEnabled) {
     }
     announceState();
     void preloadAnimalAudio(context);
+    syncMusicTheme();
     playCuteSound("on");
     return true;
   } catch {
@@ -643,48 +747,14 @@ export function playCuteSound(kind = "collect") {
   return true;
 }
 
-export function startLoveTheme() {
-  loveThemeRequested = true;
-  if (!enabled || (typeof document !== "undefined" && document.hidden)) return false;
-  const context = getAudioContext();
-  if (!context) return false;
-  if (context.state !== "running") {
-    context.resume().then(() => {
-      if (loveThemeRequested && enabled) startLoveTheme();
-    }).catch(() => {});
-    return false;
-  }
-  if (loveThemeSession?.context === context) return true;
+export function startLoveTheme() { return setMusicOverride("love-note","love-note"); }
 
-  stopLoveThemeSession();
-  const session = { context, nodes: new Set(), interval: null };
-  loveThemeSession = session;
-  let nextPhraseAt = context.currentTime + 0.08;
-  scheduleLovePhrase(context, nextPhraseAt, session);
-  nextPhraseAt += LOVE_THEME_PHRASE_SECONDS;
-  session.interval = window.setInterval(() => {
-    if (!enabled || !loveThemeRequested || (typeof document !== "undefined" && document.hidden)) {
-      stopLoveThemeSession();
-      return;
-    }
-    const horizon = context.currentTime + 1.4;
-    while (nextPhraseAt < horizon) {
-      scheduleLovePhrase(context, nextPhraseAt, session);
-      nextPhraseAt += LOVE_THEME_PHRASE_SECONDS;
-    }
-  }, 450);
-  return true;
-}
-
-export function stopLoveTheme() {
-  loveThemeRequested = false;
-  stopLoveThemeSession();
-}
+export function stopLoveTheme() { setMusicOverride("love-note",null); }
 
 if (typeof document !== "undefined") {
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) {
-      stopLoveThemeSession();
+      stopMusicSession();
       stopAnimalVoices();
       stopOneShotTones();
       for (const bus of softEchoBuses.values()) {
@@ -700,6 +770,6 @@ if (typeof document !== "undefined") {
         bus.wet.gain.setValueAtTime(0.13, audioContext.currentTime);
       }
     }
-    if (loveThemeRequested && enabled) startLoveTheme();
+    if (enabled) syncMusicTheme();
   });
 }

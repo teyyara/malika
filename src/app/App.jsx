@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useReducer } from "react";
+import React, { useCallback, useEffect, useMemo, useReducer } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import AnimatedBackground from "../components/AnimatedBackground.jsx";
 import EasterEggSystem from "../components/EasterEggSystem.jsx";
@@ -13,7 +13,7 @@ import { loveMessages } from "../data/loveMessages.js";
 import { memories } from "../data/memories.js";
 import { siteConfig } from "../data/siteConfig.js";
 import { createInitialExperienceState, experienceReducer } from "./experienceReducer.js";
-import { setCuteSoundEnabled } from "../audio/soundEffects.js";
+import { setCuteSoundEnabled, setSceneMusic } from "../audio/soundEffects.js";
 
 const allNotes = [...loveMessages, ...memories];
 const nav = [{id:"garden",label:"The garden"},{id:"game",label:"Heart game"},{id:"collection",label:"Love notes"},{id:"finale",label:"Birthday letter"}];
@@ -31,6 +31,16 @@ export default function App() {
     dispatch({type:"NAVIGATE",scene:"garden"});
   }, []);
   const gameAction = useCallback((action) => dispatch({type:"GAME_ACTION",action}), []);
+
+  useEffect(() => {
+    const soundtrackByScene = {
+      garden: "garden",
+      game: "heart-game",
+      collection: "love-notes",
+      finale: "birthday-letter"
+    };
+    setSceneMusic(soundtrackByScene[state.scene] || null);
+  }, [state.scene]);
 
   let scene;
   if (state.scene === "garden") scene = <GardenScene discoveredCount={state.discoveredMessageIds.length} requiredHearts={state.game.requiredHearts} onOpenNote={openNote} onGoToGame={() => go("game")} onGoToCollection={() => go("collection")} onOpenLetter={() => go("finale")} />;

@@ -1,5 +1,19 @@
 import { test, expect } from "@playwright/test";
 
+const testArcadePassword = "iloveyou";
+
+async function unlockArcadeFromKeyboard(page) {
+  for (const key of ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"]) {
+    await page.keyboard.press(key);
+  }
+  const gate = page.getByRole("dialog", { name: "A door only you can open" });
+  await expect(gate).toBeVisible();
+  await gate.getByLabel("The secret password").fill(testArcadePassword);
+  await gate.getByRole("button", { name: "Unlock the Secret Arcade" }).click();
+  await expect(page.getByRole("dialog", { name: "The secret arcade" })).toBeVisible();
+}
+
+
 test("the sound mixer adjusts the master level and lets you audition Mimi's local recordings", async ({ page }) => {
   await page.addInitScript(() => {
     window.__soundMixerProbe = { masterTargets: [], animalClips: [] };
@@ -98,8 +112,10 @@ test("Mimi, love-note music and game effects can be mixed independently", async 
 
   const note = page.getByRole("dialog", { name: "Brave new chapters" });
   await expect(note).toBeVisible();
+  await expect.poll(() => page.locator("html").getAttribute("data-soundtrack-theme")).toBe("love-note");
   await note.getByRole("button", { name: "Keep this close" }).click();
   await expect(note).not.toBeVisible();
+  await expect.poll(() => page.locator("html").getAttribute("data-soundtrack-theme")).toBe("garden");
   await page.getByText("Mixer", { exact: true }).click();
 
   const musicVolume = page.getByRole("slider", { name: "Love-note music volume" });
@@ -107,20 +123,27 @@ test("Mimi, love-note music and game effects can be mixed independently", async 
   await musicVolume.focus();
   await musicVolume.press("ArrowLeft");
   await expect(page.getByText("99%", { exact: true })).toBeVisible();
-  await expect.poll(() => page.evaluate(() => window.__soundMixerChannels.ramps.some((ramp) => ramp.channel === 1 && ramp.value === 0.99))).toBeTruthy();
+  await expect.poll(() => page.evaluate(() => window.__soundMixerChannels.ramps.some((ramp) => ramp.value === 0.99))).toBeTruthy();
+  const musicChannel = await page.evaluate(() => [...window.__soundMixerChannels.ramps].reverse().find((ramp) => ramp.value === 0.99)?.channel);
+  expect(Number.isInteger(musicChannel), "love-note music must ramp its gain node").toBeTruthy();
 
   await page.getByRole("button", { name: "Hear a meow" }).click();
   await expect.poll(() => page.evaluate(() => window.__soundMixerChannels.channelNodes.length)).toBeGreaterThanOrEqual(3);
   const mimiVolume = page.getByRole("slider", { name: "Mimi voice volume" });
   await mimiVolume.focus();
   await mimiVolume.press("ArrowLeft");
-  await expect.poll(() => page.evaluate(() => window.__soundMixerChannels.ramps.some((ramp) => ramp.channel === 2 && ramp.value === 0.99))).toBeTruthy();
+  await expect.poll(() => page.evaluate(() => window.__soundMixerChannels.ramps.filter((ramp) => ramp.value === 0.99).length)).toBeGreaterThanOrEqual(2);
+  const mimiChannel = await page.evaluate(() => [...window.__soundMixerChannels.ramps].reverse().find((ramp) => ramp.value === 0.99)?.channel);
+  expect(Number.isInteger(mimiChannel) && mimiChannel !== musicChannel, "Mimi must use a separate gain node from music").toBeTruthy();
 
   const effectsVolume = page.getByRole("slider", { name: "Game and effects volume" });
   await effectsVolume.focus();
   await effectsVolume.press("ArrowDown");
   await expect(effectsVolume).toHaveValue("99");
-  await expect.poll(() => page.evaluate(() => window.__soundMixerChannels.ramps.some((ramp) => ramp.channel === 0 && ramp.value === 0.99))).toBeTruthy();
+  await expect.poll(() => page.evaluate(() => window.__soundMixerChannels.ramps.filter((ramp) => ramp.value === 0.99).length)).toBeGreaterThanOrEqual(3);
+  const effectsChannel = await page.evaluate(() => [...window.__soundMixerChannels.ramps].reverse().find((ramp) => ramp.value === 0.99)?.channel);
+  expect(Number.isInteger(effectsChannel) && effectsChannel !== musicChannel && effectsChannel !== mimiChannel,
+    "game and effect sounds must use a gain node separate from music and Mimi").toBeTruthy();
 });
 
 test("sound starts on by default, unlocks with the first welcome tap, and can be hushed", async ({ page }) => {
@@ -189,11 +212,7 @@ test("a love note lets Malika send a heart back to Zack", async ({ page }) => {
 test("a victory prize can replay its chime without dismissing the celebration", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("button", { name: /Open your birthday surprise/ }).click();
-  for (const key of ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"]) {
-    await page.keyboard.press(key);
-  }
-
-  await expect(page.getByRole("dialog", { name: "The secret arcade" })).toBeVisible();
+  await unlockArcadeFromKeyboard(page);
   await page.getByRole("button", { name: /Mimi's constellation chase/ }).click();
   for (let step = 1; step <= 8; step += 1) await page.getByTestId("star-target-" + step).click();
 
@@ -419,12 +438,49 @@ test("a love note starts its romantic score and stops it when the note closes", 
 test("each arcade prize advertises its own achievement sound", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("button", { name: /Open your birthday surprise/ }).click();
-  for (const key of ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"]) {
-    await page.keyboard.press(key);
-  }
+  await unlockArcadeFromKeyboard(page);
   await page.getByRole("dialog", { name: "The secret arcade" }).getByRole("button", { name: /Mimi's constellation chase/ }).click();
   for (let step = 1; step <= 8; step += 1) await page.getByTestId("star-target-" + step).click();
   const reward = page.getByRole("dialog", { name: "You found the heart in the stars." });
   await expect(reward.getByRole("button", { name: "Tap your prize to replay the victory fanfare" }))
     .toHaveAttribute("data-sound-cue", "achievement-stars");
+});
+
+
+test("each main scene and all five arcade games select their own soundtrack", async ({ page }) => {
+  await page.goto("/");
+  await expect.poll(() => page.locator("html").getAttribute("data-soundtrack-theme")).toBe("none");
+  await page.getByRole("button", { name: /Open your birthday surprise/ }).click();
+  await expect.poll(() => page.locator("html").getAttribute("data-soundtrack-theme")).toBe("garden");
+  const sceneNav = page.getByRole("navigation", { name: "Explore Malika's birthday universe" });
+  await sceneNav.getByRole("button", { name: "Heart game", exact: true }).click();
+  await expect.poll(() => page.locator("html").getAttribute("data-soundtrack-theme")).toBe("heart-game");
+  await sceneNav.getByRole("button", { name: "Love notes", exact: true }).click();
+  await expect.poll(() => page.locator("html").getAttribute("data-soundtrack-theme")).toBe("love-notes");
+  await sceneNav.getByRole("button", { name: "Birthday letter", exact: true }).click();
+  await expect.poll(() => page.locator("html").getAttribute("data-soundtrack-theme")).toBe("birthday-letter");
+  await sceneNav.getByRole("button", { name: "The garden", exact: true }).click();
+  await expect.poll(() => page.locator("html").getAttribute("data-soundtrack-theme")).toBe("garden");
+
+  for (const key of ["ArrowUp","ArrowUp","ArrowDown","ArrowDown","ArrowLeft","ArrowRight","ArrowLeft","ArrowRight","b","a"]) {
+    await page.keyboard.press(key);
+  }
+  await expect(page.getByRole("dialog", { name: "A door only you can open" })).toBeVisible();
+  await page.getByLabel("The secret password").fill("iloveyou");
+  await page.getByRole("button", { name: "Unlock the Secret Arcade" }).click();
+  await expect(page.getByRole("dialog", { name: "The secret arcade" })).toBeVisible();
+
+  const games = [
+    { name:/Mimi's constellation chase/, theme:"arcade-stars" },
+    { name:/Mimi's memory match/, theme:"arcade-memory" },
+    { name:/Pawprint rhythm/, theme:"arcade-rhythm" },
+    { name:/Firefly hunt/, theme:"arcade-fireflies" },
+    { name:/The little wish jar/, theme:"arcade-wishes" }
+  ];
+  for (const game of games) {
+    await page.getByRole("button", { name: game.name }).click();
+    await expect.poll(() => page.locator("html").getAttribute("data-soundtrack-theme")).toBe(game.theme);
+    await page.getByRole("button", { name: /Back to arcade/ }).click();
+    await expect.poll(() => page.locator("html").getAttribute("data-soundtrack-theme")).toBe("garden");
+  }
 });

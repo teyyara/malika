@@ -22,6 +22,14 @@ const MEMORY_CARDS = [
 ];
 const RHYTHM = ["🐾", "🌙", "💜", "✨"];
 const ARCADE_GAMES = ["stars", "memory", "rhythm", "fireflies", "wishes"];
+const GAME_REWARDS = {
+  stars: { theme: "starlight", eyebrow: "THE SKY IS CHEERING FOR YOU", title: "A whole galaxy belongs to you.", glyph: "✦", copy: "Seven little lights were hiding in the dark, and you found every single one. Look what happens when curiosity gets to lead.", detail: "A pocketful of stardust, collected just for you.", score: "7 / 7 stars caught" },
+  memory: { theme: "memory", eyebrow: "EVERY LITTLE THING MATTERS", title: "You remembered every little wonder.", glyph: "💜", copy: "Moon, pawprints, and purple hearts — every pair found its way home. Mimi has decided your memory deserves its very own constellation.", detail: "Three perfect pairs. A thousand tiny connections.", score: "3 / 3 matching pairs" },
+  rhythm: { theme: "rhythm", eyebrow: "MAKE SOME NOISE, LITTLE STAR", title: "Mimi's tiny concert is a HIT!", glyph: "🐾", copy: "Paw, moon, heart, sparkle — four beats, one flawless little dance. Mimi would take a bow, if she weren't busy celebrating you.", detail: "Perfect rhythm. Maximum tiny-paw energy.", score: "4 / 4 beats in sync" },
+  fireflies: { theme: "fireflies", eyebrow: "YOU MADE THE NIGHT GLOW", title: "You just lit up the whole garden.", glyph: "✧", copy: "Five fireflies have found their light, and suddenly the whole garden feels like a secret summer evening.", detail: "Five golden sparks, all glowing because of you.", score: "5 / 5 fireflies caught" },
+  wishes: { theme: "wishes", eyebrow: "A LITTLE MAGIC FOR THE FUTURE", title: "Five wishes. One very bright future.", glyph: "♡", copy: "You opened every tiny wish tucked inside the jar. They're not promises about what has happened — they're soft hopes for all the lovely things still waiting ahead.", detail: "Five wishes found. Your next little chapter is wide open.", score: "5 / 5 wishes revealed" }
+};
+const REWARD_SPARKS = ["✦", "✧", "♡", "·", "✺", "✶", "✷"];
 const WISHES = [
   "May a tiny ordinary moment become one of your favourite stories.",
   "A future little adventure is waiting for you to say yes.",
@@ -57,6 +65,7 @@ export default function EasterEggSystem() {
   const [memoryMismatch, setMemoryMismatch] = useState(false);
   const [rhythmStep, setRhythmStep] = useState(0);
   const [gameWon, setGameWon] = useState(false);
+  const [celebrationId, setCelebrationId] = useState(null);
   const [wishIndex, setWishIndex] = useState(-1);
   const sequenceIndex = useRef(0);
   const typedBuffer = useRef("");
@@ -75,19 +84,36 @@ export default function EasterEggSystem() {
     if (achievement) addUnique(setUnlocked, achievement);
     setPanel("cabinet");
     setActiveGame(null);
+    setCelebrationId(null);
     setGameWon(false);
   }
 
   function openReveal(id) {
-    if (!panel) openerRef.current = document.activeElement;
+    if (!panel || panel === "celebration") openerRef.current = document.activeElement;
     setRevealId(id);
     setPanel("reveal");
     addUnique(setUnlocked, id);
   }
 
+  function returnToArcade() {
+    setPanel("cabinet");
+    setActiveGame(null);
+  }
+
+  function closePanel() {
+    if (panel === "celebration") {
+      returnToArcade();
+    } else {
+      setPanel(null);
+      setActiveGame(null);
+    }
+  }
+
   function finishGame(id, achievement) {
     addUnique(setCompletedGames, id);
     if (achievement) addUnique(setUnlocked, achievement);
+    setCelebrationId(id);
+    setPanel("celebration");
   }
 
   function startGame(id) {
@@ -102,6 +128,7 @@ export default function EasterEggSystem() {
     setMemoryMismatch(false);
     setRhythmStep(0);
     setGameWon(false);
+    setCelebrationId(null);
     setWishIndex(-1);
   }
 
@@ -141,8 +168,7 @@ export default function EasterEggSystem() {
       const tag = event.target?.tagName?.toLowerCase();
       if (tag === "input" || tag === "textarea" || event.target?.isContentEditable) return;
       if (event.key === "Escape" && panel) {
-        setPanel(null);
-        setActiveGame(null);
+        closePanel();
         return;
       }
 
@@ -343,19 +369,63 @@ export default function EasterEggSystem() {
   }
 
   const isGame = panel === "game";
+  const isCelebration = panel === "celebration";
   const reveal = REVEALS[revealId] || REVEALS.moon;
-  const title = panel === "cabinet" ? "The secret arcade" : isGame
+  const reward = GAME_REWARDS[celebrationId] || GAME_REWARDS.stars;
+  const title = panel === "cabinet" ? "The secret arcade" : isCelebration ? reward.title : isGame
     ? ({ stars: "Seven-star catcher", memory: "Mimi's memory match", rhythm: "Mimi's pawprint rhythm", fireflies: "Firefly hunt", wishes: "The little wish jar" }[activeGame] || "A tiny secret")
     : reveal.title;
 
   return <>
     {toast && <div className="egg-toast" role="status"><span aria-hidden="true">✦</span><span>{toast}</span><button type="button" onClick={() => openArcade("firefly-trail")}>Open Secret Arcade</button><button className="egg-toast-dismiss" type="button" aria-label="Dismiss secret discovery" onClick={() => setToast("")}>×</button></div>}
-    {panel && <div className="egg-backdrop" onMouseDown={(event) => { if (event.target === event.currentTarget) { setPanel(null); setActiveGame(null); } }}>
-      <section ref={dialogRef} className={"egg-dialog " + (panel === "reveal" ? "is-reveal" : "is-" + panel)} role="dialog" aria-modal="true" aria-labelledby="egg-dialog-title">
-        <button className="egg-close" type="button" aria-label="Close secret surprise" onClick={() => { setPanel(null); setActiveGame(null); }}>×</button>
+    {panel && <div className={"egg-backdrop" + (isCelebration ? " is-celebration" : "")} onMouseDown={(event) => { if (event.target === event.currentTarget) closePanel(); }}>
+      <section ref={dialogRef} className={"egg-dialog " + (isCelebration ? "egg-celebration-dialog" : (panel === "reveal" ? "is-reveal" : "is-" + panel))} role="dialog" aria-modal="true" aria-labelledby="egg-dialog-title">
+        <button className="egg-close" type="button" aria-label={isCelebration ? "Return to Secret Arcade" : "Close secret surprise"} onClick={closePanel}>×</button>
         <div className="egg-dialog-stars" aria-hidden="true">✦ · ✧ · ♥ · ✧ · ✦</div>
         <p className="egg-kicker">a hidden corner of Malika's universe</p>
-        <h2 id="egg-dialog-title">{title}</h2>
+        {!isCelebration && <h2 id="egg-dialog-title">{title}</h2>}
+        {isCelebration && <div className={"egg-celebration egg-celebration-theme-" + reward.theme}>
+          <div className="egg-celebration-atmosphere" aria-hidden="true">
+            <div className="egg-celebration-aurora" />
+            <div className="egg-celebration-rings"><i /><i /><i /></div>
+            <div className="egg-celebration-particles">
+              {Array.from({ length: 64 }, (_, index) => <i className="egg-celebration-particle" key={index} style={{
+                "--particle-x": ((index * 37 + 11) % 100) + "%",
+                "--particle-y": ((index * 61 + 7) % 108) + "%",
+                "--particle-delay": -((index % 17) * 0.31) + "s",
+                "--particle-duration": (3.8 + (index % 7) * 0.47) + "s",
+                "--particle-drift": (((index * 19) % 150) - 75) + "px",
+                "--particle-size": (8 + (index % 4) * 4) + "px"
+              }}>{REWARD_SPARKS[index % REWARD_SPARKS.length]}</i>)}
+            </div>
+          </div>
+          <div className="egg-celebration-content">
+            <div className="egg-reward-medallion" aria-hidden="true">
+              <span className="egg-reward-medallion-orbit">✧　·　♡　·　✦</span>
+              <span className="egg-reward-medallion-symbol">{reward.glyph}</span>
+              <span className="egg-reward-medallion-caption">A LITTLE WIN FOR YOU</span>
+            </div>
+            <p className="egg-reward-kicker">{reward.eyebrow}</p>
+            <p className="egg-reward-stamp"><span aria-hidden="true">✦</span> SIDE QUEST COMPLETE <span aria-hidden="true">✦</span></p>
+            <h2 id="egg-dialog-title">{reward.title}</h2>
+            <p className="egg-reward-copy">{reward.copy}</p>
+            <p className="egg-reward-detail">{reward.detail}</p>
+            <div className="egg-reward-score-card">
+              <span className="egg-reward-score">{reward.score}</span>
+              <div className="egg-reward-progress" role="progressbar" aria-label="Arcade games completed" aria-valuemin={0} aria-valuemax={ARCADE_GAMES.length} aria-valuenow={completedGames.length}>
+                <span style={{ width: (completedGames.length / ARCADE_GAMES.length * 100) + "%" }} />
+              </div>
+              <span className="egg-reward-progress-label">ARCADE MASTERY · {completedGames.length} OF {ARCADE_GAMES.length}</span>
+            </div>
+            {completedGames.length === ARCADE_GAMES.length && <p className="egg-reward-grand-note">ALL FIVE QUESTS COMPLETE · THE GRAND SECRET IS UNSEALED ✧</p>}
+            <div className="egg-celebration-actions">
+              <button type="button" className="egg-action-button egg-celebration-primary" onClick={returnToArcade}>Back to Secret Arcade <span aria-hidden="true">↗</span></button>
+              <button type="button" className="egg-celebration-secondary" onClick={() => startGame(celebrationId)}>Play this quest again <span aria-hidden="true">↻</span></button>
+              {completedGames.length === ARCADE_GAMES.length && <button type="button" className="egg-celebration-grand-button" onClick={() => openReveal("grand")}>Unseal the grand secret <span aria-hidden="true">✦</span></button>}
+            </div>
+            <p className="egg-reward-footer">Made with love, and a wildly unreasonable amount of sparkle. ♡</p>
+          </div>
+        </div>}
         {panel === "reveal" && <div className="egg-reveal-content">
           <div className={"egg-reveal-glyph egg-reveal-" + revealId} aria-hidden="true">{reveal.glyph}</div>
           <p>{reveal.copy}</p>

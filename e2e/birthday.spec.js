@@ -145,36 +145,29 @@ test("the heart game can reset halfway and still complete a fresh run", async ({
   await expect(page.locator(".header-heart-count")).toHaveAttribute("aria-label", "Hearts collected: 7 of 7");
 });
 
-test("optional secret clues progress from gentle hints to an explicit spoiler map", async ({ page }) => {
+test("the garden clue guide offers a gentle nudge without exposing a spoiler map", async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 740 });
   await enterGarden(page);
 
   const guide = page.getByRole("complementary", { name: "Optional clues for curious explorers" });
   await expect(guide).toBeVisible();
-
   const rootDetails = guide.locator(".curiosity-guide-root");
-  const summaries = guide.locator("summary");
-  await summaries.nth(0).focus();
-  await expect(summaries.nth(0)).toBeFocused();
+  const summary = rootDetails.locator(":scope > summary");
+  await summary.focus();
+  await expect(summary).toBeFocused();
   await page.keyboard.press("Enter");
   await expect(rootDetails).toHaveAttribute("open", "");
 
   await expect(guide.locator(".curiosity-guide-intro")).toBeVisible();
-  await expect(guide.locator(".curiosity-guide-spoilers")).not.toBeVisible();
+  await expect(guide.locator(".curiosity-guide-step")).toHaveCount(1);
+  await expect(guide.getByText(/full secret map/i)).toHaveCount(0);
+  await expect(guide.locator(".curiosity-guide-spoilers")).toHaveCount(0);
 
-  const clearerClue = guide.locator(".curiosity-guide-step").nth(0);
+  const clearerClue = guide.locator(".curiosity-guide-step").first();
   await clearerClue.locator("summary").click();
   await expect(clearerClue).toHaveAttribute("open", "");
   await expect(clearerClue).toContainText("3, 4, 5, and 7");
-  await expect(guide.locator(".curiosity-guide-spoilers")).not.toBeVisible();
-
-  const spoilerStep = guide.locator(".curiosity-guide-step").nth(1);
-  await spoilerStep.locator("summary").click();
-  await expect(spoilerStep).toHaveAttribute("open", "");
-  await expect(guide.locator(".curiosity-guide-spoilers")).toContainText("MALIKA");
-  await expect(guide.locator(".curiosity-guide-spoilers")).toContainText("MIMI");
-  await expect(guide.locator(".curiosity-guide-spoilers")).toContainText("Keeper of Little Wonders");
-  await expect(guide.locator(".curiosity-guide-spoilers")).toContainText("↑ ↑ ↓ ↓ ← → ← → B A");
+  await expect(guide.locator(".curiosity-guide-spoilers")).toHaveCount(0);
 
   const dimensions = await guide.evaluate((element) => ({
     clientWidth: element.clientWidth,

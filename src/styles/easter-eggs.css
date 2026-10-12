@@ -219,3 +219,143 @@
   .egg-arcade-progress-track span, .egg-master-reward, .egg-master-reward::before,
   .egg-master-crown, .egg-reveal-grand { animation: none !important; transition: none !important; }
 }
+
+
+/* Loop 009 — full-screen, game-specific celebrations for the moment a quest is won. */
+.egg-backdrop.is-celebration {
+  z-index: 200; display: block; overflow: hidden; padding: 0; background: #100820; backdrop-filter: none;
+}
+.egg-backdrop.is-celebration .egg-celebration-dialog {
+  width: 100%; max-width: none; height: 100vh; height: 100svh; max-height: none;
+  overflow: hidden; padding: 0; border: 0; border-radius: 0; background: none; box-shadow: none; animation: none;
+}
+.egg-backdrop.is-celebration .egg-celebration-dialog::before,
+.egg-backdrop.is-celebration .egg-dialog-stars,
+.egg-backdrop.is-celebration > .egg-celebration-dialog > .egg-kicker { display: none; }
+.egg-backdrop.is-celebration .egg-close {
+  position: absolute; top: max(18px,env(safe-area-inset-top)); right: max(18px,env(safe-area-inset-right));
+  float: none; width: 44px; height: 44px; margin: 0; border-color: rgba(255,255,255,.24);
+  color: #fff9ff; background: rgba(16,8,32,.26); backdrop-filter: blur(12px);
+}
+.egg-celebration {
+  --reward-accent: #e8c8ff; --reward-hot: #f2aee6; --reward-gold: #ffe7ac;
+  position: relative; isolation: isolate; display: grid; place-items: center; width: 100%;
+  height: 100vh; height: 100svh; overflow: hidden;
+  padding: max(28px,env(safe-area-inset-top)) clamp(18px,4vw,58px) max(27px,env(safe-area-inset-bottom));
+  text-align: center;
+  background: radial-gradient(ellipse at 50% 25%,rgba(141,94,224,.2),transparent 45%),radial-gradient(ellipse at 50% 100%,rgba(92,52,142,.17),transparent 48%),#100820;
+}
+.egg-celebration-theme-memory { --reward-accent:#ffdcf5; --reward-hot:#c8b3ff; --reward-gold:#ffe9b8; background:radial-gradient(ellipse at 50% 24%,rgba(227,132,205,.25),transparent 43%),radial-gradient(ellipse at 85% 90%,rgba(139,112,245,.2),transparent 42%),#160923; }
+.egg-celebration-theme-rhythm { --reward-accent:#ffd2f0; --reward-hot:#f18dcf; --reward-gold:#ffe5c7; background:radial-gradient(ellipse at 50% 45%,rgba(222,80,177,.22),transparent 39%),radial-gradient(ellipse at 50% 100%,rgba(121,60,211,.22),transparent 43%),#11071f; }
+.egg-celebration-theme-fireflies { --reward-accent:#f8f5bd; --reward-hot:#b5efbd; --reward-gold:#fff0a9; background:radial-gradient(ellipse at 50% 30%,rgba(88,175,115,.22),transparent 43%),radial-gradient(ellipse at 80% 90%,rgba(216,179,81,.16),transparent 42%),#071b1b; }
+.egg-celebration-theme-wishes { --reward-accent:#ffe5c5; --reward-hot:#f8b8db; --reward-gold:#fff0b7; background:radial-gradient(ellipse at 50% 25%,rgba(235,171,194,.22),transparent 43%),radial-gradient(ellipse at 20% 95%,rgba(220,174,111,.15),transparent 42%),#1c0c23; }
+.egg-celebration-atmosphere { position:absolute; z-index:-1; inset:0; overflow:hidden; pointer-events:none; }
+.egg-celebration-aurora {
+  position:absolute; inset:-45%; opacity:.5;
+  background:conic-gradient(from 20deg at 50% 50%,transparent 0 12%,color-mix(in srgb,var(--reward-accent) 16%,transparent) 17%,transparent 27% 43%,color-mix(in srgb,var(--reward-hot) 20%,transparent) 51%,transparent 61% 78%,color-mix(in srgb,var(--reward-gold) 10%,transparent) 85%,transparent 94%);
+  filter:blur(35px); animation:egg-celebration-aurora 19s linear infinite;
+}
+.egg-celebration-rings { position:absolute; top:50%; left:50%; width:min(92vw,900px); aspect-ratio:1; transform:translate(-50%,-50%); }
+.egg-celebration-rings i {
+  position:absolute; inset:calc(var(--ring-index,0) * 12%); border:1px solid color-mix(in srgb,var(--reward-accent) 17%,transparent);
+  border-radius:50%; box-shadow:inset 0 0 55px color-mix(in srgb,var(--reward-accent) 3%,transparent),0 0 30px color-mix(in srgb,var(--reward-accent) 4%,transparent);
+  animation:egg-celebration-ring 9s ease-in-out infinite alternate;
+}
+.egg-celebration-rings i:nth-child(1) { --ring-index:0; }
+.egg-celebration-rings i:nth-child(2) { --ring-index:1; animation-delay:-2.7s; }
+.egg-celebration-rings i:nth-child(3) { --ring-index:2; animation-delay:-5.4s; }
+.egg-celebration-particles { position:absolute; inset:0; overflow:hidden; }
+.egg-celebration-particle {
+  position:absolute; left:var(--particle-x); top:var(--particle-y); color:var(--reward-accent);
+  font-size:var(--particle-size); line-height:1; opacity:.8; text-shadow:0 0 14px color-mix(in srgb,var(--reward-accent) 75%,transparent);
+  animation:egg-celebration-confetti var(--particle-duration) ease-in-out var(--particle-delay) infinite; will-change:transform,opacity;
+}
+.egg-celebration-theme-fireflies .egg-celebration-particle { color:var(--reward-gold); text-shadow:0 0 17px #d8ff98; }
+.egg-celebration-theme-wishes .egg-celebration-particle:nth-child(3n) { color:var(--reward-gold); }
+.egg-celebration-content {
+  position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  width:min(760px,100%); max-height:100%; overflow-y:auto; padding:32px 0 24px;
+  scrollbar-width:thin; scrollbar-color:rgba(238,205,255,.35) transparent;
+}
+.egg-reward-medallion {
+  position:relative; display:grid; place-items:center; flex:0 0 auto; width:clamp(118px,17vh,174px); height:clamp(118px,17vh,174px);
+  margin:0 auto 17px; border:1px solid color-mix(in srgb,var(--reward-accent) 35%,transparent); border-radius:50%;
+  background:radial-gradient(circle at 38% 28%,color-mix(in srgb,var(--reward-accent) 30%,transparent),transparent 44%),radial-gradient(circle,color-mix(in srgb,var(--reward-hot) 16%,transparent),transparent 69%);
+  box-shadow:0 0 0 8px color-mix(in srgb,var(--reward-accent) 3%,transparent),0 0 65px color-mix(in srgb,var(--reward-hot) 18%,transparent),inset 0 0 28px color-mix(in srgb,var(--reward-accent) 10%,transparent);
+  animation:egg-reward-medallion-arrive .9s cubic-bezier(.16,.9,.2,1.1) both,egg-reward-medallion-breathe 3.2s ease-in-out 1s infinite;
+}
+.egg-reward-medallion::before, .egg-reward-medallion::after { content:""; position:absolute; inset:-15px; border:1px solid color-mix(in srgb,var(--reward-accent) 24%,transparent); border-radius:50%; animation:egg-reward-orbit 14s linear infinite; }
+.egg-reward-medallion::after { inset:-28px; border-style:dashed; opacity:.42; animation-direction:reverse; animation-duration:21s; }
+.egg-reward-medallion-orbit { position:absolute; top:9%; color:var(--reward-accent); font-size:12px; letter-spacing:.15em; }
+.egg-reward-medallion-symbol { display:block; color:var(--reward-accent); font-size:clamp(48px,8vh,72px); line-height:1; text-shadow:0 0 25px color-mix(in srgb,var(--reward-hot) 70%,transparent),0 0 65px color-mix(in srgb,var(--reward-accent) 40%,transparent); animation:egg-reward-symbol-pop .8s cubic-bezier(.16,.9,.2,1.1) .12s both; }
+.egg-celebration-theme-memory .egg-reward-medallion-symbol { animation:egg-reward-card-pop .9s cubic-bezier(.2,.8,.2,1) .12s both; }
+.egg-celebration-theme-rhythm .egg-reward-medallion-symbol { animation:egg-reward-dance .42s ease-in-out .2s 8 alternate both; }
+.egg-celebration-theme-fireflies .egg-reward-medallion-symbol { animation:egg-reward-firefly 2.1s ease-in-out .2s infinite; }
+.egg-reward-medallion-caption { position:absolute; bottom:10%; color:color-mix(in srgb,var(--reward-accent) 76%,white); font-size:7px; font-weight:800; letter-spacing:.17em; }
+.egg-reward-kicker { margin:5px 0 9px; color:var(--reward-accent); font-size:10px; font-weight:800; letter-spacing:.22em; text-transform:uppercase; }
+.egg-reward-stamp { display:inline-flex; align-items:center; gap:10px; margin:0 0 12px; padding:8px 12px; border:1px solid color-mix(in srgb,var(--reward-accent) 30%,transparent); border-radius:999px; color:color-mix(in srgb,var(--reward-accent) 78%,white); background:color-mix(in srgb,var(--reward-accent) 5%,transparent); font-size:9px; font-weight:800; letter-spacing:.14em; }
+.egg-reward-stamp span { color:var(--reward-gold); text-shadow:0 0 13px var(--reward-gold); }
+.egg-celebration-content h2 { max-width:760px; margin:0 auto 12px; color:#fff9ff; font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif; font-size:clamp(33px,5.1vw,67px); font-weight:400; letter-spacing:-.045em; line-height:1.02; text-wrap:balance; text-shadow:0 6px 50px color-mix(in srgb,var(--reward-hot) 21%,transparent); animation:egg-reward-heading-arrive .8s cubic-bezier(.2,.8,.2,1) .15s both; }
+.egg-reward-copy { max-width:590px; margin:0 auto 10px; color:rgba(255,246,255,.86); font-family:Georgia,serif; font-size:clamp(15px,1.65vw,18px); line-height:1.75; text-wrap:pretty; animation:egg-reward-copy-in .8s ease .32s both; }
+.egg-reward-detail { margin:0 auto 17px; color:color-mix(in srgb,var(--reward-accent) 80%,white); font-size:11px; letter-spacing:.045em; line-height:1.6; animation:egg-reward-copy-in .7s ease .42s both; }
+.egg-reward-score-card { width:min(350px,100%); margin:2px auto 17px; padding:12px 15px 10px; border:1px solid color-mix(in srgb,var(--reward-accent) 20%,transparent); border-radius:16px; background:color-mix(in srgb,var(--reward-accent) 4%,rgba(14,7,29,.35)); box-shadow:0 12px 36px rgba(0,0,0,.15); animation:egg-reward-copy-in .7s ease .48s both; }
+.egg-reward-score { display:block; margin-bottom:9px; color:#fff7ff; font-size:11px; font-weight:750; letter-spacing:.09em; }
+.egg-reward-progress { display:block; height:4px; overflow:hidden; border-radius:999px; background:rgba(255,255,255,.12); }
+.egg-reward-progress > span { display:block; height:100%; border-radius:inherit; background:linear-gradient(90deg,var(--reward-hot),var(--reward-accent),var(--reward-gold)); box-shadow:0 0 17px color-mix(in srgb,var(--reward-accent) 70%,transparent); transition:width .6s cubic-bezier(.2,.8,.2,1); }
+.egg-reward-progress-label { display:block; margin-top:8px; color:color-mix(in srgb,var(--reward-accent) 75%,white); font-size:8px; font-weight:800; letter-spacing:.16em; }
+.egg-reward-grand-note { margin:-3px 0 14px; color:var(--reward-gold); font-size:9px; font-weight:800; letter-spacing:.12em; animation:egg-reward-copy-in .5s ease both; }
+.egg-celebration-actions { display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:11px; margin-top:0; }
+.egg-celebration-primary { min-height:48px; box-shadow:0 7px 35px color-mix(in srgb,var(--reward-hot) 18%,transparent); }
+.egg-celebration-secondary, .egg-celebration-grand-button { min-height:46px; border:1px solid color-mix(in srgb,var(--reward-accent) 25%,transparent); border-radius:999px; padding:12px 17px; color:#fbf1ff; background:rgba(255,255,255,.045); font-size:11px; font-weight:650; transition:transform .2s,background .2s,border-color .2s; }
+.egg-celebration-secondary:hover, .egg-celebration-grand-button:hover { transform:translateY(-2px); border-color:color-mix(in srgb,var(--reward-accent) 55%,transparent); background:color-mix(in srgb,var(--reward-accent) 9%,transparent); }
+.egg-celebration-grand-button { color:#27152e; border-color:transparent; background:linear-gradient(110deg,var(--reward-gold),var(--reward-hot)); box-shadow:0 6px 28px color-mix(in srgb,var(--reward-gold) 15%,transparent); }
+.egg-reward-footer { margin:16px 0 0; color:rgba(232,215,248,.42); font-size:9px; letter-spacing:.045em; }
+@keyframes egg-celebration-aurora { from { transform:rotate(0deg) scale(1); } to { transform:rotate(360deg) scale(1.08); } }
+@keyframes egg-celebration-ring { from { transform:scale(.94) rotate(-12deg); opacity:.35; } to { transform:scale(1.04) rotate(12deg); opacity:.8; } }
+@keyframes egg-celebration-confetti { 0% { transform:translate3d(0,-18px,0) rotate(0) scale(.6); opacity:0; } 15% { opacity:.86; } 55% { opacity:.8; } 100% { transform:translate3d(var(--particle-drift),115px,0) rotate(155deg) scale(1.05); opacity:0; } }
+@keyframes egg-reward-medallion-arrive { from { transform:scale(.4) rotate(-22deg); opacity:0; filter:blur(8px); } 72% { transform:scale(1.055) rotate(4deg); opacity:1; filter:blur(0); } to { transform:scale(1) rotate(0); opacity:1; } }
+@keyframes egg-reward-medallion-breathe { 0%,100% { filter:brightness(1); } 50% { filter:brightness(1.14); } }
+@keyframes egg-reward-orbit { to { transform:rotate(360deg); } }
+@keyframes egg-reward-symbol-pop { from { transform:scale(.1) rotate(-35deg); opacity:0; } 75% { transform:scale(1.2) rotate(8deg); opacity:1; } to { transform:scale(1) rotate(0); opacity:1; } }
+@keyframes egg-reward-card-pop { 0% { transform:scale(.2) rotateY(90deg); opacity:0; } 75% { transform:scale(1.17) rotateY(-12deg); opacity:1; } to { transform:scale(1) rotateY(0); opacity:1; } }
+@keyframes egg-reward-dance { from { transform:rotate(-16deg) translateY(0) scale(.95); } to { transform:rotate(16deg) translateY(-8px) scale(1.08); } }
+@keyframes egg-reward-firefly { 0%,100% { transform:translateY(0) scale(.9); filter:drop-shadow(0 0 6px var(--reward-gold)); } 50% { transform:translateY(-5px) scale(1.14); filter:drop-shadow(0 0 28px var(--reward-gold)); } }
+@keyframes egg-reward-heading-arrive { from { opacity:0; transform:translateY(17px); letter-spacing:-.02em; } to { opacity:1; transform:translateY(0); } }
+@keyframes egg-reward-copy-in { from { opacity:0; transform:translateY(9px); } to { opacity:1; transform:translateY(0); } }
+@media (max-width:620px) {
+  .egg-backdrop.is-celebration .egg-close { top:max(12px,env(safe-area-inset-top)); right:max(12px,env(safe-area-inset-right)); }
+  .egg-celebration { padding-inline:19px; }
+  .egg-celebration-content { padding:49px 0 24px; }
+  .egg-reward-medallion { width:116px; height:116px; margin-bottom:14px; }
+  .egg-reward-medallion::after { inset:-20px; }
+  .egg-reward-medallion-caption { font-size:6px; }
+  .egg-reward-kicker { max-width:280px; font-size:8px; letter-spacing:.16em; }
+  .egg-reward-stamp { font-size:8px; margin-bottom:10px; }
+  .egg-celebration-content h2 { font-size:clamp(31px,9vw,45px); }
+  .egg-reward-copy { font-size:14px; line-height:1.65; }
+  .egg-reward-detail { font-size:10px; margin-bottom:14px; }
+  .egg-reward-score-card { padding:10px 12px 9px; margin-bottom:13px; }
+  .egg-celebration-actions { gap:8px; }
+  .egg-celebration-primary, .egg-celebration-secondary, .egg-celebration-grand-button { min-height:44px; padding:11px 13px; font-size:10px; }
+  .egg-reward-footer { margin-top:12px; }
+}
+@media (max-height:720px) {
+  .egg-celebration-content { justify-content:flex-start; padding-top:54px; }
+  .egg-reward-medallion { width:90px; height:90px; margin-bottom:9px; }
+  .egg-reward-medallion-symbol { font-size:42px; }
+  .egg-reward-medallion-caption { font-size:5px; }
+  .egg-reward-kicker { margin-top:3px; margin-bottom:5px; }
+  .egg-reward-stamp { margin-bottom:7px; padding:6px 10px; }
+  .egg-celebration-content h2 { font-size:clamp(29px,5vw,48px); margin-bottom:8px; }
+  .egg-reward-copy { font-size:13px; line-height:1.5; }
+  .egg-reward-detail { margin-bottom:10px; }
+  .egg-reward-score-card { margin-bottom:10px; }
+  .egg-reward-footer { margin-top:9px; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .egg-backdrop.is-celebration .egg-celebration-dialog, .egg-celebration-aurora, .egg-celebration-rings i, .egg-celebration-particle,
+  .egg-reward-medallion, .egg-reward-medallion::before, .egg-reward-medallion::after, .egg-reward-medallion-symbol,
+  .egg-celebration-content h2, .egg-reward-copy, .egg-reward-detail, .egg-reward-score-card, .egg-reward-grand-note,
+  .egg-reward-progress > span { animation:none !important; transition:none !important; }
+  .egg-celebration-particle { opacity:.65; }
+}

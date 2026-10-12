@@ -130,23 +130,6 @@ export default function GardenScene({ discoveredCount, requiredHearts, onOpenNot
             <summary>Give me a clearer clue</summary>
             <p>Numbers are part of the magic: <strong>3, 4, 5, and 7</strong>. Look again at the welcome moon, Mimi, the little heart in the header, the ladybugs, and the smallest star at the bottom of the page.</p>
           </details>
-          <details className="curiosity-guide-step">
-            <summary>Show me the full secret map <span>(spoilers inside)</span></summary>
-            <div className="curiosity-guide-spoilers">
-              <p>Every secret is optional. Here are the doors without any guesswork:</p>
-              <ul>
-                <li><strong>The welcome moon:</strong> tap the moon seven times to reveal <em>A Little More Wonder</em>.</li>
-                <li><strong>Mimi's welcome cameo:</strong> pet the kitten five times for a tiny paw-print surprise.</li>
-                <li><strong>The header heart:</strong> once inside the garden, tap the heart logo five times to open the Secret Arcade.</li>
-                <li><strong>The ladybug trail:</strong> follow four ladybugs in the garden and close each little note; the fourth reveals a way into the arcade.</li>
-                <li><strong>The footer star:</strong> tap or click the little star three times within seven seconds for a thank-you surprise.</li>
-                <li><strong>Keyboard spells:</strong> type <code>MALIKA</code> for a little starfall, or <code>MIMI</code> to jump into Memory Match.</li>
-                <li><strong>Old-school game code:</strong> press <code>↑ ↑ ↓ ↓ ← → ← → B A</code> on a keyboard to open the arcade.</li>
-              </ul>
-              <p>The Secret Arcade has five quests: catch seven stars, match all three pairs, repeat the four-beat pawprint rhythm, catch five fireflies, and reveal all five wishes in the jar. Finish every quest to unlock <strong>Keeper of Little Wonders</strong>.</p>
-              <p className="curiosity-guide-note">On a phone, use the header heart or ladybug trail to open the arcade; no keyboard is required for the five games or grand finale.</p>
-            </div>
-          </details>
         </div>
       </details>
     </aside>

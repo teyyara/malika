@@ -187,7 +187,16 @@ test("completing all five arcade quests unlocks the grand-secret finale", async 
   const grandBounds = await grandSecret.boundingBox();
   expect(grandBounds.width, "the grand secret must fill the viewport width").toBeGreaterThanOrEqual(grandViewport.width - 1);
   expect(grandBounds.height, "the grand secret must fill the viewport height").toBeGreaterThanOrEqual(grandViewport.height - 1);
-  await page.screenshot({ path: "test-results/screenshots/loop-010-grand-finale-desktop.png", fullPage: true });
+  await page.waitForTimeout(2600); // Let the heart, title, treasures and final actions finish their staged entrance.
+  const desktopBackdrop = await grandSecret.locator("xpath=..").evaluate((element) => ({
+    className: element.className,
+    position: getComputedStyle(element).position,
+    background: getComputedStyle(element).backgroundColor
+  }));
+  expect(desktopBackdrop.className).toContain("is-grand-finale");
+  expect(desktopBackdrop.position).toBe("fixed");
+  expect(desktopBackdrop.background).toBe("rgb(8, 4, 17)");
+  await page.screenshot({ path: "test-results/screenshots/loop-010-grand-finale-desktop.png", fullPage: false });
   await grandSecret.getByRole("button", { name: "Return to your Secret Arcade" }).click();
   await expect(page.getByRole("dialog", { name: "The secret arcade" })).toBeVisible();
 
@@ -200,7 +209,8 @@ test("completing all five arcade quests unlocks the grand-secret finale", async 
     scrollWidth: element.scrollWidth
   }));
   expect(mobileSizes.scrollWidth, "the finale content should fit a 320px phone").toBeLessThanOrEqual(mobileSizes.clientWidth);
-  await page.screenshot({ path: "test-results/screenshots/loop-010-grand-finale-mobile.png", fullPage: true });
+  await page.waitForTimeout(2600); // Capture the fully staged phone-sized finale, not its initial fade frame.
+  await page.screenshot({ path: "test-results/screenshots/loop-010-grand-finale-mobile.png", fullPage: false });
   await mobileGrand.getByRole("button", { name: "Keep this little wonder" }).click();
   await expect(mobileGrand).toHaveCount(0);
 });

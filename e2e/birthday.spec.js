@@ -124,3 +124,39 @@ test("reduced-motion preference reaches the application shell", async ({ page })
   await page.goto("/");
   await expect(page.locator(".app-shell")).toHaveClass(/prefers-less-motion/);
 });
+
+test("Mimi reacts to a pet and the three-star constellation reveals two environmental wishes", async ({ page }) => {
+  await page.goto("/");
+  const welcomeMimi = page.getByRole("button", { name: "Pet Mimi to wake her up" });
+  await welcomeMimi.click();
+  await expect(welcomeMimi.locator("svg.cat-art")).toHaveClass(/cat-reaction-curious/);
+  await welcomeMimi.click();
+  await expect(welcomeMimi.locator("svg.cat-art")).toHaveClass(/cat-reaction-delighted/);
+
+  await page.getByRole("button", { name: /Open your birthday surprise/ }).click();
+  await page.getByRole("button", { name: "Trace the first star of a hidden birthday wish" }).click();
+  await page.getByRole("button", { name: "Trace the second star of a hidden birthday wish" }).click();
+  await page.getByRole("button", { name: "Trace the last star to reveal a secret wish" }).click();
+
+  const constellationWish = page.getByRole("dialog", { name: "A little more wonder" });
+  await expect(constellationWish).toBeVisible();
+  await expect(page.locator(".garden-constellation-lines .is-complete")).toHaveCount(1);
+  await constellationWish.getByRole("button", { name: "Keep this close" }).click();
+
+  await page.getByRole("button", { name: "Touch the pink flower to find a birthday wish" }).click();
+  await expect(page.getByRole("dialog", { name: "Brave new chapters" })).toBeVisible();
+});
+
+test("the moonlit background gently tracks a fine-pointer movement", async ({ page }) => {
+  await page.setViewportSize({ width: 1024, height: 768 });
+  await page.goto("/");
+  await page.mouse.move(12, 14);
+  const firstPosition = await page.locator(".ambient-world").evaluate(
+    (element) => getComputedStyle(element).getPropertyValue("--parallax-x-near").trim()
+  );
+  await page.mouse.move(940, 680);
+  await expect.poll(async () => page.locator(".ambient-world").evaluate(
+    (element) => getComputedStyle(element).getPropertyValue("--parallax-x-near").trim()
+  )).not.toBe(firstPosition);
+});
+

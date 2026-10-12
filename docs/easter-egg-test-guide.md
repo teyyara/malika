@@ -79,7 +79,7 @@ Reward: *You found the heart in the stars.*
 ### Quest 2 — Mimi's Memory Match
 Turn over two cards at a time and match all **four pairs**: **🌙 moon, 🐾 pawprints, 💜 purple heart, and ✨ sparkle**. The cards shuffle whenever a new round starts, so pair positions change. Memorize revealed positions; an incorrect pair briefly stays visible and then turns back. You can keep playing after a mismatch.
 
-Typing **MIMI** is a shortcut directly into this game.
+Typing **MIMI** opens the Secret Arcade door. Enter **iloveyou** if it is still locked, then choose Memory Match from the game list; this keyboard shortcut no longer bypasses the password gate.
 
 Reward: *You remembered every little wonder.*
 

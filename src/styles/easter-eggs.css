@@ -1,0 +1,187 @@
+/* Loop 005 — secret arcade, hidden reveals, and tiny side quests. */
+.egg-backdrop {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  background: rgba(8, 4, 19, .78);
+  backdrop-filter: blur(18px) saturate(.82);
+  animation: egg-backdrop-in .3s ease both;
+}
+.egg-dialog {
+  position: relative;
+  isolation: isolate;
+  width: min(760px, 100%);
+  max-height: min(88svh, 900px);
+  overflow: auto;
+  padding: clamp(24px, 4vw, 44px);
+  border: 1px solid rgba(226, 202, 255, .28);
+  border-radius: 30px;
+  color: #f9f1ff;
+  text-align: center;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(199, 157, 255, .21), transparent 46%),
+    radial-gradient(ellipse at 0% 100%, rgba(255, 174, 221, .09), transparent 38%),
+    linear-gradient(155deg, rgba(38, 23, 65, .98), rgba(16, 9, 31, .99));
+  box-shadow: 0 35px 100px rgba(0, 0, 0, .5), inset 0 1px rgba(255,255,255,.04);
+  animation: egg-dialog-in .46s cubic-bezier(.18,.8,.2,1) both;
+}
+.egg-dialog::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 10px;
+  border: 1px solid rgba(224, 199, 255, .07);
+  border-radius: 22px;
+  pointer-events: none;
+}
+.egg-close {
+  position: sticky;
+  float: right;
+  top: 0;
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  width: 37px;
+  height: 37px;
+  margin: -8px -8px 0 0;
+  border: 1px solid rgba(226,202,255,.2);
+  border-radius: 50%;
+  color: #f8ebff;
+  background: rgba(255,255,255,.06);
+  font-size: 24px;
+  line-height: 1;
+}
+.egg-close:hover { background: rgba(213,176,255,.17); transform: rotate(5deg); }
+.egg-dialog-stars { clear: both; margin: 0 0 14px; color: #e9d4ff; font-family: Georgia,serif; letter-spacing: .42em; text-shadow: 0 0 22px rgba(225,180,255,.55); }
+.egg-kicker { margin: 0 0 10px; color: #d9b8ff; font-size: 9px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; }
+.egg-dialog h2 { max-width: 590px; margin: 0 auto 14px; font-family: "Iowan Old Style","Palatino Linotype",Georgia,serif; font-size: clamp(30px,5.3vw,46px); font-weight: 400; letter-spacing: -.035em; line-height: 1.08; text-wrap: balance; }
+.egg-subtitle, .egg-reveal-content > p, .egg-game-instructions { max-width: 520px; margin: 0 auto 24px; color: #c5b5de; font-size: 13px; line-height: 1.8; }
+.egg-reveal-content { position: relative; }
+.egg-reveal-glyph { position: relative; display: grid; place-items: center; width: 130px; height: 130px; margin: 18px auto 23px; border: 1px solid rgba(233,208,255,.18); border-radius: 50%; color: #fae7ff; background: radial-gradient(circle, rgba(214,174,255,.22), rgba(111,74,154,.06) 65%, transparent 68%); font-size: 64px; text-shadow: 0 0 35px rgba(247,193,255,.8); animation: egg-glyph-float 3.8s ease-in-out infinite; }
+.egg-reveal-moon { box-shadow: 0 0 68px rgba(197,170,255,.16); }
+.egg-reveal-paws { animation: egg-paw-dance .9s ease-in-out infinite alternate; }
+.egg-reveal-starfall { animation: egg-comet .95s cubic-bezier(.2,.8,.2,1) infinite alternate; }
+.egg-reveal-footer { animation: egg-glyph-float 2.4s ease-in-out infinite; }
+.egg-action-button { display: inline-flex; align-items: center; justify-content: center; gap: 12px; min-height: 46px; border: 1px solid rgba(234,211,255,.34); border-radius: 999px; padding: 13px 21px; color: #28133f; background: linear-gradient(110deg,#e7d2ff,#ffc7e8); font-size: 12px; font-weight: 700; box-shadow: 0 8px 26px rgba(201,154,255,.12); transition: transform .2s, box-shadow .2s; }
+.egg-action-button:hover { transform: translateY(-2px); box-shadow: 0 10px 36px rgba(201,154,255,.28); }
+.egg-burst { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.egg-burst i { position: absolute; top: 49%; left: 50%; color: #f4d3ff; font-style: normal; font-size: 17px; opacity: 0; animation: egg-burst-out 1.4s ease-out var(--burst-delay) infinite; transform: rotate(var(--burst-angle)) translateY(-60px); }
+.egg-game-list { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; margin: 23px 0 20px; text-align: left; }
+.egg-game-tile { position: relative; display: grid; grid-template-columns: 44px minmax(0,1fr); align-items: center; column-gap: 12px; min-height: 86px; border: 1px solid rgba(222,198,255,.14); border-radius: 17px; padding: 14px; text-align: left; background: linear-gradient(140deg,rgba(198,159,255,.09),rgba(255,255,255,.025)); transition: border-color .25s, background .25s, transform .25s; }
+.egg-game-tile:hover, .egg-game-tile:focus-visible { border-color: rgba(239,208,255,.45); background: rgba(198,159,255,.13); transform: translateY(-2px); }
+.egg-game-tile > span { grid-row: span 2; display: grid; place-items: center; width: 42px; height: 42px; border: 1px solid rgba(229,203,255,.18); border-radius: 14px; color: #f5d9ff; background: rgba(211,175,255,.09); font-size: 23px; }
+.egg-game-tile strong { align-self: end; font-family: Georgia,serif; font-size: 15px; font-weight: 500; }
+.egg-game-tile small { align-self: start; margin-top: 4px; color: #a995c8; font-size: 10px; line-height: 1.5; }
+.egg-unlock-counter { display: flex; justify-content: space-between; align-items: center; max-width: 300px; margin: 0 auto; padding: 12px 16px; border-top: 1px solid rgba(224,199,255,.12); color: #b9a6d6; font-size: 11px; }
+.egg-unlock-counter strong { color: #f8dcff; font-family: Georgia,serif; font-size: 23px; font-weight: 400; }
+.egg-tiny-note { margin: 8px 0 0; color: #9582b0; font-size: 10px; }
+.egg-game-content { position: relative; }
+.egg-game-instructions { margin-bottom: 18px; }
+.egg-star-field, .egg-firefly-field { position: relative; width: 100%; height: clamp(230px, 38vw, 330px); overflow: hidden; border: 1px solid rgba(214,185,255,.14); border-radius: 22px; background: radial-gradient(ellipse at 50% 45%, rgba(94,67,137,.32), transparent 70%), rgba(9,5,22,.36); }
+.egg-star-token, .egg-firefly-token { position: absolute; display: grid; place-items: center; transform: translate(-50%,-50%); width: 42px; height: 42px; border: 1px solid transparent; border-radius: 50%; padding: 0; color: #f7e5ff; background: transparent; font-size: 25px; text-shadow: 0 0 13px rgba(234,197,255,.85); animation: egg-star-drift 3s ease-in-out infinite; transition: color .2s, background .2s, border-color .2s, opacity .3s; }
+.egg-star-token:nth-child(3n) { animation-delay: -1.4s; }
+.egg-star-token:nth-child(4n) { animation-delay: -.8s; }
+.egg-star-token:hover, .egg-star-token:focus-visible { border-color: rgba(239,215,255,.45); background: rgba(213,180,255,.17); }
+.egg-star-token.is-caught { opacity: .35; animation: egg-star-caught .38s ease-out both; }
+.egg-star-token:disabled, .egg-firefly-token:disabled { cursor: default; }
+.egg-firefly-token { color: #ffeeb0; text-shadow: 0 0 8px #ffd976,0 0 25px rgba(255,223,125,.85); animation: egg-firefly-float 2.7s ease-in-out infinite; }
+.egg-firefly-token:nth-child(odd) { animation-delay: -1.2s; }
+.egg-firefly-token:hover, .egg-firefly-token:focus-visible { background: rgba(255,231,150,.12); }
+.egg-firefly-token.is-caught { opacity: .32; animation: egg-star-caught .35s ease-out both; }
+.egg-progress { margin: 15px 0 8px; color: #d8c2f2; font-size: 12px; font-variant-numeric: tabular-nums; }
+.egg-win { margin: 14px 0 0; padding: 13px 16px; border: 1px solid rgba(244,203,255,.2); border-radius: 14px; color: #ffdef7; background: rgba(191,139,255,.1); font-size: 13px; line-height: 1.7; animation: egg-win-in .5s cubic-bezier(.2,.8,.2,1) both; }
+.egg-memory-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 10px; max-width: 430px; margin: 18px auto; }
+.egg-memory-card { display: grid; place-items: center; aspect-ratio: 1.1; border: 1px solid rgba(226,200,255,.18); border-radius: 17px; color: #e9d4ff; background: linear-gradient(145deg,rgba(165,123,225,.16),rgba(255,255,255,.035)); font-size: clamp(24px,4vw,36px); box-shadow: inset 0 1px rgba(255,255,255,.035); transition: transform .25s, border-color .25s, background .25s; }
+.egg-memory-card:not(.is-open):hover { transform: translateY(-3px) rotate(-1deg); border-color: rgba(228,205,255,.4); }
+.egg-memory-card.is-open { border-color: rgba(240,209,255,.4); background: linear-gradient(145deg,rgba(227,194,255,.21),rgba(255,191,229,.09)); animation: egg-card-flip .3s ease-out both; }
+.egg-rhythm-pad { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 10px; max-width: 500px; margin: 24px auto; }
+.egg-rhythm-key { display: grid; place-items: center; aspect-ratio: 1; border: 1px solid rgba(224,198,255,.2); border-radius: 20px; color: #f6e8ff; background: radial-gradient(circle at 50% 0,rgba(200,159,255,.17),transparent 75%),rgba(255,255,255,.025); font-size: clamp(25px,5vw,42px); transition: transform .15s, background .2s, box-shadow .2s; }
+.egg-rhythm-key:hover, .egg-rhythm-key:focus-visible { transform: scale(1.04); background-color: rgba(218,179,255,.12); box-shadow: 0 0 28px rgba(214,171,255,.13); }
+.egg-rhythm-key:active { transform: scale(.94); }
+.egg-game-actions { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 18px; border-top: 1px solid rgba(224,199,255,.12); padding-top: 15px; }
+.egg-text-button { border: 0; padding: 10px 8px; color: #c5addf; background: transparent; font-size: 11px; text-decoration: underline; text-decoration-color: rgba(197,173,223,.3); text-underline-offset: 4px; }
+.egg-text-button:hover { color: #fff; }
+.egg-wish-jar { position: relative; display: grid; place-items: center; width: 120px; height: 145px; margin: 15px auto 20px; font-size: 76px; filter: drop-shadow(0 0 22px rgba(207,174,255,.2)); animation: egg-jar-float 2.8s ease-in-out infinite; }
+.egg-wish-jar span { position: absolute; color: #f5d9ff; font-size: 17px; animation: egg-jar-glow 2.4s ease-in-out infinite; }
+.egg-wish-jar span:nth-child(2) { top: 23%; left: 22%; }
+.egg-wish-jar span:nth-child(3) { right: 21%; bottom: 32%; animation-delay: -.7s; }
+.egg-wish-jar.has-wish { animation: egg-jar-shake .5s ease-in-out; }
+.egg-wish-copy { max-width: 430px; margin: 20px auto 0; color: #f4dffa; font-family: Georgia,serif; font-size: 18px; line-height: 1.6; animation: egg-win-in .5s ease both; }
+.egg-toast { position: fixed; z-index: 120; right: max(16px,env(safe-area-inset-right)); bottom: max(18px,env(safe-area-inset-bottom)); display: flex; align-items: center; gap: 10px; width: min(560px,calc(100% - 32px)); padding: 13px 14px; border: 1px solid rgba(226,202,255,.27); border-radius: 17px; color: #f8efff; background: rgba(31,18,52,.96); box-shadow: 0 18px 60px rgba(0,0,0,.4); backdrop-filter: blur(18px); animation: egg-toast-in .35s ease-out both; font-size: 11px; line-height: 1.5; }
+.egg-toast > span:first-child { color: #f4c9ff; font-size: 20px; }
+.egg-toast > span:nth-child(2) { flex: 1; }
+.egg-toast > button:not(.egg-toast-dismiss) { border: 1px solid rgba(226,202,255,.2); border-radius: 999px; padding: 8px 11px; color: #2c1740; background: #e9d4ff; font-size: 10px; font-weight: 700; white-space: nowrap; }
+.egg-toast-dismiss { border: 0; padding: 3px; color: #c4b1dc; background: transparent; font-size: 18px; }
+.secret-moon-trigger { display: block; appearance: none; border: 0; padding: 0; cursor: pointer; }
+.secret-moon-trigger:focus-visible { outline: 2px solid rgba(238,215,255,.85); outline-offset: 8px; }
+@keyframes egg-backdrop-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes egg-dialog-in { from { opacity: 0; transform: translateY(18px) scale(.975); filter: blur(8px); } to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); } }
+@keyframes egg-glyph-float { 0%,100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-9px) rotate(3deg); } }
+@keyframes egg-paw-dance { 0% { transform: rotate(-12deg) scale(.98); } 100% { transform: rotate(12deg) scale(1.06); } }
+@keyframes egg-comet { from { transform: translate(-17px,8px) rotate(-15deg) scale(.88); filter: drop-shadow(0 0 5px #d2acff); } to { transform: translate(16px,-9px) rotate(15deg) scale(1.08); filter: drop-shadow(0 0 28px #f7aee7); } }
+@keyframes egg-burst-out { 0% { opacity: 0; transform: rotate(var(--burst-angle)) translateY(-15px) scale(.4); } 25% { opacity: .9; } 100% { opacity: 0; transform: rotate(var(--burst-angle)) translateY(-165px) scale(.8); } }
+@keyframes egg-star-drift { 0%,100% { opacity: .66; filter: drop-shadow(0 0 4px rgba(234,197,255,.4)); } 50% { opacity: 1; filter: drop-shadow(0 0 13px rgba(247,219,255,.95)); } }
+@keyframes egg-star-caught { to { transform: translate(-50%,-50%) scale(.45) rotate(50deg); filter: blur(2px); } }
+@keyframes egg-firefly-float { 0%,100% { opacity: .72; filter: drop-shadow(0 0 5px rgba(255,223,125,.5)); } 50% { opacity: 1; filter: drop-shadow(0 0 16px rgba(255,223,125,1)); } }
+@keyframes egg-card-flip { from { transform: rotateY(75deg) scale(.92); } to { transform: rotateY(0) scale(1); } }
+@keyframes egg-win-in { from { opacity: 0; transform: translateY(8px) scale(.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes egg-toast-in { from { opacity: 0; transform: translateY(13px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes egg-jar-float { 0%,100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-7px) rotate(2deg); } }
+@keyframes egg-jar-shake { 0%,100% { transform: rotate(0); } 22% { transform: rotate(-9deg) scale(1.04); } 44% { transform: rotate(8deg); } 66% { transform: rotate(-5deg); } 82% { transform: rotate(3deg); } }
+@keyframes egg-jar-glow { 0%,100% { opacity: .4; transform: scale(.85); } 50% { opacity: 1; transform: scale(1.2); } }
+@media (max-width: 620px) {
+  .egg-backdrop { padding: 10px; }
+  .egg-dialog { padding: 23px 16px 25px; border-radius: 23px; max-height: 91svh; }
+  .egg-game-list { grid-template-columns: 1fr; gap: 8px; }
+  .egg-game-tile { min-height: 73px; }
+  .egg-star-field, .egg-firefly-field { height: 260px; }
+  .egg-toast { align-items: flex-start; flex-wrap: wrap; }
+  .egg-toast > span:nth-child(2) { flex-basis: calc(100% - 38px); }
+  .egg-toast > button:not(.egg-toast-dismiss) { margin-left: 30px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .egg-backdrop, .egg-dialog, .egg-reveal-glyph, .egg-reveal-paws, .egg-reveal-starfall, .egg-burst i,
+  .egg-star-token, .egg-firefly-token, .egg-memory-card, .egg-wish-jar, .egg-wish-jar span, .egg-toast,
+  .egg-win, .egg-wish-copy { animation: none !important; transition: none !important; }
+  .secret-moon-trigger { transition: none !important; }
+}
+
+/* Keep the moon art large but place a real, compact touch target in its clear upper-right quadrant.
+   Its glow animates; the 54px button geometry never scales or shifts. */
+.welcome-moon.secret-moon-trigger {
+  top: 6%;
+  right: 14%;
+  width: 54px;
+  height: 54px;
+  z-index: 2;
+  background: transparent;
+  box-shadow: none;
+  animation: none;
+  transform: none;
+}
+.welcome-moon.secret-moon-trigger::before {
+  content: "";
+  position: absolute;
+  width: 170px;
+  height: 170px;
+  left: calc(50% - 58px);
+  top: calc(50% + 58px);
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle at 35% 30%, #e4d8ff, #af8ce5 62%, rgba(157,116,210,.12) 70%);
+  box-shadow: 0 0 85px rgba(186,150,250,.23);
+  opacity: .83;
+  animation: egg-moon-breathe 7s ease-in-out infinite;
+}
+@keyframes egg-moon-breathe {
+  0%, 100% { opacity: .76; box-shadow: 0 0 72px rgba(186,150,250,.18); }
+  50% { opacity: .94; box-shadow: 0 0 98px rgba(186,150,250,.3); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .welcome-moon.secret-moon-trigger,
+  .welcome-moon.secret-moon-trigger::before { animation: none !important; }
+}

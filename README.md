@@ -49,6 +49,10 @@ Vercel reports SSO protection on Vercel-hosted domains, so a plain URL may ask t
 
 Vercel settings: Framework **Vite**, build command `npm run build`, output directory `dist`, root directory `./`, no environment variables. A custom `vercel.json` is unnecessary because scene changes stay inside React at the root path.
 
+## Hidden Easter eggs and mini-games
+
+The extra secrets are optional; all core birthday scenes stay available without finding any of them. The five-game Secret Arcade, keyboard codes, moon/paw/footnote triggers, and step-by-step spoiler walkthrough are documented in [docs/easter-egg-test-guide.md](docs/easter-egg-test-guide.md). Browser regression coverage lives in `e2e/easter-eggs.spec.js`. Loop 005 passed 8 Node tests, the Vite production build, and all 15 Chromium browser journeys; details are in [evidence/loop-005-easter-eggs.md](evidence/loop-005-easter-eggs.md).
+
 ## Project status and evidence
 
-See `AEOS_STATUS.md`, `.aeos/state.json`, `docs/product-contract-v1.1.md`, and `evidence/loop-004-release.md`. Automated tests pass; screen-reader validation and physical-device touch QA remain separate, unobserved gates.
+See `AEOS_STATUS.md`, `.aeos/state.json`, `docs/product-contract-v1.1.md`, and `evidence/loop-004-release.md`, `evidence/loop-005-easter-eggs.md`, and `docs/easter-egg-test-guide.md`. Automated tests pass; screen-reader validation and physical-device touch QA remain separate, unobserved gates.

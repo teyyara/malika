@@ -109,20 +109,27 @@ test("Mimi, love-note music and game effects can be mixed independently", async 
   await musicVolume.focus();
   await musicVolume.press("ArrowLeft");
   await expect(page.getByText("99%", { exact: true })).toBeVisible();
-  await expect.poll(() => page.evaluate(() => window.__soundMixerChannels.ramps.some((ramp) => ramp.channel === 1 && ramp.value === 0.99))).toBeTruthy();
+  await expect.poll(() => page.evaluate(() => window.__soundMixerChannels.ramps.some((ramp) => ramp.value === 0.99))).toBeTruthy();
+  const musicChannel = await page.evaluate(() => [...window.__soundMixerChannels.ramps].reverse().find((ramp) => ramp.value === 0.99)?.channel);
+  expect(Number.isInteger(musicChannel), "love-note music must ramp its gain node").toBeTruthy();
 
   await page.getByRole("button", { name: "Hear a meow" }).click();
   await expect.poll(() => page.evaluate(() => window.__soundMixerChannels.channelNodes.length)).toBeGreaterThanOrEqual(3);
   const mimiVolume = page.getByRole("slider", { name: "Mimi voice volume" });
   await mimiVolume.focus();
   await mimiVolume.press("ArrowLeft");
-  await expect.poll(() => page.evaluate(() => window.__soundMixerChannels.ramps.some((ramp) => ramp.channel === 2 && ramp.value === 0.99))).toBeTruthy();
+  await expect.poll(() => page.evaluate(() => window.__soundMixerChannels.ramps.filter((ramp) => ramp.value === 0.99).length)).toBeGreaterThanOrEqual(2);
+  const mimiChannel = await page.evaluate(() => [...window.__soundMixerChannels.ramps].reverse().find((ramp) => ramp.value === 0.99)?.channel);
+  expect(Number.isInteger(mimiChannel) && mimiChannel !== musicChannel, "Mimi must use a separate gain node from music").toBeTruthy();
 
   const effectsVolume = page.getByRole("slider", { name: "Game and effects volume" });
   await effectsVolume.focus();
   await effectsVolume.press("ArrowDown");
   await expect(effectsVolume).toHaveValue("99");
-  await expect.poll(() => page.evaluate(() => window.__soundMixerChannels.ramps.some((ramp) => ramp.channel === 0 && ramp.value === 0.99))).toBeTruthy();
+  await expect.poll(() => page.evaluate(() => window.__soundMixerChannels.ramps.filter((ramp) => ramp.value === 0.99).length)).toBeGreaterThanOrEqual(3);
+  const effectsChannel = await page.evaluate(() => [...window.__soundMixerChannels.ramps].reverse().find((ramp) => ramp.value === 0.99)?.channel);
+  expect(Number.isInteger(effectsChannel) && effectsChannel !== musicChannel && effectsChannel !== mimiChannel,
+    "game and effect sounds must use a gain node separate from music and Mimi").toBeTruthy();
 });
 
 test("sound starts on by default, unlocks with the first welcome tap, and can be hushed", async ({ page }) => {

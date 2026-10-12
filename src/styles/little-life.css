@@ -218,3 +218,117 @@
     animation: none !important;
   }
 }
+
+
+/* Loop 018 — let the sound have a visible heartbeat. */
+.cat-art .cat-meow-mouth {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.cat-art.cat-is-meowing .cat-mouth { opacity: 0; }
+.cat-art.cat-is-meowing .cat-meow-mouth {
+  opacity: 1;
+  animation: little-life-meow-mouth .76s ease-in-out both;
+}
+.cat-art.cat-is-meowing .cat-head {
+  transform-box: fill-box;
+  transform-origin: center 70%;
+  animation: little-life-meow-head .38s ease-in-out 2;
+}
+@keyframes little-life-meow-mouth {
+  0%, 100% { transform: scaleY(.18); }
+  18% { transform: scaleY(1); }
+  44% { transform: scaleY(.64); }
+  70% { transform: scaleY(.9); }
+}
+@keyframes little-life-meow-head {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  45% { transform: translateY(-2px) rotate(-1deg); }
+}
+
+.love-note-modal.is-score-playing::before {
+  opacity: .9;
+  background: conic-gradient(from 0deg, transparent, rgba(255,188,226,.18), transparent 28%, rgba(184,151,255,.2), transparent 68%, rgba(255,222,174,.11), transparent);
+  animation-duration: 9s;
+}
+.love-note-modal.is-score-playing .note-orbit-one { animation-duration: 18s; }
+.love-note-modal.is-score-playing .note-orbit-two { animation-duration: 25s; }
+.note-score-indicator {
+  position: absolute;
+  z-index: 3;
+  top: 20px;
+  left: 25px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 26px;
+  max-width: calc(100% - 92px);
+  border: 1px solid rgba(255,206,238,.21);
+  border-radius: 999px;
+  padding: 5px 9px;
+  color: #f5d9f3;
+  background: rgba(52,28,64,.55);
+  box-shadow: 0 0 24px rgba(255,175,222,.075);
+  font-size: 8px;
+  letter-spacing: .065em;
+  pointer-events: none;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.note-score-glyph {
+  color: #ffd8f0;
+  font-size: 13px;
+  line-height: 1;
+  text-shadow: 0 0 13px rgba(255,190,230,.72);
+}
+.note-score-bars {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  height: 13px;
+  margin-left: 2px;
+}
+.note-score-bars i {
+  display: block;
+  width: 2px;
+  height: var(--score-height, 8px);
+  border-radius: 3px;
+  background: linear-gradient(to top, #d8a6ff, #ffd6ed);
+  box-shadow: 0 0 5px rgba(255,198,239,.35);
+  transform-origin: center;
+  animation: little-life-score-bar .68s ease-in-out infinite alternate;
+}
+@keyframes little-life-score-bar {
+  from { transform: scaleY(.46); opacity: .68; }
+  to { transform: scaleY(1); opacity: 1; }
+}
+.egg-reward-medallion[data-sound-cue^="achievement-"] {
+  touch-action: manipulation;
+  transition: filter .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+.egg-reward-medallion[data-sound-cue^="achievement-"]:hover .egg-reward-medallion-symbol,
+.egg-reward-medallion[data-sound-cue^="achievement-"]:focus-visible .egg-reward-medallion-symbol {
+  filter: brightness(1.22) drop-shadow(0 0 15px var(--reward-accent));
+}
+.egg-reward-medallion[data-sound-cue^="achievement-"]:active {
+  transform: scale(.92) rotate(-3deg);
+}
+@media (max-width: 420px) {
+  .note-score-indicator {
+    top: 17px;
+    left: 15px;
+    gap: 5px;
+    padding: 5px 7px;
+    font-size: 7px;
+    letter-spacing: .035em;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cat-art.cat-is-meowing .cat-meow-mouth,
+  .cat-art.cat-is-meowing .cat-head,
+  .note-score-bars i { animation: none !important; }
+  .love-note-modal.is-score-playing::before,
+  .love-note-modal.is-score-playing .note-orbit-one,
+  .love-note-modal.is-score-playing .note-orbit-two { animation: none !important; }
+}

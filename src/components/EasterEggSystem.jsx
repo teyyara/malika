@@ -187,7 +187,7 @@ export default function EasterEggSystem() {
   }
 
   function openReveal(id) {
-    playCuteSound("reveal");
+    playCuteSound(id === "grand" ? "grand-achievement" : "reveal");
     if (!panel || panel === "celebration") openerRef.current = document.activeElement;
     setRevealId(id);
     setPanel("reveal");
@@ -209,7 +209,7 @@ export default function EasterEggSystem() {
   }
 
   function finishGame(id, achievement) {
-    playCuteSound("reward");
+    playCuteSound("achievement-" + id);
     addUnique(setCompletedGames, id);
     if (achievement) addUnique(setUnlocked, achievement);
     setCelebrationId(id);
@@ -592,7 +592,7 @@ export default function EasterEggSystem() {
             </div>
           </div>
           <div className="egg-celebration-content">
-            <button type="button" className="egg-reward-medallion" aria-label="Tap your prize to replay the victory chime" onClick={() => playCuteSound("reward")}>
+            <button type="button" className="egg-reward-medallion" aria-label="Tap your prize to replay the victory fanfare" data-sound-cue={"achievement-" + celebrationId} onClick={() => playCuteSound("achievement-" + celebrationId)}>
               <span className="egg-reward-medallion-orbit">✧　·　♡　·　✦</span>
               <span className="egg-reward-medallion-symbol">{reward.glyph}</span>
               <span className="egg-reward-medallion-caption">A LITTLE WIN FOR YOU</span>

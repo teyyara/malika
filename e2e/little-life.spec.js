@@ -428,3 +428,41 @@ test("each arcade prize advertises its own achievement sound", async ({ page }) 
   await expect(reward.getByRole("button", { name: "Tap your prize to replay the victory fanfare" }))
     .toHaveAttribute("data-sound-cue", "achievement-stars");
 });
+
+
+test("each main scene and all five arcade games select their own soundtrack", async ({ page }) => {
+  await page.goto("/");
+  await expect.poll(() => page.locator("html").getAttribute("data-soundtrack-theme")).toBe("none");
+  await page.getByRole("button", { name: /Open your birthday surprise/ }).click();
+  await expect.poll(() => page.locator("html").getAttribute("data-soundtrack-theme")).toBe("garden");
+  await page.getByRole("button", { name: "Heart game" }).click();
+  await expect.poll(() => page.locator("html").getAttribute("data-soundtrack-theme")).toBe("heart-game");
+  await page.getByRole("button", { name: "Love notes" }).click();
+  await expect.poll(() => page.locator("html").getAttribute("data-soundtrack-theme")).toBe("love-notes");
+  await page.getByRole("button", { name: "Birthday letter" }).click();
+  await expect.poll(() => page.locator("html").getAttribute("data-soundtrack-theme")).toBe("birthday-letter");
+  await page.getByRole("button", { name: "The garden" }).click();
+  await expect.poll(() => page.locator("html").getAttribute("data-soundtrack-theme")).toBe("garden");
+
+  for (const key of ["ArrowUp","ArrowUp","ArrowDown","ArrowDown","ArrowLeft","ArrowRight","ArrowLeft","ArrowRight","b","a"]) {
+    await page.keyboard.press(key);
+  }
+  await expect(page.getByRole("dialog", { name: "A door only you can open" })).toBeVisible();
+  await page.getByLabel("The secret password").fill("iloveyou");
+  await page.getByRole("button", { name: "Unlock the Secret Arcade" }).click();
+  await expect(page.getByRole("dialog", { name: "The secret arcade" })).toBeVisible();
+
+  const games = [
+    { name:/Mimi's constellation chase/, theme:"arcade-stars" },
+    { name:/Mimi's memory match/, theme:"arcade-memory" },
+    { name:/Pawprint rhythm/, theme:"arcade-rhythm" },
+    { name:/Firefly hunt/, theme:"arcade-fireflies" },
+    { name:/The little wish jar/, theme:"arcade-wishes" }
+  ];
+  for (const game of games) {
+    await page.getByRole("button", { name: game.name }).click();
+    await expect.poll(() => page.locator("html").getAttribute("data-soundtrack-theme")).toBe(game.theme);
+    await page.getByRole("button", { name: /Back to arcade/ }).click();
+    await expect.poll(() => page.locator("html").getAttribute("data-soundtrack-theme")).toBe("garden");
+  }
+});

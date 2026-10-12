@@ -1,64 +1,50 @@
 # AEOS Status — Malika Birthday Universe
 
-Run: `malika-20261012-004`  
+Run: `malika-20261012-005`  
 Active keyphrase: `read the master strategy`  
-Current loop: **004 — immersive interaction, visual QA, automated release, and Vercel deployment**  
+Current loop: **005 — hidden gems, Easter-egg animations, and the Secret Arcade**  
 Orchestration state: `WAITING_FOR_CONTINUE`  
-Candidate: `malika-birthday-004-alive-garden`  
+Candidate: `malika-birthday-005-secret-arcade`  
 Repository: https://github.com/teyyara/malika  
 Assessment branch: `main`  
-Progression branch: `aeos/progression`
+Progression branch: `aeos/loop-005-easter-eggs`
 
 ## Product state
 
 Recipient: **Malika**. Sender: **Zack**. Birthday: **12 October**.
 
-The experience contains a personalized welcome, moonlit garden with Mimi and ladybugs, seven-heart game, 30 affectionate notes plus five future-facing dreams, and a personal birthday letter. No unprovided shared past events are presented as memories.
+The original birthday journey remains intact: personalized welcome, garden with Mimi and ladybugs, three-star constellation, seven-heart game, 35 keepsakes, and birthday finale. Loop 005 adds optional hidden entrances and five mini-games. No shared past events are invented; wish-jar content is phrased as future-facing hopes.
 
-## Loop 004 — completed and promoted
+## Loop 005 — implementation and tests
 
-- Added cursor-reactive atmospheric light and low-amplitude parallax on fine-pointer devices, with reduced-motion/coarse-pointer guards.
-- Reworked Mimi to blink, follow the pointer with her pupils, and change whole-body reactions when petted; improved game-scale illustration size.
-- Added fluttering ladybug wings and touch/hover reactions.
-- Added a stable three-star constellation interaction that draws a heart and opens a birthday wish; the flower reveals a separate note.
-- Choreographed game collection feedback and a multi-particle win moment.
-- Added staggered birthday-letter reveal, floating motes, and an optional final sparkle sequence.
-- Added browser regression tests for new interactions and a deterministic screenshot journey covering welcome, garden, game, victory, letter, and final surprise.
-- Updated deployment and release evidence with the actual Vercel project state.
+- Added the keyboard Konami sequence, typed-name reveal (`MALIKA`), Mimi shortcut (`MIMI`), seven-tap moon, five-pet Mimi trigger, three-tap footer star, five-tap header heart, and four-ladybug trail.
+- Added four unique animated reveal moments: moon wish, Mimi paw parade, starfall, and tiny thank-you star.
+- Added the five-game Secret Arcade: Seven-star catcher, Mimi's memory match, Pawprint rhythm, Firefly hunt, and the little wish jar.
+- Kept each game timer-free and local-only. Easter-egg counters reset for a fresh visit; no account, analytics, local storage, sound dependency, paid API, or backend was introduced.
+- Honored reduced-motion preferences; secret dialogs support Escape, close buttons, and keyboard focus containment/restoration.
+- Separated the moon's large visual art from its small stable upper-right touch target after browser testing found the kitten's transparent SVG hit area was intercepting the moon click.
+- Added Playwright coverage and a spoiler-filled testing walkthrough at [docs/easter-egg-test-guide.md](docs/easter-egg-test-guide.md).
 
-## Verified automated validation
+## Verified validation
 
-**PASS — all automated checks passed on the exact application checkpoint promoted to `main`.**
-
-Validated checkpoint: `8fe4b6363a748f7987d17b8f9ede8e7682d4a9e8`  
-Workflow: [Validate Malika · run 38188085348](https://github.com/teyyara/malika/actions/runs/38188085348)
+**PASS — all automated checks passed on application checkpoint `b98500c32e4c289ad6ead2d503f3ed7951d32f02`.**
 
 - Dependency installation: PASS.
 - Node tests: **8 passed, 0 failed**.
 - Vite production build: PASS.
-- Chromium browser tests: **7 passed, 0 failed**.
-- Playwright HTML report: [download artifact](https://github.com/teyyara/malika/actions/runs/38188085348/artifacts/11720472630).
-- Rendered visual review (six PNGs): [download artifact](https://github.com/teyyara/malika/actions/runs/38188085348/artifacts/11720173606).
-- Source checkpoint: [commit 8fe4b63](https://github.com/teyyara/malika/commit/8fe4b6363a748f7987d17b8f9ede8e7682d4a9e8).
-- Pull request #2: [merged](https://github.com/teyyara/malika/pull/2).
+- Chromium browser suite: **15 passed, 0 failed** (7 existing journeys and 8 new Easter-egg journeys).
+- Workflow: [Validate Malika · run 38191775769](https://github.com/teyyara/malika/actions/runs/38191775769).
+- Playwright HTML report: [download artifact](https://github.com/teyyara/malika/actions/runs/38191775769/artifacts/11721619411).
+- Rendered visual screenshots: [download artifact](https://github.com/teyyara/malika/actions/runs/38191775769/artifacts/11721609349).
 
-## Vercel status
+## Vercel
 
-Vercel reports the production deployment from `main` at the validated application checkpoint as **Ready**. The deployment record lists these aliases:
-
-- https://malika-birthday-kappa.vercel.app
-- https://malika-birthday-tyyr1.vercel.app
-- https://malika-birthday-git-main-tyyr1.vercel.app
-
-The branch preview is also **Ready**: https://malika-birthday-git-aeos-progression-tyyr1.vercel.app
-
-Project dashboard: https://vercel.com/tyyr1/malika-birthday. Vercel metadata reports SSO protection enabled for Vercel-hosted domains, with custom domains excluded from that protection setting. A time-limited shareable bypass link was generated for the intended reviewer on 12 October 2026. Its secret is deliberately not stored in the repository; use the private link delivered separately. Do not commit or post that token publicly.
+Project: [malika-birthday](https://vercel.com/tyyr1/malika-birthday). The current pull-request preview is tracked on [PR #4](https://github.com/teyyara/malika/pull/4); verify its latest commit before sharing it. Vercel-hosted domains may require SSO or a time-limited shareable link. Never store bypass tokens in the repository.
 
 ## Remaining non-automated gates
 
 - Physical-device touch/viewport QA has not been performed.
 - Screen-reader QA has not been performed.
-- The six production-build screenshots were captured and visually inspected, but do not represent device or assistive-technology certification.
-- The deployment is Ready according to Vercel metadata; this does not imply that every viewer can bypass SSO without the private share link.
+- Automated Chromium coverage improves confidence but does not certify assistive-technology behavior.
 
-Loop 004 has completed implementation, automated QA, screenshot evidence, source promotion, and deployment verification. The next highest-value task is human mobile/screen-reader QA or further visual polish.
+Loop 005 implementation and app-level automated validation are complete. Next step: merge after final documentation validation, then provide a current Vercel preview and spoiler checklist for manual exploration.

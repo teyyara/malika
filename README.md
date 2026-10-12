@@ -1,6 +1,6 @@
 # For Malika, With All My Heart 💜
 
-A romantic, interactive birthday experience made by Zack for Malika, whose birthday is **12 October**. Built with React, Vite, and Motion: a connected moonlit universe of a lavender garden, Mimi the kitten, red ladybugs, purple hearts, hidden wishes, and a heart-collection game, now styled in a quiet-luxury palette of ink, warm ivory, antique champagne, and soft rose.
+A romantic, interactive birthday experience made by Zack for Malika, whose birthday is **12 October**. Built with React, Vite, and Motion: a connected moonlit universe of a lavender garden, Mimi the kitten, red ladybugs, purple hearts, hidden wishes, and a heart-collection game, now styled in a refined deep-violet, pearl, lavender, and soft-rose palette.
 
 ## Run locally
 
@@ -46,6 +46,12 @@ Each main scene now has its own locally synthesized looping score: the garden, H
 The Secret Arcade now asks for a password before showing the five games. Enter `iloveyou`; a wrong answer keeps the door closed. The unlock lasts for the current page visit only and resets on refresh. Hidden entrances, including the `MIMI` keyboard shortcut, cannot bypass the gate.
 
 The visual system balances deep violet and amethyst with pearl-white highlights, subtle rose, and cool-blue undertones. The previous heavy champagne/gold emphasis has been replaced with calmer glass-like panels, cleaner contrast, and precise lavender details.
+
+## Laptop viewing
+
+Loop 026 adds a dedicated desktop composition layer for common laptop viewports (1280×800, 1366×768, and 1440×900). It trims excess vertical gaps, sizes Mimi and the welcome copy as a balanced two-column cover, gives the garden its own clear visual lead, keeps all three garden destinations aligned, and reduces the heart arena height so it feels intentional rather than oversized. The love-note grid, letter art/paper ratio, and hidden dialogs receive matching spacing refinements. A separate short-screen breakpoint accounts for laptops around 720–760px tall.
+
+The changes are isolated to `src/styles/laptop-layout.css` at desktop widths of 1024–1600px; existing tablet and mobile rules are left in place. Automated Chromium checks cover all three laptop viewport sizes across the welcome, garden, heart game, love collection, and birthday letter, plus the Secret Arcade and Firefly Hunt dialog fit at 1366×768.
 
 ## Vercel deployment
 

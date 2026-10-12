@@ -12,6 +12,7 @@ const animalAudio = {
 const decodedAnimalAudio = new Map();
 const loadingAnimalAudio = new Map();
 const activeAnimalVoices = new Set();
+const activeOneShotTones = new Set();
 let nextMeowVariant = 0;
 let softEchoBus = null;
 
@@ -141,10 +142,30 @@ function announceState() {
   listeners.forEach((listener) => listener(enabled));
 }
 
-function trackOscillator(session, oscillator) {
-  if (!session) return;
-  session.nodes.add(oscillator);
-  oscillator.addEventListener("ended", () => session.nodes.delete(oscillator), { once: true });
+function trackOscillator(session, oscillator, gain, context) {
+  if (session) {
+    session.nodes.add(oscillator);
+    oscillator.addEventListener("ended", () => session.nodes.delete(oscillator), { once: true });
+    return;
+  }
+  const voice = { context, oscillator, gain };
+  activeOneShotTones.add(voice);
+  oscillator.addEventListener("ended", () => activeOneShotTones.delete(voice), { once: true });
+}
+
+function stopOneShotTones() {
+  for (const voice of activeOneShotTones) {
+    try {
+      const now = voice.context.currentTime;
+      voice.gain.gain.cancelScheduledValues(now);
+      voice.gain.gain.setValueAtTime(Math.max(0.0001, voice.gain.gain.value), now);
+      voice.gain.gain.linearRampToValueAtTime(0.0001, now + 0.025);
+      voice.oscillator.stop(now + 0.035);
+    } catch {
+      // The tone may already have finished.
+    }
+  }
+  activeOneShotTones.clear();
 }
 
 function getSoftEchoInput(context) {
@@ -286,7 +307,7 @@ function scheduleTone(context, note, start, session = null) {
   output.connect(gain);
   gain.connect(context.destination);
   gain.connect(getSoftEchoInput(context));
-  trackOscillator(session, oscillator);
+  trackOscillator(session, oscillator, gain, context);
   oscillator.start(start);
   oscillator.stop(end + 0.025);
 }
@@ -338,6 +359,7 @@ export async function setCuteSoundEnabled(nextEnabled) {
     enabled = false;
     stopLoveTheme();
     stopAnimalVoices();
+    stopOneShotTones();
     announceState();
     return true;
   }

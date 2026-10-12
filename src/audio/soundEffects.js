@@ -4,6 +4,17 @@ const listeners = new Set();
 let loveThemeSession = null;
 let loveThemeRequested = false;
 
+const animalAudio = {
+  cuteMeow: { url: "/audio/mimi-meow-cute.mp3", volume: 0.62 },
+  shortMeow: { url: "/audio/mimi-meow-short.mp3", volume: 0.59 },
+  purr: { url: "/audio/mimi-purr.mp3", volume: 0.23 }
+};
+const decodedAnimalAudio = new Map();
+const loadingAnimalAudio = new Map();
+const activeAnimalVoices = new Set();
+let nextMeowVariant = 0;
+let softEchoBus = null;
+
 const melodies = {
   on: [
     { frequency: 659, at: 0, duration: 0.13, type: "sine", volume: 0.026 },
@@ -136,6 +147,113 @@ function trackOscillator(session, oscillator) {
   oscillator.addEventListener("ended", () => session.nodes.delete(oscillator), { once: true });
 }
 
+function getSoftEchoInput(context) {
+  if (softEchoBus?.context === context) return softEchoBus.input;
+  const delay = context.createDelay(1.2);
+  const wet = context.createGain();
+  const feedback = context.createGain();
+  delay.delayTime.setValueAtTime(0.24, context.currentTime);
+  wet.gain.setValueAtTime(0.13, context.currentTime);
+  feedback.gain.setValueAtTime(0.12, context.currentTime);
+  delay.connect(wet);
+  wet.connect(context.destination);
+  delay.connect(feedback);
+  feedback.connect(delay);
+  softEchoBus = { context, input: delay };
+  return delay;
+}
+
+function loadAnimalAudio(context, key) {
+  if (decodedAnimalAudio.has(key)) return Promise.resolve(decodedAnimalAudio.get(key));
+  if (loadingAnimalAudio.has(key)) return loadingAnimalAudio.get(key);
+  const asset = animalAudio[key];
+  if (!asset) return Promise.resolve(null);
+
+  const pending = fetch(asset.url, { cache: "force-cache" })
+    .then((response) => {
+      if (!response.ok) throw new Error("Could not load local cat sound: " + key);
+      return response.arrayBuffer();
+    })
+    .then((bytes) => context.decodeAudioData(bytes.slice(0)))
+    .then((buffer) => {
+      decodedAnimalAudio.set(key, buffer);
+      return buffer;
+    })
+    .catch(() => null)
+    .finally(() => loadingAnimalAudio.delete(key));
+  loadingAnimalAudio.set(key, pending);
+  return pending;
+}
+
+function preloadAnimalAudio(context) {
+  return Promise.all(Object.keys(animalAudio).map((key) => loadAnimalAudio(context, key)));
+}
+
+function stopAnimalVoices() {
+  for (const voice of activeAnimalVoices) {
+    try {
+      const now = voice.context.currentTime;
+      voice.gain.gain.cancelScheduledValues(now);
+      voice.gain.gain.setValueAtTime(Math.max(0.0001, voice.gain.gain.value), now);
+      voice.gain.gain.linearRampToValueAtTime(0.0001, now + 0.025);
+      voice.source.stop(now + 0.035);
+    } catch {
+      // The clip may already have finished.
+    }
+  }
+  activeAnimalVoices.clear();
+}
+
+function playAnimalAudio(kind = "meow") {
+  if (!enabled || (typeof document !== "undefined" && document.hidden)) return false;
+  const context = getAudioContext();
+  if (!context) return false;
+  if (context.state !== "running") {
+    context.resume().then(() => {
+      if (enabled) playAnimalAudio(kind);
+    }).catch(() => {});
+    return false;
+  }
+
+  let key = kind;
+  if (kind === "meow" || kind === "pet") {
+    key = nextMeowVariant % 2 === 0 ? "cuteMeow" : "shortMeow";
+    nextMeowVariant += 1;
+  }
+  const asset = animalAudio[key];
+  if (!asset) return false;
+
+  loadAnimalAudio(context, key).then((buffer) => {
+    if (!buffer || !enabled || context.state !== "running" || (typeof document !== "undefined" && document.hidden)) return;
+    const now = context.currentTime;
+    const source = context.createBufferSource();
+    const gain = context.createGain();
+    const isPurr = key === "purr";
+    const rate = isPurr ? 0.94 + Math.random() * 0.11 : 0.94 + Math.random() * 0.1;
+    source.buffer = buffer;
+    source.playbackRate.setValueAtTime(rate, now);
+    const maxDuration = isPurr ? 1.95 : Math.min(2.35, buffer.duration);
+    const offsetLimit = Math.max(0, buffer.duration - maxDuration - 0.05);
+    const offset = isPurr ? Math.random() * offsetLimit : Math.random() * Math.min(0.065, offsetLimit);
+    const duration = Math.max(0.15, Math.min(maxDuration, (buffer.duration - offset) / rate));
+    const stopAt = now + duration;
+    const level = asset.volume * (0.93 + Math.random() * 0.12);
+
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.exponentialRampToValueAtTime(level, now + (isPurr ? 0.08 : 0.025));
+    gain.gain.setValueAtTime(level, Math.max(now + 0.09, stopAt - 0.16));
+    gain.gain.exponentialRampToValueAtTime(0.0001, stopAt);
+    source.connect(gain);
+    gain.connect(context.destination);
+    const voice = { context, source, gain };
+    activeAnimalVoices.add(voice);
+    source.addEventListener("ended", () => activeAnimalVoices.delete(voice), { once: true });
+    source.start(now, offset);
+    source.stop(stopAt + 0.03);
+  });
+  return true;
+}
+
 function scheduleTone(context, note, start, session = null) {
   if (!context || !Number.isFinite(start) || !Number.isFinite(note.frequency) || note.frequency <= 0) return;
   const duration = Math.max(0.04, note.duration || 0.18);
@@ -167,58 +285,10 @@ function scheduleTone(context, note, start, session = null) {
   gain.gain.exponentialRampToValueAtTime(0.0001, end);
   output.connect(gain);
   gain.connect(context.destination);
+  gain.connect(getSoftEchoInput(context));
   trackOscillator(session, oscillator);
   oscillator.start(start);
   oscillator.stop(end + 0.025);
-}
-
-function playMeowLayer(context, start, { type, multiplier, volume, filterFrequency, filterQ }) {
-  const duration = 0.76;
-  const oscillator = context.createOscillator();
-  const filter = context.createBiquadFilter();
-  const gain = context.createGain();
-  oscillator.type = type;
-  oscillator.frequency.setValueAtTime(795 * multiplier, start);
-  oscillator.frequency.exponentialRampToValueAtTime(515 * multiplier, start + 0.23);
-  oscillator.frequency.exponentialRampToValueAtTime(630 * multiplier, start + 0.39);
-  oscillator.frequency.exponentialRampToValueAtTime(395 * multiplier, start + duration);
-  filter.type = "bandpass";
-  filter.Q.setValueAtTime(filterQ, start);
-  filter.frequency.setValueAtTime(filterFrequency, start);
-  filter.frequency.linearRampToValueAtTime(filterFrequency * 1.2, start + 0.25);
-  filter.frequency.linearRampToValueAtTime(filterFrequency * 0.84, start + duration);
-  gain.gain.setValueAtTime(0.0001, start);
-  gain.gain.exponentialRampToValueAtTime(volume, start + 0.045);
-  gain.gain.setValueAtTime(volume * 0.78, start + 0.37);
-  gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
-  oscillator.connect(filter);
-  filter.connect(gain);
-  gain.connect(context.destination);
-  oscillator.start(start);
-  oscillator.stop(start + duration + 0.025);
-  return oscillator;
-}
-
-function playCatMeow(context, start = context.currentTime) {
-  const mainVoice = playMeowLayer(context, start, {
-    type: "sawtooth", multiplier: 1, volume: 0.025, filterFrequency: 980, filterQ: 1.35
-  });
-  playMeowLayer(context, start, {
-    type: "triangle", multiplier: 0.5, volume: 0.007, filterFrequency: 540, filterQ: 1.1
-  });
-  playMeowLayer(context, start, {
-    type: "sawtooth", multiplier: 2, volume: 0.0045, filterFrequency: 1690, filterQ: 1.65
-  });
-
-  const vibrato = context.createOscillator();
-  const depth = context.createGain();
-  vibrato.type = "sine";
-  vibrato.frequency.setValueAtTime(5.4, start);
-  depth.gain.setValueAtTime(10, start);
-  vibrato.connect(depth);
-  depth.connect(mainVoice.frequency);
-  vibrato.start(start);
-  vibrato.stop(start + 0.79);
 }
 
 function scheduleLovePhrase(context, start, session) {
@@ -227,13 +297,13 @@ function scheduleLovePhrase(context, start, session) {
     const barAt = start + barIndex * barDuration;
     scheduleTone(context, { frequency: bar.bass, duration: 3.06, type: "sine", volume: 0.0042, attack: 0.32, release: 0.7 }, barAt, session);
     bar.chord.forEach((frequency, index) => {
-      scheduleTone(context, { frequency, duration: 2.98, type: "sine", volume: 0.0024 + (index === 0 ? 0.0005 : 0), attack: 0.42, release: 0.7 }, barAt, session);
+      scheduleTone(context, { frequency, duration: 2.98, type: "sine", volume: 0.0042 + (index === 0 ? 0.0006 : 0), attack: 0.42, release: 0.7 }, barAt, session);
     });
     bar.arpeggio.forEach((frequency, index) => {
-      scheduleTone(context, { frequency, duration: 0.86, type: "triangle", volume: 0.0095, attack: 0.075, release: 0.32 }, barAt + 0.12 + index * 0.59, session);
+      scheduleTone(context, { frequency, duration: 0.86, type: "triangle", volume: 0.014, attack: 0.075, release: 0.32 }, barAt + 0.12 + index * 0.59, session);
     });
     bar.melody.forEach((frequency, index) => {
-      scheduleTone(context, { frequency, duration: 1.06, type: "sine", volume: 0.0062, attack: 0.16, release: 0.42 }, barAt + [0.39, 1.48, 2.42][index], session);
+      scheduleTone(context, { frequency, duration: 1.06, type: "sine", volume: 0.009, attack: 0.16, release: 0.42 }, barAt + [0.39, 1.48, 2.42][index], session);
     });
   });
 }
@@ -267,6 +337,7 @@ export async function setCuteSoundEnabled(nextEnabled) {
   if (!nextEnabled) {
     enabled = false;
     stopLoveTheme();
+    stopAnimalVoices();
     announceState();
     return true;
   }
@@ -278,6 +349,7 @@ export async function setCuteSoundEnabled(nextEnabled) {
     if (context.state !== "running") return false;
     enabled = true;
     announceState();
+    void preloadAnimalAudio(context);
     playCuteSound("on");
     return true;
   } catch {
@@ -296,16 +368,15 @@ export function playCuteSound(kind = "collect") {
     return false;
   }
 
-  if (kind === "meow" || kind === "pet") {
-    playCatMeow(context);
-    return true;
+  if (kind === "meow" || kind === "pet" || kind === "purr") {
+    return playAnimalAudio(kind === "pet" ? "meow" : kind);
   }
 
   const notes = melodies[kind] || melodies.collect;
   const origin = context.currentTime;
   for (const note of notes) scheduleTone(context, note, origin + note.at);
 
-  if (kind === "dance") playCatMeow(context, origin + 0.96);
+  if (kind === "dance") playAnimalAudio("meow");
   return true;
 }
 

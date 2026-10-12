@@ -115,14 +115,13 @@
 .cat-dance-sparkles i {
   position: absolute;
   left: calc(50% + var(--dance-offset));
-  top: calc(17% + (var(--dance-index) % 2) * 20%);
+  top: var(--dance-top);
   color: #ffe2f6;
-  font-size: calc(11px + (var(--dance-index) % 3) * 4px);
+  font-size: var(--dance-size);
   font-style: normal;
   text-shadow: 0 0 15px rgba(255, 196, 239, .75);
   opacity: 0;
-  animation: mimi-dance-sparkle 1.08s ease-out var(--dance-index) infinite;
-  animation-delay: calc(var(--dance-index) * .13s);
+  animation: mimi-dance-sparkle 1.08s ease-out var(--dance-delay) infinite;
 }
 
 @keyframes mimi-dance-sparkle {

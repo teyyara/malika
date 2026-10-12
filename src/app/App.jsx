@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo, useReducer } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import AnimatedBackground from "../components/AnimatedBackground.jsx";
+import EasterEggSystem from "../components/EasterEggSystem.jsx";
 import LoveNoteModal from "../components/LoveNoteModal.jsx";
 import WelcomeScene from "../scenes/WelcomeScene.jsx";
 import GardenScene from "../scenes/GardenScene.jsx";
@@ -52,5 +53,6 @@ export default function App() {
     </main>
     {state.scene !== "welcome" && <footer className="site-footer"><span>a tiny birthday universe · made by Zack for Malika · 12 October</span><span aria-hidden="true">✦</span></footer>}
     <LoveNoteModal message={activeMessage} onClose={closeNote} senderName={siteConfig.senderName} />
+    <EasterEggSystem />
   </div>;
 }

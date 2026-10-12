@@ -1,50 +1,57 @@
 # AEOS Status — Malika Birthday Universe
 
-Run: `malika-20261012-005`  
+Run: `malika-20261012-006`  
 Active keyphrase: `read the master strategy`  
-Current loop: **005 — hidden gems, Easter-egg animations, and the Secret Arcade**  
+Current loop: **006 — arcade mastery and the grand secret**  
 Orchestration state: `WAITING_FOR_CONTINUE`  
-Candidate: `malika-birthday-005-secret-arcade`  
+Candidate: `malika-birthday-006-grand-secret`  
 Repository: https://github.com/teyyara/malika  
 Release branch: `main`  
-Feature branch: `aeos/loop-005-easter-eggs`
+Feature branch: `aeos/loop-006-arcade-master`
 
 ## Product state
 
 Recipient: **Malika**. Sender: **Zack**. Birthday: **12 October**.
 
-The original birthday journey remains intact: personalized welcome, garden with Mimi and ladybugs, three-star constellation, seven-heart game, 35 keepsakes, and birthday finale. Loop 005 adds optional hidden entrances and five mini-games. No shared past events are invented; wish-jar content is phrased as future-facing hopes.
+The existing birthday journey remains available: personalized welcome, moonlit garden with Mimi and ladybugs, three-star constellation, seven-heart game, 35 keepsakes, birthday finale, and the Secret Arcade with five mini-games. No unprovided past relationship events are presented as memories; the wish jar contains future-facing hopes.
 
-## Loop 005 — implementation and tests
+## Loop 006 — implemented, tested, merged, deployed
 
-- Added the keyboard Konami sequence, typed-name reveal (`MALIKA`), Mimi shortcut (`MIMI`), seven-tap moon, five-pet Mimi trigger, three-tap footer star, five-tap header heart, and four-ladybug trail.
-- Added four unique animated reveal moments: moon wish, Mimi paw parade, starfall, and tiny thank-you star.
-- Added the five-game Secret Arcade: Seven-star catcher, Mimi's memory match, Pawprint rhythm, Firefly hunt, and the little wish jar.
-- Kept each game timer-free and local-only. Easter-egg counters reset for a fresh visit; no account, analytics, local storage, sound dependency, paid API, or backend was introduced.
-- Honored reduced-motion preferences; secret dialogs support Escape, close buttons, and keyboard focus containment/restoration.
-- Separated the moon's large visual art from its small stable upper-right touch target after browser testing found the kitten's transparent SVG hit area was intercepting the moon click.
-- Added Playwright coverage and a spoiler-filled testing walkthrough at [docs/easter-egg-test-guide.md](docs/easter-egg-test-guide.md).
+- Added a per-visit arcade completion ledger, progress bar, and completed badges across all five mini-games.
+- Made the wish jar a five-part quest: all five distinct wishes must be revealed to complete it.
+- Added a golden-lavender animated grand-secret reward, **Keeper of Little Wonders**, visible only once all five games are complete.
+- Added an end-to-end journey that completes all five games in sequence and confirms the final reward is gated until 5/5.
+- Documented the spoiler walkthrough in [docs/loop-006-grand-secret.md](docs/loop-006-grand-secret.md).
+- All game progress remains local and ephemeral. No new dependency, backend, analytics, paid API, or sound requirement was added. Reduced-motion support remains in place.
 
-## Verified validation
+## Verified automated validation
 
-**PASS — all automated checks passed on application checkpoint `b98500c32e4c289ad6ead2d503f3ed7951d32f02`.**
+**PASS — all checks passed on the tested PR head; its application changes were then merged unchanged to main.**
 
-- Dependency installation: PASS.
+- Tested PR head: `945779a7dd4e81771d17ce4cae7f898c3a8accf8`.
+- Merged main commit: `4c364e7fed62e8604985520bc223589e7030fd21`.
+- Workflow: [Validate Malika · run 38193692834](https://github.com/teyyara/malika/actions/runs/38193692834).
 - Node tests: **8 passed, 0 failed**.
-- Vite production build: PASS.
-- Chromium browser suite: **15 passed, 0 failed** (7 existing journeys and 8 new Easter-egg journeys).
-- Workflow: [Validate Malika · run 38191948403](https://github.com/teyyara/malika/actions/runs/38191948403).
-- Playwright HTML report: [download artifact](https://github.com/teyyara/malika/actions/runs/38191948403/artifacts/11721995838).
-- Rendered visual screenshots: [download artifact](https://github.com/teyyara/malika/actions/runs/38191948403/artifacts/11722375079).
+- Vite production build: **PASS**.
+- Chromium browser journeys: **16 passed, 0 failed** (7 original journeys, 8 Easter-egg journeys, and 1 full five-game mastery journey).
+- Playwright report: [download artifact](https://github.com/teyyara/malika/actions/runs/38193692834/artifacts/11722602714).
+- Rendered screenshot artifact: [download artifact](https://github.com/teyyara/malika/actions/runs/38193692834/artifacts/11722792359).
 
-## Vercel
+## Promotion and production deployment
 
-Project: [malika-birthday](https://vercel.com/tyyr1/malika-birthday). PR #4 is merged into `main` at `a831f4f614d56f3a24bd98ef548566c76e31aa94`. Vercel reports the production deployment for that merge commit as **Ready**. Vercel-hosted domains may require SSO or a time-limited shareable link. Never store bypass tokens in the repository.
+- [PR #6](https://github.com/teyyara/malika/pull/6) is merged.
+- Vercel project: [malika-birthday](https://vercel.com/tyyr1/malika-birthday).
+- Production deployment for `4c364e7fed62e8604985520bc223589e7030fd21` is **Ready**.
+- Stable production aliases reported by Vercel:
+  - https://malika-birthday-kappa.vercel.app
+  - https://malika-birthday-tyyr1.vercel.app
+  - https://malika-birthday-git-main-tyyr1.vercel.app
+- Vercel-hosted domains may require SSO or a time-limited reviewer link. Never store share-link tokens in the repository.
 
 ## Remaining non-automated gates
 
 - Physical-device touch/viewport QA has not been performed.
 - Screen-reader QA has not been performed.
-- Automated Chromium coverage improves confidence but does not certify assistive-technology behavior.
+- Automated browser coverage is not a substitute for assistive-technology certification.
 
-Loop 005 implementation, automated QA, merge, and Vercel production deployment are complete. All 15 Chromium journeys passed in [CI run 38191948403](https://github.com/teyyara/malika/actions/runs/38191948403). Next step is a new standalone `CONTINUE` for another work loop.
+Loop 006 implementation, automated QA, merge, and production deployment are complete. The next action is a new standalone `CONTINUE` for another development loop.

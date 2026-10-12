@@ -51,4 +51,4 @@ Vercel settings: Framework **Vite**, build command `npm run build`, output direc
 
 ## Project status and evidence
 
-See `AEOS_STATUS.md`, `.aeos/state.json`, `docs/product-contract-v1.2.md`, and `evidence/loop-004-release.md`. Automated tests pass; screen-reader validation and physical-device touch QA remain separate, unobserved gates.
+See `AEOS_STATUS.md`, `.aeos/state.json`, `docs/product-contract-v1.1.md`, and `evidence/loop-004-release.md`. Automated tests pass; screen-reader validation and physical-device touch QA remain separate, unobserved gates.

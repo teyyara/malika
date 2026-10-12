@@ -78,7 +78,7 @@ export default function CatCharacter({ mood = "curious", onClick, label = "A lit
     const voice = startedDance ? "meow" : streak % 2 === 0 ? "purr" : "meow";
     setVoiceReaction(voice);
     window.clearTimeout(meowTimer.current);
-    meowTimer.current = window.setTimeout(() => setVoiceReaction("idle"), startedDance ? 1250 : voice === "purr" ? 1750 : 1150);
+    meowTimer.current = window.setTimeout(() => setVoiceReaction("idle"), startedDance ? 2150 : voice === "purr" ? 3250 : 2150);
     if (startedDance) {
       setIsDancing(true);
       window.clearTimeout(danceTimer.current);

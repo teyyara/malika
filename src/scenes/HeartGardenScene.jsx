@@ -80,7 +80,7 @@ export default function HeartGardenScene({ game, onGameAction, onBonusNote, onGo
   const progress = Math.min(100, (game.count / game.requiredHearts) * 100);
 
   useEffect(() => {
-    if (game.status === "won" && previousStatus.current !== "won") playCuteSound("reward");
+    if (game.status === "won" && previousStatus.current !== "won") playCuteSound("achievement-heart-garden");
     previousStatus.current = game.status;
   }, [game.status]);
 

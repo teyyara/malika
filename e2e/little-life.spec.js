@@ -46,3 +46,23 @@ test("a love note lets Malika send a heart back to Zack", async ({ page }) => {
   await expect(note.getByRole("status")).toContainText("A little heart has found its way back to Zack");
   await expect(note.getByRole("button", { name: "A heart was sent back to Zack" })).toHaveAttribute("aria-pressed", "true");
 });
+
+test("a victory prize can replay its chime without dismissing the celebration", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Turn on tiny sounds" }).click();
+  for (const key of ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"]) {
+    await page.keyboard.press(key);
+  }
+
+  await expect(page.getByRole("dialog", { name: "The secret arcade" })).toBeVisible();
+  await page.getByRole("button", { name: /Mimi's constellation chase/ }).click();
+  for (let step = 1; step <= 8; step += 1) await page.getByTestId("star-target-" + step).click();
+
+  const reward = page.getByRole("dialog", { name: "You found the heart in the stars." });
+  await expect(reward).toBeVisible();
+  const medallion = reward.getByRole("button", { name: "Tap your prize to replay the victory chime" });
+  await expect(medallion).toBeVisible();
+  await medallion.click();
+  await expect(reward).toBeVisible();
+  await expect(reward.getByRole("heading", { name: "You found the heart in the stars." })).toBeVisible();
+});

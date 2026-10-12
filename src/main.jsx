@@ -10,6 +10,7 @@ import "./styles/magic.css";
 import "./styles/easter-eggs.css";
 import "./styles/world-upgrade.css";
 import "./styles/performance.css";
+import "./styles/seal-secret.css";
 
 createRoot(document.getElementById("root")).render(
   <React.StrictMode><App /></React.StrictMode>

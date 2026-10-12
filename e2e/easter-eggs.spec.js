@@ -2,10 +2,25 @@ import { test, expect } from "@playwright/test";
 
 const KONAMI = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"];
 
-async function openArcade(page) {
+async function triggerArcadeGate(page) {
   await page.goto("/");
   for (const key of KONAMI) await page.keyboard.press(key);
-  await expect(page.getByRole("dialog", { name: "The secret arcade" })).toBeVisible();
+  await expect(page.getByRole("dialog", { name: "A door only you can open" })).toBeVisible();
+}
+
+async function unlockArcade(page, password = "iloveyou") {
+  const gate = page.getByRole("dialog", { name: "A door only you can open" });
+  await expect(gate).toBeVisible();
+  await gate.getByLabel("The secret password").fill(password);
+  await gate.getByRole("button", { name: "Unlock the Secret Arcade" }).click();
+  if (password.trim().toLowerCase() === "iloveyou") {
+    await expect(page.getByRole("dialog", { name: "The secret arcade" })).toBeVisible();
+  }
+}
+
+async function openArcade(page) {
+  await triggerArcadeGate(page);
+  await unlockArcade(page);
 }
 
 async function expectCelebration(page, title, theme, score) {
@@ -22,6 +37,21 @@ async function expectCelebration(page, title, theme, score) {
   expect(bounds.height, "celebration must span the full viewport height").toBeGreaterThanOrEqual(viewport.height - 1);
 }
 
+test("the Secret Arcade stays locked after a wrong password and opens for iloveyou", async ({ page }) => {
+  await triggerArcadeGate(page);
+  const gate = page.getByRole("dialog", { name: "A door only you can open" });
+  await expect(page.getByRole("button", { name: /Mimi's constellation chase/ })).toHaveCount(0);
+  await gate.getByLabel("The secret password").fill("not-the-password");
+  await gate.getByRole("button", { name: "Unlock the Secret Arcade" }).click();
+  await expect(gate.getByRole("alert")).toContainText("doesn't quite fit");
+  await expect(gate).toBeVisible();
+  await expect(page.getByRole("button", { name: /Mimi's constellation chase/ })).toHaveCount(0);
+  await gate.getByLabel("The secret password").fill("iloveyou");
+  await gate.getByRole("button", { name: "Unlock the Secret Arcade" }).click();
+  await expect(page.getByRole("dialog", { name: "The secret arcade" })).toBeVisible();
+  await expect(page.getByRole("button", { name: /Mimi's constellation chase/ })).toBeVisible();
+});
+
 test("the classic Konami sequence opens the Secret Arcade with five side quests", async ({ page }) => {
   await openArcade(page);
   await expect(page.getByRole("button", { name: /Mimi's constellation chase/ })).toBeVisible();
@@ -31,24 +61,26 @@ test("the classic Konami sequence opens the Secret Arcade with five side quests"
   await expect(page.getByRole("button", { name: /The little wish jar/ })).toBeVisible();
   await page.getByRole("button", { name: "Close secret surprise" }).click();
 
-  // The visible brand heart is another concealed entrance.
+  // The visible brand heart is another concealed entrance, but it also remains locked.
   await page.goto("/");
   await page.getByRole("button", { name: /Open your birthday surprise/ }).click();
   const heartMark = page.locator(".brand-heart");
   for (let i = 0; i < 5; i += 1) await heartMark.click();
-  await expect(page.getByRole("dialog", { name: "The secret arcade" })).toBeVisible();
+  await expect(page.getByRole("dialog", { name: "A door only you can open" })).toBeVisible();
+  await unlockArcade(page);
 });
 
-test("typing MALIKA creates a starfall and typing MIMI opens Memory Match directly", async ({ page }) => {
+test("typing MALIKA reveals the door and typing MIMI cannot bypass the arcade lock", async ({ page }) => {
   await page.goto("/");
   await page.keyboard.type("MALIKA");
   await expect(page.getByRole("dialog", { name: "Her name lit up the sky" })).toBeVisible();
   await page.getByRole("button", { name: "Enter the Secret Arcade" }).click();
-  await expect(page.getByRole("dialog", { name: "The secret arcade" })).toBeVisible();
+  await expect(page.getByRole("dialog", { name: "A door only you can open" })).toBeVisible();
+  await unlockArcade(page);
   await page.getByRole("button", { name: "Close secret surprise" }).click();
 
   await page.keyboard.type("MIMI");
-  await expect(page.getByRole("dialog", { name: "Mimi's memory match" })).toBeVisible();
+  await expect(page.getByRole("dialog", { name: "The secret arcade" })).toBeVisible();
 });
 
 test("the constellation chase rejects decoys and out-of-order stars before rewarding the full heart trail", async ({ page }) => {

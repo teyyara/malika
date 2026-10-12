@@ -1,22 +1,46 @@
 {
   "observedAt": "2026-10-12",
   "repository": "teyyara/malika",
+  "runId": "malika-20261012-003",
+  "currentLoop": 3,
   "progressionBranch": "aeos/progression",
   "assessmentBranch": "main",
-  "validatedApplicationCommit": "4e730fab7a48bcb2155120c8e332ce1ff65e9949",
-  "personalization": {"recipient":"Malika","sender":"Zack","birthday":"12 October","complete":true},
-  "currentCI": {
-    "url":"https://github.com/teyyara/malika/actions/runs/38186034612",
-    "headSha":"4e730fab7a48bcb2155120c8e332ce1ff65e9949",
-    "conclusion":"success",
-    "testsPassed":8,
-    "testsFailed":0,
-    "productionBuild":"success"
+  "lastKnownGoodMainHead": "3500c67226e419f073923518645fd0abf73af833",
+  "candidateSourceCheckpoint": "18b3fb092a9107a2dd7b3eefc68d3f37c49886dd",
+  "personalization": {
+    "recipient": "Malika",
+    "sender": "Zack",
+    "birthday": "12 October",
+    "complete": true
   },
-  "mainPromotion":"fast-forward completed and verified at the validated application commit",
-  "localPackageRegistry":"unavailable from working container",
-  "browserAutomation":false,
-  "realMobileDevice":false,
-  "screenReaderTesting":false,
-  "deployment":"not configured"
+  "knownGoodCI": {
+    "url": "https://github.com/teyyara/malika/actions/runs/38186209651",
+    "headSha": "3500c67226e419f073923518645fd0abf73af833",
+    "conclusion": "success",
+    "nodeTestsPassed": 8,
+    "nodeTestsFailed": 0,
+    "productionBuild": "success",
+    "coverageNote": "This run predates the Playwright suite added in Loop 003."
+  },
+  "loop003": {
+    "pullRequest": "https://github.com/teyyara/malika/pull/1",
+    "playwrightVersion": "1.64.0",
+    "browserSpecsAdded": 4,
+    "coverage": [
+      "Keyboard-first entry and visible navigation across all scenes",
+      "Seven-heart victory, secret-note unlocking, modal focus cycling, Escape close and focus restoration",
+      "Horizontal overflow checks at 320px, 375px, and 768px across five scenes",
+      "Reduced-motion preference and JavaScript runtime error observation"
+    ],
+    "ciConclusion": "NOT_OBSERVED_VIA_AVAILABLE_CONNECTOR",
+    "promotedToMain": false,
+    "promotionGate": "Require a verifiably passing Actions run for the candidate before promotion."
+  },
+  "localPackageRegistry": "unavailable from working container",
+  "browserAutomationConfigured": true,
+  "browserAutomationPassingObserved": false,
+  "realMobileDeviceTesting": false,
+  "screenReaderTesting": false,
+  "manualVisualReview": false,
+  "deployment": "not configured"
 }

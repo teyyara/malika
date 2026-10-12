@@ -51,7 +51,7 @@ Vercel settings: Framework **Vite**, build command `npm run build`, output direc
 
 ## Hidden Easter eggs and mini-games
 
-The extra secrets are optional; all core birthday scenes stay available without finding any of them. The five-game Secret Arcade, keyboard codes, moon/paw/footnote triggers, and step-by-step spoiler walkthrough are documented in [docs/easter-egg-test-guide.md](docs/easter-egg-test-guide.md). Browser regression coverage lives in `e2e/easter-eggs.spec.js`. Loop 005 passed 8 Node tests, the Vite production build, and all 15 Chromium browser journeys; details are in [evidence/loop-005-easter-eggs.md](evidence/loop-005-easter-eggs.md).
+The extra secrets are optional; all core birthday scenes stay available without finding any of them. The five-game Secret Arcade, keyboard codes, moon/paw/footnote triggers, and spoiler walkthrough are documented in [docs/easter-egg-test-guide.md](docs/easter-egg-test-guide.md). After completing all five games, a mastery bar unlocks the animated **Keeper of Little Wonders** finale; test it using [docs/loop-006-grand-secret.md](docs/loop-006-grand-secret.md). Browser regression coverage lives in `e2e/easter-eggs.spec.js`. Loop 006 passed 8 Node tests, the Vite production build, and all 16 Chromium browser journeys; see [evidence/loop-006-grand-secret.md](evidence/loop-006-grand-secret.md).
 
 ## Project status and evidence
 

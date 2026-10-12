@@ -436,11 +436,69 @@ export default function EasterEggSystem() {
             <p className="egg-reward-footer">Made with love, and a wildly unreasonable amount of sparkle. ♡</p>
           </div>
         </div>}
-        {panel === "reveal" && <div className="egg-reveal-content">
+        {panel === "reveal" && !isGrand && <div className="egg-reveal-content">
           <div className={"egg-reveal-glyph egg-reveal-" + revealId} aria-hidden="true">{reveal.glyph}</div>
           <p>{reveal.copy}</p>
           <div className="egg-burst" aria-hidden="true">{Array.from({ length: 18 }, (_, index) => <i key={index} style={{ "--burst-angle": (index * 20) + "deg", "--burst-delay": (index % 6) * 0.06 + "s" }}>{["✦", "♡", "✧", "·"][index % 4]}</i>)}</div>
           <button type="button" className="egg-action-button" onClick={() => openArcade(revealId)}>Enter the Secret Arcade <span aria-hidden="true">↗</span></button>
+        </div>}
+        {isGrand && <div className="egg-grand-finale">
+          <div className="grand-cosmos" aria-hidden="true">
+            <div className="grand-nebula grand-nebula-one" />
+            <div className="grand-nebula grand-nebula-two" />
+            <div className="grand-cosmic-grid" />
+            <div className="grand-orbit grand-orbit-one"><i /><i /><i /></div>
+            <div className="grand-orbit grand-orbit-two"><i /><i /><i /></div>
+            <div className="grand-supernova"><i /><i /><i /><span>✦</span></div>
+            <div className="grand-flying-rewards">
+              {Array.from({ length: 112 }, (_, index) => <i
+                key={index}
+                className={"grand-flight-object grand-flight-type-" + (index % 7)}
+                style={{
+                  "--grand-x": (((index * 73) % 1500) - 750) + "px",
+                  "--grand-y": (((index * 47) % 1050) - 525) + "px",
+                  "--grand-z": (((index * 29) % 850) - 425) + "px",
+                  "--grand-delay": -((index % 23) * 0.22) + "s",
+                  "--grand-duration": (4.2 + (index % 9) * 0.37) + "s",
+                  "--grand-rotate": (((index * 53) % 720) - 360) + "deg",
+                  "--grand-size": (12 + (index % 6) * 5) + "px"
+                }}
+              >{index % 6 === 0 ? "♥" : index % 6 === 1 ? "♡" : REWARD_SPARKS[index % REWARD_SPARKS.length]}</i>)}
+            </div>
+            <div className="grand-comet-trails">
+              {Array.from({ length: 9 }, (_, index) => <i key={index} style={{
+                "--comet-angle": (index * 40) + "deg",
+                "--comet-delay": (index * 0.12) + "s"
+              }} />)}
+            </div>
+          </div>
+          <div className="grand-finale-content">
+            <p className="grand-finale-prelude">YOU FOUND EVERY LITTLE WONDER</p>
+            <div className="grand-heart-stage" aria-hidden="true">
+              <div className="grand-heart-halo grand-heart-halo-one" />
+              <div className="grand-heart-halo grand-heart-halo-two" />
+              <div className="grand-heart-3d">
+                {Array.from({ length: 13 }, (_, index) => <span className="grand-heart-depth" key={index} style={{ "--heart-depth": index }}>♥</span>)}
+                <span className="grand-heart-face">♥</span>
+                <span className="grand-heart-star grand-heart-star-one">✦</span>
+                <span className="grand-heart-star grand-heart-star-two">✧</span>
+              </div>
+              <div className="grand-heart-nameplate">MALIKA</div>
+            </div>
+            <div className="grand-finale-label"><span>✦</span> THE GRAND SECRET <span>✦</span></div>
+            <h2 id="egg-dialog-title" className="grand-finale-title">Keeper of Little Wonders</h2>
+            <p className="grand-finale-copy">{reveal.copy}</p>
+            <p className="grand-finale-signature">A whole little universe, made by Zack, just for you. <span>♡</span></p>
+            <div className="grand-finale-treasures" aria-label="All five secret arcade quests completed">
+              {["✧", "☾", "🐾", "✦", "♡"].map((symbol, index) => <span className={"grand-treasure grand-treasure-" + index} key={symbol} style={{ "--treasure-delay": (0.95 + index * 0.14) + "s" }}>{symbol}</span>)}
+            </div>
+            <p className="grand-finale-achievement">FIVE LITTLE QUESTS · EVERY LAST SECRET FOUND</p>
+            <div className="grand-finale-actions">
+              <button type="button" className="grand-finale-primary" onClick={returnToArcade}>Return to your Secret Arcade <span>↗</span></button>
+              <button type="button" className="grand-finale-secondary" onClick={() => { setPanel(null); setActiveGame(null); }}>Keep this little wonder <span>♡</span></button>
+            </div>
+            <p className="grand-finale-footnote">For the wonder you bring into the world — and all the wonder still to come.</p>
+          </div>
         </div>}
         {panel === "cabinet" && <div className="egg-cabinet-content">
           <p className="egg-subtitle">You found the door behind the stars. Choose a little side quest; none of these games has a timer.</p>

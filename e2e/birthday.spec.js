@@ -177,6 +177,38 @@ test("the garden clue guide offers a gentle nudge without exposing a spoiler map
   await expectNoHorizontalOverflow(page, 320, "the garden clue guide");
 });
 
+test("garden depth, heart bursts, note search, and final letter portal work together", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await enterGarden(page);
+  await expect(page.locator(".garden-sky-depth .garden-mote")).toHaveCount(30);
+  await expect(page.locator(".garden-orbit")).toHaveCount(3);
+
+  await page.getByRole("button", { name: "Heart game", exact: true }).click();
+  await page.getByRole("button", { name: /Let's find some hearts/ }).click();
+  const hearts = page.getByRole("button", { name: /Collect purple heart/ });
+  // Hearts gently float forever; force this one action so the test checks the capture effect, not pointer stability.
+  await hearts.first().click({ force: true });
+  await expect(page.locator(".heart-capture-burst")).toHaveCount(1);
+  await expect(page.locator(".heart-capture-fragment")).toHaveCount(18);
+  await expect(page.locator(".game-progress-copy strong span")).toHaveText("1");
+
+  await page.getByRole("button", { name: "Love notes", exact: true }).click();
+  const search = page.getByRole("searchbox", { name: "Search love notes" });
+  await search.fill("Brave new chapters");
+  await expect(page.getByRole("button", { name: "Open note: Brave new chapters" })).toBeVisible();
+  await expect(page.locator(".collection-results")).toContainText("1 little keepsake");
+  await search.fill("");
+
+  await page.getByRole("button", { name: "Birthday letter", exact: true }).click();
+  await expect(page.locator(".finale-depth-field .finale-orbit")).toHaveCount(3);
+  await expect(page.locator(".letter-card")).toBeVisible();
+  await expect(page.locator(".letter-postmark")).toHaveText("12 · X");
+
+  await page.getByRole("button", { name: /One last little surprise/ }).click();
+  await expect(page.locator(".extra-surprise-portal")).toBeVisible();
+  await expect(page.locator(".extra-portal-heart")).toHaveText("♥");
+});
+
 test("reduced-motion preference reaches the application shell", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");

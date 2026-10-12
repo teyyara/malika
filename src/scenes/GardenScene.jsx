@@ -27,6 +27,15 @@ const constellationStars = [
   "Trace the last star to reveal a secret wish"
 ];
 
+const gardenMotes = Array.from({ length: 30 }, (_, index) => ({
+  id: index,
+  left: ((index * 37 + 11) % 96) + "%",
+  top: ((index * 23 + 7) % 88) + "%",
+  size: index % 6 === 0 ? "4px" : index % 3 === 0 ? "3px" : "2px",
+  delay: -(((index * 7) % 19) / 3) + "s",
+  duration: 5 + (index % 6) * 1.1 + "s"
+}));
+
 export default function GardenScene({ discoveredCount, requiredHearts, onOpenNote, onGoToGame, onGoToCollection, onOpenLetter }) {
   const [catMessage, setCatMessage] = useState("");
   const [greetingIndex, setGreetingIndex] = useState(-1);
@@ -71,6 +80,21 @@ export default function GardenScene({ discoveredCount, requiredHearts, onOpenNot
       <p>Zack tucked tiny surprises between the stars. Wander slowly, tap a ladybug, say hello to Mimi, and let the garden give up its little secrets one by one.</p>
     </div>
     <div className="garden-landscape">
+      <div className="garden-sky-depth" aria-hidden="true">
+        <span className="garden-orbit garden-orbit-one" />
+        <span className="garden-orbit garden-orbit-two" />
+        <span className="garden-orbit garden-orbit-three" />
+        {gardenMotes.map((mote) =>
+          <i key={mote.id} className="garden-mote" style={{
+            left: mote.left, top: mote.top, width: mote.size, height: mote.size,
+            "--mote-delay": mote.delay, "--mote-duration": mote.duration
+          }} />
+        )}
+        <span className="garden-shooting-star garden-shooting-star-one">✦</span>
+        <span className="garden-shooting-star garden-shooting-star-two">✧</span>
+        <span className="garden-shooting-star garden-shooting-star-three">✦</span>
+        <span className="garden-shooting-star garden-shooting-star-four">✧</span>
+      </div>
       <div className="garden-halo" aria-hidden="true" />
       <svg className="garden-constellation-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
         <path className={constellationStep >= 1 ? "is-lit" : ""} d="M21 17 C25 3 43 8 50 24" />
@@ -79,7 +103,7 @@ export default function GardenScene({ discoveredCount, requiredHearts, onOpenNot
       </svg>
       {[0, 1, 2].map((index) =>
         <button key={index}
-          className={"garden-star constellation-star constellation-star-" + ["a", "b", "c"][index]}
+          className={"garden-star constellation-star constellation-star-" + ["a", "b", "c"][index] + (constellationFound ? " is-revealed" : index === constellationStep ? " is-next" : index < constellationStep ? " is-traced" : "")}
           type="button" aria-label={constellationFound ? "Open the wish from the heart constellation" : constellationStars[index]}
           aria-pressed={constellationFound || index < constellationStep}
           onClick={() => traceStar(index)}>

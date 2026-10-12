@@ -13,6 +13,7 @@ import { loveMessages } from "../data/loveMessages.js";
 import { memories } from "../data/memories.js";
 import { siteConfig } from "../data/siteConfig.js";
 import { createInitialExperienceState, experienceReducer } from "./experienceReducer.js";
+import { setCuteSoundEnabled } from "../audio/soundEffects.js";
 
 const allNotes = [...loveMessages, ...memories];
 const nav = [{id:"garden",label:"The garden"},{id:"game",label:"Heart game"},{id:"collection",label:"Love notes"},{id:"finale",label:"Birthday letter"}];
@@ -24,6 +25,11 @@ export default function App() {
   const openNote = useCallback((id) => { if (allNotes.some((item) => item.id === id)) dispatch({type:"OPEN_NOTE",id}); }, []);
   const closeNote = useCallback(() => dispatch({type:"CLOSE_NOTE"}), []);
   const go = useCallback((scene) => dispatch({type:"NAVIGATE",scene}), []);
+  const enterExperience = useCallback(() => {
+    // This first deliberate tap unlocks browser audio without requiring a separate sound-toggle tap.
+    void setCuteSoundEnabled(true);
+    dispatch({type:"NAVIGATE",scene:"garden"});
+  }, []);
   const gameAction = useCallback((action) => dispatch({type:"GAME_ACTION",action}), []);
 
   let scene;
@@ -31,7 +37,7 @@ export default function App() {
   else if (state.scene === "game") scene = <HeartGardenScene game={state.game} onGameAction={gameAction} onBonusNote={openNote} onGoToFinale={() => go("finale")} onGoToGarden={() => go("garden")} />;
   else if (state.scene === "collection") scene = <LoveCollectionScene gameWon={state.game.status === "won"} discoveredIds={state.discoveredMessageIds} onOpenNote={openNote} />;
   else if (state.scene === "finale") scene = <BirthdayFinale onGoToGarden={() => go("garden")} />;
-  else scene = <WelcomeScene onEnter={() => go("garden")} />;
+  else scene = <WelcomeScene onEnter={enterExperience} />;
 
   return <div className={reduceMotion ? "app-shell prefers-less-motion" : "app-shell"}>
     <a className="skip-link" href="#main-content">Skip to the surprise</a>

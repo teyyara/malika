@@ -180,7 +180,7 @@ function getSoftEchoInput(context) {
   wet.connect(context.destination);
   delay.connect(feedback);
   feedback.connect(delay);
-  softEchoBus = { context, input: delay };
+  softEchoBus = { context, input: delay, wet };
   return delay;
 }
 
@@ -360,6 +360,10 @@ export async function setCuteSoundEnabled(nextEnabled) {
     stopLoveTheme();
     stopAnimalVoices();
     stopOneShotTones();
+    if (softEchoBus?.context === audioContext) {
+      softEchoBus.wet.gain.cancelScheduledValues(audioContext.currentTime);
+      softEchoBus.wet.gain.setValueAtTime(0, audioContext.currentTime);
+    }
     announceState();
     return true;
   }
@@ -370,6 +374,10 @@ export async function setCuteSoundEnabled(nextEnabled) {
     if (context.state !== "running") await context.resume();
     if (context.state !== "running") return false;
     enabled = true;
+    if (softEchoBus?.context === context) {
+      softEchoBus.wet.gain.cancelScheduledValues(context.currentTime);
+      softEchoBus.wet.gain.setValueAtTime(0.13, context.currentTime);
+    }
     announceState();
     void preloadAnimalAudio(context);
     playCuteSound("on");
@@ -442,7 +450,17 @@ export function stopLoveTheme() {
 
 if (typeof document !== "undefined") {
   document.addEventListener("visibilitychange", () => {
-    if (document.hidden) stopLoveThemeSession();
-    else if (loveThemeRequested && enabled) startLoveTheme();
+    if (document.hidden) {
+      stopLoveThemeSession();
+      stopAnimalVoices();
+      stopOneShotTones();
+      if (softEchoBus?.context === audioContext) {
+        softEchoBus.wet.gain.cancelScheduledValues(audioContext.currentTime);
+        softEchoBus.wet.gain.setValueAtTime(0, audioContext.currentTime);
+      }
+    } else if (loveThemeRequested && enabled) startLoveTheme();
+    else if (enabled && softEchoBus?.context === audioContext) {
+      softEchoBus.wet.gain.setValueAtTime(0.13, audioContext.currentTime);
+    }
   });
 }

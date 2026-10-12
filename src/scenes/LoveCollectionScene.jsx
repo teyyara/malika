@@ -52,21 +52,21 @@ export default function LoveCollectionScene({ gameWon, discoveredIds, onOpenNote
     <p className="collection-results" aria-live="polite">
       {searchTerm ? "Found " + filtered.length + (filtered.length === 1 ? " little keepsake" : " little keepsakes") : "Showing all " + items.length + " keepsakes"}
     </p>
-    <motion.div className="message-grid" layout>
+    <motion.div className="message-grid">
       <AnimatePresence mode="popLayout" initial={false}>
         {filtered.map((message, index) => {
           const locked = message.unlock === "game" && !gameWon;
           const discovered = discoveredIds.includes(message.id);
-          return <motion.button key={message.id} layout className={"message-card" + (locked ? " is-locked" : "") + (discovered ? " is-discovered" : "")}
+          return <motion.button key={message.id} className={"message-card" + (locked ? " is-locked" : "") + (discovered ? " is-discovered" : "")}
             type="button" disabled={locked}
             aria-label={locked ? "Secret letter locked. Collect seven hearts to unlock it." : "Open note: " + message.title}
             onClick={() => onOpenNote(message.id)}
-            initial={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 18, rotateX: 4, scale: 0.985 }}
-            animate={{ opacity: 1, y: 0, rotateX: 0, scale: 1 }}
-            exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 10, scale: 0.94, filter: "blur(5px)" }}
-            whileHover={reduceMotion || locked ? undefined : { y: -6, rotateX: -1.5, rotateY: 1.5, scale: 1.012 }}
-            whileTap={reduceMotion || locked ? undefined : { scale: 0.985 }}
-            transition={{ duration: reduceMotion ? 0.01 : 0.36, delay: reduceMotion ? 0 : Math.min(index * 0.018, 0.16), layout: { type: "spring", stiffness: 300, damping: 28 } }}>
+            initial={reduceMotion ? false : { opacity: 0, y: 10, scale: 0.994 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 5, scale: 0.99 }}
+            whileHover={reduceMotion || locked ? undefined : { y: -4, scale: 1.006 }}
+            whileTap={reduceMotion || locked ? undefined : { scale: 0.99 }}
+            transition={{ duration: reduceMotion ? 0.01 : 0.2, delay: reduceMotion ? 0 : Math.min(index * 0.006, 0.055) }}>
             <span className="message-card-edge" aria-hidden="true" />
             <span className="message-card-top">
               <span className="message-glyph" aria-hidden="true">{locked ? "✧" : message.category === "wishes" ? "✿" : message.category === "secret" ? "✉" : message.category === "memories" ? "☾" : "♥"}</span>

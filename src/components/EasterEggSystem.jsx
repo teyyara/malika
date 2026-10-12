@@ -30,6 +30,56 @@ const GAME_REWARDS = {
   wishes: { theme: "wishes", eyebrow: "A LITTLE MAGIC FOR THE FUTURE", title: "Five wishes. One very bright future.", glyph: "♡", copy: "You opened every tiny wish tucked inside the jar. They're not promises about what has happened — they're soft hopes for all the lovely things still waiting ahead.", detail: "Five wishes found. Your next little chapter is wide open.", score: "5 / 5 wishes revealed" }
 };
 const REWARD_SPARKS = ["✦", "✧", "♡", "♥", "✺", "✶", "✷", "💜", "⋆", "❋"];
+
+const CELEBRATION_HEARTS = Array.from({ length: 24 }, (_, index) => ({
+  id: index, glyph: index % 3 === 0 ? "♥" : index % 3 === 1 ? "♡" : "✦",
+  style: {
+    "--heart-angle": (index * 15) + "deg", "--heart-delay": (index % 8) * 0.025 + "s",
+    "--heart-distance": (120 + (index % 9) * 30) + "px", "--heart-size": (13 + (index % 4) * 5) + "px"
+  }
+}));
+const CELEBRATION_PARTICLES = Array.from({ length: 64 }, (_, index) => ({
+  id: index, glyph: REWARD_SPARKS[index % REWARD_SPARKS.length],
+  style: {
+    "--particle-x": ((index * 37 + 11) % 100) + "%",
+    "--particle-y": ((index * 61 + 7) % 108) + "%",
+    "--particle-delay": -((index % 17) * 0.31) + "s",
+    "--particle-duration": (3.8 + (index % 7) * 0.47) + "s",
+    "--particle-drift": (((index * 19) % 150) - 75) + "px",
+    "--particle-size": (8 + (index % 4) * 4) + "px"
+  }
+}));
+const REVEAL_BURST = Array.from({ length: 18 }, (_, index) => ({
+  id: index, glyph: ["✦", "♡", "✧", "·"][index % 4],
+  style: { "--burst-angle": (index * 20) + "deg", "--burst-delay": (index % 6) * 0.06 + "s" }
+}));
+const GRAND_FLIGHT_OBJECTS = Array.from({ length: 112 }, (_, index) => ({
+  id: index, className: "grand-flight-type-" + (index % 7),
+  glyph: index % 6 === 0 ? "♥" : index % 6 === 1 ? "♡" : REWARD_SPARKS[index % REWARD_SPARKS.length],
+  style: {
+    "--grand-x": (((index * 73) % 1500) - 750) + "px",
+    "--grand-y": (((index * 47) % 1050) - 525) + "px",
+    "--grand-z": (((index * 29) % 850) - 425) + "px",
+    "--grand-delay": -((index % 23) * 0.22) + "s",
+    "--grand-duration": (4.2 + (index % 9) * 0.37) + "s",
+    "--grand-rotate": (((index * 53) % 720) - 360) + "deg",
+    "--grand-size": (12 + (index % 6) * 5) + "px"
+  }
+}));
+const GRAND_COMETS = Array.from({ length: 9 }, (_, index) => ({
+  id: index, style: { "--comet-angle": (index * 40) + "deg", "--comet-delay": (index * 0.12) + "s" }
+}));
+const GRAND_HEART_DEPTHS = Array.from({ length: 13 }, (_, index) => ({
+  id: index,
+  style: {
+    "--heart-depth": index, "--heart-depth-z": (index * 4) + "px",
+    "--heart-offset-y": (index * 0.7) + "px", "--heart-scale": (1 - index * 0.022),
+    "--heart-brightness": (0.58 + index * 0.028)
+  }
+}));
+const GRAND_TREASURES = ["✧", "☾", "🐾", "✦", "♡"].map((symbol, index) => ({
+  symbol, index, style: { "--treasure-delay": (0.35 + index * 0.055) + "s" }
+}));
 const WISHES = [
   "May a tiny ordinary moment become one of your favourite stories.",
   "A future little adventure is waiting for you to say yes.",
@@ -391,22 +441,10 @@ export default function EasterEggSystem() {
             <div className="egg-celebration-rings"><i /><i /><i /></div>
             <div className="egg-celebration-shockwaves"><i /><i /><i /></div>
             <div className="egg-celebration-heart-burst">
-              {Array.from({ length: 24 }, (_, index) => <i key={index} style={{
-                "--heart-angle": (index * 15) + "deg",
-                "--heart-delay": (index % 8) * 0.025 + "s",
-                "--heart-distance": (120 + (index % 9) * 30) + "px",
-                "--heart-size": (13 + (index % 4) * 5) + "px"
-              }}>{index % 3 === 0 ? "♥" : index % 3 === 1 ? "♡" : "✦"}</i>)}
+              {CELEBRATION_HEARTS.map((heart) => <i key={heart.id} style={heart.style}>{heart.glyph}</i>)}
             </div>
             <div className="egg-celebration-particles">
-              {Array.from({ length: 96 }, (_, index) => <i className="egg-celebration-particle" key={index} style={{
-                "--particle-x": ((index * 37 + 11) % 100) + "%",
-                "--particle-y": ((index * 61 + 7) % 108) + "%",
-                "--particle-delay": -((index % 17) * 0.31) + "s",
-                "--particle-duration": (3.8 + (index % 7) * 0.47) + "s",
-                "--particle-drift": (((index * 19) % 150) - 75) + "px",
-                "--particle-size": (8 + (index % 4) * 4) + "px"
-              }}>{REWARD_SPARKS[index % REWARD_SPARKS.length]}</i>)}
+              {CELEBRATION_PARTICLES.map((particle) => <i className="egg-celebration-particle" key={particle.id} style={particle.style}>{particle.glyph}</i>)}
             </div>
           </div>
           <div className="egg-celebration-content">
@@ -439,7 +477,7 @@ export default function EasterEggSystem() {
         {panel === "reveal" && !isGrand && <div className="egg-reveal-content">
           <div className={"egg-reveal-glyph egg-reveal-" + revealId} aria-hidden="true">{reveal.glyph}</div>
           <p>{reveal.copy}</p>
-          <div className="egg-burst" aria-hidden="true">{Array.from({ length: 18 }, (_, index) => <i key={index} style={{ "--burst-angle": (index * 20) + "deg", "--burst-delay": (index % 6) * 0.06 + "s" }}>{["✦", "♡", "✧", "·"][index % 4]}</i>)}</div>
+          <div className="egg-burst" aria-hidden="true">{REVEAL_BURST.map((spark) => <i key={spark.id} style={spark.style}>{spark.glyph}</i>)}</div>
           <button type="button" className="egg-action-button" onClick={() => openArcade(revealId)}>Enter the Secret Arcade <span aria-hidden="true">↗</span></button>
         </div>}
         {isGrand && <div className="egg-grand-finale">
@@ -451,25 +489,11 @@ export default function EasterEggSystem() {
             <div className="grand-orbit grand-orbit-two"><i /><i /><i /></div>
             <div className="grand-supernova"><i /><i /><i /><span>✦</span></div>
             <div className="grand-flying-rewards">
-              {Array.from({ length: 112 }, (_, index) => <i
-                key={index}
-                className={"grand-flight-object grand-flight-type-" + (index % 7)}
-                style={{
-                  "--grand-x": (((index * 73) % 1500) - 750) + "px",
-                  "--grand-y": (((index * 47) % 1050) - 525) + "px",
-                  "--grand-z": (((index * 29) % 850) - 425) + "px",
-                  "--grand-delay": -((index % 23) * 0.22) + "s",
-                  "--grand-duration": (4.2 + (index % 9) * 0.37) + "s",
-                  "--grand-rotate": (((index * 53) % 720) - 360) + "deg",
-                  "--grand-size": (12 + (index % 6) * 5) + "px"
-                }}
-              >{index % 6 === 0 ? "♥" : index % 6 === 1 ? "♡" : REWARD_SPARKS[index % REWARD_SPARKS.length]}</i>)}
+              {GRAND_FLIGHT_OBJECTS.map((particle) => <i key={particle.id}
+                className={"grand-flight-object " + particle.className} style={particle.style}>{particle.glyph}</i>)}
             </div>
             <div className="grand-comet-trails">
-              {Array.from({ length: 9 }, (_, index) => <i key={index} style={{
-                "--comet-angle": (index * 40) + "deg",
-                "--comet-delay": (index * 0.12) + "s"
-              }} />)}
+              {GRAND_COMETS.map((comet) => <i key={comet.id} style={comet.style} />)}
             </div>
           </div>
           <div className="grand-finale-content">
@@ -478,7 +502,7 @@ export default function EasterEggSystem() {
               <div className="grand-heart-halo grand-heart-halo-one" />
               <div className="grand-heart-halo grand-heart-halo-two" />
               <div className="grand-heart-3d">
-                {Array.from({ length: 13 }, (_, index) => <span className="grand-heart-depth" key={index} style={{ "--heart-depth": index, "--heart-depth-z": (index * 4) + "px", "--heart-offset-y": (index * 0.7) + "px", "--heart-scale": (1 - index * 0.022), "--heart-brightness": (0.58 + index * 0.028) }}>♥</span>)}
+                {GRAND_HEART_DEPTHS.map((layer) => <span className="grand-heart-depth" key={layer.id} style={layer.style}>♥</span>)}
                 <span className="grand-heart-face">♥</span>
                 <span className="grand-heart-star grand-heart-star-one">✦</span>
                 <span className="grand-heart-star grand-heart-star-two">✧</span>
@@ -490,7 +514,7 @@ export default function EasterEggSystem() {
             <p className="grand-finale-copy">{reveal.copy}</p>
             <p className="grand-finale-signature">A whole little universe, made by Zack, just for you. <span>♡</span></p>
             <div className="grand-finale-treasures" aria-label="All five secret arcade quests completed">
-              {["✧", "☾", "🐾", "✦", "♡"].map((symbol, index) => <span className={"grand-treasure grand-treasure-" + index} key={symbol} style={{ "--treasure-delay": (0.95 + index * 0.14) + "s" }}>{symbol}</span>)}
+              {GRAND_TREASURES.map((treasure) => <span className={"grand-treasure grand-treasure-" + treasure.index} key={treasure.symbol} style={treasure.style}>{treasure.symbol}</span>)}
             </div>
             <p className="grand-finale-achievement">FIVE LITTLE QUESTS · EVERY LAST SECRET FOUND</p>
             <div className="grand-finale-actions">

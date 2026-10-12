@@ -43,10 +43,10 @@ export default function App() {
     <main id="main-content" className={state.scene === "welcome" ? "main-content is-welcome" : "main-content"}>
       <AnimatePresence mode="wait" initial={false}>
         <motion.div className={"scene-transition scene-transition-" + state.scene} key={state.scene}
-          initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 18, scale: 0.985, filter: "blur(7px)" }}
-          animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
-          exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -9, scale: 0.995, filter: "blur(5px)" }}
-          transition={{ duration: reduceMotion ? 0.12 : 0.46, ease: [0.22, 0.75, 0.22, 1] }}>
+          initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 10, scale: 0.994 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -4, scale: 0.998 }}
+          transition={{ duration: reduceMotion ? 0.01 : 0.24, ease: [0.22, 0.75, 0.22, 1] }}>
           {scene}
         </motion.div>
       </AnimatePresence>

@@ -3,6 +3,7 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import AnimatedBackground from "../components/AnimatedBackground.jsx";
 import EasterEggSystem from "../components/EasterEggSystem.jsx";
 import LoveNoteModal from "../components/LoveNoteModal.jsx";
+import TinySoundToggle from "../components/TinySoundToggle.jsx";
 import WelcomeScene from "../scenes/WelcomeScene.jsx";
 import GardenScene from "../scenes/GardenScene.jsx";
 import HeartGardenScene from "../scenes/HeartGardenScene.jsx";
@@ -38,7 +39,7 @@ export default function App() {
     {state.scene !== "welcome" && <header className="site-header">
       <button className="brand-mark" type="button" onClick={() => go("garden")} aria-label="Return to Malika's birthday garden"><span className="brand-heart" aria-hidden="true">♥</span><span className="brand-copy"><strong>for Malika</strong><small>made with love by Zack</small></span></button>
       <nav className="scene-navigation" aria-label="Explore Malika's birthday universe">{nav.map((item) => <button key={item.id} type="button" className={state.scene === item.id ? "nav-link is-current" : "nav-link"} aria-current={state.scene === item.id ? "page" : undefined} onClick={() => go(item.id)}>{item.label}</button>)}</nav>
-      <div className="header-heart-count" aria-label={"Hearts collected: " + state.game.count + " of " + state.game.requiredHearts}>♥ {state.game.count}/{state.game.requiredHearts}</div>
+      <div className="header-tools"><TinySoundToggle /><div className="header-heart-count" aria-label={"Hearts collected: " + state.game.count + " of " + state.game.requiredHearts}>♥ {state.game.count}/{state.game.requiredHearts}</div></div>
     </header>}
     <main id="main-content" className={state.scene === "welcome" ? "main-content is-welcome" : "main-content"}>
       <AnimatePresence mode="wait" initial={false}>
@@ -51,6 +52,7 @@ export default function App() {
         </motion.div>
       </AnimatePresence>
     </main>
+    {state.scene === "welcome" && <TinySoundToggle floating />}
     {state.scene !== "welcome" && <footer className="site-footer"><span>a tiny birthday universe · made by Zack for Malika · 12 October</span><button className="footer-star-trigger" type="button" aria-label="Reveal the tiny footer star’s secret — click three times" title="A little secret is hiding here">✦</button></footer>}
     <LoveNoteModal message={activeMessage} onClose={closeNote} senderName={siteConfig.senderName} />
     <EasterEggSystem />

@@ -31,7 +31,7 @@ The experience includes the personalized welcome, moonlit garden, Mimi the kitte
 - It covers the welcome moon, Mimi, header heart, ladybug trail, footer star, keyboard spells, arcade objectives, and final 5/5 grand secret; it also mentions phone-friendly entrances.
 - Uses native nested disclosure elements, keyboard focus styling, responsive layout, reduced-motion-aware transition, and no tracking, backend, or new dependency.
 - A new browser journey checks spoiler opt-in, keyboard opening, secret-map content, and 320px layout.
-- PR, validation result, and updated production status will be recorded after validation.
+- PR: [#9](https://github.com/teyyara/malika/pull/9). CI will validate the clue journey against the production build after the next branch sync.
 
 ## Deployment verification
 

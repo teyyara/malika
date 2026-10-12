@@ -123,9 +123,9 @@
 @keyframes egg-paw-dance { 0% { transform: rotate(-12deg) scale(.98); } 100% { transform: rotate(12deg) scale(1.06); } }
 @keyframes egg-comet { from { transform: translate(-17px,8px) rotate(-15deg) scale(.88); filter: drop-shadow(0 0 5px #d2acff); } to { transform: translate(16px,-9px) rotate(15deg) scale(1.08); filter: drop-shadow(0 0 28px #f7aee7); } }
 @keyframes egg-burst-out { 0% { opacity: 0; transform: rotate(var(--burst-angle)) translateY(-15px) scale(.4); } 25% { opacity: .9; } 100% { opacity: 0; transform: rotate(var(--burst-angle)) translateY(-165px) scale(.8); } }
-@keyframes egg-star-drift { 0%,100% { margin-top: 0; } 50% { margin-top: -5px; } }
+@keyframes egg-star-drift { 0%,100% { opacity: .66; filter: drop-shadow(0 0 4px rgba(234,197,255,.4)); } 50% { opacity: 1; filter: drop-shadow(0 0 13px rgba(247,219,255,.95)); } }
 @keyframes egg-star-caught { to { transform: translate(-50%,-50%) scale(.45) rotate(50deg); filter: blur(2px); } }
-@keyframes egg-firefly-float { 0%,100% { translate: 0 0; } 50% { translate: 2px -8px; } }
+@keyframes egg-firefly-float { 0%,100% { opacity: .72; filter: drop-shadow(0 0 5px rgba(255,223,125,.5)); } 50% { opacity: 1; filter: drop-shadow(0 0 16px rgba(255,223,125,1)); } }
 @keyframes egg-card-flip { from { transform: rotateY(75deg) scale(.92); } to { transform: rotateY(0) scale(1); } }
 @keyframes egg-win-in { from { opacity: 0; transform: translateY(8px) scale(.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
 @keyframes egg-toast-in { from { opacity: 0; transform: translateY(13px); } to { opacity: 1; transform: translateY(0); } }

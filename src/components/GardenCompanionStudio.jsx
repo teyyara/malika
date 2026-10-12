@@ -249,7 +249,6 @@ function SoundtrackPlayer() {
 function LivingPicture() {
   const [alive, setAlive] = useState(false);
   const [pictureCount, setPictureCount] = useState(0);
-  const reduceMotion = useReducedMotion();
 
   function wakePicture() {
     const next = !alive;

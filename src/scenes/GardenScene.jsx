@@ -73,9 +73,9 @@ export default function GardenScene({ discoveredCount, requiredHearts, onOpenNot
     <div className="garden-landscape">
       <div className="garden-halo" aria-hidden="true" />
       <svg className="garden-constellation-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-        <path className={constellationStep >= 1 ? "is-lit" : ""} d="M21 17 L76 30" />
-        <path className={constellationStep >= 2 ? "is-lit" : ""} d="M76 30 L61 15" />
-        <path className={constellationFound ? "is-complete" : ""} d="M21 17 L76 30 L61 15 Z" />
+        <path className={constellationStep >= 1 ? "is-lit" : ""} d="M21 17 C25 3 43 8 50 24" />
+        <path className={constellationStep >= 2 ? "is-lit" : ""} d="M50 24 C57 8 75 3 79 17" />
+        <path className={constellationFound ? "is-lit is-complete" : ""} d="M21 17 C10 34 37 54 50 61 C63 54 90 34 79 17" />
       </svg>
       {[0, 1, 2].map((index) =>
         <button key={index}

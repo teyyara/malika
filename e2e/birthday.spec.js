@@ -145,6 +145,45 @@ test("the heart game can reset halfway and still complete a fresh run", async ({
   await expect(page.locator(".header-heart-count")).toHaveAttribute("aria-label", "Hearts collected: 7 of 7");
 });
 
+test("optional secret clues progress from gentle hints to an explicit spoiler map", async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 740 });
+  await enterGarden(page);
+
+  const guide = page.getByRole("complementary", { name: "Optional clues for curious explorers" });
+  await expect(guide).toBeVisible();
+
+  const rootDetails = guide.locator(".curiosity-guide-root");
+  const summaries = guide.locator("summary");
+  await summaries.nth(0).focus();
+  await expect(summaries.nth(0)).toBeFocused();
+  await page.keyboard.press("Enter");
+  await expect(rootDetails).toHaveAttribute("open", "");
+
+  await expect(guide.locator(".curiosity-guide-intro")).toBeVisible();
+  await expect(guide.locator(".curiosity-guide-spoilers")).not.toBeVisible();
+
+  const clearerClue = guide.locator(".curiosity-guide-step").nth(0);
+  await clearerClue.locator("summary").click();
+  await expect(clearerClue).toHaveAttribute("open", "");
+  await expect(clearerClue).toContainText("3, 4, 5, and 7");
+  await expect(guide.locator(".curiosity-guide-spoilers")).not.toBeVisible();
+
+  const spoilerStep = guide.locator(".curiosity-guide-step").nth(1);
+  await spoilerStep.locator("summary").click();
+  await expect(spoilerStep).toHaveAttribute("open", "");
+  await expect(guide.locator(".curiosity-guide-spoilers")).toContainText("MALIKA");
+  await expect(guide.locator(".curiosity-guide-spoilers")).toContainText("MIMI");
+  await expect(guide.locator(".curiosity-guide-spoilers")).toContainText("Keeper of Little Wonders");
+  await expect(guide.locator(".curiosity-guide-spoilers")).toContainText("↑ ↑ ↓ ↓ ← → ← → B A");
+
+  const dimensions = await guide.evaluate((element) => ({
+    clientWidth: element.clientWidth,
+    scrollWidth: element.scrollWidth
+  }));
+  expect(dimensions.scrollWidth, "the clue guide must fit a 320px phone viewport").toBeLessThanOrEqual(dimensions.clientWidth);
+  await expectNoHorizontalOverflow(page, 320, "the garden clue guide");
+});
+
 test("reduced-motion preference reaches the application shell", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");

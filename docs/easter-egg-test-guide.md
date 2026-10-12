@@ -47,6 +47,10 @@ Choose **The little wish jar**. Press **Shake the wish jar** repeatedly. Each sh
 - The wish jar gently rocks while its wishes appear.
 - A “Secrets uncovered” counter rises as you discover entrances and win games.
 
+## Need a hint?
+
+The garden includes an optional **Need a tiny nudge?** clue trail. It starts with a gentle hint and only shows the full spoiler map when that nested section is opened. On a small screen you can use the header heart or the ladybug trail instead of typing keyboard codes. The walkthrough and QA scope are in [Loop 008 — Gentle secret clues](loop-008-gentle-secret-hints.md).
+
 ## Accessibility and test notes
 
 Every target is a button or is inside a keyboard-addressable flow. The footer star is a labelled, keyboard-focusable button rather than decorative text. Dialogs can be closed with **Escape** or the close button. Reduced-motion preferences disable the nonessential keyframe animations. Automated browser tests are in `e2e/easter-eggs.spec.js`; run them with `npm run test:e2e`.

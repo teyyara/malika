@@ -520,12 +520,13 @@
 .grand-finale-achievement { margin:0 auto 15px; color:rgba(236,213,255,.66); font-size:8px; font-weight:800; letter-spacing:.19em; animation:grand-copy-arrive .7s ease 1.65s both; }
 .grand-finale-actions { display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:10px; animation:grand-actions-slam .85s cubic-bezier(.16,.9,.2,1) 1.75s both; }
 .grand-finale-primary, .grand-finale-secondary {
-  min-height:46px; border-radius:999px; padding:13px 20px; font-size:11px; font-weight:750; transition:transform .2s,box-shadow .2s,background .2s;
+  min-height:46px; border-radius:999px; padding:13px 20px; font-size:11px; font-weight:750;
+  transition:box-shadow .2s,background .2s,border-color .2s,filter .2s;
 }
 .grand-finale-primary { border:1px solid rgba(255,255,255,.3); color:#29103c; background:linear-gradient(110deg,#fff0c1,#ffc4e8 55%,#d8c4ff); box-shadow:0 7px 30px rgba(255,158,219,.28),0 0 55px rgba(203,160,255,.12); }
-.grand-finale-primary:hover { transform:translateY(-3px) scale(1.035); box-shadow:0 11px 40px rgba(255,158,219,.43); }
+.grand-finale-primary:hover { filter:brightness(1.035); box-shadow:0 11px 40px rgba(255,158,219,.43); }
 .grand-finale-secondary { border:1px solid rgba(255,220,249,.24); color:#fff0ff; background:rgba(255,255,255,.055); }
-.grand-finale-secondary:hover { transform:translateY(-2px); background:rgba(224,170,255,.13); }
+.grand-finale-secondary:hover { border-color:rgba(255,220,249,.46); background:rgba(224,170,255,.13); box-shadow:0 0 24px rgba(224,170,255,.12); }
 .grand-finale-footnote { margin:13px 0 0; color:rgba(239,218,255,.43); font-size:9px; letter-spacing:.04em; animation:grand-copy-arrive .8s ease 1.95s both; }
 @keyframes grand-screen-open { from { opacity:0; } to { opacity:1; } }
 @keyframes grand-nebula-drift { from { transform:translate3d(-4%,2%,0) scale(.88) rotate(-12deg); } to { transform:translate3d(10%,-8%,180px) scale(1.14) rotate(16deg); } }

@@ -68,7 +68,7 @@ test("collecting seven hearts unlocks a secret note and the dialog supports keyb
   }
 
   await expect(page.getByRole("heading", { name: "You found every heart…" })).toBeVisible();
-  await expect(page.getByLabel("Hearts collected: 7 of 7")).toBeVisible();
+  await expect(page.locator(".header-heart-count")).toHaveAttribute("aria-label", "Hearts collected: 7 of 7");
 
   await page.getByRole("button", { name: "Love notes", exact: true }).click();
   const secretNote = page.getByRole("button", { name: "Open note: A letter behind the stars" });

@@ -35,6 +35,10 @@ test("the sound mixer adjusts the master level and lets you audition Mimi's loca
     };
   });
 
+  const audioResponses = [];
+  page.on("response", (response) => {
+    if (response.url().includes("/audio/mimi-")) audioResponses.push(response.status());
+  });
   await page.goto("/");
   await page.getByRole("button", { name: "Turn on tiny sounds" }).click();
   await page.getByText("Mixer", { exact: true }).click();
@@ -47,10 +51,6 @@ test("the sound mixer adjusts the master level and lets you audition Mimi's loca
   await expect(page.getByText("69%", { exact: true })).toBeVisible();
   await expect.poll(() => page.evaluate(() => window.__soundMixerProbe.masterTargets.includes(0.69))).toBeTruthy();
 
-  const audioResponses = [];
-  page.on("response", (response) => {
-    if (response.url().includes("/audio/mimi-")) audioResponses.push(response.status());
-  });
   await page.getByRole("button", { name: "Hear a meow" }).click();
   await expect.poll(() => page.evaluate(() => window.__soundMixerProbe.animalClips.length)).toBeGreaterThan(0);
   await expect.poll(() => page.evaluate(() => window.__soundMixerProbe.animalClips.some((duration) => duration >= 1.3 && duration <= 2.5))).toBeTruthy();

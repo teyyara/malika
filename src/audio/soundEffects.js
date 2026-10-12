@@ -16,6 +16,9 @@ const activeOneShotTones = new Set();
 let nextMeowVariant = 0;
 let animalPlaybackRequest = 0;
 let softEchoBus = null;
+let masterOutputBus = null;
+let soundVolume = 0.72;
+const volumeListeners = new Set();
 
 const melodies = {
   on: [
@@ -169,6 +172,15 @@ function stopOneShotTones() {
   activeOneShotTones.clear();
 }
 
+function getMasterOutput(context) {
+  if (masterOutputBus?.context === context) return masterOutputBus.output;
+  const output = context.createGain();
+  output.gain.setValueAtTime(soundVolume, context.currentTime);
+  output.connect(context.destination);
+  masterOutputBus = { context, output };
+  return output;
+}
+
 function getSoftEchoInput(context) {
   if (softEchoBus?.context === context) return softEchoBus.input;
   const delay = context.createDelay(1.2);
@@ -178,7 +190,7 @@ function getSoftEchoInput(context) {
   wet.gain.setValueAtTime(0.13, context.currentTime);
   feedback.gain.setValueAtTime(0.12, context.currentTime);
   delay.connect(wet);
-  wet.connect(context.destination);
+  wet.connect(getMasterOutput(context));
   delay.connect(feedback);
   feedback.connect(delay);
   softEchoBus = { context, input: delay, wet };
@@ -299,7 +311,7 @@ function playAnimalBuffer(context, key, request) {
     gain.gain.exponentialRampToValueAtTime(0.0001, stopAt);
 
     source.connect(gain);
-    gain.connect(context.destination);
+    gain.connect(getMasterOutput(context));
     const voice = { context, source, gain };
     activeAnimalVoices.add(voice);
     source.addEventListener("ended", () => activeAnimalVoices.delete(voice), { once: true });
@@ -366,10 +378,10 @@ function scheduleTone(context, note, start, session = null) {
     const panner = context.createStereoPanner();
     panner.pan.setValueAtTime(Math.max(-1, Math.min(1, note.pan)), start);
     gain.connect(panner);
-    panner.connect(context.destination);
+    panner.connect(getMasterOutput(context));
     panner.connect(getSoftEchoInput(context));
   } else {
-    gain.connect(context.destination);
+    gain.connect(getMasterOutput(context));
     gain.connect(getSoftEchoInput(context));
   }
 
@@ -435,6 +447,31 @@ export function isCuteSoundEnabled() {
 export function subscribeToCuteSounds(listener) {
   listeners.add(listener);
   return () => listeners.delete(listener);
+}
+
+export function getCuteSoundVolume() {
+  return soundVolume;
+}
+
+export function subscribeToCuteSoundVolume(listener) {
+  volumeListeners.add(listener);
+  return () => volumeListeners.delete(listener);
+}
+
+export function setCuteSoundVolume(nextVolume) {
+  const parsed = Number(nextVolume);
+  if (!Number.isFinite(parsed)) return soundVolume;
+  soundVolume = Math.max(0, Math.min(1, parsed));
+  if (masterOutputBus?.context === audioContext) {
+    const context = masterOutputBus.context;
+    const param = masterOutputBus.output.gain;
+    const now = context.currentTime;
+    param.cancelScheduledValues(now);
+    param.setValueAtTime(param.value, now);
+    param.linearRampToValueAtTime(soundVolume, now + 0.035);
+  }
+  volumeListeners.forEach((listener) => listener(soundVolume));
+  return soundVolume;
 }
 
 export async function setCuteSoundEnabled(nextEnabled) {

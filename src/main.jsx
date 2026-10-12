@@ -8,6 +8,7 @@ import "./styles/game.css";
 import "./styles/personalization.css";
 import "./styles/magic.css";
 import "./styles/easter-eggs.css";
+import "./styles/world-upgrade.css";
 
 createRoot(document.getElementById("root")).render(
   <React.StrictMode><App /></React.StrictMode>

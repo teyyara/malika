@@ -4,7 +4,7 @@ import CatCharacter from "../components/CatCharacter.jsx";
 import Ladybug from "../components/Ladybug.jsx";
 import { siteConfig } from "../data/siteConfig.js";
 
-const skyMotes = Array.from({ length: 12 }, (_, index) => ({
+const skyMotes = Array.from({ length: 28 }, (_, index) => ({
   id: index,
   glyph: ["✧", "·", "♡", "✦"][index % 4],
   left: ((index * 31 + 5) % 90) + "%",
@@ -13,7 +13,7 @@ const skyMotes = Array.from({ length: 12 }, (_, index) => ({
   delay: (index % 6) * 0.34
 }));
 
-const revealSparks = Array.from({ length: 12 }, (_, index) => ({
+const revealSparks = Array.from({ length: 32 }, (_, index) => ({
   id: index,
   glyph: ["♥", "✦", "✧", "♡"][index % 4],
   left: ((index * 29 + 7) % 92) + "%",
@@ -28,6 +28,12 @@ export default function BirthdayFinale({ onGoToGarden }) {
 
   return <section className="finale-scene scene-pane" aria-labelledby="finale-heading">
     <div className="finale-top-art" aria-hidden="true">
+      <div className="finale-depth-field">
+        <span className="finale-orbit finale-orbit-one" />
+        <span className="finale-orbit finale-orbit-two" />
+        <span className="finale-orbit finale-orbit-three" />
+        <span className="finale-heart-light">♡</span>
+      </div>
       {skyMotes.map((mote) =>
         <motion.span key={mote.id} className="finale-mote" style={{ left: mote.left, top: mote.top }}
           animate={reduceMotion ? { opacity: 0.5 } : { opacity: [0.14, 0.8, 0.18], y: [0, -13, 0], x: [0, mote.drift, 0], rotate: [0, mote.drift, 0] }}
@@ -42,9 +48,23 @@ export default function BirthdayFinale({ onGoToGarden }) {
     <div className="finale-letter-wrap">
       <p className="eyebrow">✦ the most important little thing</p>
       <p className="finale-date">{siteConfig.birthdayDate} · a day for Malika</p>
-      <h1 id="finale-heading">{heading}</h1>
-      <div className="letter-card">
-        <div className="letter-top"><span className="letter-seal" aria-hidden="true">♥</span><span>for you, with love</span><span className="letter-sprig" aria-hidden="true">✿</span></div>
+      <motion.h1 id="finale-heading"
+        initial={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 12, filter: "blur(6px)" }}
+        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        transition={{ duration: reduceMotion ? 0.01 : 0.72, delay: reduceMotion ? 0 : 0.08 }}>
+        {heading}
+      </motion.h1>
+      <motion.div className="letter-card"
+        initial={reduceMotion ? { opacity: 1, y: 0, rotateX: 0 } : { opacity: 0, y: 24, rotateX: 9, scale: 0.985 }}
+        animate={{ opacity: 1, y: 0, rotateX: 0, scale: 1 }}
+        transition={{ duration: reduceMotion ? 0.01 : 0.92, delay: reduceMotion ? 0 : 0.18, type: "spring", stiffness: 115, damping: 19 }}>
+        <div className="letter-top">
+          <motion.span className="letter-seal" aria-hidden="true"
+            animate={reduceMotion ? { scale: 1 } : { scale: [1, 1.08, 1], rotate: [0, -7, 0] }}
+            transition={{ duration: 3.8, repeat: reduceMotion ? 0 : Infinity, ease: "easeInOut" }}>♥</motion.span>
+          <span>for you, with love</span><span className="letter-sprig" aria-hidden="true">✿</span>
+          <span className="letter-postmark" aria-hidden="true">12 · X</span>
+        </div>
         {siteConfig.birthdayLetter.map((paragraph, index) =>
           <motion.p key={index}
             initial={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 9 }}
@@ -59,7 +79,7 @@ export default function BirthdayFinale({ onGoToGarden }) {
             {siteConfig.senderName} ♡
           </motion.strong>
         </div>
-      </div>
+      </motion.div>
       <button className="button button-primary finale-surprise-button" type="button" onClick={() => setExtraSurprise((value) => !value)}>
         {extraSurprise ? "Keep the little magic" : "One last little surprise…"} <span aria-hidden="true">✦</span>
       </button>
@@ -78,6 +98,12 @@ export default function BirthdayFinale({ onGoToGarden }) {
               {spark.glyph}
             </motion.span>
           )}
+        </div>
+        <div className="extra-surprise-portal" aria-hidden="true">
+          <span className="extra-portal-ring extra-portal-ring-one" />
+          <span className="extra-portal-ring extra-portal-ring-two" />
+          <span className="extra-portal-ring extra-portal-ring-three" />
+          <span className="extra-portal-heart">♥</span>
         </div>
         <div className="extra-surprise-lights" aria-hidden="true">♥　✦　♥　✧　♥</div>
         <p>May today hold a hundred little reasons to smile — and may you remember that you are worth celebrating long after the candles are gone.</p>

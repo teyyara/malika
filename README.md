@@ -28,7 +28,7 @@ GitHub Actions installs Chromium's operating-system dependencies, runs the suite
 ## The experience
 
 - **Personal welcome:** an opening written for Malika from Zack.
-- **Interactive garden:** pet Mimi, follow fluttering ladybugs, touch a flower for a wish, trace three stars for a heart-shaped constellation, and optionally open the gentle clue guide (with no spoiler map).
+- **Interactive garden:** pet Mimi (she gets cheekier on repeat visits), follow fluttering ladybugs, touch a flower for a wish, trace three stars for a heart-shaped constellation, and optionally open the gentle clue guide (with no spoiler map). Jumping ahead earns a teasing nudge, not silent failure.
 - **Mimi's Little Heart Garden:** collect seven purple hearts; each collectible scores only once, with an animated victory and secret-letter unlock.
 - **Love collection:** 30 affectionate notes plus five future-facing little dreams; secret letters unlock at victory.
 - **Birthday finale:** a personal letter revealed in a measured sequence and an optional final surprise.
@@ -47,7 +47,7 @@ Framework: **Vite**, build command `npm run build`, output directory `dist`, roo
 
 ## Hidden Easter eggs and mini-games
 
-The extra secrets are optional; all core birthday scenes stay available without finding any of them. The garden includes a collapsed hint guide with a gentle clue and a clearer nudge; the spoiler map was removed to preserve the surprise. See [docs/loop-008-gentle-secret-hints.md](docs/loop-008-gentle-secret-hints.md) and the walkthrough in [docs/easter-egg-test-guide.md](docs/easter-egg-test-guide.md). Every mini-game now ends with its own full-screen, animated victory celebration. After all five games, the fifth celebration also offers the animated **Keeper of Little Wonders** finale; see [docs/loop-006-grand-secret.md](docs/loop-006-grand-secret.md). Browser regression coverage lives in `e2e/easter-eggs.spec.js` and `e2e/birthday.spec.js`.
+The extra secrets are optional; all core birthday scenes stay available without finding any of them. The arcade now includes a heart-trail route with decoys, a shuffled four-pair memory board that does not leak pair identities through accessible labels, a replayable six-beat rhythm code, five decoy-aware fireflies, and a tiny riddle-lock for the wish jar. The garden includes a collapsed hint guide with a gentle clue and a clearer nudge; the spoiler map was removed to preserve the surprise. See [docs/loop-008-gentle-secret-hints.md](docs/loop-008-gentle-secret-hints.md) and the walkthrough in [docs/easter-egg-test-guide.md](docs/easter-egg-test-guide.md). Every mini-game now ends with its own full-screen, animated victory celebration. After all five games, the fifth celebration also offers the animated **Keeper of Little Wonders** finale; see [docs/loop-006-grand-secret.md](docs/loop-006-grand-secret.md). Browser regression coverage lives in `e2e/easter-eggs.spec.js` and `e2e/birthday.spec.js`.
 
 ## Project status and evidence
 

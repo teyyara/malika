@@ -24,7 +24,7 @@ async function expectCelebration(page, title, theme, score) {
 
 test("the classic Konami sequence opens the Secret Arcade with five side quests", async ({ page }) => {
   await openArcade(page);
-  await expect(page.getByRole("button", { name: /Seven-star catcher/ })).toBeVisible();
+  await expect(page.getByRole("button", { name: /Mimi's constellation chase/ })).toBeVisible();
   await expect(page.getByRole("button", { name: /Mimi's memory match/ })).toBeVisible();
   await expect(page.getByRole("button", { name: /Pawprint rhythm/ })).toBeVisible();
   await expect(page.getByRole("button", { name: /Firefly hunt/ })).toBeVisible();
@@ -51,44 +51,75 @@ test("typing MALIKA creates a starfall and typing MIMI opens Memory Match direct
   await expect(page.getByRole("dialog", { name: "Mimi's memory match" })).toBeVisible();
 });
 
-test("the seven-star catcher tracks unique stars and plays its victory reveal", async ({ page }) => {
+test("the constellation chase rejects decoys and out-of-order stars before rewarding the full heart trail", async ({ page }) => {
   await openArcade(page);
-  await page.getByRole("button", { name: /Seven-star catcher/ }).click();
-  const stars = page.getByRole("button", { name: /^Catch secret star/ });
-  for (let i = 0; i < 7; i += 1) await stars.first().click();
-  await expectCelebration(page, "A whole galaxy belongs to you.", "starlight", "7 / 7 stars caught");
-  await expect(page.locator(".egg-reward-score")).toHaveText("7 / 7 stars caught");
+  await page.getByRole("button", { name: /Mimi's constellation chase/ }).click();
+
+  await page.getByTestId("star-target-3").click();
+  await expect(page.locator(".egg-progress")).toHaveText("0 / 8 trail stars found");
+  await expect(page.locator(".egg-toast")).toContainText("skipping ahead");
+  await page.getByTestId("star-decoy-9").click();
+  await expect(page.locator(".egg-progress")).toHaveText("0 / 8 trail stars found");
+  await expect(page.locator(".egg-toast")).toContainText("decoy");
+
+  for (let step = 1; step <= 8; step += 1) await page.getByTestId("star-target-" + step).click();
+  await expectCelebration(page, "You found the heart in the stars.", "starlight", "8 / 8 trail stars found");
+  await expect(page.locator(".egg-reward-score")).toHaveText("8 / 8 trail stars found");
 });
 
-test("Mimi's memory match unlocks after the three icon pairs are found", async ({ page }) => {
+test("Mimi's shuffled memory match hides pair identities and unlocks after four pairs", async ({ page }) => {
   await openArcade(page);
   await page.getByRole("button", { name: /Mimi's memory match/ }).click();
 
-  await page.getByRole("button", { name: "Turn over memory card moon-a" }).click();
-  await page.getByRole("button", { name: "Turn over memory card moon-b" }).click();
-  await page.getByRole("button", { name: "Turn over memory card paw-a" }).click();
-  await page.getByRole("button", { name: "Turn over memory card paw-b" }).click();
-  await page.getByRole("button", { name: "Turn over memory card heart-a" }).click();
-  await page.getByRole("button", { name: "Turn over memory card heart-b" }).click();
+  const cards = page.locator(".egg-memory-card");
+  await expect(cards).toHaveCount(8);
+  const order = await cards.evaluateAll((nodes) => nodes.map((node) => node.dataset.testid));
+  expect(new Set(order).size).toBe(8);
+  for (const id of order) {
+    const card = page.getByTestId(id);
+    await expect(card).toHaveAttribute("aria-label", /^Turn over memory card \d+$/);
+    await expect(card).not.toHaveAttribute("aria-label", /moon-a|moon-b|paw-a|paw-b|heart-a|heart-b|sparkle-a|sparkle-b/);
+  }
 
-  await expectCelebration(page, "You remembered every little wonder.", "memory", "3 / 3 matching pairs");
-  await expect(page.locator(".egg-reward-score")).toHaveText("3 / 3 matching pairs");
+  for (const card of ["moon-a", "moon-b", "paw-a", "paw-b", "heart-a", "heart-b", "sparkle-a", "sparkle-b"]) {
+    await page.getByTestId("memory-card-" + card).click();
+  }
+
+  await expectCelebration(page, "You remembered every little wonder.", "memory", "4 / 4 matching pairs");
+  await expect(page.locator(".egg-reward-score")).toHaveText("4 / 4 matching pairs");
 });
 
-test("the pawprint rhythm accepts the secret four-beat pattern", async ({ page }) => {
+test("Mimi's six-beat rhythm can be replayed and must be repeated in sequence", async ({ page }) => {
   await openArcade(page);
   await page.getByRole("button", { name: /Pawprint rhythm/ }).click();
-  for (const symbol of ["Play pawprints", "Play moon", "Play purple heart", "Play sparkle"]) {
+
+  const watch = page.locator(".egg-rhythm-watch");
+  const paw = page.getByRole("button", { name: "Play pawprints" });
+  await watch.click();
+  await expect(page.getByTestId("rhythm-cue")).toContainText("🐾");
+  await expect(paw).toBeDisabled();
+  await expect(watch).toBeDisabled();
+  await expect(paw).toBeEnabled({ timeout: 6500 });
+
+  await page.getByRole("button", { name: "Play moon" }).click();
+  await expect(page.locator(".egg-progress")).toHaveText("Beats repeated: 0 / 6");
+  await expect(page.locator(".egg-toast")).toContainText("combo is gone");
+  await watch.click();
+  await expect(paw).toBeEnabled({ timeout: 6500 });
+
+  for (const symbol of ["Play pawprints", "Play moon", "Play purple heart", "Play sparkle", "Play pawprints", "Play moon"]) {
     await page.getByRole("button", { name: symbol }).click();
   }
-  await expectCelebration(page, "Mimi's tiny concert is a HIT!", "rhythm", "4 / 4 beats in sync");
+  await expectCelebration(page, "Mimi's tiny concert is a HIT!", "rhythm", "6 / 6 beats in sync");
 });
 
-test("the firefly hunt catches five unique lights without a timer", async ({ page }) => {
+test("the firefly hunt rejects dim decoys and rewards the five golden lights", async ({ page }) => {
   await openArcade(page);
   await page.getByRole("button", { name: /Firefly hunt/ }).click();
-  const flies = page.getByRole("button", { name: /^Catch glowing firefly/ });
-  for (let i = 0; i < 5; i += 1) await flies.first().click();
+  await page.getByTestId("firefly-decoy-3").click();
+  await expect(page.locator(".egg-progress")).toHaveText("0 / 5 real fireflies caught");
+  await expect(page.locator(".egg-toast")).toContainText("fake light");
+  for (const id of [1, 2, 4, 5, 7]) await page.getByTestId("firefly-target-" + id).click();
   await expectCelebration(page, "You just lit up the whole garden.", "fireflies", "5 / 5 fireflies caught");
   await expect(page.locator(".egg-reward-score")).toHaveText("5 / 5 fireflies caught");
 });
@@ -135,40 +166,41 @@ test("three footer stars reveal a wish, and four ladybug discoveries hint at the
 test("completing all five arcade quests unlocks the grand-secret finale", async ({ page }) => {
   await openArcade(page);
 
-  await page.getByRole("button", { name: /Seven-star catcher/ }).click();
-  const stars = page.getByRole("button", { name: /^Catch secret star/ });
-  for (let i = 0; i < 7; i += 1) await stars.first().click();
-  await expectCelebration(page, "A whole galaxy belongs to you.", "starlight", "7 / 7 stars caught");
+  test.setTimeout(45_000);
+  await page.getByRole("button", { name: /Mimi's constellation chase/ }).click();
+  for (let step = 1; step <= 8; step += 1) await page.getByTestId("star-target-" + step).click();
+  await expectCelebration(page, "You found the heart in the stars.", "starlight", "8 / 8 trail stars found");
   await page.getByRole("button", { name: "Back to Secret Arcade" }).click();
 
   await page.getByRole("button", { name: /Mimi's memory match/ }).click();
-  for (const card of ["moon-a", "moon-b", "paw-a", "paw-b", "heart-a", "heart-b"]) {
-    await page.getByRole("button", { name: "Turn over memory card " + card }).click();
+  for (const card of ["moon-a", "moon-b", "paw-a", "paw-b", "heart-a", "heart-b", "sparkle-a", "sparkle-b"]) {
+    await page.getByTestId("memory-card-" + card).click();
   }
-  await expectCelebration(page, "You remembered every little wonder.", "memory", "3 / 3 matching pairs");
+  await expectCelebration(page, "You remembered every little wonder.", "memory", "4 / 4 matching pairs");
   await page.getByRole("button", { name: "Back to Secret Arcade" }).click();
 
   await page.getByRole("button", { name: /Pawprint rhythm/ }).click();
-  for (const symbol of ["Play pawprints", "Play moon", "Play purple heart", "Play sparkle"]) {
+  for (const symbol of ["Play pawprints", "Play moon", "Play purple heart", "Play sparkle", "Play pawprints", "Play moon"]) {
     await page.getByRole("button", { name: symbol }).click();
   }
-  await expectCelebration(page, "Mimi's tiny concert is a HIT!", "rhythm", "4 / 4 beats in sync");
+  await expectCelebration(page, "Mimi's tiny concert is a HIT!", "rhythm", "6 / 6 beats in sync");
   await page.getByRole("button", { name: "Back to Secret Arcade" }).click();
 
   await page.getByRole("button", { name: /Firefly hunt/ }).click();
-  const flies = page.getByRole("button", { name: /^Catch glowing firefly/ });
-  for (let i = 0; i < 5; i += 1) await flies.first().click();
+  for (const id of [1, 2, 4, 5, 7]) await page.getByTestId("firefly-target-" + id).click();
   await expectCelebration(page, "You just lit up the whole garden.", "fireflies", "5 / 5 fireflies caught");
   await page.getByRole("button", { name: "Back to Secret Arcade" }).click();
   await expect(page.getByRole("progressbar", { name: "Arcade games completed" })).toHaveAttribute("aria-valuenow", "4");
   await expect(page.getByRole("button", { name: "Open the grand secret" })).toHaveCount(0);
 
   await page.getByRole("button", { name: /The little wish jar/ }).click();
-  for (let i = 0; i < 5; i += 1) {
-    await page.getByRole("button", { name: /^Shake the wish jar/ }).click();
+  await page.getByTestId("wish-key-paws").click();
+  await expect(page.locator(".egg-toast")).toContainText("wax and wane");
+  for (const answer of ["moon", "paws", "heart", "star", "shooting-star"]) {
+    await page.getByTestId("wish-key-" + answer).click();
   }
-  await expectCelebration(page, "Five wishes. One very bright future.", "wishes", "5 / 5 wishes revealed");
-  await expect(page.locator(".egg-reward-score")).toHaveText("5 / 5 wishes revealed");
+  await expectCelebration(page, "Five wishes. One very bright future.", "wishes", "5 / 5 wishes unlocked");
+  await expect(page.locator(".egg-reward-score")).toHaveText("5 / 5 wishes unlocked");
   await page.getByRole("button", { name: "Back to Secret Arcade" }).click();
 
   await expect(page.getByRole("progressbar", { name: "Arcade games completed" })).toHaveAttribute("aria-valuenow", "5");
@@ -228,41 +260,45 @@ test("Memory Match explains a wrong pair, flips it back, and remains winnable", 
   await openArcade(page);
   await page.getByRole("button", { name: /Mimi's memory match/ }).click();
 
-  await page.getByRole("button", { name: "Turn over memory card moon-a" }).click();
-  await page.getByRole("button", { name: "Turn over memory card paw-a" }).click();
+  await page.getByTestId("memory-card-moon-a").click();
+  await page.getByTestId("memory-card-paw-a").click();
   await expect(page.locator(".egg-memory-card.is-mismatch")).toHaveCount(2);
-  await expect(page.locator(".egg-progress")).toContainText("Not a match");
-  await expect(page.getByRole("button", { name: "Turn over memory card moon-a" })).toBeVisible();
-  await expect(page.getByRole("button", { name: "Turn over memory card paw-a" })).toBeVisible();
+  await expect(page.locator(".egg-progress")).toContainText("Mimi saw that");
+  await expect(page.getByTestId("memory-card-moon-a")).toBeVisible();
+  await expect(page.getByTestId("memory-card-paw-a")).toBeVisible();
 
-  await page.getByRole("button", { name: "Turn over memory card moon-a" }).click();
-  await page.getByRole("button", { name: "Turn over memory card paw-a" }).click();
+  await page.getByTestId("memory-card-moon-a").click();
+  await page.getByTestId("memory-card-paw-a").click();
   await expect(page.locator(".egg-memory-card.is-mismatch")).toHaveCount(2);
-  await page.getByRole("button", { name: "Turn over memory card heart-a" }).click();
+  await page.getByTestId("memory-card-heart-a").click();
   await expect(page.locator(".egg-memory-card.is-open")).toHaveCount(1);
   await page.waitForTimeout(1200);
   await expect(page.locator(".egg-memory-card.is-open")).toHaveCount(1);
 
-  await page.getByRole("button", { name: "Turn over memory card heart-b" }).click();
-  await page.getByRole("button", { name: "Turn over memory card moon-a" }).click();
-  await page.getByRole("button", { name: "Turn over memory card moon-b" }).click();
-  await page.getByRole("button", { name: "Turn over memory card paw-a" }).click();
-  await page.getByRole("button", { name: "Turn over memory card paw-b" }).click();
-  await expectCelebration(page, "You remembered every little wonder.", "memory", "3 / 3 matching pairs");
-  await expect(page.locator(".egg-reward-score")).toHaveText("3 / 3 matching pairs");
+  await page.getByTestId("memory-card-heart-b").click();
+  await page.getByTestId("memory-card-moon-a").click();
+  await page.getByTestId("memory-card-moon-b").click();
+  await page.getByTestId("memory-card-paw-a").click();
+  await page.getByTestId("memory-card-paw-b").click();
+  await page.getByTestId("memory-card-sparkle-a").click();
+  await page.getByTestId("memory-card-sparkle-b").click();
+  await expectCelebration(page, "You remembered every little wonder.", "memory", "4 / 4 matching pairs");
+  await expect(page.locator(".egg-reward-score")).toHaveText("4 / 4 matching pairs");
 });
 
-test("Pawprint rhythm gives a recoverable wrong-input hint", async ({ page }) => {
+test("Pawprint rhythm rejects an incorrect beat and allows the code to be replayed", async ({ page }) => {
   await openArcade(page);
   await page.getByRole("button", { name: /Pawprint rhythm/ }).click();
   await page.getByRole("button", { name: "Play moon" }).click();
-  await expect(page.locator(".egg-progress")).toHaveText("Beats repeated: 0 / 4");
-  await expect(page.locator(".egg-toast")).toContainText("The rhythm starts with pawprints");
+  await expect(page.locator(".egg-progress")).toHaveText("Beats repeated: 0 / 6");
+  await expect(page.locator(".egg-toast")).toContainText("combo is gone");
 
-  for (const symbol of ["Play pawprints", "Play moon", "Play purple heart", "Play sparkle"]) {
+  await page.getByRole("button", { name: /Watch Mimi's rhythm/ }).click();
+  await expect(page.getByRole("button", { name: "Play pawprints" })).toBeEnabled({ timeout: 6500 });
+  for (const symbol of ["Play pawprints", "Play moon", "Play purple heart", "Play sparkle", "Play pawprints", "Play moon"]) {
     await page.getByRole("button", { name: symbol }).click();
   }
-  await expectCelebration(page, "Mimi's tiny concert is a HIT!", "rhythm", "4 / 4 beats in sync");
+  await expectCelebration(page, "Mimi's tiny concert is a HIT!", "rhythm", "6 / 6 beats in sync");
 });
 
 test("the Secret Arcade fits a narrow phone viewport and can always be closed", async ({ page }) => {

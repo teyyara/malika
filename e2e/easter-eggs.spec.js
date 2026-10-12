@@ -96,7 +96,11 @@ test("three footer stars reveal a wish, and four ladybug discoveries hint at the
   await page.getByRole("button", { name: /Open your birthday surprise/ }).click();
 
   const footerStar = page.getByRole("button", { name: /Reveal the tiny footer star/ });
-  for (let i = 0; i < 3; i += 1) await footerStar.click();
+  await footerStar.click();
+  await footerStar.click();
+  await footerStar.focus();
+  await expect(footerStar).toBeFocused();
+  await page.keyboard.press("Enter");
   await expect(page.getByRole("dialog", { name: "A tiny star said thank you" })).toBeVisible();
   await page.getByRole("button", { name: "Close secret surprise" }).click();
 
@@ -142,6 +146,8 @@ test("completing all five arcade quests unlocks the grand-secret finale", async 
   for (let i = 0; i < 5; i += 1) await flies.first().click();
   await expect(page.getByRole("status").filter({ hasText: "garden is glowing a little brighter" })).toBeVisible();
   await page.getByRole("button", { name: /Back to arcade/ }).click();
+  await expect(page.getByRole("progressbar", { name: "Arcade games completed" })).toHaveAttribute("aria-valuenow", "4");
+  await expect(page.getByRole("button", { name: "Open the grand secret" })).toHaveCount(0);
 
   await page.getByRole("button", { name: /The little wish jar/ }).click();
   for (let i = 0; i < 5; i += 1) {

@@ -1,0 +1,46 @@
+/* Loop 012 — fast, composited motion and predictable performance. */
+.ambient-world::before {
+  inset: -4%;
+  background: radial-gradient(ellipse at 50% 40%, rgba(205,169,255,.09), transparent 36%), linear-gradient(115deg, transparent 20%, rgba(255,255,255,.012) 48%, transparent 72%);
+  transform: translate3d(var(--pointer-shift-x,0px),var(--pointer-shift-y,0px),0);
+  transition: none !important;
+}
+.ambient-world::after { animation: none !important; opacity: .16; transform: none; }
+.ambient-glow { filter: blur(30px); opacity: .28; will-change: auto; }
+.star-layer .star { filter: none !important; }
+.site-header::before { backdrop-filter: blur(5px); }
+.letter-card { will-change: auto; }
+.modal-backdrop { backdrop-filter: blur(5px); }
+.love-note-modal { backdrop-filter: none; }
+.love-note-modal::before { animation-duration: 38s; }
+.egg-backdrop { backdrop-filter: blur(6px) saturate(.92); }
+.egg-toast { backdrop-filter: blur(7px); }
+.egg-backdrop .egg-dialog { animation: egg-dialog-in-fast .22s cubic-bezier(.18,.8,.2,1) both; }
+.egg-backdrop.is-celebration .egg-dialog, .egg-backdrop.is-grand-finale .egg-dialog { animation: none; }
+@keyframes egg-dialog-in-fast { from { opacity: 0; transform: translateY(10px) scale(.988); } to { opacity: 1; transform: translateY(0) scale(1); } }
+.egg-celebration-particle { will-change: auto; filter: none; text-shadow: 0 0 9px color-mix(in srgb,var(--reward-accent) 52%,transparent); }
+.egg-celebration-aurora { filter: blur(18px); opacity: .34; }
+.egg-celebration-atmosphere { contain: paint; }
+.heart-capture-burst { contain: layout style; }
+.heart-capture-fragment { will-change: auto; text-shadow: 0 0 8px currentColor; }
+.grand-nebula { filter: blur(42px); mix-blend-mode: normal; opacity: .23; }
+.grand-flight-object { filter: none; text-shadow: 0 0 10px currentColor; will-change: auto; }
+.grand-orbit-one, .grand-orbit-two { animation-name: grand-orbit-turn-fast; }
+.grand-heart-depth { filter: none !important; opacity: var(--heart-brightness,1); }
+.grand-heart-face { filter: none !important; animation-name: grand-heart-beat-fast; }
+.grand-supernova > span { animation-name: grand-supernova-star-fast; }
+@keyframes grand-orbit-turn-fast { from { rotate: 0deg; } to { rotate: 360deg; } }
+@keyframes grand-heart-beat-fast { 0%,100% { transform: scale(1); } 10% { transform: scale(1.1); } 18% { transform: scale(.99); } 28% { transform: scale(1.055); } 38% { transform: scale(1); } }
+@keyframes grand-supernova-star-fast { 0%,100% { transform: scale(.8) rotate(0deg); opacity: .82; } 50% { transform: scale(1.4) rotate(80deg); opacity: 1; } }
+@keyframes egg-reward-medallion-arrive { from { transform: scale(.74) rotate(-16deg); opacity: 0; } 72% { transform: scale(1.04) rotate(3deg); opacity: 1; } to { transform: scale(1) rotate(0); opacity: 1; } }
+@keyframes grand-content-rise { from { opacity: 0; transform: translateY(18px) translateZ(-30px) rotateX(2deg); } to { opacity: 1; transform: translateY(0) translateZ(0) rotateX(0); } }
+@keyframes grand-heart-stage-entry { 0% { opacity: 0; transform: translateY(35px) translateZ(-100px) rotateX(18deg) scale(.65); } 64% { opacity: 1; transform: translateY(-3px) translateZ(14px) rotateX(-3deg) scale(1.04); } 100% { opacity: 1; transform: translateY(0) translateZ(0) rotateX(0) scale(1); } }
+@keyframes grand-title-smash { 0% { opacity: 0; transform: translateY(13px) translateZ(-24px) scale(.94); letter-spacing: -.025em; } 76% { opacity: 1; transform: translateY(-1px) translateZ(4px) scale(1.01); letter-spacing: -.055em; } 100% { opacity: 1; transform: translateY(0) translateZ(0) scale(1); letter-spacing: -.055em; } }
+@keyframes grand-copy-arrive { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes grand-actions-slam { 0% { opacity: 0; transform: translateY(10px) scale(.97); } 75% { opacity: 1; transform: translateY(-1px) scale(1.01); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+html.is-tab-hidden *, html.is-tab-hidden *::before, html.is-tab-hidden *::after { animation-play-state: paused !important; }
+@media (max-width: 620px) { .ambient-glow { filter: blur(23px); opacity: .22; } .site-header::before { backdrop-filter: blur(3px); } .grand-nebula { filter: blur(28px); } .egg-celebration-aurora { filter: blur(12px); } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+.app-shell.prefers-less-motion .ambient-world::after, .app-shell.prefers-less-motion .ambient-glow-one, .app-shell.prefers-less-motion .ambient-glow-two, .app-shell.prefers-less-motion .ambient-heart, .app-shell.prefers-less-motion .star-layer .star { animation: none !important; }

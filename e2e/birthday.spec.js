@@ -209,10 +209,17 @@ test("garden depth, heart bursts, note search, and final letter portal work toge
   await expect(page.locator(".extra-portal-heart")).toHaveText("♥");
 });
 
-test("reduced-motion preference reaches the application shell", async ({ page }) => {
+test("reduced motion disables decorative CSS animation across scenes and notes", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
   await expect(page.locator(".app-shell")).toHaveClass(/prefers-less-motion/);
+  await expect.poll(() => page.locator(".star").first().evaluate((node) => getComputedStyle(node).animationIterationCount)).toBe("1");
+
+  await page.getByRole("button", { name: /Open your birthday surprise/ }).click();
+  await expect.poll(() => page.locator(".garden-mote").first().evaluate((node) => getComputedStyle(node).animationIterationCount)).toBe("1");
+  await page.locator(".garden-bug .ladybug-button").first().click();
+  await expect(page.getByRole("dialog")).toBeVisible();
+  await expect.poll(() => page.locator(".love-note-modal::before").evaluate((node) => getComputedStyle(node).animationIterationCount)).toBe("1");
 });
 
 test("Mimi reacts to a pet and the three-star constellation reveals two environmental wishes", async ({ page }) => {

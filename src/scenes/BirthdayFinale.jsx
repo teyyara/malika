@@ -4,7 +4,7 @@ import CatCharacter from "../components/CatCharacter.jsx";
 import Ladybug from "../components/Ladybug.jsx";
 import { siteConfig } from "../data/siteConfig.js";
 
-const skyMotes = Array.from({ length: 28 }, (_, index) => ({
+const skyMotes = Array.from({ length: 18 }, (_, index) => ({
   id: index,
   glyph: ["✧", "·", "♡", "✦"][index % 4],
   left: ((index * 31 + 5) % 90) + "%",
@@ -36,8 +36,8 @@ export default function BirthdayFinale({ onGoToGarden }) {
       </div>
       {skyMotes.map((mote) =>
         <motion.span key={mote.id} className="finale-mote" style={{ left: mote.left, top: mote.top }}
-          animate={reduceMotion ? { opacity: 0.5 } : { opacity: [0.14, 0.8, 0.18], y: [0, -13, 0], x: [0, mote.drift, 0], rotate: [0, mote.drift, 0] }}
-          transition={{ duration: 4.1 + (mote.id % 4) * 0.7, delay: mote.delay, repeat: reduceMotion ? 0 : Infinity, ease: "easeInOut" }}>
+          animate={reduceMotion ? { opacity: 0.45 } : { opacity: [0.18, 0.72, 0.18], y: [0, -10, 0], x: [0, mote.drift * 0.7, 0] }}
+          transition={{ duration: 3.4 + (mote.id % 4) * 0.45, delay: reduceMotion ? 0 : mote.delay, repeat: reduceMotion ? 0 : Infinity, ease: "easeInOut" }}>
           {mote.glyph}
         </motion.span>
       )}
@@ -49,15 +49,15 @@ export default function BirthdayFinale({ onGoToGarden }) {
       <p className="eyebrow">✦ the most important little thing</p>
       <p className="finale-date">{siteConfig.birthdayDate} · a day for Malika</p>
       <motion.h1 id="finale-heading"
-        initial={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 12, filter: "blur(6px)" }}
-        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-        transition={{ duration: reduceMotion ? 0.01 : 0.72, delay: reduceMotion ? 0 : 0.08 }}>
+        initial={reduceMotion ? false : { opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: reduceMotion ? 0.01 : 0.34, delay: reduceMotion ? 0 : 0.04 }}>
         {heading}
       </motion.h1>
       <motion.div className="letter-card"
-        initial={reduceMotion ? { opacity: 1, y: 0, rotateX: 0 } : { opacity: 0, y: 24, rotateX: 9, scale: 0.985 }}
+        initial={reduceMotion ? false : { opacity: 0, y: 14, rotateX: 4, scale: 0.992 }}
         animate={{ opacity: 1, y: 0, rotateX: 0, scale: 1 }}
-        transition={{ duration: reduceMotion ? 0.01 : 0.92, delay: reduceMotion ? 0 : 0.18, type: "spring", stiffness: 115, damping: 19 }}>
+        transition={{ duration: reduceMotion ? 0.01 : 0.44, delay: reduceMotion ? 0 : 0.08, type: "spring", stiffness: 210, damping: 25 }}>
         <div className="letter-top">
           <motion.span className="letter-seal" aria-hidden="true"
             animate={reduceMotion ? { scale: 1 } : { scale: [1, 1.08, 1], rotate: [0, -7, 0] }}
@@ -69,13 +69,13 @@ export default function BirthdayFinale({ onGoToGarden }) {
           <motion.p key={index}
             initial={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 9 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: reduceMotion ? 0.01 : 0.56, delay: reduceMotion ? 0 : 0.12 + index * 0.19, ease: "easeOut" }}>
+            transition={{ duration: reduceMotion ? 0.01 : 0.26, delay: reduceMotion ? 0 : 0.08 + index * 0.055, ease: "easeOut" }}>
             {paragraph}
           </motion.p>
         )}
         <div className="letter-signoff"><span>With all my heart,</span>
-          <motion.strong initial={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 5 }}
-            animate={{ opacity: 1, y: 0 }} transition={{ duration: reduceMotion ? 0.01 : 0.55, delay: reduceMotion ? 0 : 1.2 }}>
+          <motion.strong initial={reduceMotion ? false : { opacity: 0, y: 4 }}
+            animate={{ opacity: 1, y: 0 }} transition={{ duration: reduceMotion ? 0.01 : 0.28, delay: reduceMotion ? 0 : 0.38 }}>
             {siteConfig.senderName} ♡
           </motion.strong>
         </div>
@@ -87,7 +87,7 @@ export default function BirthdayFinale({ onGoToGarden }) {
         initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 14, scale: 0.96 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 8, scale: 0.98 }}
-        transition={{ duration: reduceMotion ? 0.01 : 0.42, type: "spring", stiffness: 190, damping: 18 }}
+        transition={{ duration: reduceMotion ? 0.01 : 0.24, type: "spring", stiffness: 250, damping: 24 }}
         role="status">
         <div className="reveal-spark-field" aria-hidden="true">
           {revealSparks.map((spark) =>

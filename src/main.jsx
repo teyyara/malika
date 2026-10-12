@@ -9,6 +9,7 @@ import "./styles/personalization.css";
 import "./styles/magic.css";
 import "./styles/easter-eggs.css";
 import "./styles/world-upgrade.css";
+import "./styles/performance.css";
 
 createRoot(document.getElementById("root")).render(
   <React.StrictMode><App /></React.StrictMode>

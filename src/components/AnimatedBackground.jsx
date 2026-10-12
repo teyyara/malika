@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 
-const stars = Array.from({ length: 32 }, (_, index) => ({
+const stars = Array.from({ length: 24 }, (_, index) => ({
   id: index, left: ((index * 37 + 11) % 97) + "%",
   top: ((index * 29 + 7) % 91) + "%",
   delay: ((index * 13) % 9) / 3 + "s",
@@ -24,9 +24,20 @@ export default function AnimatedBackground() {
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const coarsePointer = window.matchMedia("(pointer: coarse)");
-    if (reducedMotion.matches || coarsePointer.matches) return undefined;
-
+    const root = document.documentElement;
     let frame = 0;
+    function syncVisibility() {
+      root.classList.toggle("is-tab-hidden", document.hidden);
+      if (document.hidden && frame) { window.cancelAnimationFrame(frame); frame = 0; }
+    }
+    syncVisibility();
+    document.addEventListener("visibilitychange", syncVisibility);
+    if (reducedMotion.matches || coarsePointer.matches) {
+      return () => {
+        document.removeEventListener("visibilitychange", syncVisibility);
+        root.classList.remove("is-tab-hidden");
+      };
+    }
     function followPointer(event) {
       if (event.pointerType === "touch") return;
       const x = Math.max(0, Math.min(1, event.clientX / window.innerWidth));
@@ -39,14 +50,16 @@ export default function AnimatedBackground() {
         world.style.setProperty("--parallax-y-slow", (vertical * -10).toFixed(2) + "px");
         world.style.setProperty("--parallax-x-near", (horizontal * 23).toFixed(2) + "px");
         world.style.setProperty("--parallax-y-near", (vertical * 17).toFixed(2) + "px");
-        world.style.setProperty("--pointer-x", (x * 100).toFixed(2) + "%");
-        world.style.setProperty("--pointer-y", (y * 100).toFixed(2) + "%");
+        world.style.setProperty("--pointer-shift-x", (horizontal * 16).toFixed(2) + "px");
+        world.style.setProperty("--pointer-shift-y", (vertical * 12).toFixed(2) + "px");
       });
     }
 
     window.addEventListener("pointermove", followPointer, { passive: true });
     return () => {
       window.removeEventListener("pointermove", followPointer);
+      document.removeEventListener("visibilitychange", syncVisibility);
+      root.classList.remove("is-tab-hidden");
       if (frame) window.cancelAnimationFrame(frame);
     };
   }, []);

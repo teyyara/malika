@@ -12,7 +12,7 @@ async function expectCelebration(page, title, theme, score) {
   const reward = page.getByRole("dialog", { name: title });
   await expect(reward).toBeVisible();
   await expect(reward.locator(".egg-celebration")).toHaveClass(new RegExp("egg-celebration-theme-" + theme));
-  await expect(reward.locator(".egg-celebration-particle")).toHaveCount(96);
+  await expect(reward.locator(".egg-celebration-particle")).toHaveCount(64);
   await expect(reward.locator(".egg-celebration-heart-burst i")).toHaveCount(24);
   await expect(reward.locator(".egg-celebration-shockwaves i")).toHaveCount(3);
   await expect(reward.locator(".egg-reward-score")).toHaveText(score);

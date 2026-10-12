@@ -9,7 +9,7 @@ export default function CatCharacter({ mood = "curious", onClick, label = "A lit
   const reduceMotion = useReducedMotion();
   const [reactionIndex, setReactionIndex] = useState(0);
   const [isDancing, setIsDancing] = useState(false);
-  const [isMeowing, setIsMeowing] = useState(false);
+  const [voiceReaction, setVoiceReaction] = useState("idle");
   const reaction = reactions[reactionIndex];
   const petStreak = useRef({ count: 0, lastAt: 0 });
   const danceTimer = useRef(null);
@@ -75,16 +75,17 @@ export default function CatCharacter({ mood = "curious", onClick, label = "A lit
     petStreak.current = startedDance ? { count: 0, lastAt: 0 } : { count: streak, lastAt: now };
 
     setReactionIndex((current) => (current + 1) % reactions.length);
-    setIsMeowing(true);
+    const voice = startedDance ? "meow" : streak % 2 === 0 ? "purr" : "meow";
+    setVoiceReaction(voice);
     window.clearTimeout(meowTimer.current);
-    meowTimer.current = window.setTimeout(() => setIsMeowing(false), startedDance ? 1550 : 720);
+    meowTimer.current = window.setTimeout(() => setVoiceReaction("idle"), startedDance ? 1250 : voice === "purr" ? 1750 : 1150);
     if (startedDance) {
       setIsDancing(true);
       window.clearTimeout(danceTimer.current);
       danceTimer.current = window.setTimeout(() => setIsDancing(false), 2450);
       playCuteSound("dance");
     } else {
-      playCuteSound("meow");
+      playCuteSound(voice);
     }
     onClick?.();
   }
@@ -99,7 +100,7 @@ export default function CatCharacter({ mood = "curious", onClick, label = "A lit
     event.currentTarget.style.setProperty("--gaze-y", gazeY.toFixed(2) + "px");
   }
 
-  const art = <motion.svg className={"cat-art cat-art-" + mood + " cat-reaction-" + reaction + (isDancing ? " cat-is-dancing" : "") + (isMeowing ? " cat-is-meowing" : "")}
+  const art = <motion.svg className={"cat-art cat-art-" + mood + " cat-reaction-" + reaction + (isDancing ? " cat-is-dancing" : "") + (voiceReaction === "meow" ? " cat-is-meowing" : "") + (voiceReaction === "purr" ? " cat-is-purring" : "")}
     viewBox="0 0 240 220" aria-hidden="true" initial={false} animate={animation}
     transition={{ duration, repeat, ease: isDancing ? "easeInOut" : "easeInOut" }}>
     <ellipse cx="122" cy="196" rx="68" ry="12" fill="#090515" opacity=".4" />
@@ -133,6 +134,6 @@ export default function CatCharacter({ mood = "curious", onClick, label = "A lit
     {isDancing && !reduceMotion && <span className="cat-dance-sparkles" aria-hidden="true">
       {danceSparkles.map((glyph, index) => <i key={index} style={{ "--dance-index": index, "--dance-offset": (index % 2 ? 1 : -1) * (18 + index * 4) + "px", "--dance-delay": index * 0.13 + "s", "--dance-top": (17 + (index % 2) * 20) + "%", "--dance-size": (11 + (index % 3) * 4) + "px" }}>{glyph}</i>)}
     </span>}
-    <span className="character-hint">{isDancing ? "Mimi is dancing!" : isMeowing ? "Mimi says meow!" : "tap for a hello"}</span>
+    <span className="character-hint">{isDancing ? "Mimi is dancing!" : voiceReaction === "meow" ? "Mimi says meow!" : voiceReaction === "purr" ? "Mimi is purring!" : "tap for a hello"}</span>
   </button>;
 }

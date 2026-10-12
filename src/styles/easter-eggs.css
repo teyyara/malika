@@ -185,3 +185,36 @@
   .welcome-moon.secret-moon-trigger,
   .welcome-moon.secret-moon-trigger::before { animation: none !important; }
 }
+
+
+/* Loop 006 — a visible quest ledger that culminates in a final secret. */
+.egg-arcade-progress {
+  max-width: 430px;
+  margin: 22px auto 8px;
+  padding: 13px 15px 15px;
+  border: 1px solid rgba(222, 198, 255, .13);
+  border-radius: 15px;
+  text-align: left;
+  background: rgba(10, 5, 24, .28);
+}
+.egg-arcade-progress-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 10px; color: #c7b4df; font-size: 11px; letter-spacing: .04em; }
+.egg-arcade-progress-heading strong { color: #f7dfff; font-family: Georgia,serif; font-size: 20px; font-weight: 400; font-variant-numeric: tabular-nums; }
+.egg-arcade-progress-track { height: 6px; overflow: hidden; border-radius: 999px; background: rgba(223,199,255,.1); }
+.egg-arcade-progress-track span { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg,#a887ff,#ffc0e7,#ffe8a9); box-shadow: 0 0 16px rgba(224,178,255,.28); transition: width .4s cubic-bezier(.2,.8,.2,1); }
+.egg-game-tile.is-complete { border-color: rgba(231, 202, 255, .3); background: linear-gradient(135deg,rgba(183,151,255,.14),rgba(255,199,231,.06)); }
+.egg-game-tile.is-complete > span { color: #fce4ff; border-color: rgba(242,211,255,.34); background: rgba(211,172,255,.18); }
+.egg-game-tile.is-complete small { color: #f0cee9; }
+.egg-master-reward { position: relative; overflow: hidden; max-width: 480px; margin: 20px auto 0; padding: 20px 18px 19px; border: 1px solid rgba(242,211,255,.25); border-radius: 20px; background: radial-gradient(ellipse at 50% 0,rgba(239,194,255,.18),transparent 75%),linear-gradient(145deg,rgba(117,78,159,.18),rgba(255,204,235,.035)); animation: egg-master-arrive .75s cubic-bezier(.16,.85,.18,1) both; }
+.egg-master-reward::before { content: ""; position: absolute; inset: -70% -25%; pointer-events: none; background: conic-gradient(from 0deg,transparent,rgba(231,199,255,.09),transparent 25%); animation: egg-master-orbit 12s linear infinite; }
+.egg-master-reward > * { position: relative; }
+.egg-master-crown { margin: 0 0 9px; color: #fbe2ff; font-size: 19px; letter-spacing: .28em; text-shadow: 0 0 22px rgba(238,191,255,.78); animation: egg-master-glow 3.2s ease-in-out infinite; }
+.egg-master-reward p { max-width: 350px; margin: 0 auto 15px; color: #f0def9; font-family: Georgia,serif; font-size: 17px; line-height: 1.55; }
+.egg-reveal-grand { color: #ffedbd; background: radial-gradient(circle,rgba(255,220,159,.25),rgba(180,137,255,.08) 60%,transparent 68%); border-color: rgba(255,225,172,.3); box-shadow: 0 0 85px rgba(246,206,157,.15),0 0 55px rgba(199,163,255,.1); animation: egg-grand-heartbeat 2.6s ease-in-out infinite; }
+@keyframes egg-master-arrive { 0% { opacity: 0; transform: translateY(12px) scale(.97); filter: blur(6px); } 60% { opacity: 1; filter: blur(0); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes egg-master-orbit { to { transform: rotate(360deg); } }
+@keyframes egg-master-glow { 0%,100% { opacity: .74; filter: drop-shadow(0 0 3px rgba(238,191,255,.2)); } 50% { opacity: 1; filter: drop-shadow(0 0 15px rgba(238,191,255,.8)); } }
+@keyframes egg-grand-heartbeat { 0%,100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(255,217,158,.1)); } 50% { transform: scale(1.035); filter: drop-shadow(0 0 23px rgba(255,217,158,.24)); } }
+@media (prefers-reduced-motion: reduce) {
+  .egg-arcade-progress-track span, .egg-master-reward, .egg-master-reward::before,
+  .egg-master-crown, .egg-reveal-grand { animation: none !important; transition: none !important; }
+}

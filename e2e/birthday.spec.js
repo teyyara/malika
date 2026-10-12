@@ -186,7 +186,8 @@ test("garden depth, heart bursts, note search, and final letter portal work toge
   await page.getByRole("button", { name: "Heart game", exact: true }).click();
   await page.getByRole("button", { name: /Let's find some hearts/ }).click();
   const hearts = page.getByRole("button", { name: /Collect purple heart/ });
-  await hearts.first().click();
+  // Hearts gently float forever; force this one action so the test checks the capture effect, not pointer stability.
+  await hearts.first().click({ force: true });
   await expect(page.locator(".heart-capture-burst")).toHaveCount(1);
   await expect(page.locator(".heart-capture-fragment")).toHaveCount(18);
   await expect(page.locator(".game-progress-copy strong span")).toHaveText("1");

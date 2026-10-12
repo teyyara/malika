@@ -110,3 +110,50 @@ test("three footer stars reveal a wish, and four ladybug discoveries hint at the
   await page.getByRole("button", { name: "Open Secret Arcade" }).click();
   await expect(page.getByRole("dialog", { name: "The secret arcade" })).toBeVisible();
 });
+
+
+test("completing all five arcade quests unlocks the grand-secret finale", async ({ page }) => {
+  await openArcade(page);
+
+  await page.getByRole("button", { name: /Seven-star catcher/ }).click();
+  const stars = page.getByRole("button", { name: /^Catch secret star/ });
+  for (let i = 0; i < 7; i += 1) await stars.first().click();
+  await expect(page.getByRole("status").filter({ hasText: "Star shower!" })).toBeVisible();
+  await page.getByRole("button", { name: /Back to arcade/ }).click();
+
+  await page.getByRole("button", { name: /Mimi's memory match/ }).click();
+  for (const card of ["moon-a", "moon-b", "paw-a", "paw-b", "heart-a", "heart-b"]) {
+    await page.getByRole("button", { name: "Turn over memory card " + card }).click();
+  }
+  await expect(page.getByRole("status").filter({ hasText: "Mimi remembers all the little things" })).toBeVisible();
+  await page.getByRole("button", { name: /Back to arcade/ }).click();
+
+  await page.getByRole("button", { name: /Pawprint rhythm/ }).click();
+  for (const symbol of ["Play pawprints", "Play moon", "Play purple heart", "Play sparkle"]) {
+    await page.getByRole("button", { name: symbol }).click();
+  }
+  await expect(page.getByRole("status").filter({ hasText: "Mimi does a little victory dance" })).toBeVisible();
+  await page.getByRole("button", { name: /Back to arcade/ }).click();
+
+  await page.getByRole("button", { name: /Firefly hunt/ }).click();
+  const flies = page.getByRole("button", { name: /^Catch glowing firefly/ });
+  for (let i = 0; i < 5; i += 1) await flies.first().click();
+  await expect(page.getByRole("status").filter({ hasText: "garden is glowing a little brighter" })).toBeVisible();
+  await page.getByRole("button", { name: /Back to arcade/ }).click();
+
+  await page.getByRole("button", { name: /The little wish jar/ }).click();
+  for (let i = 0; i < 5; i += 1) {
+    await page.getByRole("button", { name: "Shake the wish jar" }).click();
+  }
+  await expect(page.getByRole("status").filter({ hasText: "All five wishes are yours" })).toBeVisible();
+  await expect(page.locator(".egg-progress")).toHaveText("5 / 5 wishes revealed");
+  await page.getByRole("button", { name: /Back to arcade/ }).click();
+
+  await expect(page.getByRole("progressbar", { name: "Arcade games completed" })).toHaveAttribute("aria-valuenow", "5");
+  await expect(page.getByText("You found every side quest")).toBeVisible();
+  await page.getByRole("button", { name: "Open the grand secret" }).click();
+
+  const grandSecret = page.getByRole("dialog", { name: "Keeper of Little Wonders" });
+  await expect(grandSecret).toBeVisible();
+  await expect(grandSecret).toContainText("The grand secret was never just the stars or the prizes");
+});

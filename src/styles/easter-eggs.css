@@ -148,3 +148,16 @@
   .egg-win, .egg-wish-copy { animation: none !important; transition: none !important; }
   .secret-moon-trigger { transition: none !important; }
 }
+
+/* Keep the secret moon keyboard/touch target geometrically still while its glow breathes. */
+.welcome-moon.secret-moon-trigger {
+  animation: egg-moon-breathe 7s ease-in-out infinite;
+  transform: none;
+}
+@keyframes egg-moon-breathe {
+  0%, 100% { opacity: .76; box-shadow: 0 0 72px rgba(186,150,250,.18); }
+  50% { opacity: .94; box-shadow: 0 0 98px rgba(186,150,250,.3); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .welcome-moon.secret-moon-trigger { animation: none !important; }
+}

@@ -36,7 +36,22 @@ const tracks = [
 
 export default function GardenCompanionStudio({ discoveredCount, heartsCollected, releasedWishes, onReleaseWish }) {
   const [activeTab, setActiveTab] = useState("mimi");
+  const [activeTrack, setActiveTrack] = useState(null);
   const reduceMotion = useReducedMotion();
+
+  useEffect(() => () => {
+    setMusicOverride("soundtrack-player", null);
+  }, []);
+
+  function playTrack(track) {
+    setActiveTrack(track.id);
+    setMusicOverride("soundtrack-player", track.theme);
+  }
+
+  function pauseTrack() {
+    setMusicOverride("soundtrack-player", null);
+    setActiveTrack(null);
+  }
 
   return <section className="companion-studio" aria-labelledby="companion-studio-heading">
     <div className="companion-studio-heading">
@@ -71,7 +86,7 @@ export default function GardenCompanionStudio({ discoveredCount, heartsCollected
         >
           {activeTab === "mimi" && <MimiDailyLife discoveredCount={discoveredCount} heartsCollected={heartsCollected} />}
           {activeTab === "wishes" && <WishSky releasedWishes={releasedWishes} onReleaseWish={onReleaseWish} />}
-          {activeTab === "music" && <SoundtrackPlayer />}
+          {activeTab === "music" && <SoundtrackPlayer activeTrack={activeTrack} onPlayTrack={playTrack} onPauseTrack={pauseTrack} />}
           {activeTab === "picture" && <LivingPicture />}
         </motion.div>
       </AnimatePresence>
@@ -206,23 +221,7 @@ function WishSky({ releasedWishes, onReleaseWish }) {
   </div>;
 }
 
-function SoundtrackPlayer() {
-  const [activeTrack, setActiveTrack] = useState(null);
-
-  useEffect(() => () => {
-    setMusicOverride("soundtrack-player", null);
-  }, []);
-
-  function playTrack(track) {
-    setActiveTrack(track.id);
-    setMusicOverride("soundtrack-player", track.theme);
-  }
-
-  function pauseTrack() {
-    setMusicOverride("soundtrack-player", null);
-    setActiveTrack(null);
-  }
-
+function SoundtrackPlayer({ activeTrack, onPlayTrack, onPauseTrack }) {
   const selected = tracks.find((track) => track.id === activeTrack);
   return <div className="soundtrack-player-layout">
     <div className="soundtrack-player-copy">
@@ -234,12 +233,12 @@ function SoundtrackPlayer() {
         <span><small>{selected ? "NOW PLAYING" : "READY WHEN YOU ARE"}</small><strong>{selected?.title || "Choose a little soundtrack"}</strong><em>{selected?.mood || "No downloads. No adverts. Just tiny notes."}</em></span>
         <span className="soundtrack-equalizer" aria-hidden="true"><i /><i /><i /><i /></span>
       </div>
-      {activeTrack && <button type="button" className="soundtrack-pause" onClick={pauseTrack}>Pause our soundtrack <span aria-hidden="true">Ⅱ</span></button>}
+      {activeTrack && <button type="button" className="soundtrack-pause" onClick={onPauseTrack}>Pause our soundtrack <span aria-hidden="true">Ⅱ</span></button>}
     </div>
     <div className="soundtrack-track-list" aria-label="Choose a soundtrack">
       {tracks.map((track) => <button key={track.id} type="button" aria-pressed={activeTrack === track.id}
         className={"soundtrack-track" + (activeTrack === track.id ? " is-playing" : "")}
-        onClick={() => playTrack(track)}
+        onClick={() => onPlayTrack(track)}
       ><span className="soundtrack-track-glyph" aria-hidden="true">{track.glyph}</span><span><strong>{track.title}</strong><small>{track.mood}</small></span><span className="soundtrack-track-action" aria-hidden="true">{activeTrack === track.id ? "Ⅱ" : "▶"}</span></button>)}
       <p className="soundtrack-player-hint">Sound can be silenced at any time with the sound control in the header. Your choice resets when you leave the garden.</p>
     </div>

@@ -41,7 +41,7 @@ The experience has no backend, analytics, paid API, sound dependency, or remote 
 
 ## Vercel deployment
 
-The Vercel project **malika-birthday** is connected to this repository. The last previously confirmed production deployment is recorded at the [Vercel deployment dashboard](https://vercel.com/tyyr1/malika-birthday/CzGS17bNAaTbaUCH7uLAP7XR6rQv). The production attempt for Loop 007 commit `5fdbd292707e27a84ae85b8782fe4cc3c27c5e8f` reported **failed** in the Vercel status check ([deployment details](https://vercel.com/tyyr1/malika-birthday/GrbCE3RnoKGws4A54c3NvJyoV7TE)). Its root cause remains unverified because the current Vercel integration cannot access build logs. Do not assume the latest release is live until Vercel reports **Ready**. No access-bypass token is stored in this repository.
+The Vercel project **malika-birthday** is connected to this repository. The last previously confirmed production deployment is recorded at the [Vercel dashboard](https://vercel.com/tyyr1/malika-birthday/CzGS17bNAaTbaUCH7uLAP7XR6rQv). The Loop 007 production attempt reported failed ([deployment details](https://vercel.com/tyyr1/malika-birthday/GrbCE3RnoKGws4A54c3NvJyoV7TE)). Loop 008's PR preview passed, but the latest main commit has not reported a Vercel status through GitHub and the connected Vercel integration cannot access deployment logs. The latest production release is therefore unverified; treat it as live only after Vercel reports Ready. No access-bypass token is stored in this repository.
 
 Framework: **Vite**, build command `npm run build`, output directory `dist`, root directory `./`, no environment variables.
 

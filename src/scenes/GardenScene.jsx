@@ -114,5 +114,41 @@ export default function GardenScene({ discoveredCount, requiredHearts, onOpenNot
       <button className="destination-link" type="button" onClick={onGoToCollection}><span className="destination-icon destination-icon-note" aria-hidden="true">✉</span><span><strong>The love collection</strong><small>35 notes, birthday wishes, and little dreams</small></span><span className="destination-arrow" aria-hidden="true">↗</span></button>
       <button className="destination-link" type="button" onClick={onOpenLetter}><span className="destination-icon destination-icon-letter" aria-hidden="true">♡</span><span><strong>A letter from Zack</strong><small>A birthday letter made just for Malika</small></span><span className="destination-arrow" aria-hidden="true">↗</span></button>
     </div>
+    <aside className="curiosity-guide" aria-label="Optional clues for curious explorers">
+      <details className="curiosity-guide-root">
+        <summary>
+          <span className="curiosity-guide-mark" aria-hidden="true">✧</span>
+          <span className="curiosity-guide-title">
+            <strong>Need a tiny nudge?</strong>
+            <small>Only if you would like a little help finding the hidden magic.</small>
+          </span>
+          <span className="curiosity-guide-toggle" aria-hidden="true">＋</span>
+        </summary>
+        <div className="curiosity-guide-content">
+          <p className="curiosity-guide-intro">Tiny clue: this garden listens when you say hello more than once. The moon and Mimi may have more to share than you first noticed.</p>
+          <details className="curiosity-guide-step">
+            <summary>Give me a clearer clue</summary>
+            <p>Numbers are part of the magic: <strong>3, 4, 5, and 7</strong>. Look again at the welcome moon, Mimi, the little heart in the header, the ladybugs, and the smallest star at the bottom of the page.</p>
+          </details>
+          <details className="curiosity-guide-step">
+            <summary>Show me the full secret map <span>(spoilers inside)</span></summary>
+            <div className="curiosity-guide-spoilers">
+              <p>Every secret is optional. Here are the doors without any guesswork:</p>
+              <ul>
+                <li><strong>The welcome moon:</strong> tap the moon seven times to reveal <em>A Little More Wonder</em>.</li>
+                <li><strong>Mimi's welcome cameo:</strong> pet the kitten five times for a tiny paw-print surprise.</li>
+                <li><strong>The header heart:</strong> once inside the garden, tap the heart logo five times to open the Secret Arcade.</li>
+                <li><strong>The ladybug trail:</strong> follow four ladybugs in the garden and close each little note; the fourth reveals a way into the arcade.</li>
+                <li><strong>The footer star:</strong> tap or click the little star three times within seven seconds for a thank-you surprise.</li>
+                <li><strong>Keyboard spells:</strong> type <code>MALIKA</code> for a little starfall, or <code>MIMI</code> to jump into Memory Match.</li>
+                <li><strong>Old-school game code:</strong> press <code>↑ ↑ ↓ ↓ ← → ← → B A</code> on a keyboard to open the arcade.</li>
+              </ul>
+              <p>The Secret Arcade has five quests: catch seven stars, match all three pairs, repeat the four-beat pawprint rhythm, catch five fireflies, and reveal all five wishes in the jar. Finish every quest to unlock <strong>Keeper of Little Wonders</strong>.</p>
+              <p className="curiosity-guide-note">On a phone, use the header heart or ladybug trail to open the arcade; no keyboard is required for the five games or grand finale.</p>
+            </div>
+          </details>
+        </div>
+      </details>
+    </aside>
   </section>;
 }

@@ -1,4 +1,4 @@
-# Complete easter-egg guide — Loop 024
+# Complete easter-egg guide — Loop 025
 
 **Full spoilers.** This is the complete walkthrough for Zack, not a hint sheet to hand to Malika before she explores. The website's hidden progress exists only in the current page session: it is not written to a server, browser storage, or analytics. Reloading starts a fresh hunt. None of these secrets is required to read the birthday letter or finish the main heart game.
 
@@ -6,14 +6,14 @@
 
 There are several ways in. Any one is enough.
 
-1. **The classic controller code:** on the page, press **Up, Up, Down, Down, Left, Right, Left, Right, B, A**. The Secret Arcade opens.
-2. **Spell her name:** type **MALIKA** on the keyboard. A starfall reveal appears, titled *Her name lit up the sky*. Press **Enter the Secret Arcade** in the reveal to continue.
-3. **Call the kitten:** type **MIMI** on the keyboard. Mimi's Memory Match opens directly.
+1. **The classic controller code:** on the page, press **Up, Up, Down, Down, Left, Right, Left, Right, B, A**. The password door appears.
+2. **Spell her name:** type **MALIKA** on the keyboard. A starfall reveal appears, titled *Her name lit up the sky*. Press **Enter the Secret Arcade** in the reveal to open the password door.
+3. **Call the kitten:** type **MIMI** on the keyboard. The password door appears; it no longer opens Memory Match directly.
 4. **The heart in the header:** after leaving the welcome screen, tap the small heart inside the “for Malika” header mark **5 times within 7 seconds**.
-5. **The ladybug trail:** in the garden, click a ladybug **4 times within 9 seconds**. Close each love-note popup before clicking again. A toast appears; use **Open Secret Arcade**.
+5. **The ladybug trail:** in the garden, click a ladybug **4 times within 9 seconds**. Close each love-note popup before clicking again. A toast appears; use **Open Secret Arcade** to reach the password door.
 6. The other hidden entrances are the moon wish, Mimi's fifth hello, the footer star, and the birthday-letter wax seal; each is detailed below.
 
-The typed words are case-insensitive. When using the keyboard shortcuts, type on the page rather than inside a text field. The Secret Arcade contains five optional quests.
+The typed words are case-insensitive. When using the keyboard shortcuts, type on the page rather than inside a text field. To unlock the Secret Arcade, enter **iloveyou** in the password panel. The five games appear only after the correct password is accepted; the unlock lasts until the page is refreshed.
 
 ## 2. Small secrets in the welcome scene and garden
 

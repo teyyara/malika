@@ -368,3 +368,16 @@ button.constellation-star:hover, button.constellation-star:focus-visible, button
   .cat-tail, .cat-character-button::after, .button-primary::before, .letter-card::before,
   .extra-surprise::before, .interactive-flower b { animation: none !important; transition: none !important; }
 }
+
+/* Give the kitten a readable silhouette in the wide heart arena. */
+.arena-mimi .cat-character-button {
+  width: 126px;
+  min-height: 108px;
+}
+.arena-mimi .cat-character-button .cat-art {
+  width: 100%;
+  margin-top: 0;
+}
+.arena-mimi .cat-character-button .character-hint {
+  bottom: -2px;
+}

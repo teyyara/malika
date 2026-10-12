@@ -182,10 +182,18 @@ test("capture rendered art direction across the birthday journey", async ({ page
     await hearts.first().click();
   }
   await expect(page.getByRole("heading", { name: "You found every heart…" })).toBeVisible();
+  await expect(page.locator(".game-won")).toHaveCSS("opacity", "1");
   await page.screenshot({ path: "test-results/screenshots/04-victory.png", fullPage: true });
 
   await page.getByRole("button", { name: "Birthday letter", exact: true }).click();
   await expect(page.getByRole("heading", { name: /Happy birthday, Malika/ })).toBeVisible();
+  await expect(page.locator(".letter-card > p").last()).toHaveCSS("opacity", "1");
+  await expect(page.locator(".letter-signoff strong")).toHaveCSS("opacity", "1");
   await page.screenshot({ path: "test-results/screenshots/05-birthday-letter.png", fullPage: true });
+
+  await page.getByRole("button", { name: /One last little surprise/ }).click();
+  await expect(page.getByRole("status")).toBeVisible();
+  await expect(page.locator(".extra-surprise")).toHaveCSS("opacity", "1");
+  await page.screenshot({ path: "test-results/screenshots/06-final-surprise.png", fullPage: true);
 });
 

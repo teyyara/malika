@@ -1,5 +1,19 @@
 import { test, expect } from "@playwright/test";
 
+const testArcadePassword = "iloveyou";
+
+async function unlockArcadeFromKeyboard(page) {
+  for (const key of ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"]) {
+    await page.keyboard.press(key);
+  }
+  const gate = page.getByRole("dialog", { name: "A door only you can open" });
+  await expect(gate).toBeVisible();
+  await gate.getByLabel("The secret password").fill(testArcadePassword);
+  await gate.getByRole("button", { name: "Unlock the Secret Arcade" }).click();
+  await expect(page.getByRole("dialog", { name: "The secret arcade" })).toBeVisible();
+}
+
+
 test("the sound mixer adjusts the master level and lets you audition Mimi's local recordings", async ({ page }) => {
   await page.addInitScript(() => {
     window.__soundMixerProbe = { masterTargets: [], animalClips: [] };
@@ -198,11 +212,7 @@ test("a love note lets Malika send a heart back to Zack", async ({ page }) => {
 test("a victory prize can replay its chime without dismissing the celebration", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("button", { name: /Open your birthday surprise/ }).click();
-  for (const key of ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"]) {
-    await page.keyboard.press(key);
-  }
-
-  await expect(page.getByRole("dialog", { name: "The secret arcade" })).toBeVisible();
+  await unlockArcadeFromKeyboard(page);
   await page.getByRole("button", { name: /Mimi's constellation chase/ }).click();
   for (let step = 1; step <= 8; step += 1) await page.getByTestId("star-target-" + step).click();
 
@@ -428,9 +438,7 @@ test("a love note starts its romantic score and stops it when the note closes", 
 test("each arcade prize advertises its own achievement sound", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("button", { name: /Open your birthday surprise/ }).click();
-  for (const key of ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"]) {
-    await page.keyboard.press(key);
-  }
+  await unlockArcadeFromKeyboard(page);
   await page.getByRole("dialog", { name: "The secret arcade" }).getByRole("button", { name: /Mimi's constellation chase/ }).click();
   for (let step = 1; step <= 8; step += 1) await page.getByTestId("star-target-" + step).click();
   const reward = page.getByRole("dialog", { name: "You found the heart in the stars." });

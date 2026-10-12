@@ -29,7 +29,7 @@ const GAME_REWARDS = {
   fireflies: { theme: "fireflies", eyebrow: "YOU MADE THE NIGHT GLOW", title: "You just lit up the whole garden.", glyph: "✧", copy: "Five fireflies have found their light, and suddenly the whole garden feels like a secret summer evening.", detail: "Five golden sparks, all glowing because of you.", score: "5 / 5 fireflies caught" },
   wishes: { theme: "wishes", eyebrow: "A LITTLE MAGIC FOR THE FUTURE", title: "Five wishes. One very bright future.", glyph: "♡", copy: "You opened every tiny wish tucked inside the jar. They're not promises about what has happened — they're soft hopes for all the lovely things still waiting ahead.", detail: "Five wishes found. Your next little chapter is wide open.", score: "5 / 5 wishes revealed" }
 };
-const REWARD_SPARKS = ["✦", "✧", "♡", "·", "✺", "✶", "✷"];
+const REWARD_SPARKS = ["✦", "✧", "♡", "♥", "✺", "✶", "✷", "💜", "⋆", "❋"];
 const WISHES = [
   "May a tiny ordinary moment become one of your favourite stories.",
   "A future little adventure is waiting for you to say yes.",
@@ -370,6 +370,7 @@ export default function EasterEggSystem() {
 
   const isGame = panel === "game";
   const isCelebration = panel === "celebration";
+  const isGrand = panel === "reveal" && revealId === "grand";
   const reveal = REVEALS[revealId] || REVEALS.moon;
   const reward = GAME_REWARDS[celebrationId] || GAME_REWARDS.stars;
   const title = panel === "cabinet" ? "The secret arcade" : isCelebration ? reward.title : isGame
@@ -378,18 +379,18 @@ export default function EasterEggSystem() {
 
   return <>
     {toast && <div className="egg-toast" role="status"><span aria-hidden="true">✦</span><span>{toast}</span><button type="button" onClick={() => openArcade("firefly-trail")}>Open Secret Arcade</button><button className="egg-toast-dismiss" type="button" aria-label="Dismiss secret discovery" onClick={() => setToast("")}>×</button></div>}
-    {panel && <div className={"egg-backdrop" + (isCelebration ? " is-celebration" : "")} onMouseDown={(event) => { if (event.target === event.currentTarget) closePanel(); }}>
-      <section ref={dialogRef} className={"egg-dialog " + (isCelebration ? "egg-celebration-dialog" : (panel === "reveal" ? "is-reveal" : "is-" + panel))} role="dialog" aria-modal="true" aria-labelledby="egg-dialog-title">
-        <button className="egg-close" type="button" aria-label={isCelebration ? "Return to Secret Arcade" : "Close secret surprise"} onClick={closePanel}>×</button>
+    {panel && <div className={"egg-backdrop" + (isCelebration ? " is-celebration" : "") + (isGrand ? " is-grand-finale" : "")} onMouseDown={(event) => { if (event.target === event.currentTarget) (isGrand || isCelebration) ? returnToArcade() : closePanel(); }}>
+      <section ref={dialogRef} className={"egg-dialog " + (isGrand ? "egg-grand-dialog" : isCelebration ? "egg-celebration-dialog" : (panel === "reveal" ? "is-reveal" : "is-" + panel))} role="dialog" aria-modal="true" aria-labelledby="egg-dialog-title">
+        <button className="egg-close" type="button" aria-label={isCelebration || isGrand ? "Return to Secret Arcade" : "Close secret surprise"} onClick={isCelebration || isGrand ? returnToArcade : closePanel}>×</button>
         <div className="egg-dialog-stars" aria-hidden="true">✦ · ✧ · ♥ · ✧ · ✦</div>
         <p className="egg-kicker">a hidden corner of Malika's universe</p>
-        {!isCelebration && <h2 id="egg-dialog-title">{title}</h2>}
+        {!isCelebration && !isGrand && <h2 id="egg-dialog-title">{title}</h2>}
         {isCelebration && <div className={"egg-celebration egg-celebration-theme-" + reward.theme}>
           <div className="egg-celebration-atmosphere" aria-hidden="true">
             <div className="egg-celebration-aurora" />
             <div className="egg-celebration-rings"><i /><i /><i /></div>
             <div className="egg-celebration-particles">
-              {Array.from({ length: 64 }, (_, index) => <i className="egg-celebration-particle" key={index} style={{
+              {Array.from({ length: 96 }, (_, index) => <i className="egg-celebration-particle" key={index} style={{
                 "--particle-x": ((index * 37 + 11) % 100) + "%",
                 "--particle-y": ((index * 61 + 7) % 108) + "%",
                 "--particle-delay": -((index % 17) * 0.31) + "s",

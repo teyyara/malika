@@ -1,0 +1,346 @@
+/*
+ * Loop 026 — laptop composition.
+ * A dedicated desktop pass for the common 1280–1440px, 720–900px laptop viewport:
+ * less wasted vertical travel, tighter editorial spacing, and more balanced scene proportions.
+ * Mobile/tablet rules remain untouched because this layer only targets desktop widths.
+ */
+@media screen and (min-width: 1024px) and (max-width: 1600px) {
+  .site-header {
+    width: min(1280px, calc(100% - clamp(48px, 6vw, 96px)));
+    margin-top: 10px;
+    padding: 9px 14px;
+    gap: clamp(12px, 1.4vw, 20px);
+  }
+
+  .scene-navigation {
+    gap: 2px;
+    padding: 3px;
+  }
+
+  .nav-link {
+    padding: 9px 12px;
+    font-size: 10px;
+  }
+
+  .brand-heart {
+    width: 37px;
+    height: 37px;
+  }
+
+  .brand-copy strong { font-size: 16px; }
+  .header-tools { gap: 6px; }
+  .header-heart-count { padding: 8px 10px; font-size: 11px; }
+
+  .site-footer {
+    padding: 9px 16px 16px;
+    font-size: 9px;
+  }
+
+  .scene-pane {
+    width: min(1220px, calc(100% - clamp(48px, 6vw, 96px)));
+    padding: clamp(22px, 3vh, 32px) 0 38px;
+  }
+
+  .scene-heading {
+    max-width: 840px;
+    margin-bottom: clamp(16px, 2.2vh, 22px);
+  }
+
+  .scene-heading h1 {
+    font-size: clamp(34px, 3.45vw, 48px);
+    line-height: 1.08;
+  }
+
+  .scene-heading > p:last-child {
+    margin-top: 11px;
+    line-height: 1.65;
+  }
+
+  /* Welcome: keep Mimi large enough to feel special without forcing the page to scroll. */
+  .main-content.is-welcome {
+    min-height: 100svh;
+  }
+
+  .welcome-scene.scene-pane {
+    width: min(1240px, calc(100% - clamp(56px, 7vw, 112px)));
+    min-height: min(760px, calc(100svh - 12px));
+    padding: clamp(20px, 3.4vh, 32px) 0 28px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(24px, 4.2vw, 60px);
+  }
+
+  .welcome-copy {
+    padding: 8px 0 12px 2px;
+  }
+
+  .welcome-copy .eyebrow {
+    margin-bottom: 16px;
+    font-size: 9px;
+    letter-spacing: .18em;
+  }
+
+  .birthday-date {
+    margin-bottom: 15px;
+    padding: 7px 10px;
+  }
+
+  .welcome-copy h1 {
+    max-width: 600px;
+    font-size: clamp(48px, 5.15vw, 72px);
+    line-height: .99;
+  }
+
+  .welcome-description {
+    max-width: 410px;
+    margin: 17px 0 21px;
+    font-size: 12px;
+    line-height: 1.75;
+  }
+
+  .welcome-cta {
+    min-height: 49px;
+    padding-inline: 20px;
+  }
+
+  .micro-copy {
+    margin-top: 13px;
+    line-height: 1.6;
+  }
+
+  .welcome-character {
+    height: clamp(330px, 45vh, 430px);
+    min-height: 0;
+    align-self: center;
+  }
+
+  .welcome-character .cat-character {
+    bottom: 7%;
+    left: 15%;
+    width: min(310px, 82%);
+  }
+
+  .welcome-bottom-note {
+    bottom: 4px;
+    font-size: 8px;
+  }
+
+  /* Garden: give its interactive landscape the visual lead, not the surrounding gaps. */
+  .garden-scene { padding-top: 16px; }
+  .garden-heading { margin-bottom: 16px; }
+
+  .garden-landscape {
+    width: min(1080px, 100%);
+    height: clamp(300px, 43vh, 380px);
+    margin-inline: auto;
+    border-radius: 20px;
+  }
+
+  .garden-interaction-row {
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  .cat-reply {
+    min-height: 39px;
+    padding: 9px 12px;
+    font-size: 11px;
+    line-height: 1.5;
+  }
+
+  .discovery-counter {
+    padding: 9px 11px;
+    font-size: 10px;
+    white-space: nowrap;
+  }
+
+  .garden-destinations {
+    width: min(1080px, 100%);
+    gap: 10px;
+    margin-top: 14px;
+  }
+
+  .destination-link {
+    min-height: 74px;
+    gap: 10px;
+    padding: 12px 13px;
+  }
+
+  .destination-link strong { font-size: 15px; }
+  .destination-link small { font-size: 9px; line-height: 1.5; }
+  .destination-icon { flex-basis: 34px; width: 34px; height: 34px; }
+
+  .curiosity-guide {
+    width: min(1080px, 100%);
+    margin-top: 14px;
+  }
+
+  .curiosity-guide-root > summary { padding: 13px 16px; }
+
+  /* Heart game: reserve enough of the viewport for the collection arena. */
+  .game-scene { max-width: 1040px; }
+
+  .game-ready,
+  .game-won {
+    padding: 16px 22px 21px;
+  }
+
+  .game-ready-cat {
+    width: 160px;
+    height: 112px;
+    margin-bottom: 1px;
+  }
+
+  .game-instruction {
+    margin: 4px 0 15px;
+    line-height: 1.65;
+  }
+
+  .game-status-row {
+    margin-bottom: 11px;
+    padding: 10px 14px;
+    gap: 15px;
+  }
+
+  .game-arena {
+    height: clamp(270px, 42vh, 350px);
+    border-radius: 18px;
+  }
+
+  .game-footnote {
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+
+  .game-controls {
+    margin-top: 5px;
+    gap: 12px;
+  }
+
+  .game-won { margin-top: 4px; }
+
+  .victory-cat {
+    width: 126px;
+    height: 112px;
+    margin: 8px auto 5px;
+  }
+
+  .game-won h2 { font-size: clamp(29px, 2.6vw, 35px); }
+
+  /* Love collection: tighter filtering toolbar and more consistent card rhythm. */
+  .collection-scene { max-width: 1160px; }
+  .collection-meta { margin-bottom: 14px; }
+
+  .collection-tools {
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+
+  .collection-search { width: min(480px, 100%); }
+  .collection-search-field input { padding: 11px 0; }
+  .category-tabs { gap: 6px; }
+  .category-tab { padding: 8px 12px; }
+
+  .collection-results { margin-bottom: 10px; }
+
+  .message-grid { gap: 12px; }
+
+  .message-card {
+    min-height: 178px;
+    padding: 15px 15px 12px;
+    border-radius: 13px;
+  }
+
+  .message-card-top { margin-bottom: 10px; }
+  .message-card strong { font-size: clamp(17px, 1.35vw, 19px); }
+  .message-preview { margin-bottom: 10px; line-height: 1.6; }
+  .message-card-footer { padding-top: 8px; }
+  .collection-signoff { margin-top: 18px; }
+
+  /* Letter scene: balanced art-to-letter ratio with readable, calmer line lengths. */
+  .finale-scene {
+    width: min(1160px, 100%);
+    min-height: 0;
+    gap: clamp(28px, 4vw, 52px);
+    grid-template-columns: minmax(280px, .72fr) minmax(0, 1.28fr);
+  }
+
+  .finale-top-art {
+    min-height: clamp(300px, 42vh, 390px);
+  }
+
+  .finale-cat { width: min(235px, 76%); }
+
+  .finale-letter-wrap { max-width: 690px; }
+
+  .finale-letter-wrap h1 {
+    font-size: clamp(38px, 3.55vw, 50px);
+    line-height: 1.04;
+  }
+
+  .finale-letter-wrap .letter-card {
+    margin-top: 14px;
+    padding: clamp(19px, 2vw, 27px);
+  }
+
+  .letter-card p {
+    font-size: clamp(13px, .98vw, 15px);
+    line-height: 1.72;
+  }
+
+  .letter-signoff { gap: 4px; margin-top: 12px; }
+
+  /* Overlays should fit laptop height without shrinking their controls. */
+  .modal-backdrop { padding: 24px; }
+  .love-note-modal { padding: 38px 28px 25px; }
+
+  .egg-dialog {
+    max-height: min(86svh, 760px);
+    padding: clamp(24px, 3vw, 38px);
+    border-radius: 25px;
+  }
+
+  .egg-star-field,
+  .egg-firefly-field {
+    height: clamp(210px, 32vh, 280px);
+  }
+}
+
+/* Shorter laptop screens need a second, height-aware pass; width alone is not enough. */
+@media screen and (min-width: 1024px) and (max-width: 1600px) and (max-height: 760px) {
+  .site-header {
+    margin-top: 7px;
+    padding-block: 7px;
+  }
+
+  .site-footer { padding-bottom: 10px; }
+
+  .scene-pane { padding-top: 18px; padding-bottom: 28px; }
+
+  .welcome-scene.scene-pane {
+    min-height: min(700px, calc(100svh - 8px));
+    padding-top: 16px;
+    padding-bottom: 22px;
+  }
+
+  .welcome-copy .eyebrow { margin-bottom: 12px; }
+  .birthday-date { margin-bottom: 11px; }
+  .welcome-copy h1 { font-size: clamp(46px, 4.9vw, 65px); }
+  .welcome-description { margin: 13px 0 16px; line-height: 1.62; }
+  .welcome-character { height: clamp(300px, 43vh, 350px); }
+  .welcome-cta { min-height: 46px; }
+
+  .garden-scene { padding-top: 10px; }
+  .garden-landscape { height: clamp(285px, 40vh, 315px); }
+  .garden-interaction-row { margin-top: 9px; }
+  .garden-destinations { margin-top: 10px; gap: 8px; }
+  .destination-link { min-height: 66px; padding: 10px 11px; }
+  .curiosity-guide { margin-top: 10px; }
+
+  .game-arena { height: clamp(250px, 38vh, 300px); }
+  .game-status-row { margin-bottom: 8px; padding-block: 8px; }
+
+  .finale-top-art { min-height: clamp(270px, 37vh, 330px); }
+  .finale-letter-wrap h1 { font-size: clamp(36px, 3.3vw, 45px); }
+  .finale-letter-wrap .letter-card { margin-top: 10px; padding: 17px 20px; }
+  .letter-card p { font-size: 13px; line-height: 1.62; }
+}

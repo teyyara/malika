@@ -1,46 +1,54 @@
 # AEOS Status — Malika Birthday Universe
 
-Run: malika-20261012-003
-Active keyphrase: read the master strategy
-Current loop: 003 — browser QA gate
-Orchestration state: WAITING_FOR_CONTINUE
-Candidate: malika-birthday-003-browser-qa
-Repository: https://github.com/teyyara/malika
-Assessment branch: main
-Progression branch: aeos/progression
+Run: `malika-20261012-003`  
+Active keyphrase: `read the master strategy`  
+Current loop: 003 — production-browser QA gate  
+Orchestration state: `WAITING_FOR_CONTINUE`  
+Candidate: `malika-birthday-003-browser-qa`  
+Repository: https://github.com/teyyara/malika  
+Assessment branch: `main`  
+Progression branch: `aeos/progression`
 
 ## Product state
 
-Recipient: Malika. Sender: Zack. Birthday: 12 October.
+Recipient: **Malika**. Sender: **Zack**. Birthday: **12 October**.
 
-The personalized birthday universe contains the welcome, moonlit garden with kitten Mimi and ladybugs, seven-heart game, 30 notes plus five future-facing dreams, and birthday letter. No shared past events were invented.
+The birthday experience contains the personalized welcome, illustrated moonlit garden with kitten Mimi and ladybugs, seven-heart mini-game, 30 affectionate notes plus five future-facing dreams, and the birthday letter. No unprovided shared past events are presented as memories.
 
-## Loop 003 changes
+## Loop 003 — completed
 
-- Added Playwright 1.64.0 and npm run test:e2e.
-- Added four Chromium browser specs: keyboard-first entry and scene navigation; heart-game victory, secret-note unlock, modal focus cycling and Escape restoration; horizontal overflow checks at 320px, 375px and 768px; reduced-motion preference and runtime-error observation.
-- Extended .github/workflows/validate.yml to install Chromium, run production-preview browser checks, and upload the HTML report.
-- Updated README and recorded evidence in evidence/loop-003.md.
+- Added Playwright 1.64.0 and the `npm run test:e2e` command.
+- Added four Chromium browser tests for keyboard-first entry and scene navigation; heart-game completion and secret-note unlock; dialog keyboard focus cycle, Escape close and focus restoration; no horizontal overflow at 320px, 375px and 768px across the five main scenes; reduced-motion preference and runtime-error observation.
+- Extended GitHub Actions to install Chromium, run the browser suite against the production build, and upload the HTML test report.
+- Updated the README, capability manifest, persistent state and evidence.
 
-Candidate source checkpoint: 18b3fb092a9107a2dd7b3eefc68d3f37c49886dd
-Review PR: https://github.com/teyyara/malika/pull/1
+## Verified CI result
 
-## Validation and promotion status
+**PASS — all automated checks passed.**
 
-Loop 003 browser CI: NOT OBSERVED. The available GitHub connector returned no workflow-run record or test report for this candidate. This is not a PASS and not proof of a failure.
+Workflow: https://github.com/teyyara/malika/actions/runs/38186715386  
+Validated application/workflow checkpoint: `e54e4760f5c3ad4d5434fe275dad9a894cbe9000`
 
-Last known-good main head: 3500c67226e419f073923518645fd0abf73af833
-Baseline workflow: https://github.com/teyyara/malika/actions/runs/38186209651
-That baseline passed dependency installation, eight Node tests, and the production build before browser automation was introduced.
+- Dependency installation: PASS.
+- Node tests: **8 passed, 0 failed**.
+- Vite production build: PASS.
+- Chromium browser suite: **4 passed, 0 failed**.
+- Playwright HTML report: https://github.com/teyyara/malika/actions/runs/38186715386/artifacts/11719981697
 
-Promotion decision: HOLD. Main has not been advanced for Loop 003. Promote only an exact candidate whose Actions run is verifiably green. State details: .aeos/state.json, capabilities.json, evidence/loop-003.md.
+## Promotion
 
-Manual visual review, physical-device/touch validation, screen-reader QA are unobserved. Deployment is not configured; no live URL is claimed.
+The validated candidate was fast-forwarded to `main` from the known-good prior head `3500c67226e419f073923518645fd0abf73af833`. GitHub confirmed PR #1 merged: https://github.com/teyyara/malika/pull/1. A branch comparison immediately after promotion confirmed both branches at `e54e4760f5c3ad4d5434fe275dad9a894cbe9000`.
+
+The state/evidence updates after promotion record that same validated application checkpoint; they do not modify the app or browser test code. Repository branch alignment is being restored to include this status/evidence checkpoint before the loop closes.
+
+## Remaining non-automated gates
+
+Human visual review, physical-device/touch validation and screen-reader QA remain unobserved. Deployment is not configured. No live URL is claimed, and passing automation is not presented as full release certification.
 
 ## Next highest-value work
 
-1. Retrieve and inspect the GitHub Actions result and Playwright report for PR #1.
-2. If it fails, fix the smallest responsible cause and rerun affected checks.
-3. Promote only the exact passing checkpoint; keep manual accessibility and deployment gates separate.
+1. Add automated accessibility assertions for the important scenes and modal states.
+2. Verify whether a supported static-hosting target can be safely configured before attempting deployment.
+3. Keep real device and screen-reader evidence separate from automated checks.
 
-Loop 003 is checkpointed on aeos/progression. Waiting for the next standalone CONTINUE to authorize exactly one new work loop.
+Loop 003 has a passing automated-validation checkpoint and is waiting for the next standalone `CONTINUE` to authorize exactly one new work loop.

@@ -478,7 +478,7 @@ export default function EasterEggSystem() {
               <div className="grand-heart-halo grand-heart-halo-one" />
               <div className="grand-heart-halo grand-heart-halo-two" />
               <div className="grand-heart-3d">
-                {Array.from({ length: 13 }, (_, index) => <span className="grand-heart-depth" key={index} style={{ "--heart-depth": index }}>♥</span>)}
+                {Array.from({ length: 13 }, (_, index) => <span className="grand-heart-depth" key={index} style={{ "--heart-depth": index, "--heart-depth-z": (index * 4) + "px", "--heart-offset-y": (index * 0.7) + "px", "--heart-scale": (1 - index * 0.022), "--heart-brightness": (0.58 + index * 0.028) }}>♥</span>)}
                 <span className="grand-heart-face">♥</span>
                 <span className="grand-heart-star grand-heart-star-one">✦</span>
                 <span className="grand-heart-star grand-heart-star-two">✧</span>

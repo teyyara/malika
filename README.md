@@ -37,7 +37,7 @@ GitHub Actions installs Chromium's operating-system dependencies, runs the suite
 
 Names, date, welcome copy, game target, and the birthday letter are centralized in `src/data/siteConfig.js`. Edit notes in `src/data/loveMessages.js`. The five entries in `src/data/memories.js` are explicitly imagined future moments, not claims that an event already happened.
 
-The experience has no backend, analytics, paid API, or remote image service. Cat and ladybug artwork is inline SVG. Optional sound effects are synthesized locally through the browser Web Audio API after the visitor explicitly turns them on; no audio assets or sound service are used. Mimi dances after three quick pets, love notes can receive a returned heart, and discovery/game events can chime. Each arcade victory medallion can be tapped to replay its little melody. Keyboard focus patterns and reduced-motion support are included.
+The experience has no backend, analytics, paid API, or remote image service. Cat and ladybug artwork is inline SVG. Sound is off by default and generated locally through the browser Web Audio API after the visitor explicitly turns it on: Mimi makes a layered, cat-like synthesized meow with a matching moving mouth; an open love note plays a gentle looping romantic chord/arpeggio theme; and every arcade quest, the seven-heart game, and the grand secret have distinct achievement fanfares. Each prize medallion replays its own fanfare. No recorded audio, audio assets, sound service, CDN, or network request is needed. Mimi dances after three quick pets, love notes can receive a returned heart, and discovery/game events can chime. Keyboard focus patterns and reduced-motion support are included.
 
 ## Vercel deployment
 

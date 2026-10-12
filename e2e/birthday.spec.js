@@ -121,6 +121,8 @@ test("welcome, garden, game, collection, and finale avoid page overflow at phone
 });
 
 test("the heart game can reset halfway and still complete a fresh run", async ({ page }) => {
+  // This test checks state/restart behavior; the independent visual tests cover floating animation.
+  await page.emulateMedia({ reducedMotion: "reduce" });
   await enterGarden(page);
   await page.getByRole("button", { name: "Heart game", exact: true }).click();
   await page.getByRole("button", { name: /Let's find some hearts/ }).click();

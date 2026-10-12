@@ -17,7 +17,7 @@ let nextMeowVariant = 0;
 let animalPlaybackRequest = 0;
 let softEchoBus = null;
 let masterOutputBus = null;
-let soundVolume = 0.72;
+let soundVolume = 0.7;
 const volumeListeners = new Set();
 
 const melodies = {

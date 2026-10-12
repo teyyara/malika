@@ -1,5 +1,67 @@
 import { test, expect } from "@playwright/test";
 
+test("the sound mixer adjusts the master level and lets you audition Mimi's local recordings", async ({ page }) => {
+  await page.addInitScript(() => {
+    window.__soundMixerProbe = { masterTargets: [], animalClips: [] };
+    const AudioClass = window.AudioContext || window.webkitAudioContext;
+    if (!AudioClass) return;
+
+    const originalCreateGain = AudioClass.prototype.createGain;
+    AudioClass.prototype.createGain = function () {
+      const context = this;
+      const node = originalCreateGain.call(context);
+      const originalConnect = node.connect.bind(node);
+      const originalRamp = node.gain.linearRampToValueAtTime.bind(node.gain);
+      node.gain.linearRampToValueAtTime = (value, ...args) => {
+        if (node.__soundMixerIsMaster) window.__soundMixerProbe.masterTargets.push(value);
+        return originalRamp(value, ...args);
+      };
+      node.connect = (destination, ...args) => {
+        if (destination === context.destination) node.__soundMixerIsMaster = true;
+        return originalConnect(destination, ...args);
+      };
+      return node;
+    };
+
+    const originalCreateSource = AudioClass.prototype.createBufferSource;
+    AudioClass.prototype.createBufferSource = function () {
+      const source = originalCreateSource.call(this);
+      const start = source.start.bind(source);
+      source.start = (...args) => {
+        window.__soundMixerProbe.animalClips.push(source.buffer?.duration || 0);
+        return start(...args);
+      };
+      return source;
+    };
+  });
+
+  const audioResponses = [];
+  page.on("response", (response) => {
+    if (response.url().includes("/audio/mimi-")) audioResponses.push(response.status());
+  });
+  await page.goto("/");
+  await page.getByRole("button", { name: "Turn on tiny sounds" }).click();
+  await page.getByText("Mixer", { exact: true }).click();
+
+  const volume = page.getByRole("slider", { name: "Overall sound volume" });
+  await expect(volume).toHaveValue("70");
+  await volume.focus();
+  await volume.press("ArrowLeft");
+  await expect(volume).toHaveValue("69");
+  await expect(page.getByText("69%", { exact: true })).toBeVisible();
+  await expect.poll(() => page.evaluate(() => window.__soundMixerProbe.masterTargets.includes(0.69))).toBeTruthy();
+
+  await page.getByRole("button", { name: "Hear a meow" }).click();
+  await expect.poll(() => page.evaluate(() => window.__soundMixerProbe.animalClips.length)).toBeGreaterThan(0);
+  await expect.poll(() => page.evaluate(() => window.__soundMixerProbe.animalClips.some((duration) => duration >= 1.3 && duration <= 2.5))).toBeTruthy();
+
+  await page.getByRole("button", { name: "Hear a purr" }).click();
+  await expect.poll(() => page.evaluate(() => window.__soundMixerProbe.animalClips.some((duration) => duration >= 7))).toBeTruthy();
+  await expect.poll(() => audioResponses.length).toBe(3);
+  expect(audioResponses.every((status) => status === 200)).toBeTruthy();
+});
+
+
 test("tiny sounds are opt-in, work after a user gesture, and can be hushed", async ({ page }) => {
   await page.goto("/");
 

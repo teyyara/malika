@@ -1,4 +1,4 @@
-# Complete easter-egg guide — Loop 020
+# Complete easter-egg guide — Loop 021
 
 **Full spoilers.** This is the complete walkthrough for Zack, not a hint sheet to hand to Malika before she explores. The website's hidden progress exists only in the current page session: it is not written to a server, browser storage, or analytics. Reloading starts a fresh hunt. None of these secrets is required to read the birthday letter or finish the main heart game.
 
@@ -207,7 +207,23 @@ The love-note soundtrack now layers softly filtered chord pads with gentle upper
 ### What the automated checks can and cannot prove
 The browser suite now verifies that the recorded purr is scheduled for about 3.2 seconds and that rapid petting during delayed audio decoding plays only the latest cat voice. It also continues to check local asset loading, muting, romantic-score lifecycle, and the five prize-sound mapping. These are playback and interaction checks—not a human listening test of tone quality on every speaker or device.
 
-## 10. Progress, accessibility, and reset behavior
+## 10. Loop 021 — Mimi's sound mixer
+
+The small **Mixer** control sits beside the Sound on/off button. It gives you a way to hear Mimi's actual bundled recordings directly, without hunting for her on the page first.
+
+### Adjust the sound level
+1. Turn **Sound off** on to enable the experience's sounds.
+2. Open **Mixer** next to the sound toggle.
+3. Move **Overall volume** to a comfortable level. It controls all locally generated music, reward cues, echo, and recorded cat audio together; the change is smoothly ramped rather than snapped, so it will not click harshly.
+4. The selected level remains in memory while you explore this page, but resets when you reload. No browser storage or personal setting is written anywhere.
+
+### Audition Mimi
+Inside the mixer, choose **Hear a meow** for one of the real bundled cat calls, or **Hear a purr** for Mimi's longer purr sample. Each audition uses the same audio playback path as tapping Mimi herself, including gentle fades and the protection against stacking delayed sounds. Both preview buttons are disabled when the main sound toggle is off.
+
+### What is verified
+The new browser journey opens the mixer, changes the master volume and checks the Web Audio gain target, plays a locally bundled meow and purr through the audition buttons, and confirms all three files load from the site's own origin. The existing 36-journey suite continues to cover love-note music, mute behavior, prize fanfares, mobile layout, keyboard interactions, and the hidden games.
+
+## 11. Progress, accessibility, and reset behavior
 
 - The arcade tracks completed quests and found secrets only in page memory for this visit. Refreshing the page resets them; no third-party storage, account, API, or paid service is involved.
 - Dialogs can be closed with their close button or **Escape**. Focus returns to the opener and stays inside the dialog while it is open.

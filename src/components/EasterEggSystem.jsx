@@ -41,6 +41,8 @@ function addUnique(setter, id) {
 
 export default function EasterEggSystem() {
   const [panel, setPanel] = useState(null);
+  const dialogRef = useRef(null);
+  const openerRef = useRef(null);
   const [activeGame, setActiveGame] = useState(null);
   const [revealId, setRevealId] = useState("moon");
   const [unlocked, setUnlocked] = useState([]);
@@ -64,6 +66,7 @@ export default function EasterEggSystem() {
   }
 
   function openArcade(achievement) {
+    if (!panel) openerRef.current = document.activeElement;
     if (achievement) addUnique(setUnlocked, achievement);
     setPanel("cabinet");
     setActiveGame(null);
@@ -71,6 +74,7 @@ export default function EasterEggSystem() {
   }
 
   function openReveal(id) {
+    if (!panel) openerRef.current = document.activeElement;
     setRevealId(id);
     setPanel("reveal");
     addUnique(setUnlocked, id);
@@ -103,6 +107,24 @@ export default function EasterEggSystem() {
 
   useEffect(() => {
     function onKeyDown(event) {
+      if (panel && event.key === "Tab") {
+        const dialog = dialogRef.current;
+        const focusable = dialog ? Array.from(dialog.querySelectorAll('button:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])')) : [];
+        if (focusable.length) {
+          const first = focusable[0];
+          const last = focusable[focusable.length - 1];
+          if (event.shiftKey && (document.activeElement === first || !dialog.contains(document.activeElement))) {
+            event.preventDefault();
+            last.focus();
+            return;
+          }
+          if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault();
+            first.focus();
+            return;
+          }
+        }
+      }
       const tag = event.target?.tagName?.toLowerCase();
       if (tag === "input" || tag === "textarea" || event.target?.isContentEditable) return;
       if (event.key === "Escape" && panel) {
@@ -159,6 +181,11 @@ export default function EasterEggSystem() {
       }
     }
 
+    if (panel) dialogRef.current?.querySelector(".egg-close")?.focus();
+    else if (openerRef.current && !dialogRef.current) {
+      openerRef.current.focus?.();
+      openerRef.current = null;
+    }
     window.addEventListener("keydown", onKeyDown);
     document.addEventListener("click", onClick);
     return () => {
@@ -276,7 +303,7 @@ export default function EasterEggSystem() {
   return <>
     {toast && <div className="egg-toast" role="status"><span aria-hidden="true">✦</span><span>{toast}</span><button type="button" onClick={() => openArcade("firefly-trail")}>Open Secret Arcade</button><button className="egg-toast-dismiss" type="button" aria-label="Dismiss secret discovery" onClick={() => setToast("")}>×</button></div>}
     {panel && <div className="egg-backdrop" onMouseDown={(event) => { if (event.target === event.currentTarget) { setPanel(null); setActiveGame(null); } }}>
-      <section className={"egg-dialog " + (panel === "reveal" ? "is-reveal" : "is-" + panel)} role="dialog" aria-modal="true" aria-labelledby="egg-dialog-title">
+      <section ref={dialogRef} className={"egg-dialog " + (panel === "reveal" ? "is-reveal" : "is-" + panel)} role="dialog" aria-modal="true" aria-labelledby="egg-dialog-title">
         <button className="egg-close" type="button" aria-label="Close secret surprise" onClick={() => { setPanel(null); setActiveGame(null); }}>×</button>
         <div className="egg-dialog-stars" aria-hidden="true">✦ · ✧ · ♥ · ✧ · ✦</div>
         <p className="egg-kicker">a hidden corner of Malika's universe</p>

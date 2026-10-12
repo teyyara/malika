@@ -90,3 +90,41 @@
   .welcome-scene { width:calc(100% - 28px); padding-top:64px; } .welcome-copy h1 { font-size:39px; } .welcome-cta { width:100%; padding-inline:14px; font-size:11px; }
   .welcome-character { min-height:245px; } .garden-landscape { height:290px; } .garden-bug .ladybug-button { width:41px; height:41px; }
 }
+
+
+/* Optional clue trail: playful, and operable with touch or keyboard. */
+.curiosity-guide { width:min(720px,100%); margin:22px auto 0; }
+.curiosity-guide-root { overflow:hidden; border:1px solid rgba(203,181,255,.2); border-radius:20px; background:linear-gradient(145deg,rgba(45,29,73,.64),rgba(24,15,43,.65)); box-shadow:0 12px 36px rgba(7,3,19,.13); }
+.curiosity-guide-root > summary { display:flex; align-items:center; gap:12px; min-height:68px; padding:13px 17px; cursor:pointer; list-style:none; touch-action:manipulation; }
+.curiosity-guide-root > summary::-webkit-details-marker, .curiosity-guide-step > summary::-webkit-details-marker { display:none; }
+.curiosity-guide-root > summary:focus-visible, .curiosity-guide-step > summary:focus-visible { outline:3px solid var(--focus); outline-offset:-4px; border-radius:12px; }
+.curiosity-guide-mark { display:grid; place-items:center; flex:0 0 38px; width:38px; height:38px; border:1px solid rgba(215,185,255,.23); border-radius:50%; color:#f3c9ef; background:rgba(183,155,255,.1); font-size:19px; }
+.curiosity-guide-title { display:grid; gap:4px; min-width:0; }
+.curiosity-guide-title strong { color:#f5eaff; font-family:Georgia,serif; font-size:15px; font-weight:400; }
+.curiosity-guide-title small { color:#b6a4ce; font-size:10px; line-height:1.55; }
+.curiosity-guide-toggle { margin-left:auto; flex:0 0 auto; color:#d9b8ff; font-size:19px; transition:transform .2s ease; }
+.curiosity-guide-root[open] > summary .curiosity-guide-toggle { transform:rotate(45deg); }
+.curiosity-guide-content { padding:0 19px 17px; border-top:1px solid rgba(203,181,255,.1); }
+.curiosity-guide-intro { margin:15px 0 9px; color:#e1d2f1; font-family:Georgia,serif; font-size:14px; line-height:1.8; }
+.curiosity-guide-step { border-top:1px solid rgba(203,181,255,.1); }
+.curiosity-guide-step > summary { display:flex; align-items:center; gap:7px; min-height:44px; padding:10px 2px; color:#d6bfff; font-size:11px; font-weight:650; line-height:1.5; cursor:pointer; list-style:none; touch-action:manipulation; }
+.curiosity-guide-step > summary::before { content:"＋"; flex:0 0 auto; color:#e9bfe7; font-size:12px; }
+.curiosity-guide-step[open] > summary::before { content:"−"; }
+.curiosity-guide-step > summary span { color:#a895c4; font-size:10px; font-weight:500; }
+.curiosity-guide-step > p, .curiosity-guide-spoilers > p { margin:0 0 12px; color:#c5b5dc; font-size:11px; line-height:1.8; }
+.curiosity-guide-spoilers { padding:0 0 2px; }
+.curiosity-guide-spoilers ul { display:grid; gap:9px; margin:0 0 14px; padding-left:19px; color:#c5b5dc; font-size:11px; line-height:1.75; }
+.curiosity-guide-spoilers li::marker { color:#d7aaf1; }
+.curiosity-guide-spoilers strong { color:#f0e0ff; font-weight:650; }
+.curiosity-guide-spoilers code { display:inline; overflow-wrap:anywhere; color:#f3c4ec; font-family:ui-monospace,SFMono-Regular,Consolas,monospace; font-size:.96em; }
+.curiosity-guide-note { border-left:2px solid rgba(220,178,255,.45); padding-left:11px; font-style:italic; }
+@media (max-width:460px) {
+  .curiosity-guide { margin-top:17px; }
+  .curiosity-guide-root > summary { gap:10px; padding:12px; }
+  .curiosity-guide-title strong { font-size:14px; }
+  .curiosity-guide-title small { font-size:9px; }
+  .curiosity-guide-content { padding:0 13px 14px; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .curiosity-guide-toggle { transition:none !important; }
+}

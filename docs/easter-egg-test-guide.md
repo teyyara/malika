@@ -1,4 +1,4 @@
-# Complete easter-egg guide — Loop 025
+# Complete easter-egg guide — Loop 026
 
 **Full spoilers.** This is the complete walkthrough for Zack, not a hint sheet to hand to Malika before she explores. The website's hidden progress exists only in the current page session: it is not written to a server, browser storage, or analytics. Reloading starts a fresh hunt. None of these secrets is required to read the birthday letter or finish the main heart game.
 
@@ -303,7 +303,20 @@ The near-black foundation remains, but the dominant accent moves from antique go
 
 **Verification added:** browser tests cover both wrong and correct password paths, all four main-scene scores, all five mini-game scores, and return to scene music after a game. These tests verify theme selection and Web Audio scheduling in Chromium; they do not replace subjective listening on physical speakers or devices.
 
-## 15. Progress, accessibility, and reset behavior
+## 15. Loop 026 — Balanced laptop composition
+
+The dedicated `src/styles/laptop-layout.css` layer targets desktop widths from 1024–1600px, with a second height-aware adjustment for shorter laptop viewports. It does not replace or rewrite the existing tablet/mobile breakpoints.
+
+- **Welcome:** a more balanced two-column cover, smaller vertical margins, and a compact but still expressive Mimi illustration. The main action stays visible near the fold on common laptop screens.
+- **Garden:** a controlled landscape height, closer headline-to-scene spacing, a tidier interaction row, and three destination cards aligned in one row with consistent heights.
+- **Heart Game:** a more appropriately sized collection arena with a slimmer progress bar row and less wasted space around the start, progress, and victory states.
+- **Love collection:** more compact search/filter controls and card rhythm, while retaining three readable columns on desktop.
+- **Birthday letter:** a more deliberate ratio between the illustration and pearl-paper letter, with shorter line lengths, reduced gaps, and a more comfortable reading size.
+- **Overlays:** the password screen, arcade panel, and mini-game fields use viewport-aware heights so their controls stay on screen or scroll within the dialog rather than running past laptop edges.
+
+**Browser regression coverage:** the Chromium suite checks 1280×800, 1366×768, and 1440×900 for horizontal overflow, header collisions, balanced welcome sizing, aligned garden destinations, arena height, note-card columns, and non-overlapping letter art. A separate 1366×768 journey checks that the Secret Arcade and Firefly Hunt overlays stay within the viewport.
+
+## 16. Progress, accessibility, and reset behavior
 
 - The arcade tracks completed quests and found secrets only in page memory for this visit. Refreshing the page resets them; no third-party storage, account, API, or paid service is involved.
 - Dialogs can be closed with their close button or **Escape**. Focus returns to the opener and stays inside the dialog while it is open.

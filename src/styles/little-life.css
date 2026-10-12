@@ -439,7 +439,7 @@
   z-index: 15;
   top: calc(100% + 9px);
   right: 0;
-  width: 252px;
+  width: 292px;
   max-width: calc(100vw - 24px);
   padding: 15px;
   border: 1px solid rgba(215, 190, 255, .24);
@@ -512,4 +512,25 @@
 @media (max-width: 420px) {
   .tiny-sound-mixer > summary { padding-inline: 8px; }
   .tiny-sound-mixer-panel { padding: 13px; }
+}
+
+
+/* Loop 022 — let every layer have its own gentle fader. */
+.tiny-sound-channel {
+  padding-top: 10px;
+  margin-top: 10px;
+  border-top: 1px solid rgba(215, 190, 255, .11);
+}
+.tiny-sound-channel .tiny-sound-volume-heading {
+  font-size: 10px;
+}
+.tiny-sound-channel .tiny-sound-volume {
+  margin-top: 8px;
+  margin-bottom: 0;
+}
+.tiny-sound-mixer-panel > .tiny-sound-volume-heading:first-child {
+  font-size: 11px;
+}
+@media (max-width: 420px) {
+  .tiny-sound-mixer-panel { width: 292px; }
 }

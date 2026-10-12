@@ -1,22 +1,29 @@
 import React, { useEffect, useId, useState } from "react";
 import {
-  getCuteSoundVolume,
+  getCuteSoundLevels,
   isCuteSoundEnabled,
   playCuteSound,
+  setCuteSoundChannelVolume,
   setCuteSoundEnabled,
   setCuteSoundVolume,
   subscribeToCuteSounds,
   subscribeToCuteSoundVolume
 } from "../audio/soundEffects.js";
 
+const percent = (value) => Math.round(value * 100);
+
 export default function TinySoundToggle({ floating = false }) {
   const [enabled, setEnabled] = useState(isCuteSoundEnabled);
   const [unsupported, setUnsupported] = useState(false);
-  const [volume, setVolume] = useState(() => Math.round(getCuteSoundVolume() * 100));
-  const volumeId = useId().replace(/:/g, "");
+  const [levels, setLevels] = useState(getCuteSoundLevels);
+  const mixerId = useId().replace(/:/g, "");
+  const masterId = mixerId + "-master";
+  const mimiId = mixerId + "-mimi";
+  const musicId = mixerId + "-music";
+  const effectsId = mixerId + "-effects";
 
   useEffect(() => subscribeToCuteSounds(setEnabled), []);
-  useEffect(() => subscribeToCuteSoundVolume((nextVolume) => setVolume(Math.round(nextVolume * 100))), []);
+  useEffect(() => subscribeToCuteSoundVolume(setLevels), []);
 
   async function toggleSound() {
     setUnsupported(false);
@@ -24,10 +31,12 @@ export default function TinySoundToggle({ floating = false }) {
     if (!success) setUnsupported(true);
   }
 
-  function changeVolume(event) {
-    const nextVolume = Number(event.currentTarget.value);
-    setVolume(nextVolume);
-    setCuteSoundVolume(nextVolume / 100);
+  function changeMasterVolume(event) {
+    setCuteSoundVolume(Number(event.currentTarget.value) / 100);
+  }
+
+  function changeChannelVolume(channel, event) {
+    setCuteSoundChannelVolume(channel, Number(event.currentTarget.value) / 100);
   }
 
   return <div className={"tiny-sound-control" + (floating ? " is-floating" : "")}>
@@ -39,14 +48,38 @@ export default function TinySoundToggle({ floating = false }) {
       <span>{enabled ? "Sound on" : "Sound off"}</span>
     </button>
     <details className="tiny-sound-mixer">
-      <summary aria-label="Open sound mixer" title="Adjust the sound level and preview Mimi">Mixer</summary>
+      <summary aria-label="Open sound mixer" title="Balance Mimi, music and game sounds">Mixer</summary>
       <div className="tiny-sound-mixer-panel">
         <div className="tiny-sound-volume-heading">
-          <label htmlFor={volumeId}>Overall volume</label>
-          <output htmlFor={volumeId}>{volume}%</output>
+          <label htmlFor={masterId}>Overall volume</label>
+          <output htmlFor={masterId}>{percent(levels.master)}%</output>
         </div>
-        <input id={volumeId} className="tiny-sound-volume" type="range" min="0" max="100" step="1"
-          value={volume} onChange={changeVolume} aria-label="Overall sound volume" />
+        <input id={masterId} className="tiny-sound-volume" type="range" min="0" max="100" step="1"
+          value={percent(levels.master)} onChange={changeMasterVolume} aria-label="Overall sound volume" />
+
+        <p className="tiny-sound-mixer-caption">Balance the little layers</p>
+        <div className="tiny-sound-channel">
+          <div className="tiny-sound-volume-heading">
+            <label htmlFor={mimiId}>Mimi’s voice</label><output htmlFor={mimiId}>{percent(levels.mimi)}%</output>
+          </div>
+          <input id={mimiId} className="tiny-sound-volume" type="range" min="0" max="100" step="1"
+            value={percent(levels.mimi)} onChange={(event) => changeChannelVolume("mimi", event)} aria-label="Mimi voice volume" />
+        </div>
+        <div className="tiny-sound-channel">
+          <div className="tiny-sound-volume-heading">
+            <label htmlFor={musicId}>Love-note music</label><output htmlFor={musicId}>{percent(levels.music)}%</output>
+          </div>
+          <input id={musicId} className="tiny-sound-volume" type="range" min="0" max="100" step="1"
+            value={percent(levels.music)} onChange={(event) => changeChannelVolume("music", event)} aria-label="Love-note music volume" />
+        </div>
+        <div className="tiny-sound-channel">
+          <div className="tiny-sound-volume-heading">
+            <label htmlFor={effectsId}>Games and little sounds</label><output htmlFor={effectsId}>{percent(levels.effects)}%</output>
+          </div>
+          <input id={effectsId} className="tiny-sound-volume" type="range" min="0" max="100" step="1"
+            value={percent(levels.effects)} onChange={(event) => changeChannelVolume("effects", event)} aria-label="Game and effects volume" />
+        </div>
+
         <p className="tiny-sound-mixer-caption">A little sound check for Mimi</p>
         <div className="tiny-sound-preview-buttons">
           <button type="button" disabled={!enabled} onClick={() => playCuteSound("meow")}>Hear a meow</button>

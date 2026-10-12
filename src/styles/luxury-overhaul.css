@@ -1107,3 +1107,23 @@ button.constellation-star.is-revealed {
     animation: none !important;
   }
 }
+
+/* Keep the constellation aligned to its drawn heart and clear of Mimi's tap target. */
+.garden-star-a {
+  top: 17%;
+  left: 21%;
+  right: auto;
+  font-size: 28px;
+}
+.garden-star-b {
+  top: 24%;
+  right: 50%;
+  left: auto;
+  font-size: 15px;
+}
+.garden-star-c {
+  top: 15%;
+  right: 21%;
+  left: auto;
+  font-size: 20px;
+}

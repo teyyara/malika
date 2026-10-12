@@ -134,6 +134,7 @@ Open a note from a ladybug, the flower, or the Love Collection. Tap the **floati
 
 ### Little sounds and movement across the experience
 - Finding a heart, solving a memory pair, entering a correct rhythm beat, catching a real firefly, or solving a wish makes a subtle success chime when sound is on.
+- The main seven-heart game also plays a brighter victory melody when all hearts are collected.
 - Secret reveals get a soft three-note shimmer; each finished arcade quest earns a short celebratory melody.
 - Wrong puzzle choices get a lower, playful “Mimi caught you” cue. The game mechanics and progress are unchanged by sound.
 - During an arcade victory, tap the glowing **A LITTLE WIN FOR YOU** prize medallion to replay the victory melody without closing the celebration.

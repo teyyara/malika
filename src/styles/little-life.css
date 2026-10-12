@@ -229,12 +229,12 @@
 .cat-art.cat-is-meowing .cat-mouth { opacity: 0; }
 .cat-art.cat-is-meowing .cat-meow-mouth {
   opacity: 1;
-  animation: little-life-meow-mouth .76s ease-in-out both;
+  animation: little-life-meow-mouth 1.15s ease-in-out both;
 }
 .cat-art.cat-is-meowing .cat-head {
   transform-box: fill-box;
   transform-origin: center 70%;
-  animation: little-life-meow-head .38s ease-in-out 2;
+  animation: little-life-meow-head .46s ease-in-out 2;
 }
 @keyframes little-life-meow-mouth {
   0%, 100% { transform: scaleY(.18); }
@@ -331,4 +331,25 @@
   .love-note-modal.is-score-playing::before,
   .love-note-modal.is-score-playing .note-orbit-one,
   .love-note-modal.is-score-playing .note-orbit-two { animation: none !important; }
+}
+
+
+/* Loop 019 — natural vocal cues, not just a meow-shaped oscillator. */
+.cat-art.cat-is-purring .cat-head {
+  transform-box: fill-box;
+  transform-origin: center 70%;
+  animation: little-life-purr-vibrate .17s ease-in-out infinite alternate;
+}
+.cat-art.cat-is-purring .cat-tail {
+  animation-duration: .95s;
+}
+.cat-art.cat-is-purring .cat-cheek {
+  filter: drop-shadow(0 0 4px rgba(255, 153, 211, .45));
+}
+@keyframes little-life-purr-vibrate {
+  from { transform: translateY(0) rotate(-.35deg); }
+  to { transform: translateY(.55px) rotate(.35deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cat-art.cat-is-purring .cat-head { animation: none !important; }
 }

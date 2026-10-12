@@ -164,6 +164,7 @@ test("the moonlit background gently tracks a fine-pointer movement", async ({ pa
 test("capture rendered art direction across the birthday journey", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await mkdir("test-results/screenshots", { recursive: true });
+  // Keep pointer-hit targets deterministic for the visual capture; the ordinary E2E suite checks animation separately.
   await page.goto("/");
   await page.screenshot({ path: "test-results/screenshots/01-welcome.png", fullPage: true });
 
@@ -171,6 +172,7 @@ test("capture rendered art direction across the birthday journey", async ({ page
   await expect(page.getByRole("heading", { name: /A garden full of little things/ })).toBeVisible();
   await page.screenshot({ path: "test-results/screenshots/02-garden.png", fullPage: true });
 
+  await page.emulateMedia({ reducedMotion: "reduce" });
   await page.getByRole("button", { name: "Heart game", exact: true }).click();
   await page.getByRole("button", { name: /Let's find some hearts/ }).click();
   await page.screenshot({ path: "test-results/screenshots/03-heart-game.png", fullPage: true });

@@ -97,6 +97,7 @@
 .egg-memory-card { display: grid; place-items: center; aspect-ratio: 1.1; border: 1px solid rgba(226,200,255,.18); border-radius: 17px; color: #e9d4ff; background: linear-gradient(145deg,rgba(165,123,225,.16),rgba(255,255,255,.035)); font-size: clamp(24px,4vw,36px); box-shadow: inset 0 1px rgba(255,255,255,.035); transition: transform .25s, border-color .25s, background .25s; }
 .egg-memory-card:not(.is-open):hover { transform: translateY(-3px) rotate(-1deg); border-color: rgba(228,205,255,.4); }
 .egg-memory-card.is-open { border-color: rgba(240,209,255,.4); background: linear-gradient(145deg,rgba(227,194,255,.21),rgba(255,191,229,.09)); animation: egg-card-flip .3s ease-out both; }
+.egg-memory-card.is-mismatch { border-color:rgba(255,168,202,.82); box-shadow:0 0 0 1px rgba(255,168,202,.16),0 0 24px rgba(255,105,166,.16); }
 .egg-rhythm-pad { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 10px; max-width: 500px; margin: 24px auto; }
 .egg-rhythm-key { display: grid; place-items: center; aspect-ratio: 1; border: 1px solid rgba(224,198,255,.2); border-radius: 20px; color: #f6e8ff; background: radial-gradient(circle at 50% 0,rgba(200,159,255,.17),transparent 75%),rgba(255,255,255,.025); font-size: clamp(25px,5vw,42px); transition: transform .15s, background .2s, box-shadow .2s; }
 .egg-rhythm-key:hover, .egg-rhythm-key:focus-visible { transform: scale(1.04); background-color: rgba(218,179,255,.12); box-shadow: 0 0 28px rgba(214,171,255,.13); }

@@ -15,9 +15,10 @@ const activeAnimalVoices = new Set();
 const activeOneShotTones = new Set();
 let nextMeowVariant = 0;
 let animalPlaybackRequest = 0;
-let softEchoBus = null;
+const softEchoBuses = new Map();
+const categoryOutputBuses = new Map();
 let masterOutputBus = null;
-let soundVolume = 0.7;
+const soundLevels = { master: 0.7, mimi: 1, music: 1, effects: 1 };
 const volumeListeners = new Set();
 
 const melodies = {
@@ -175,14 +176,25 @@ function stopOneShotTones() {
 function getMasterOutput(context) {
   if (masterOutputBus?.context === context) return masterOutputBus.output;
   const output = context.createGain();
-  output.gain.setValueAtTime(soundVolume, context.currentTime);
+  output.gain.setValueAtTime(soundLevels.master, context.currentTime);
   output.connect(context.destination);
   masterOutputBus = { context, output };
   return output;
 }
 
-function getSoftEchoInput(context) {
-  if (softEchoBus?.context === context) return softEchoBus.input;
+function getCategoryOutput(context, category) {
+  const existing = categoryOutputBuses.get(category);
+  if (existing?.context === context) return existing.output;
+  const output = context.createGain();
+  output.gain.setValueAtTime(soundLevels[category] ?? 1, context.currentTime);
+  output.connect(getMasterOutput(context));
+  categoryOutputBuses.set(category, { context, output });
+  return output;
+}
+
+function getSoftEchoInput(context, category = "effects") {
+  const existing = softEchoBuses.get(category);
+  if (existing?.context === context) return existing.input;
   const delay = context.createDelay(1.2);
   const wet = context.createGain();
   const feedback = context.createGain();
@@ -190,10 +202,10 @@ function getSoftEchoInput(context) {
   wet.gain.setValueAtTime(0.13, context.currentTime);
   feedback.gain.setValueAtTime(0.12, context.currentTime);
   delay.connect(wet);
-  wet.connect(getMasterOutput(context));
+  wet.connect(getCategoryOutput(context, category));
   delay.connect(feedback);
   feedback.connect(delay);
-  softEchoBus = { context, input: delay, wet };
+  softEchoBuses.set(category, { context, input: delay, wet });
   return delay;
 }
 
@@ -311,7 +323,7 @@ function playAnimalBuffer(context, key, request) {
     gain.gain.exponentialRampToValueAtTime(0.0001, stopAt);
 
     source.connect(gain);
-    gain.connect(getMasterOutput(context));
+    gain.connect(getCategoryOutput(context, "mimi"));
     const voice = { context, source, gain };
     activeAnimalVoices.add(voice);
     source.addEventListener("ended", () => activeAnimalVoices.delete(voice), { once: true });
@@ -374,15 +386,16 @@ function scheduleTone(context, note, start, session = null) {
   gain.gain.setValueAtTime(volume, releaseAt);
   gain.gain.exponentialRampToValueAtTime(0.0001, end);
 
+  const category = session ? "music" : "effects";
   if (Number.isFinite(note.pan) && typeof context.createStereoPanner === "function") {
     const panner = context.createStereoPanner();
     panner.pan.setValueAtTime(Math.max(-1, Math.min(1, note.pan)), start);
     gain.connect(panner);
-    panner.connect(getMasterOutput(context));
-    panner.connect(getSoftEchoInput(context));
+    panner.connect(getCategoryOutput(context, category));
+    panner.connect(getSoftEchoInput(context, category));
   } else {
-    gain.connect(getMasterOutput(context));
-    gain.connect(getSoftEchoInput(context));
+    gain.connect(getCategoryOutput(context, category));
+    gain.connect(getSoftEchoInput(context, category));
   }
 
   trackOscillator(session, oscillator, gain, context);
@@ -450,7 +463,16 @@ export function subscribeToCuteSounds(listener) {
 }
 
 export function getCuteSoundVolume() {
-  return soundVolume;
+  return soundLevels.master;
+}
+
+export function getCuteSoundLevels() {
+  return { ...soundLevels };
+}
+
+function notifyVolumeListeners() {
+  const levels = getCuteSoundLevels();
+  volumeListeners.forEach((listener) => listener(levels));
 }
 
 export function subscribeToCuteSoundVolume(listener) {
@@ -458,20 +480,35 @@ export function subscribeToCuteSoundVolume(listener) {
   return () => volumeListeners.delete(listener);
 }
 
+function rampGain(gainNode, volume, context) {
+  if (!gainNode || !context) return;
+  const param = gainNode.gain;
+  const now = context.currentTime;
+  param.cancelScheduledValues(now);
+  param.setValueAtTime(param.value, now);
+  param.linearRampToValueAtTime(volume, now + 0.035);
+}
+
 export function setCuteSoundVolume(nextVolume) {
   const parsed = Number(nextVolume);
-  if (!Number.isFinite(parsed)) return soundVolume;
-  soundVolume = Math.max(0, Math.min(1, parsed));
+  if (!Number.isFinite(parsed)) return soundLevels.master;
+  soundLevels.master = Math.max(0, Math.min(1, parsed));
   if (masterOutputBus?.context === audioContext) {
-    const context = masterOutputBus.context;
-    const param = masterOutputBus.output.gain;
-    const now = context.currentTime;
-    param.cancelScheduledValues(now);
-    param.setValueAtTime(param.value, now);
-    param.linearRampToValueAtTime(soundVolume, now + 0.035);
+    rampGain(masterOutputBus.output, soundLevels.master, masterOutputBus.context);
   }
-  volumeListeners.forEach((listener) => listener(soundVolume));
-  return soundVolume;
+  notifyVolumeListeners();
+  return soundLevels.master;
+}
+
+export function setCuteSoundChannelVolume(channel, nextVolume) {
+  if (!Object.hasOwn(soundLevels, channel) || channel === "master") return soundLevels[channel] ?? 1;
+  const parsed = Number(nextVolume);
+  if (!Number.isFinite(parsed)) return soundLevels[channel];
+  soundLevels[channel] = Math.max(0, Math.min(1, parsed));
+  const bus = categoryOutputBuses.get(channel);
+  if (bus?.context === audioContext) rampGain(bus.output, soundLevels[channel], bus.context);
+  notifyVolumeListeners();
+  return soundLevels[channel];
 }
 
 export async function setCuteSoundEnabled(nextEnabled) {
@@ -480,9 +517,10 @@ export async function setCuteSoundEnabled(nextEnabled) {
     stopLoveTheme();
     stopAnimalVoices();
     stopOneShotTones();
-    if (softEchoBus?.context === audioContext) {
-      softEchoBus.wet.gain.cancelScheduledValues(audioContext.currentTime);
-      softEchoBus.wet.gain.setValueAtTime(0, audioContext.currentTime);
+    for (const bus of softEchoBuses.values()) {
+      if (bus.context !== audioContext) continue;
+      bus.wet.gain.cancelScheduledValues(audioContext.currentTime);
+      bus.wet.gain.setValueAtTime(0, audioContext.currentTime);
     }
     announceState();
     return true;
@@ -494,9 +532,10 @@ export async function setCuteSoundEnabled(nextEnabled) {
     if (context.state !== "running") await context.resume();
     if (context.state !== "running") return false;
     enabled = true;
-    if (softEchoBus?.context === context) {
-      softEchoBus.wet.gain.cancelScheduledValues(context.currentTime);
-      softEchoBus.wet.gain.setValueAtTime(0.13, context.currentTime);
+    for (const bus of softEchoBuses.values()) {
+      if (bus.context !== context) continue;
+      bus.wet.gain.cancelScheduledValues(context.currentTime);
+      bus.wet.gain.setValueAtTime(0.13, context.currentTime);
     }
     announceState();
     void preloadAnimalAudio(context);
@@ -574,14 +613,18 @@ if (typeof document !== "undefined") {
       stopLoveThemeSession();
       stopAnimalVoices();
       stopOneShotTones();
-      if (softEchoBus?.context === audioContext) {
-        softEchoBus.wet.gain.cancelScheduledValues(audioContext.currentTime);
-        softEchoBus.wet.gain.setValueAtTime(0, audioContext.currentTime);
+      for (const bus of softEchoBuses.values()) {
+        if (bus.context !== audioContext) continue;
+        bus.wet.gain.cancelScheduledValues(audioContext.currentTime);
+        bus.wet.gain.setValueAtTime(0, audioContext.currentTime);
       }
       return;
     }
-    if (enabled && softEchoBus?.context === audioContext) {
-      softEchoBus.wet.gain.setValueAtTime(0.13, audioContext.currentTime);
+    if (enabled) {
+      for (const bus of softEchoBuses.values()) {
+        if (bus.context !== audioContext) continue;
+        bus.wet.gain.setValueAtTime(0.13, audioContext.currentTime);
+      }
     }
     if (loveThemeRequested && enabled) startLoveTheme();
   });

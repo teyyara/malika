@@ -278,7 +278,32 @@ The change is a styling pass over the existing experiences; it preserves the sam
 
 **Automated coverage:** the updated browser test checks that the toggle starts on, the first welcome tap actually schedules the opening audio cue, and sound can still be muted and re-enabled. The rest of the suite continues to cover the recorded cat audio, independent mixer channels, interactive secrets, mobile layouts, and the audio-reactive face. Automated screenshot artifacts are still not a substitute for testing on the intended phone or monitor.
 
-## 14. Progress, accessibility, and reset behavior
+## 14. Loop 025 — Nine distinct soundtracks, a password-locked arcade, and violet glass
+
+### Nine distinct looping arrangements
+All music is synthesized in the browser using the existing Web Audio system. No downloaded music files, remote audio service, added package, or paid feature is used.
+- **The garden:** airy arpeggios over a soft sustained harmony.
+- **Heart Game:** a brighter, quicker melodic pulse for the heart-collecting game.
+- **Love Notes collection:** slower, reflective notes with a soft stereo spread.
+- **Birthday letter:** a slower, fuller romantic progression to accompany the final letter.
+- **An open love note:** the existing intimate love theme takes priority while the note is open, then the active scene's music returns when the note closes.
+- **Constellation Chase:** high, sparkling plucks.
+- **Memory Match:** warm, rounded chords.
+- **Pawprint Rhythm:** quicker, more percussive notes.
+- **Firefly Hunt:** delicate, high-register twinkles.
+- **Little Wish Jar:** a slower, dreamlike sequence.
+
+The mixer still controls overall volume and the shared music channel. Muting stops active music and effects; changing scenes or arcade games stops the previous score and switches the theme. Browser policy still requires a first real user interaction before audible playback.
+
+### Password gate for the Secret Arcade
+All hidden entrances now lead to a password panel instead of exposing the arcade immediately: the Konami sequence, header heart, `MALIKA` reveal, and `MIMI` keyboard shortcut. Enter **`iloveyou`** to unlock it. An incorrect password displays a quiet error and keeps all five game tiles hidden. After it is accepted, the arcade stays unlocked for this page visit so game replay and the return-to-arcade flow do not ask repeatedly; refreshing resets the unlock. The `MIMI` shortcut no longer opens Memory Match directly.
+
+### Violet and pearl refinement
+The near-black foundation remains, but the dominant accent moves from antique gold to amethyst/lavender, pearl-white highlights, with quiet rose and cool-blue undertones. Buttons, focus rings, navigation, sound controls, arcade cards, and the password panel now share cooler glass-and-pearl details with restrained glow.
+
+**Verification added:** browser tests cover both wrong and correct password paths, all four main-scene scores, all five mini-game scores, and return to scene music after a game. These tests verify theme selection and Web Audio scheduling in Chromium; they do not replace subjective listening on physical speakers or devices.
+
+## 15. Progress, accessibility, and reset behavior
 
 - The arcade tracks completed quests and found secrets only in page memory for this visit. Refreshing the page resets them; no third-party storage, account, API, or paid service is involved.
 - Dialogs can be closed with their close button or **Escape**. Focus returns to the opener and stays inside the dialog while it is open.

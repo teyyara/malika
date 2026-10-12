@@ -7,53 +7,57 @@
   "progressionBranch": "aeos/progression",
   "currentLoop": 3,
   "candidate": "malika-birthday-003-browser-qa",
-  "status": "WAITING_FOR_CI_EVIDENCE",
+  "status": "PROMOTED_AUTOMATED_QA_PASS",
   "orchestrationState": "WAITING_FOR_CONTINUE",
-  "candidateSourceCheckpoint": "18b3fb092a9107a2dd7b3eefc68d3f37c49886dd",
-  "knownGoodApplicationCommit": "4e730fab7a48bcb2155120c8e332ce1ff65e9949",
-  "lastKnownGoodMainHead": "3500c67226e419f073923518645fd0abf73af833",
+  "validatedApplicationCheckpoint": "e54e4760f5c3ad4d5434fe275dad9a894cbe9000",
+  "latestPassingWorkflowForCandidate": {
+    "runId": 38186715386,
+    "url": "https://github.com/teyyara/malika/actions/runs/38186715386",
+    "headSha": "e54e4760f5c3ad4d5434fe275dad9a894cbe9000",
+    "conclusion": "success",
+    "nodeTestsPassed": 8,
+    "nodeTestsFailed": 0,
+    "playwrightTestsPassed": 4,
+    "playwrightTestsFailed": 0,
+    "productionBuild": "PASS",
+    "browser": "Chromium",
+    "browserReportArtifact": "https://github.com/teyyara/malika/actions/runs/38186715386/artifacts/11719981697"
+  },
   "personalization": {
     "recipientName": "Malika",
     "senderName": "Zack",
     "birthday": "12 October"
   },
-  "knownGoodValidation": {
-    "runId": 38186209651,
-    "url": "https://github.com/teyyara/malika/actions/runs/38186209651",
-    "headSha": "3500c67226e419f073923518645fd0abf73af833",
-    "conclusion": "success",
-    "nodeTestsPassed": 8,
-    "nodeTestsFailed": 0,
-    "productionBuild": "PASS",
-    "scopeNote": "This run predates the new Playwright browser suite."
-  },
-  "loop003CandidateValidation": {
-    "pullRequest": "https://github.com/teyyara/malika/pull/1",
-    "status": "NOT_OBSERVED_VIA_AVAILABLE_CONNECTOR",
-    "browserSpecsAdded": 4,
-    "promotedToMain": false,
-    "promotionReason": "No verified successful Actions result was available; fail closed."
-  },
   "mainPromotion": {
     "method": "fast-forward",
     "verified": true,
-    "sha": "3500c67226e419f073923518645fd0abf73af833",
-    "loop003Promotion": "ON_HOLD_PENDING_CI_EVIDENCE"
+    "promotedApplicationCheckpoint": "e54e4760f5c3ad4d5434fe275dad9a894cbe9000",
+    "mainHeadObservedAfterPromotion": "e54e4760f5c3ad4d5434fe275dad9a894cbe9000",
+    "pullRequest": "https://github.com/teyyara/malika/pull/1",
+    "pullRequestMerged": true
   },
-  "automatedBrowserTests": "ADDED_NOT_YET_OBSERVED_PASSING",
+  "automatedBrowserQA": {
+    "status": "PASS",
+    "specsPassed": 4,
+    "coverage": [
+      "Keyboard-first entry and navigation across all five scenes",
+      "Seven-heart victory and secret-note unlock",
+      "Modal focus cycle, Escape close and focus restoration",
+      "No horizontal overflow at 320px, 375px, and 768px across five scenes",
+      "Reduced-motion preference and page runtime-error observation"
+    ],
+    "note": "Automated Chromium checks do not certify physical-device or screen-reader behavior."
+  },
   "manualVisualQA": "NOT_YET_OBSERVED",
-  "keyboardQA": "AUTOMATION_ADDED_RESULT_UNOBSERVED",
   "screenReaderQA": "NOT_YET_OBSERVED",
-  "mobileLayoutQA": "AUTOMATION_ADDED_RESULT_UNOBSERVED",
-  "realMobileDevice": "NOT_TESTED",
+  "realMobileDeviceQA": "NOT_TESTED",
   "deployment": {
     "target": null,
     "status": "NOT_CONFIGURED"
   },
   "nextHighValueWork": [
-    "Observe the GitHub Actions run for PR #1 and inspect the browser-test report",
-    "Repair any failing test or implementation issue and rerun validation",
-    "Promote only the exact passing checkpoint to main",
-    "Keep human visual, physical-device, and screen-reader checks as separate release gates"
+    "Perform additional accessibility verification, ideally automated axe-based checks of the main scenes and modal states",
+    "Only configure a static host when repository Pages/deployment capability can be verified",
+    "Keep physical-device and screen-reader QA claims separate from browser automation"
   ]
 }

@@ -106,7 +106,7 @@ export default function GardenScene({ discoveredCount, requiredHearts, onOpenNot
       </svg>
       {[0, 1, 2].map((index) =>
         <button key={index}
-          className={"garden-star constellation-star constellation-star-" + ["a", "b", "c"][index] + (constellationFound ? " is-revealed" : index === constellationStep ? " is-next" : index < constellationStep ? " is-traced" : "")}
+          className={"garden-star garden-star-" + ["a", "b", "c"][index] + " constellation-star constellation-star-" + ["a", "b", "c"][index] + (constellationFound ? " is-revealed" : index === constellationStep ? " is-next" : index < constellationStep ? " is-traced" : "")}
           type="button" aria-label={constellationFound ? "Open the wish from the heart constellation" : constellationStars[index]}
           aria-pressed={constellationFound || index < constellationStep}
           onClick={() => traceStar(index)}>

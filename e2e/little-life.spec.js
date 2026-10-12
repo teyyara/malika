@@ -40,7 +40,7 @@ test("the sound mixer adjusts the master level and lets you audition Mimi's loca
     if (response.url().includes("/audio/mimi-")) audioResponses.push(response.status());
   });
   await page.goto("/");
-  await page.getByRole("button", { name: "Turn on tiny sounds" }).click();
+  await page.getByRole("button", { name: /Open your birthday surprise/ }).click();
   await page.getByText("Mixer", { exact: true }).click();
 
   const volume = page.getByRole("slider", { name: "Overall sound volume" });
@@ -93,7 +93,6 @@ test("Mimi, love-note music and game effects can be mixed independently", async 
   });
 
   await page.goto("/");
-  await page.getByRole("button", { name: "Turn on tiny sounds" }).click();
   await page.getByRole("button", { name: /Open your birthday surprise/ }).click();
   await page.getByRole("button", { name: "Touch the pink flower to find a birthday wish" }).click();
 
@@ -124,23 +123,39 @@ test("Mimi, love-note music and game effects can be mixed independently", async 
   await expect.poll(() => page.evaluate(() => window.__soundMixerChannels.ramps.some((ramp) => ramp.channel === 0 && ramp.value === 0.99))).toBeTruthy();
 });
 
-test("tiny sounds are opt-in, work after a user gesture, and can be hushed", async ({ page }) => {
+test("sound starts on by default, unlocks with the first welcome tap, and can be hushed", async ({ page }) => {
+  await page.addInitScript(() => {
+    window.__defaultSoundChimeStarts = 0;
+    const AudioClass = window.AudioContext || window.webkitAudioContext;
+    if (!AudioClass) return;
+    const originalCreate = AudioClass.prototype.createOscillator;
+    AudioClass.prototype.createOscillator = function () {
+      const oscillator = originalCreate.call(this);
+      const start = oscillator.start.bind(oscillator);
+      oscillator.start = (...args) => {
+        window.__defaultSoundChimeStarts += 1;
+        return start(...args);
+      };
+      return oscillator;
+    };
+  });
   await page.goto("/");
 
-  const soundOff = page.getByRole("button", { name: "Turn on tiny sounds" });
-  await expect(soundOff).toBeVisible();
-  await expect(soundOff).toHaveAttribute("aria-pressed", "false");
-
-  await soundOff.click();
   const soundOn = page.getByRole("button", { name: "Turn off tiny sounds" });
+  await expect(soundOn).toBeVisible();
   await expect(soundOn).toHaveAttribute("aria-pressed", "true");
 
   await page.getByRole("button", { name: /Open your birthday surprise/ }).click();
   await expect(page.getByRole("heading", { name: /A garden full of little things/ })).toBeVisible();
   await expect(page.getByRole("button", { name: "Turn off tiny sounds" })).toHaveAttribute("aria-pressed", "true");
+  await expect.poll(() => page.evaluate(() => window.__defaultSoundChimeStarts)).toBeGreaterThan(0);
 
   await page.getByRole("button", { name: "Turn off tiny sounds" }).click();
-  await expect(page.getByRole("button", { name: "Turn on tiny sounds" })).toHaveAttribute("aria-pressed", "false");
+  const soundOff = page.getByRole("button", { name: "Turn on tiny sounds" });
+  await expect(soundOff).toHaveAttribute("aria-pressed", "false");
+
+  await soundOff.click();
+  await expect(page.getByRole("button", { name: "Turn off tiny sounds" })).toHaveAttribute("aria-pressed", "true");
 });
 
 test("Mimi dances and scatters little sparkles after three quick pets", async ({ page }) => {
@@ -173,7 +188,7 @@ test("a love note lets Malika send a heart back to Zack", async ({ page }) => {
 
 test("a victory prize can replay its chime without dismissing the celebration", async ({ page }) => {
   await page.goto("/");
-  await page.getByRole("button", { name: "Turn on tiny sounds" }).click();
+  await page.getByRole("button", { name: /Open your birthday surprise/ }).click();
   for (const key of ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"]) {
     await page.keyboard.press(key);
   }
@@ -219,13 +234,13 @@ test("Mimi makes a real local cat meow and opens her mouth with the sound", asyn
     if (response.url().includes("/audio/mimi-")) audioResponses.push({ url: response.url(), status: response.status() });
   });
   await page.goto("/");
-  await page.getByRole("button", { name: "Turn on tiny sounds" }).click();
+  await page.getByRole("button", { name: /Open your birthday surprise/ }).click();
 
   await expect.poll(() => new Set(audioResponses.map((item) => new URL(item.url).pathname)).size).toBe(3);
   expect(audioResponses.every((item) => item.status === 200)).toBeTruthy();
   expect(audioResponses.every((item) => new URL(item.url).origin === new URL(page.url()).origin)).toBeTruthy();
 
-  const mimi = page.getByRole("button", { name: "Pet Mimi to wake her up" });
+  const mimi = page.getByRole("button", { name: "Pet Mimi the kitten and hear a new greeting" });
   await mimi.click();
   await expect(mimi.locator("svg.cat-art")).toHaveClass(/cat-is-meowing/);
   await expect(mimi).toContainText("Mimi says meow!");
@@ -237,7 +252,6 @@ test("Mimi makes a real local cat meow and opens her mouth with the sound", asyn
 
 test("Mimi's mouth and glow follow the changing envelope of her recorded meow", async ({ page }) => {
   await page.goto("/");
-  await page.getByRole("button", { name: "Turn on tiny sounds" }).click();
   const mimi = page.getByRole("button", { name: "Pet Mimi to wake her up" });
   const svg = mimi.locator("svg.cat-art");
 
@@ -292,7 +306,6 @@ test("Mimi answers a second pet with a longer recorded purr and the mute control
     };
   });
   await page.goto("/");
-  await page.getByRole("button", { name: "Turn on tiny sounds" }).click();
   const mimi = page.getByRole("button", { name: "Pet Mimi to wake her up" });
 
   await mimi.click();
@@ -347,10 +360,10 @@ test("rapid petting during audio decoding plays only the latest cat voice", asyn
     };
   });
   await page.goto("/");
-  await page.getByRole("button", { name: "Turn on tiny sounds" }).click();
+  await page.getByRole("button", { name: /Open your birthday surprise/ }).click();
   await expect.poll(() => page.evaluate(() => window.__malikaPendingDecodes)).toBe(3);
 
-  const mimi = page.getByRole("button", { name: "Pet Mimi to wake her up" });
+  const mimi = page.getByRole("button", { name: "Pet Mimi the kitten and hear a new greeting" });
   await mimi.click();
   await mimi.click();
   await mimi.click();
@@ -386,9 +399,8 @@ test("a love note starts its romantic score and stops it when the note closes", 
     };
   });
   await page.goto("/");
-  await page.getByRole("button", { name: "Turn on tiny sounds" }).click();
-  const beforeNote = await page.evaluate(() => window.__malikaAudioProbe.starts);
   await page.getByRole("button", { name: /Open your birthday surprise/ }).click();
+  const beforeNote = await page.evaluate(() => window.__malikaAudioProbe.starts);
   await page.getByRole("button", { name: "Touch the pink flower to find a birthday wish" }).click();
 
   const note = page.getByRole("dialog", { name: "Brave new chapters" });
@@ -406,7 +418,7 @@ test("a love note starts its romantic score and stops it when the note closes", 
 
 test("each arcade prize advertises its own achievement sound", async ({ page }) => {
   await page.goto("/");
-  await page.getByRole("button", { name: "Turn on tiny sounds" }).click();
+  await page.getByRole("button", { name: /Open your birthday surprise/ }).click();
   for (const key of ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"]) {
     await page.keyboard.press(key);
   }

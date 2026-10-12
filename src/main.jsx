@@ -6,8 +6,8 @@ import "./styles/global.css";
 import "./styles/animations.css";
 import "./styles/game.css";
 import "./styles/personalization.css";
+import "./styles/magic.css";
 
 createRoot(document.getElementById("root")).render(
   <React.StrictMode><App /></React.StrictMode>
 );
-import "./styles/magic.css";

@@ -458,7 +458,7 @@ test("each main scene and all five arcade games select their own soundtrack", as
   await expect.poll(() => page.locator("html").getAttribute("data-soundtrack-theme")).toBe("love-notes");
   await page.getByRole("button", { name: "Birthday letter" }).click();
   await expect.poll(() => page.locator("html").getAttribute("data-soundtrack-theme")).toBe("birthday-letter");
-  await page.getByRole("button", { name: "The garden" }).click();
+  await page.getByRole("button", { name: "The garden", exact: true }).click();
   await expect.poll(() => page.locator("html").getAttribute("data-soundtrack-theme")).toBe("garden");
 
   for (const key of ["ArrowUp","ArrowUp","ArrowDown","ArrowDown","ArrowLeft","ArrowRight","ArrowLeft","ArrowRight","b","a"]) {

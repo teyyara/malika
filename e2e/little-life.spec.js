@@ -62,6 +62,66 @@ test("the sound mixer adjusts the master level and lets you audition Mimi's loca
 });
 
 
+test("Mimi, love-note music and game effects can be mixed independently", async ({ page }) => {
+  await page.addInitScript(() => {
+    window.__soundMixerChannels = { masterNode: null, channelNodes: [], ramps: [] };
+    const AudioClass = window.AudioContext || window.webkitAudioContext;
+    if (!AudioClass) return;
+    const originalCreateGain = AudioClass.prototype.createGain;
+    AudioClass.prototype.createGain = function () {
+      const context = this;
+      const node = originalCreateGain.call(context);
+      const originalConnect = node.connect.bind(node);
+      const originalRamp = node.gain.linearRampToValueAtTime.bind(node.gain);
+      node.gain.linearRampToValueAtTime = (value, ...args) => {
+        if (Number.isInteger(node.__soundMixerChannelIndex)) {
+          window.__soundMixerChannels.ramps.push({ channel: node.__soundMixerChannelIndex, value });
+        }
+        return originalRamp(value, ...args);
+      };
+      node.connect = (destination, ...args) => {
+        if (destination === context.destination) {
+          window.__soundMixerChannels.masterNode = node;
+        } else if (destination === window.__soundMixerChannels.masterNode && !Number.isInteger(node.__soundMixerChannelIndex)) {
+          node.__soundMixerChannelIndex = window.__soundMixerChannels.channelNodes.length;
+          window.__soundMixerChannels.channelNodes.push(node);
+        }
+        return originalConnect(destination, ...args);
+      };
+      return node;
+    };
+  });
+
+  await page.goto("/");
+  await page.getByRole("button", { name: "Turn on tiny sounds" }).click();
+  await page.getByRole("button", { name: /Open your birthday surprise/ }).click();
+  await page.getByRole("button", { name: "Touch the pink flower to find a birthday wish" }).click();
+
+  const note = page.getByRole("dialog", { name: "Brave new chapters" });
+  await expect(note).toBeVisible();
+  await page.getByText("Mixer", { exact: true }).click();
+
+  const musicVolume = page.getByRole("slider", { name: "Love-note music volume" });
+  await expect(musicVolume).toHaveValue("100");
+  await musicVolume.focus();
+  await musicVolume.press("ArrowLeft");
+  await expect(page.getByText("99%", { exact: true })).toBeVisible();
+  await expect.poll(() => page.evaluate(() => window.__soundMixerChannels.ramps.some((ramp) => ramp.channel === 1 && ramp.value === 0.99))).toBeTruthy();
+
+  await page.getByRole("button", { name: "Hear a meow" }).click();
+  await expect.poll(() => page.evaluate(() => window.__soundMixerChannels.channelNodes.length)).toBeGreaterThanOrEqual(3);
+  const mimiVolume = page.getByRole("slider", { name: "Mimi voice volume" });
+  await mimiVolume.focus();
+  await mimiVolume.press("ArrowLeft");
+  await expect.poll(() => page.evaluate(() => window.__soundMixerChannels.ramps.some((ramp) => ramp.channel === 2 && ramp.value === 0.99))).toBeTruthy();
+
+  const effectsVolume = page.getByRole("slider", { name: "Game and effects volume" });
+  await effectsVolume.focus();
+  await effectsVolume.press("ArrowDown");
+  await expect(page.getByText("99%", { exact: true })).toHaveCount(2);
+  await expect.poll(() => page.evaluate(() => window.__soundMixerChannels.ramps.some((ramp) => ramp.channel === 0 && ramp.value === 0.99))).toBeTruthy();
+});
+
 test("tiny sounds are opt-in, work after a user gesture, and can be hushed", async ({ page }) => {
   await page.goto("/");
 

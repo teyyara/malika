@@ -14,6 +14,7 @@ import "./styles/seal-secret.css";
 import "./styles/little-life.css";
 import "./styles/luxury-overhaul.css";
 import "./styles/aurora-refinement.css";
+import "./styles/laptop-layout.css";
 
 createRoot(document.getElementById("root")).render(
   <React.StrictMode><App /></React.StrictMode>

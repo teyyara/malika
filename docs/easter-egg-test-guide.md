@@ -1,4 +1,4 @@
-# Complete easter-egg guide — Loop 021
+# Complete easter-egg guide — Loop 022
 
 **Full spoilers.** This is the complete walkthrough for Zack, not a hint sheet to hand to Malika before she explores. The website's hidden progress exists only in the current page session: it is not written to a server, browser storage, or analytics. Reloading starts a fresh hunt. None of these secrets is required to read the birthday letter or finish the main heart game.
 
@@ -223,7 +223,27 @@ Inside the mixer, choose **Hear a meow** for one of the real bundled cat calls, 
 ### What is verified
 The new browser journey opens the mixer, changes the master volume and checks the Web Audio gain target, plays a locally bundled meow and purr through the audition buttons, and confirms all three files load from the site's own origin. The existing 36-journey suite continues to cover love-note music, mute behavior, prize fanfares, mobile layout, keyboard interactions, and the hidden games.
 
-## 11. Progress, accessibility, and reset behavior
+## 11. Loop 022 — A layered little soundstage
+
+The **Mixer** now has separate faders underneath the overall volume control. These let you tune Mimi and the soundtrack independently for your own speakers rather than making every sound louder or quieter together.
+
+### Four independent levels
+- **Overall volume** is the master level for the entire site.
+- **Mimi's voice** controls the two recorded meows and her recorded purr only.
+- **Love-note music** controls the warm looping score that plays while a love-note dialog is open.
+- **Games and little sounds** controls discovery pips, dance notes, button feedback, and each game's achievement fanfare.
+
+The levels change smoothly to avoid abrupt clicks. Muting still stops all active sounds immediately; the fader settings remain in page memory so sound can be turned back on at the same mix. Reloading the page resets all levels. Nothing is saved to browser storage or sent to a server.
+
+### Verify the separate mix buses
+1. Turn sound on and open **Mixer**.
+2. Open the flower's **Brave new chapters** note, then move **Love-note music** down a little. The soundtrack changes without reducing Mimi's voice or game effects.
+3. Use **Hear a meow** or **Hear a purr**, then move **Mimi's voice**. Only the recorded cat clips use this fader.
+4. Move **Games and little sounds** to change reward and discovery sounds while the overall level and cat channel stay independent.
+
+**Automated coverage:** the browser suite instruments the Web Audio graph, checks that music, Mimi, and effects are routed through distinct gain nodes, and confirms each channel fader changes its own gain. It also covers the master fader, recorded meow/purr audition controls, soundtrack lifecycle, quick-pet race protection, and muting. This verifies routing and browser behavior; it cannot substitute for listening tests on physical speakers.
+
+## 12. Progress, accessibility, and reset behavior
 
 - The arcade tracks completed quests and found secrets only in page memory for this visit. Refreshing the page resets them; no third-party storage, account, API, or paid service is involved.
 - Dialogs can be closed with their close button or **Escape**. Focus returns to the opener and stays inside the dialog while it is open.

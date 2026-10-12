@@ -62,7 +62,7 @@ The production attempt for Loop 007 commit `5fdbd292707e27a84ae85b8782fe4cc3c27c
 
 ## Deployment handoff for Loop 009
 
-The main-branch commit is `8d40e627acff41fdc6cd2e7681cc563ed8a65392`. At the last check, the Vercel status associated with that commit was still **pending**. Per the repository owner's request, this loop did not inspect, trigger, promote, or claim success for a Vercel production deployment. **Do not claim the public URL is updated until the owner has redeployed and confirmed the production alias is serving this commit.**
+The Loop 009 application merge commit is `8d40e627acff41fdc6cd2e7681cc563ed8a65392`; release-state documentation was subsequently merged at `478890f724f47961e8f0ddb3c90ba860ba05c241`. At the last check, the Vercel status associated with the application merge commit was still **pending**. Per the repository owner's request, this loop did not inspect, trigger, promote, or claim success for a Vercel production deployment. **Do not claim the public URL is updated until the owner has redeployed and confirmed the production alias is serving this commit.**
 
 ## Remaining QA limits
 

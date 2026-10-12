@@ -136,6 +136,7 @@ Open a note from a ladybug, the flower, or the Love Collection. Tap the **floati
 - Finding a heart, solving a memory pair, entering a correct rhythm beat, catching a real firefly, or solving a wish makes a subtle success chime when sound is on.
 - Secret reveals get a soft three-note shimmer; each finished arcade quest earns a short celebratory melody.
 - Wrong puzzle choices get a lower, playful “Mimi caught you” cue. The game mechanics and progress are unchanged by sound.
+- During an arcade victory, tap the glowing **A LITTLE WIN FOR YOU** prize medallion to replay the victory melody without closing the celebration.
 - The letter's seal, the floating hearts, the prize medallions, the garden flowers, the love-note title, and the animated finale still work with sound off.
 
 Everything remains client-side, optional, and temporary. No new dependencies, paid service, remote audio, persistence, analytics, or backend were added.

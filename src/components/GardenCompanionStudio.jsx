@@ -99,17 +99,17 @@ function MimiDailyLife({ discoveredCount, heartsCollected }) {
   const [routineIndex, setRoutineIndex] = useState(0);
   const [mood, setMood] = useState(mimiRoutine[0].mood);
   const [mimiNote, setMimiNote] = useState("");
+  const routineCursor = useRef(0);
   const holdRoutineUntil = useRef(0);
 
   useEffect(() => {
     const timer = window.setInterval(() => {
       if (document.hidden || Date.now() < holdRoutineUntil.current) return;
-      setRoutineIndex((current) => {
-        const next = (current + 1) % mimiRoutine.length;
-        setMood(mimiRoutine[next].mood);
-        setMimiNote("");
-        return next;
-      });
+      const next = (routineCursor.current + 1) % mimiRoutine.length;
+      routineCursor.current = next;
+      setRoutineIndex(next);
+      setMood(mimiRoutine[next].mood);
+      setMimiNote("");
     }, 9000);
     return () => window.clearInterval(timer);
   }, []);

@@ -61,6 +61,8 @@ export default function CatCharacter({ mood = "curious", onClick, label = "A lit
     transition={{ duration, repeat, ease: "easeInOut" }}>
     <ellipse cx="122" cy="196" rx="68" ry="12" fill="#090515" opacity=".4" />
     <path className="cat-tail" d="M164 157 C208 162 211 127 192 120 C178 114 171 128 183 132" fill="none" stroke="#cbb4ef" strokeWidth="16" strokeLinecap="round" />
+    <ellipse cx="122" cy="164" rx="40" ry="27" fill="#faf4ff" opacity=".92" />
+    <ellipse cx="102" cy="183" rx="16" ry="12" fill="#d9c9ef" stroke="#8d70be" strokeWidth="2" /><ellipse cx="143" cy="183" rx="16" ry="12" fill="#d9c9ef" stroke="#8d70be" strokeWidth="2" />
     <g className="cat-head">
       <path className="cat-ear cat-ear-left" d="M72 90 L64 35 Q63 22 76 34 L105 58 Z" fill="#d9c9ef" stroke="#8d70be" strokeWidth="3" strokeLinejoin="round" />
       <path className="cat-ear cat-ear-right" d="M142 58 L171 32 Q184 23 181 42 L172 91 Z" fill="#d9c9ef" stroke="#8d70be" strokeWidth="3" strokeLinejoin="round" />
@@ -76,8 +78,6 @@ export default function CatCharacter({ mood = "curious", onClick, label = "A lit
       <path className="cat-mouth" d="M122 147 Q114 157 106 149 M122 147 Q130 157 138 149" fill="none" stroke="#6f568c" strokeWidth="2.5" strokeLinecap="round" />
       <path d="M84 143 L51 138 M85 149 L55 153 M158 143 L190 138 M157 149 L187 153" stroke="#a18abd" strokeWidth="2" strokeLinecap="round" />
     </g>
-    <ellipse cx="122" cy="164" rx="40" ry="27" fill="#faf4ff" opacity=".92" />
-    <ellipse cx="102" cy="183" rx="16" ry="12" fill="#d9c9ef" stroke="#8d70be" strokeWidth="2" /><ellipse cx="143" cy="183" rx="16" ry="12" fill="#d9c9ef" stroke="#8d70be" strokeWidth="2" />
     <path d="M53 86 C43 76 46 62 58 58" fill="none" stroke="#f9c9e8" strokeWidth="3" strokeLinecap="round" opacity=".7" /><circle cx="184" cy="83" r="5" fill="#ffb7de" opacity=".8" />
   </motion.svg>;
 

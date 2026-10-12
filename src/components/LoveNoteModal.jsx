@@ -84,7 +84,7 @@ export default function LoveNoteModal({ message, onClose, senderName = "Zack" })
         </div>
         {soundEnabled && <motion.div className="note-score-indicator" aria-hidden="true" initial={{ opacity: 0, x: -6 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: reduceMotion ? 0.01 : 0.45 }}>
           <span className="note-score-glyph">♫</span><span>our little love song</span>
-          <span className="note-score-bars">{[0, 1, 2, 3, 4].map((bar) => <i key={bar} style={{ "--score-bar": bar }} />)}</span>
+          <span className="note-score-bars">{[0, 1, 2, 3, 4].map((bar) => <i key={bar} style={{ "--score-bar": bar, "--score-height": (6 + (bar % 3) * 3) + "px", animationDelay: (-bar * 0.13) + "s" }} />)}</span>
         </motion.div>}
         <div className="note-sparkle" aria-hidden="true">✦</div>
         <button ref={closeRef} className="icon-button modal-close" type="button" onClick={onClose} aria-label="Close love note">×</button>

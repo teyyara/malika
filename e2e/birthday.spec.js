@@ -87,7 +87,12 @@ test("collecting seven hearts unlocks a secret note and the dialog supports keyb
   await expect(closeButton).toBeFocused();
 
   await page.keyboard.press("Tab");
+  const returnHeart = dialog.getByRole("button", { name: "Tap the floating heart to send a little heart back to Zack" });
+  await expect(returnHeart).toBeFocused();
+
+  await page.keyboard.press("Tab");
   await expect(dialog.getByRole("button", { name: "Keep this close" })).toBeFocused();
+
   await page.keyboard.press("Tab");
   await expect(closeButton).toBeFocused();
   await page.keyboard.press("Escape");

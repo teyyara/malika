@@ -39,7 +39,7 @@ Validated application/workflow checkpoint: `e54e4760f5c3ad4d5434fe275dad9a894cbe
 
 The validated candidate was fast-forwarded to `main` from the known-good prior head `3500c67226e419f073923518645fd0abf73af833`. GitHub confirmed PR #1 merged: https://github.com/teyyara/malika/pull/1. A branch comparison immediately after promotion confirmed both branches at `e54e4760f5c3ad4d5434fe275dad9a894cbe9000`.
 
-The state/evidence updates after promotion record that same validated application checkpoint; they do not modify the app or browser test code. Repository branch alignment is being restored to include this status/evidence checkpoint before the loop closes.
+The state/evidence updates after promotion record that same validated application checkpoint; they do not modify the app or browser test code. After the status refresh, `aeos/progression` was fast-forward synchronized to this metadata checkpoint and a final branch comparison verified that both branches are identical.
 
 ## Remaining non-automated gates
 

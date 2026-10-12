@@ -35,7 +35,7 @@ test("prepared and custom wishes become glowing stars and stay in the sky while 
 
   const draft = page.getByRole("textbox", { name: "Write a wish in your own words" });
   await page.getByRole("button", { name: /Tiny wonders/ }).click();
-  await expect(draft).toHaveValue(/cats, flowers|cats, unexpected kindness|cats, unexpected kindness/i);
+  await expect(draft).toHaveValue(/cats, unexpected kindness/i);
 
   await page.getByRole("button", { name: /Release into the sky/ }).click();
   await expect(page.locator(".released-wish-star")).toHaveCount(1);
@@ -64,6 +64,11 @@ test("the soundtrack player switches to distinct original mood arrangements and 
   await page.getByRole("button", { name: /Rain against the window/ }).click();
   await expect(page.locator("html")).toHaveAttribute("data-soundtrack-theme", "soundtrack-rainy-window");
   await expect(page.locator(".soundtrack-now-playing")).toContainText("Rain against the window");
+
+  await page.getByRole("tab", { name: "Wish sky" }).click();
+  await expect(page.locator("html")).toHaveAttribute("data-soundtrack-theme", "soundtrack-rainy-window");
+  await page.getByRole("tab", { name: "Our soundtrack" }).click();
+  await expect(page.getByRole("button", { name: /Rain against the window/ })).toHaveAttribute("aria-pressed", "true");
 
   await page.getByRole("button", { name: /A sky full of stars/ }).click();
   await expect(page.locator("html")).toHaveAttribute("data-soundtrack-theme", "soundtrack-starlight");

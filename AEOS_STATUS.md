@@ -3,7 +3,7 @@
 Date: 12 October 2026  
 Repository: https://github.com/teyyara/malika  
 Release branch: `main`  
-Current completed loop: **008 — gentle secret clues**  
+Current completed loop: **009 — immersive arcade rewards and spoiler-free clues**  
 Next state: **WAITING_FOR_CONTINUE**
 
 ## Product state
@@ -46,3 +46,26 @@ The production attempt for Loop 007 commit `5fdbd292707e27a84ae85b8782fe4cc3c27c
 - VoiceOver/NVDA or mobile screen-reader testing has not been performed.
 - Chromium responsive checks are not a substitute for real touch and assistive-technology validation.
 - Vercel production deployment for current main remains unverified.
+
+
+## Loop 009 — immersive arcade rewards and spoiler-free clues, merged and tested
+
+- Every Secret Arcade game now opens a dedicated full-viewport reward scene instead of leaving its win message buried inside the game panel.
+- Added five distinct reward treatments: starlight galaxy, memory constellation, pawprint rhythm dance, firefly garden, and wish-jar future sky. Each uses animated aurora/rings, 64 drifting sparkle particles, a game-specific medallion, a personal win message, score, and 5-game mastery progress.
+- Added clear return-to-arcade and replay controls. Once all five quests are complete, the reward scene also exposes the grand-secret finale.
+- The celebrations honor `prefers-reduced-motion`, retain keyboard-close and touch-accessible controls, and are covered at viewport size in Playwright.
+- Removed “Show me the full secret map (spoilers inside)” and all of its contents from the garden. The gentle nudge and clearer clue remain.
+- PR: [#11](https://github.com/teyyara/malika/pull/11), merge commit `8d40e627acff41fdc6cd2e7681cc563ed8a65392`.
+- CI: [run 38256068964](https://github.com/teyyara/malika/actions/runs/38256068964) — **8 Node tests passed, production build passed, 21 Chromium journeys passed**.
+- Browser report: [artifact](https://github.com/teyyara/malika/actions/runs/38256068964/artifacts/11750432061).
+- Rendered screenshots: [artifact](https://github.com/teyyara/malika/actions/runs/38256068964/artifacts/11750586910).
+
+## Deployment handoff for Loop 009
+
+The main-branch commit is `8d40e627acff41fdc6cd2e7681cc563ed8a65392`. At the last check, the Vercel status associated with that commit was still **pending**. Per the repository owner's request, this loop did not inspect, trigger, promote, or claim success for a Vercel production deployment. **Do not claim the public URL is updated until the owner has redeployed and confirmed the production alias is serving this commit.**
+
+## Remaining QA limits
+
+- Physical-device testing on a real phone has not been performed.
+- VoiceOver/NVDA or mobile screen-reader testing has not been performed.
+- Chromium responsive checks are not a substitute for real touch and assistive-technology validation.

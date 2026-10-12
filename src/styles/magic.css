@@ -119,7 +119,7 @@ button.constellation-star {
   text-shadow: 0 0 13px rgba(223,190,255,.75);
   cursor: pointer;
   transition: color .25s ease, background .25s ease, transform .35s cubic-bezier(.2,.8,.2,1), filter .25s ease;
-  animation: star-drift 5s ease-in-out infinite;
+  animation: star-glimmer 5s ease-in-out infinite;
 }
 .constellation-star-a { top: 10%; left: calc(21% - 22px); }
 .constellation-star-b { top: 23%; right: calc(24% - 22px); animation-delay: -1.3s !important; }
@@ -301,6 +301,7 @@ button.constellation-star:hover, button.constellation-star:focus-visible, button
 @keyframes wing-flutter-left { 0%,82%,100% { transform:rotate(0deg); } 86%,94% { transform:rotate(-27deg); } 90% { transform:rotate(12deg); } }
 @keyframes wing-flutter-right { 0%,82%,100% { transform:rotate(0deg); } 86%,94% { transform:rotate(27deg); } 90% { transform:rotate(-12deg); } }
 @keyframes star-drift { 0%,100% { translate:0 0; } 50% { translate:0 -3px; } }
+@keyframes star-glimmer { 0%,100% { opacity:.7; filter:drop-shadow(0 0 7px rgba(223,190,255,.45)); } 50% { opacity:1; filter:drop-shadow(0 0 14px rgba(231,190,255,.88)); } }
 @keyframes victory-ring { 0% { opacity:0; transform:translate(-50%,-50%) scale(.45); } 18% { opacity:.72; } 100% { opacity:0; transform:translate(-50%,-50%) scale(1.55); } }
 @keyframes victory-shimmer { 0%,100% { filter:drop-shadow(0 0 3px rgba(219,177,255,.14)); } 50% { filter:drop-shadow(0 0 13px rgba(219,177,255,.6)); } }
 @keyframes victory-cat-bob { 0%,100% { transform:translateY(0) rotate(-2deg); } 50% { transform:translateY(-8px) rotate(2deg); } }

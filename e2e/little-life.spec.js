@@ -111,22 +111,30 @@ test("Mimi makes a real local cat meow and opens her mouth with the sound", asyn
   expect(durations.some((duration) => duration >= 1.3 && duration <= 2.5)).toBeTruthy();
 });
 
-test("Mimi answers a second pet with a real purr and the mute control cuts it off", async ({ page }) => {
+test("Mimi answers a second pet with a longer recorded purr and the mute control cuts it off", async ({ page }) => {
   await page.addInitScript(() => {
-    window.__malikaAudioProbe = { starts: 0, durations: [], stops: 0 };
+    window.__malikaAudioProbe = { sources: [], stops: 0 };
     const AudioClass = window.AudioContext || window.webkitAudioContext;
     if (!AudioClass) return;
     const originalCreate = AudioClass.prototype.createBufferSource;
     AudioClass.prototype.createBufferSource = function () {
+      const context = this;
       const source = originalCreate.call(this);
       const start = source.start.bind(source);
       const stop = source.stop.bind(source);
       source.start = (...args) => {
-        window.__malikaAudioProbe.starts += 1;
-        window.__malikaAudioProbe.durations.push(source.buffer?.duration || 0);
+        source.__malikaAudioProbe = {
+          bufferDuration: source.buffer?.duration || 0,
+          startAt: typeof args[0] === "number" ? args[0] : context.currentTime,
+          plannedStopAt: null
+        };
+        window.__malikaAudioProbe.sources.push(source.__malikaAudioProbe);
         return start(...args);
       };
       source.stop = (...args) => {
+        if (source.__malikaAudioProbe) {
+          source.__malikaAudioProbe.plannedStopAt = typeof args[0] === "number" ? args[0] : context.currentTime;
+        }
         window.__malikaAudioProbe.stops += 1;
         return stop(...args);
       };
@@ -138,15 +146,72 @@ test("Mimi answers a second pet with a real purr and the mute control cuts it of
   const mimi = page.getByRole("button", { name: "Pet Mimi to wake her up" });
 
   await mimi.click();
-  await expect.poll(() => page.evaluate(() => window.__malikaAudioProbe.starts)).toBeGreaterThan(0);
+  await expect.poll(() => page.evaluate(() => window.__malikaAudioProbe.sources.length)).toBeGreaterThan(0);
   await mimi.click();
   await expect(mimi.locator("svg.cat-art")).toHaveClass(/cat-is-purring/);
   await expect(mimi).toContainText("Mimi is purring!");
-  await expect.poll(() => page.evaluate(() => window.__malikaAudioProbe.durations.some((duration) => duration >= 7))).toBeTruthy();
+
+  await expect.poll(() => page.evaluate(() => window.__malikaAudioProbe.sources.some(
+    (clip) => clip.bufferDuration >= 7 && clip.plannedStopAt !== null
+  ))).toBeTruthy();
+  const purrDuration = await page.evaluate(() => {
+    const purr = window.__malikaAudioProbe.sources.find((clip) => clip.bufferDuration >= 7 && clip.plannedStopAt !== null);
+    return purr.plannedStopAt - purr.startAt;
+  });
+  expect(purrDuration).toBeGreaterThanOrEqual(2.7);
+  expect(purrDuration).toBeLessThanOrEqual(3.4);
 
   const stopsBeforeMute = await page.evaluate(() => window.__malikaAudioProbe.stops);
   await page.getByRole("button", { name: "Turn off tiny sounds" }).click();
   await expect.poll(() => page.evaluate(() => window.__malikaAudioProbe.stops)).toBeGreaterThan(stopsBeforeMute);
+});
+
+test("rapid petting during audio decoding plays only the latest cat voice", async ({ page }) => {
+  await page.addInitScript(() => {
+    window.__malikaAudioProbe = { durations: [] };
+    window.__malikaPendingDecodes = 0;
+    const AudioClass = window.AudioContext || window.webkitAudioContext;
+    if (!AudioClass) return;
+    const originalDecode = AudioClass.prototype.decodeAudioData;
+    const pending = [];
+    AudioClass.prototype.decodeAudioData = function (bytes) {
+      window.__malikaPendingDecodes += 1;
+      return new Promise((resolve, reject) => pending.push({ context: this, bytes, resolve, reject }));
+    };
+    window.__releaseMalikaDecodes = async () => {
+      const batch = pending.splice(0);
+      await Promise.all(batch.map(({ context, bytes, resolve, reject }) =>
+        originalDecode.call(context, bytes).then(resolve, reject)
+      ));
+    };
+
+    const originalCreate = AudioClass.prototype.createBufferSource;
+    AudioClass.prototype.createBufferSource = function () {
+      const source = originalCreate.call(this);
+      const start = source.start.bind(source);
+      source.start = (...args) => {
+        window.__malikaAudioProbe.durations.push(source.buffer?.duration || 0);
+        return start(...args);
+      };
+      return source;
+    };
+  });
+  await page.goto("/");
+  await page.getByRole("button", { name: "Turn on tiny sounds" }).click();
+  await expect.poll(() => page.evaluate(() => window.__malikaPendingDecodes)).toBe(3);
+
+  const mimi = page.getByRole("button", { name: "Pet Mimi to wake her up" });
+  await mimi.click();
+  await mimi.click();
+  await mimi.click();
+  await expect(mimi.locator("svg.cat-art")).toHaveClass(/cat-is-dancing/);
+
+  await page.evaluate(() => window.__releaseMalikaDecodes());
+  await expect.poll(() => page.evaluate(() => window.__malikaAudioProbe.durations.length)).toBe(1);
+  const playedDuration = await page.evaluate(() => window.__malikaAudioProbe.durations[0]);
+  // The third, dance-triggering pet owns the voice slot and uses the one-second recording.
+  expect(playedDuration).toBeGreaterThanOrEqual(0.8);
+  expect(playedDuration).toBeLessThanOrEqual(1.25);
 });
 
 test("a love note starts its romantic score and stops it when the note closes", async ({ page }) => {

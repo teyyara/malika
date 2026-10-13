@@ -111,3 +111,8 @@ The garden companion area gains a fifth, optional panel where Malika can help Mi
 ## Loop 033 — Mimi's Vocal Personality
 
 Mimi's love language now uses her recorded cat voice more intentionally. A cuddle and cozy nap trigger the locally bundled purr; play with ribbon adds a recorded meow to the playful dance cue; whispering a secret now triggers the recorded purr instead of a synthesized musical chime. The existing sound mixer and master mute still control every cue. The browser regression inspects actual Web Audio buffer playback for the meow and purr and verifies mute interrupts the voice. No new audio asset, dependency, runtime service, or remote fetch was added.
+
+
+## Loop 034 — Keyboard-Ready Companion Tabs
+
+The five tabs in Mimi's companion studio now follow the expected keyboard pattern for a horizontal tablist. Only the selected tab is a normal Tab stop; Left/Right Arrow moves between tabs and wraps at either end, while Home/End goes straight to the first/last tab. Focus, the selected state, and the visible panel update together. Native buttons remain the interaction surface, visible focus styling is retained, and this adds no dependency or persistent state.

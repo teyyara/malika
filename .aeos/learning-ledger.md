@@ -82,9 +82,11 @@
 - Loop 032 is closed. Orchestration returns to `WAITING_FOR_CONTINUE`.
 
 
-## Loop 033 — Mimi's Vocal Personality (candidate)
+## Loop 033 — final outcome (2026-10-13)
 
-- Audit found a mismatch in the existing companion interaction: “Tell her a secret” displayed Mimi's slow-blink response but played a synthesized “love” chord rather than an animal vocalization.
-- The action now plays the existing bundled recorded purr. Play-with-ribbon retains its real meow plus the playful dance cue; cuddle and cozy nap also retain the local purr.
-- Added a browser regression that instruments Web Audio and verifies a meow-length decoded buffer plays for ribbon play, the longer purr buffer plays for a whispered secret, and master mute stops an active voice.
-- No new audio assets, dependencies, remote runtime requests, storage, backend, or paid service. Exact PR-head Node/content tests, production build and full Chromium suite are mandatory before merge; then verify post-merge main.
+- Merged PR #41 at `01b47ae4c8f5c0bfe6b37954b857b258936f6702`.
+- Exact PR-head workflow [38476623426](https://github.com/teyyara/malika/actions/runs/38476623426) and post-merge main workflow [38477205346](https://github.com/teyyara/malika/actions/runs/38477205346) both passed Node/content tests, production build, and all **57 Chromium browser journeys**.
+- The new browser regression verifies actual Web Audio buffer playback: the ribbon-play interaction triggers a recorded meow-length clip, whispering a secret triggers the longer recorded purr, and the global mute stops an active voice.
+- The fix uses existing locally bundled assets and preserves the existing sound mixer. No new asset, package, backend, storage, analytics, external runtime request, paid feature, or manual Vercel deployment was added.
+- Public production alias, human sound-quality review, human screen-reader behavior, and physical-device QA remain unverified.
+- Loop 033 is closed. Orchestration returns to `WAITING_FOR_CONTINUE`.

@@ -26,11 +26,11 @@
     "birthday": "12 October"
   },
   "pullRequest": {
-    "url": "https://github.com/teyyara/malika/pull/37",
-    "number": 37,
-    "state": "MERGED",
-    "headSha": "0074d8015839558501bab3696a056671c7f28f52",
-    "mergeCommitSha": "41a2e115aaf3ac62e6f07a9fdaa87a3b9a68b4a7"
+    "url": "https://github.com/teyyara/malika/pull/39",
+    "number": 39,
+    "state": "OPEN",
+    "headSha": "dbd13ab7ee6550170c5ca6d32d0f281d82bdcc90",
+    "baseSha": "0a9cbf5e4741cbd0036213a83cf449b476c815b1"
   },
   "automatedBrowserQA": {
     "status": "PASS",
@@ -129,6 +129,6 @@
     "baseCommit": "0a9cbf5e4741cbd0036213a83cf449b476c815b1",
     "feature": "Mimi's Tiny Storybook",
     "requirement": "REQ-019",
-    "validation": "Node/content tests, production build and full Chromium browser suite must pass on the exact PR head before merge."
+    "validation": "PR #39 is open. Wait for Node/content tests, production build, and the full Chromium browser suite on the exact latest PR head before merge."
   }
 }

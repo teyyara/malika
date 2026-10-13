@@ -70,3 +70,12 @@
 - The Node content test verifies 100 distinct, finished entries. Browser journeys cover closed-by-default behavior, page navigation, the last-page restart, reset after scene navigation, and phone viewport fit.
 - The book stays inside the existing birthday letter scene and resets when the scene is left. No persistence, backend, dependency, paid service, remote asset, or manual deployment was added.
 - Production-alias verification remains with the owner; physical-device and screen-reader QA remain outstanding.
+
+
+## Loop 032 — Mimi's Tiny Storybook (candidate)
+
+- Adds a fifth panel within the existing garden companion studio. The story is fiction, not a claim about past events.
+- Three chapters each have three authored choices. The resulting fairytale includes the selected passages and a matching final paragraph; changing an earlier selection clears later answers.
+- State remains in React component memory and resets when the tab is unmounted. No storage, service, dependency, remote asset, or top-level navigation item is added.
+- Added Node content checks and a Playwright journey for branch composition, backtracking/reset, replay, reduced motion, and 375px bounds.
+- **Candidate branch:** `feat/loop-032-mimis-storybook`. Merge only if exact PR-head Node/content tests, production build, and all Chromium browser journeys pass. No manual Vercel deployment is initiated.

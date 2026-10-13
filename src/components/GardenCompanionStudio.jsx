@@ -4,12 +4,14 @@ import CatCharacter from "./CatCharacter.jsx";
 import Ladybug from "./Ladybug.jsx";
 import { preparedWishes } from "../data/wishes.js";
 import { playCuteSound, setMusicOverride } from "../audio/soundEffects.js";
+import MimisStorybook from "./MimisStorybook.jsx";
 
 const studioTabs = [
   { id: "mimi", label: "Mimi's little life", glyph: "🐾" },
   { id: "wishes", label: "Wish sky", glyph: "✦" },
   { id: "music", label: "Our soundtrack", glyph: "♫" },
-  { id: "picture", label: "Living picture", glyph: "♡" }
+  { id: "picture", label: "Living picture", glyph: "♡" },
+  { id: "storybook", label: "Mimi's tiny storybook", glyph: "✧" }
 ];
 
 const mimiRoutine = [
@@ -88,6 +90,7 @@ export default function GardenCompanionStudio({ discoveredCount, heartsCollected
           {activeTab === "wishes" && <WishSky releasedWishes={releasedWishes} onReleaseWish={onReleaseWish} />}
           {activeTab === "music" && <SoundtrackPlayer activeTrack={activeTrack} onPlayTrack={playTrack} onPauseTrack={pauseTrack} />}
           {activeTab === "picture" && <LivingPicture />}
+          {activeTab === "storybook" && <MimisStorybook />}
         </motion.div>
       </AnimatePresence>
     </div>

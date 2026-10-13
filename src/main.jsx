@@ -19,6 +19,7 @@ import "./styles/journey-features.css";
 import "./styles/future-letters.css";
 import "./styles/letter-back.css";
 import "./styles/reasons-book.css";
+import "./styles/mimis-storybook.css";
 
 createRoot(document.getElementById("root")).render(
   <React.StrictMode><App /></React.StrictMode>

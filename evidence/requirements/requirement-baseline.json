@@ -1,5 +1,5 @@
 {
-  "contractVersion": "1.5",
+  "contractVersion": "1.6",
   "capturedAt": "2026-10-13",
   "personalization": {
     "recipient": "Malika",
@@ -133,6 +133,13 @@
       "risk": "R1",
       "validation": "Node/content uniqueness test and Playwright page, boundary, reset, and responsive journeys",
       "status": "IMPLEMENTED_VALIDATED"
+    },
+    {
+      "id": "REQ-019",
+      "requirement": "The existing garden companion studio offers a clearly fictional, three-chapter fairytale whose nine possible choice slots create a branch-consistent ending, with replay reset and responsive keyboard-operable controls.",
+      "risk": "R1",
+      "validation": "Node story-content test; Playwright choice composition, progress, backtracking invalidation, replay reset and responsive viewport journey",
+      "status": "IMPLEMENTED_VALIDATION_PENDING"
     }
   ],
   "validationEvidence": {

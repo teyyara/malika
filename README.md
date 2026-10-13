@@ -101,3 +101,8 @@ Love Notes now has an optional, collapsed-by-default space where Malika can writ
 ## Loop 031 — A Hundred Little Reasons I Love You
 
 The birthday letter scene now includes an optional little book of 100 authored reasons and reflections, revealed one page at a time. The page number and progress bar update together, Previous is disabled on page one, and the last page offers a return to the beginning. The book stays closed by default to preserve the letter's first impression, adds no navigation item, respects reduced motion, and resets when the scene is left. Its 100 entries are checked for uniqueness; no progress is persisted and no external service, package, or remote asset is added.
+
+
+## Loop 032 — Mimi's Tiny Storybook
+
+The garden companion area gains a fifth, optional panel where Malika can help Mimi through a made-up fairytale. Three choices shape the path, the small kindness that solves a puzzle, and the final gift in the envelope. She can replay it with a different route; if she changes an earlier answer, later answers reset so the ending always matches her choices. The story is explicitly labeled as fiction, uses the existing kitten and ladybug artwork, fits tested laptop/phone layouts, and adds no top-level navigation, persistence, dependency, remote asset, or service.

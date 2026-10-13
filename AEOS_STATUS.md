@@ -4,9 +4,9 @@ Date: 13 October 2026
 Repository: https://github.com/teyyara/malika  
 Release branch: `main`  
 Current completed loop: **031 — A Hundred Little Reasons I Love You** (merged and validated)  
-Current candidate: **Loop 032 — not started**  
-Latest validated application checkpoint: `41a2e115aaf3ac62e6f07a9fdaa87a3b9a68b4a7`  
-Next state: **WAITING_FOR_CONTINUE**
+Current candidate: **Loop 032 — Mimi's Tiny Storybook** (feature branch awaiting CI)  
+Latest validated application checkpoint: `0a9cbf5e4741cbd0036213a83cf449b476c815b1`  
+Next state: **WAITING_FOR_CI**
 
 ## Product state
 
@@ -123,3 +123,12 @@ The Loop 009 application merge commit is `8d40e627acff41fdc6cd2e7681cc563ed8a653
 - No backend, storage, analytics, paid service, external runtime asset, or package was added. No manual Vercel deployment was initiated; production alias remains unverified by the assistant.
 - Physical-device and screen-reader QA remain unperformed.
 
+
+
+## Loop 032 — Mimi's Tiny Storybook (candidate)
+
+- Branch: `feat/loop-032-mimis-storybook`, based on main commit `0a9cbf5e4741cbd0036213a83cf449b476c815b1`.
+- Adds a fifth tab inside the existing garden companion studio. Three choices shape an explicitly fictional fairytale about Mimi carrying an envelope to Malika.
+- Choice state is ephemeral and resets when the tab is unmounted. Changing an earlier answer clears later answers so the ending stays consistent.
+- Added Node content checks, Playwright branch composition/backtracking/replay checks, and 375px overflow coverage. Exact PR-head CI must pass before merge.
+- No manual Vercel deployment is being initiated. Production-alias verification remains with the owner.

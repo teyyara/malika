@@ -226,6 +226,15 @@ test("Letters from Future Us reveals imagined letters without changing the keeps
 
 
 test("Mimi's tiny storybook turns three choices into a repeatable branching fairytale", async ({ page }) => {
+  await page.addInitScript(() => {
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContextClass) return;
+    const originalCreateOscillator = AudioContextClass.prototype.createOscillator;
+    AudioContextClass.prototype.createOscillator = function (...args) {
+      window.__storybookCueCount = (window.__storybookCueCount || 0) + 1;
+      return originalCreateOscillator.apply(this, args);
+    };
+  });
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.setViewportSize({ width: 1366, height: 768 });
   await enterGarden(page);
@@ -236,11 +245,14 @@ test("Mimi's tiny storybook turns three choices into a repeatable branching fair
   await expect(petMimi).toBeVisible();
   await petMimi.click();
   await expect(panel.getByRole("status")).toContainText("Mimi slow-blinks, then nudges the envelope");
+  await page.evaluate(() => { window.__storybookCueCount = 0; });
   const storyUi = panel.locator(".mimi-storybook-layout");
   await expect(storyUi).toHaveAttribute("data-storybook-phase", "intro");
   await expect(panel.getByRole("heading", { name: "One tiny story. Three little choices." })).toBeVisible();
   await expect(panel).toContainText("not a memory of something that happened");
   await page.getByRole("button", { name: /Begin Mimi's story/ }).click();
+  await expect.poll(() => page.evaluate(() => window.__storybookCueCount || 0)).toBeGreaterThan(0);
+  await expect(panel.locator(".mimi-storybook-page")).toHaveAttribute("data-motion-mode", "reduced");
   await expect(storyUi).toHaveAttribute("data-storybook-phase", "choices");
   await expect(storyUi).toHaveAttribute("data-storybook-chapter", "1");
 
@@ -248,7 +260,9 @@ test("Mimi's tiny storybook turns three choices into a repeatable branching fair
   await expect(panel.getByRole("heading", { name: "Where should Mimi begin?" })).toBeVisible();
   await expect(progress).toHaveAttribute("aria-valuenow", "0");
   const lantern = page.getByRole("button", { name: /Follow a ladybug lantern/ });
+  const cueCountBeforeChoice = await page.evaluate(() => window.__storybookCueCount || 0);
   await lantern.click();
+  await expect.poll(() => page.evaluate(() => window.__storybookCueCount || 0)).toBeGreaterThan(cueCountBeforeChoice);
   await expect(lantern).toHaveAttribute("aria-pressed", "true");
   await expect(progress).toHaveAttribute("aria-valuenow", "1");
   await page.getByRole("button", { name: /Turn the tiny page/ }).click();

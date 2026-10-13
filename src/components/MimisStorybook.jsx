@@ -76,6 +76,7 @@ export default function MimisStorybook() {
       <motion.div
         key={phase === "choices" ? "chapter-" + chapterIndex : phase}
         className={"mimi-storybook-page mimi-storybook-page-" + phase}
+        data-motion-mode={reduceMotion ? "reduced" : "full"}
         initial={reduceMotion ? false : { opacity: 0, x: 12, rotateY: -1.2 }}
         animate={{ opacity: 1, x: 0, rotateY: 0 }}
         transition={{ duration: reduceMotion ? 0.01 : 0.24, ease: "easeOut" }}

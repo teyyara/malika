@@ -3,6 +3,7 @@ import { motion, useReducedMotion } from "motion/react";
 import CatCharacter from "./CatCharacter.jsx";
 import Ladybug from "./Ladybug.jsx";
 import { storybookChapters } from "../data/mimisStorybook.js";
+import { playCuteSound } from "../audio/soundEffects.js";
 
 const initialChoices = () => [null, null, null];
 
@@ -22,6 +23,7 @@ export default function MimisStorybook() {
   const finalGift = selectedPath[2];
 
   function chooseOption(id) {
+    if (selection !== id) playCuteSound("collect");
     setChoices((current) => current.map((value, index) => {
       if (index === chapterIndex) return id;
       if (index > chapterIndex) return null;
@@ -31,23 +33,33 @@ export default function MimisStorybook() {
 
   function goForward() {
     if (!selection) return;
-    if (chapterIndex < storybookChapters.length - 1) setChapterIndex((current) => current + 1);
-    else setPhase("ending");
+    if (chapterIndex < storybookChapters.length - 1) {
+      playCuteSound("note");
+      setChapterIndex((current) => current + 1);
+    } else {
+      playCuteSound("reward");
+      setPhase("ending");
+    }
   }
 
   function goBack() {
-    if (chapterIndex > 0) setChapterIndex((current) => current - 1);
+    if (chapterIndex > 0) {
+      playCuteSound("tease");
+      setChapterIndex((current) => current - 1);
+    }
   }
 
   function beginAgain() {
+    playCuteSound("on");
     setChoices(initialChoices());
     setChapterIndex(0);
     setPhase("intro");
     setPetNote("");
   }
 
-  return <div className="mimi-storybook-layout">
-    <div className={"mimi-storybook-stage" + (phase === "ending" ? " is-story-complete" : "")}>
+  return <div className="mimi-storybook-layout" data-storybook-phase={phase} data-storybook-chapter={chapterIndex + 1}>
+    <div className={"mimi-storybook-stage" + (phase === "ending" ? " is-story-complete" : "")}
+      data-story-phase={phase} data-story-chapter={chapterIndex + 1}>
       <div className="mimi-storybook-moon" aria-hidden="true">☾</div>
       <span className="mimi-storybook-star mimi-storybook-star-one" aria-hidden="true">✦</span>
       <span className="mimi-storybook-star mimi-storybook-star-two" aria-hidden="true">✧</span>
@@ -61,11 +73,18 @@ export default function MimisStorybook() {
     <div className="mimi-storybook-copy">
       {petNote && <p className="mimi-storybook-pet-note" role="status" aria-live="polite">{petNote}</p>}
       <p className="companion-kicker"><span aria-hidden="true">✧</span> a choose-your-own tiny fairytale</p>
+      <motion.div
+        key={phase === "choices" ? "chapter-" + chapterIndex : phase}
+        className={"mimi-storybook-page mimi-storybook-page-" + phase}
+        initial={reduceMotion ? false : { opacity: 0, x: 12, rotateY: -1.2 }}
+        animate={{ opacity: 1, x: 0, rotateY: 0 }}
+        transition={{ duration: reduceMotion ? 0.01 : 0.24, ease: "easeOut" }}
+      >
       {phase === "intro" && <>
         <h3>One tiny story. Three little choices.</h3>
         <p className="mimi-storybook-description">Mimi has found an envelope for Malika, but the path and the surprise are yours to choose. Pick the details, then see what sort of ending the little night will make.</p>
         <p className="mimi-storybook-note">This is a made-up little fairytale for play—not a memory of something that happened.</p>
-        <button type="button" className="mimi-storybook-primary" onClick={() => setPhase("choices")}>Begin Mimi's story <span aria-hidden="true">↗</span></button>
+        <button type="button" className="mimi-storybook-primary" onClick={() => { playCuteSound("note"); setPhase("choices"); }}>Begin Mimi's story <span aria-hidden="true">↗</span></button>
       </>}
 
       {phase === "choices" && <>
@@ -117,6 +136,7 @@ export default function MimisStorybook() {
         </article>
         <button type="button" className="mimi-storybook-primary mimi-storybook-restart" onClick={beginAgain}>Tell another tiny story <span aria-hidden="true">↻</span></button>
       </>}
+      </motion.div>
     </div>
   </div>;
 }

@@ -236,9 +236,13 @@ test("Mimi's tiny storybook turns three choices into a repeatable branching fair
   await expect(petMimi).toBeVisible();
   await petMimi.click();
   await expect(panel.getByRole("status")).toContainText("Mimi slow-blinks, then nudges the envelope");
+  const storyUi = panel.locator(".mimi-storybook-layout");
+  await expect(storyUi).toHaveAttribute("data-storybook-phase", "intro");
   await expect(panel.getByRole("heading", { name: "One tiny story. Three little choices." })).toBeVisible();
   await expect(panel).toContainText("not a memory of something that happened");
   await page.getByRole("button", { name: /Begin Mimi's story/ }).click();
+  await expect(storyUi).toHaveAttribute("data-storybook-phase", "choices");
+  await expect(storyUi).toHaveAttribute("data-storybook-chapter", "1");
 
   const progress = page.getByRole("progressbar", { name: "Story choices completed" });
   await expect(panel.getByRole("heading", { name: "Where should Mimi begin?" })).toBeVisible();
@@ -249,18 +253,21 @@ test("Mimi's tiny storybook turns three choices into a repeatable branching fair
   await expect(progress).toHaveAttribute("aria-valuenow", "1");
   await page.getByRole("button", { name: /Turn the tiny page/ }).click();
 
+  await expect(storyUi).toHaveAttribute("data-storybook-chapter", "2");
   await expect(panel.getByRole("heading", { name: "The path has one little puzzle." })).toBeVisible();
   const friends = page.getByRole("button", { name: /Invite the tiny friends/ });
   await friends.click();
   await expect(friends).toHaveAttribute("aria-pressed", "true");
   await page.getByRole("button", { name: /Turn the tiny page/ }).click();
 
+  await expect(storyUi).toHaveAttribute("data-storybook-chapter", "3");
   await expect(panel.getByRole("heading", { name: "What little gift should the envelope hold?" })).toBeVisible();
   const softness = page.getByRole("button", { name: /A wish for softer days/ });
   await softness.click();
   await expect(softness).toHaveAttribute("aria-pressed", "true");
   await expect(progress).toHaveAttribute("aria-valuenow", "3");
   await page.getByRole("button", { name: /Reveal our ending/ }).click();
+  await expect(storyUi).toHaveAttribute("data-storybook-phase", "ending");
 
   const story = page.getByRole("article", { name: "Mimi's tiny fairytale for Malika" });
   await expect(story).toBeVisible();
@@ -270,6 +277,7 @@ test("Mimi's tiny storybook turns three choices into a repeatable branching fair
   await expect(story).toContainText("Mimi curled up beside the now-empty envelope");
 
   await page.getByRole("button", { name: /Tell another tiny story/ }).click();
+  await expect(storyUi).toHaveAttribute("data-storybook-phase", "intro");
   await expect(panel.getByRole("heading", { name: "One tiny story. Three little choices." })).toBeVisible();
   await page.getByRole("button", { name: /Begin Mimi's story/ }).click();
   await expect(progress).toHaveAttribute("aria-valuenow", "0");
@@ -277,6 +285,7 @@ test("Mimi's tiny storybook turns three choices into a repeatable branching fair
   await page.getByRole("button", { name: /Turn the tiny page/ }).click();
   await page.getByRole("button", { name: /Ask the moon for a hint/ }).click();
   await page.getByRole("button", { name: /Previous chapter/ }).click();
+  await expect(storyUi).toHaveAttribute("data-storybook-chapter", "1");
   await page.getByRole("button", { name: /Take the velvet ribbon path/ }).click();
   await page.getByRole("button", { name: /Turn the tiny page/ }).click();
   await expect(progress).toHaveAttribute("aria-valuenow", "1");

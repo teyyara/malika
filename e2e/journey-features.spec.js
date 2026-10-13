@@ -193,7 +193,8 @@ test("Letters from Future Us reveals imagined letters without changing the keeps
 
   const rainyLetter = page.getByRole("button", { name: "Read future letter: A rainy Sunday together" });
   await rainyLetter.click();
-  const revealed = page.getByRole("article", { name: "A rainy Sunday together" });
+  const revealed = page.locator(".future-letter-reveal");
+  await expect(page.getByRole("article", { name: "A rainy Sunday together" })).toBeVisible();
   await expect(revealed).toBeVisible();
   await expect(revealed).toContainText("Imagine rain drawing little rivers down the window");
   await expect(rainyLetter).toHaveAttribute("aria-pressed", "true");
@@ -208,7 +209,7 @@ test("Letters from Future Us reveals imagined letters without changing the keeps
   await expect(page.locator(".future-letter-reveal")).toHaveCount(0);
 
   await page.setViewportSize({ width: 375, height: 812 });
-  await page.locator(".future-letters-disclosure > summary").click();
+  await expect(page.locator(".future-letters-disclosure")).toHaveAttribute("open", "");
   await page.getByRole("button", { name: "Read future letter: For a day that feels heavy" }).click();
   await expect(page.getByRole("article", { name: "For a day that feels heavy" })).toBeVisible();
   const layout = await page.evaluate(() => ({

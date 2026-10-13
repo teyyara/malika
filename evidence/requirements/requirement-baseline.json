@@ -125,7 +125,12 @@
       "requirement": "Malika can draft, preview, edit, and copy a private letter to Zack without sending or saving it.",
       "risk": "R1",
       "validation": "Playwright privacy, composer, clipboard fallback, and responsive journeys",
-      "status": "IMPLEMENTED_VALIDATION_PENDING"
+      "status": "IMPLEMENTED_VALIDATED"
     }
-  ]
+  ],
+  "validationEvidence": {
+    "prHeadRun": "https://github.com/teyyara/malika/actions/runs/38420686468",
+    "mainRun": "https://github.com/teyyara/malika/actions/runs/38421421971",
+    "result": "53 Chromium journeys passed; Node/content tests and production build passed on both runs."
+  }
 }

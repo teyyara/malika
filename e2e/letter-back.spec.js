@@ -58,6 +58,17 @@ test("A Little Letter Back stays private, preserves the draft, and can be copied
   expect(layout.section.right).toBeLessThanOrEqual(layout.viewport + 1);
   expect(layout.summary.right).toBeLessThanOrEqual(layout.viewport + 1);
   expect(layout.letter.right).toBeLessThanOrEqual(layout.viewport + 1);
+
+  await page.setViewportSize({ width: 1366, height: 768 });
+  await page.reload();
+  await expect(page.getByRole("heading", { name: "Malika, this little universe is yours." })).toBeVisible();
+  await page.getByRole("button", { name: /Open your birthday surprise/ }).click();
+  await page.getByRole("button", { name: "Love notes", exact: true }).click();
+  await expect(page.locator(".collection-meta")).toContainText("35 little keepsakes");
+  const afterReload = page.locator(".letter-back-disclosure");
+  await expect(afterReload).not.toHaveAttribute("open", "");
+  await afterReload.locator("summary").click();
+  await expect(page.getByRole("textbox", { name: "Your letter to Zack" })).toHaveValue("");
 });
 
 test("A Little Letter Back explains the local-only fallback when clipboard access is unavailable", async ({ page }) => {

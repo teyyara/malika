@@ -134,3 +134,41 @@ test("all companion panels stay inside laptop and phone viewports", async ({ pag
     }
   }
 });
+
+
+test("the love blossom grows with discoveries and reveals Zack's note when fully open", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await enterGarden(page);
+
+  const flower = page.locator(".interactive-flower");
+  await expect(flower).toHaveAttribute("data-blossom-level", "0");
+
+  await page.getByRole("tab", { name: "Wish sky" }).click();
+  await page.getByRole("button", { name: /Tiny wonders/ }).click();
+  await page.getByRole("button", { name: /Release into the sky/ }).click();
+  await page.getByRole("button", { name: "The garden", exact: true }).click();
+  await expect(flower).toHaveAttribute("data-blossom-level", "1");
+  await flower.click();
+  await expect(page.locator(".cat-reply")).toContainText("1 of 5 petals are awake");
+  await page.getByRole("dialog", { name: "Brave new chapters" })
+    .getByRole("button", { name: "Close love note" }).click();
+
+  for (let wish = 0; wish < 2; wish += 1) {
+    await page.getByRole("tab", { name: "Wish sky" }).click();
+    await page.getByRole("button", { name: /Tiny wonders/ }).click();
+    await page.getByRole("button", { name: /Release into the sky/ }).click();
+  }
+
+  await page.getByRole("button", { name: "Heart game", exact: true }).click();
+  await page.getByRole("button", { name: /Let's find some hearts/ }).click();
+  const hearts = page.getByRole("button", { name: /Collect purple heart/ });
+  for (let count = 0; count < 7; count += 1) await hearts.first().click();
+
+  await page.getByRole("button", { name: "The garden", exact: true }).click();
+  await expect(flower).toHaveAttribute("data-blossom-level", "5");
+  await expect(flower).toHaveAttribute("aria-label", "Touch the pink flower to find a birthday wish");
+  await expect(flower).toHaveAttribute("aria-description", "Love blossom: 5 of 5 petals open.");
+  await expect(flower).toHaveAttribute("title", "Love blossom · 5 of 5 petals");
+  await flower.click();
+  await expect(page.locator(".cat-reply")).toContainText("a hundred little reasons to smile");
+});

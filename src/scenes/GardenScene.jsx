@@ -4,6 +4,7 @@ import Ladybug from "../components/Ladybug.jsx";
 import GardenCompanionStudio from "../components/GardenCompanionStudio.jsx";
 import { loveMessages } from "../data/loveMessages.js";
 import { memories } from "../data/memories.js";
+import { playCuteSound } from "../audio/soundEffects.js";
 
 const greetings = [
   "Mimi's official birthday announcement: Malika deserves all the soft things and happy surprises.",
@@ -43,6 +44,26 @@ export default function GardenScene({ discoveredCount, heartsCollected = 0, requ
   const [constellationStep, setConstellationStep] = useState(0);
   const [constellationFound, setConstellationFound] = useState(false);
   const noteCount = loveMessages.length + memories.length;
+  // A tiny visit-only reward: the flower grows as she explores the rest of the world.
+  const blossomPoints = discoveredCount + heartsCollected + releasedWishes.length * 2;
+  const blossomLevel = Math.min(5, Math.ceil(blossomPoints / 3));
+
+  function tendLoveBlossom() {
+    if (blossomLevel < 5) {
+      setCatMessage(
+        "Mimi checks the little flower with one careful paw: " + blossomLevel +
+        " of 5 petals are awake. Discover notes, collect hearts, or send wishes to help it bloom."
+      );
+      // Keep the flower's original wish available until the special full-bloom reveal.
+      onOpenNote("wish-04");
+      return;
+    }
+    setCatMessage(
+      "It opened! A tiny note from Zack: “I hope life leaves you a hundred little reasons to smile — " +
+      "and that you remember one of mine is simply that you are you.” ♡"
+    );
+    playCuteSound("reveal");
+  }
 
   function greetCat() {
     const next = (greetingIndex + 1) % greetings.length;
@@ -116,9 +137,19 @@ export default function GardenScene({ discoveredCount, heartsCollected = 0, requ
       )}
       <div className="garden-ground" aria-hidden="true" />
       <div className="garden-plant plant-left" aria-hidden="true"><i /><i /><i /><b /></div>
-      <button className="garden-plant plant-right interactive-flower" type="button"
-        aria-label="Touch the pink flower to find a birthday wish" onClick={() => onOpenNote("wish-04")}>
+      <button
+        className="garden-plant plant-right interactive-flower"
+        type="button"
+        data-blossom-level={blossomLevel}
+        aria-label="Touch the pink flower to find a birthday wish"
+        aria-description={"Love blossom: " + blossomLevel + " of 5 petals open."}
+        title={"Love blossom · " + blossomLevel + " of 5 petals"}
+        onClick={tendLoveBlossom}
+      >
         <i /><i /><i /><b />
+        {Array.from({ length: 6 }, (_, index) => (
+          <span key={index} className="love-bloom-petal" aria-hidden="true" />
+        ))}
       </button>
       <div className="garden-cat-wrap"><CatCharacter mood="curious" onClick={greetCat} label="Pet Mimi the kitten and hear a new greeting" /></div>
       {bugs.map((bug, index) =>

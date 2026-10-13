@@ -348,3 +348,15 @@ On the Birthday Letter page, open **One last little surprise…**. The app-level
 - The seal, footer star, constellation, and other actionable secrets are keyboard reachable. The games are usable with buttons, not drag-only gestures.
 - Reduced-motion settings suppress nonessential animation loops.
 - Automated browser journeys are in e2e/easter-eggs.spec.js, e2e/birthday.spec.js, and e2e/wax-seal.spec.js. This is not a claim of physical-device or screen-reader certification.
+
+
+## 18. Loop 028 — The Flower That Grows With Love
+
+The interactive pink flower on the right side of the garden is a tiny progress secret:
+
+- Its six decorative petals gradually open as notes are discovered, hearts are collected, and wishes are sent into the sky.
+- Tap it before it is fully open to hear Mimi's gentle nudge about helping the flower bloom.
+- When all five progress stages are complete, tap it again to reveal a little note from Zack.
+- The progress belongs to the current visit only. Refreshing starts a new flower; it is not written to browser storage or any service.
+
+Browser regression coverage in e2e/journey-features.spec.js checks the closed bud, growth after releasing a wish, an incomplete-bloom message, full bloom after wishes and the heart game, and the final note reveal. The existing journey suite continues to check reduced motion and laptop/phone layouts.

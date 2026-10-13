@@ -31,7 +31,7 @@
 .letter-back-counter{color:rgba(217,202,231,.55);font-size:9px;font-variant-numeric:tabular-nums}
 .letter-back-primary,.letter-back-secondary{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:37px;padding:9px 13px;border-radius:999px;font-size:10px;font-weight:600;cursor:pointer;transition:transform .18s ease,border-color .18s ease,background .18s ease}
 .letter-back-primary{border:1px solid rgba(225,194,255,.35);color:#2f1d3d;background:linear-gradient(135deg,#edd8ff,#d0b0ee);box-shadow:0 4px 18px rgba(168,116,207,.1)}
-.letter-back-primary:hover:not(:disabled){transform:translateY(-1px);background:linear-gradient(135deg,#f2e4ff,#dfc3f4)}
+.letter-back-primary:hover:not(:disabled){background:linear-gradient(135deg,#f2e4ff,#dfc3f4)}
 .letter-back-primary:disabled{opacity:.4;cursor:not-allowed}
 .letter-back-secondary{border:1px solid rgba(213,186,246,.2);color:#e3cef7;background:rgba(180,138,231,.045)}
 .letter-back-secondary:hover{border-color:rgba(225,196,255,.38);background:rgba(180,138,231,.1)}

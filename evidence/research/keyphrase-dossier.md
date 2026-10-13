@@ -31,3 +31,17 @@ Date: 2026-10-13. Active project interpretation remains the romantic interactive
 
 ### Research limits
 This was a focused design/accessibility review, not a full competitor or market study. No claim is made that the site as a whole is WCAG 2.2 AA certified, or that real-device, screen-reader, human audio listening, or production QA occurred.
+
+
+## Loop 029 addendum — Letters from Future Us
+
+Date: 2026-10-13.
+
+### Repository facts and design decisions
+- FACT: LoveCollectionScene.jsx already owns the Love Notes page and renders the existing 35 keepsakes.
+- FACT: this site intentionally avoids fabricating past relationship memories; the current memories data is presented as future-facing dreams.
+- DECISION: put the new feature in that scene rather than the top-level navigation, and keep it collapsed by default so the laptop's first view remains compact.
+- DECISION: include a visible disclaimer describing the letters as imagined possible tomorrows, not memories, predictions, or promises. No cross-visit personalization or persistence is needed.
+
+### Validation scope
+The new browser journey verifies all four letter options, opening/switching/closing, unchanged count of 35 regular keepsakes, and bounds at 1366×768 and 375×812. The existing full Chromium suite also remains required. Physical touch-device, screen-reader, and production-alias verification remain separate and are not implied by an automated CI pass.

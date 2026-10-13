@@ -360,3 +360,18 @@ The interactive pink flower on the right side of the garden is a tiny progress s
 - The progress belongs to the current visit only. Refreshing starts a new flower; it is not written to browser storage or any service.
 
 Browser regression coverage in e2e/journey-features.spec.js checks the closed bud, growth after releasing a wish, an incomplete-bloom message, full bloom after wishes and the heart game, and the final note reveal. The existing journey suite continues to check reduced motion and laptop/phone layouts.
+
+
+## 19. Loop 029 — Letters from Future Us
+
+In **Love notes**, open the small **Letters from Future Us** disclosure. It is collapsed by default so the regular collection stays compact.
+
+Choose any of four little imagined letters:
+- **A rainy Sunday together** — a quiet day with warm mugs, a blanket, rain, and Mimi.
+- **Our little unplanned escape** — exploring somewhere new without a packed itinerary.
+- **A Tuesday we'd never post about** — the quiet happiness of ordinary days.
+- **For a day that feels heavy** — a gentle reminder that love does not require pretending to be okay.
+
+Selecting a card opens its full letter on a soft, pearl-toned paper panel. You can choose another letter or close the current one. These are written as possible tomorrows; they are not claims about shared past events, promises about the future, or predictions. The choice is in React page state only and is not saved between visits.
+
+**Browser regression coverage:** `e2e/journey-features.spec.js` checks the default-collapsed state, all four choices, letter switching and closing, the unchanged keepsake count, reduced motion, and layout bounds at 1366×768 and 375×812.

@@ -3,6 +3,7 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { loveMessages, messageCategories } from "../data/loveMessages.js";
 import { memories } from "../data/memories.js";
 import { siteConfig } from "../data/siteConfig.js";
+import FutureLetters from "../components/FutureLetters.jsx";
 
 export default function LoveCollectionScene({ gameWon, discoveredIds, onOpenNote }) {
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -31,6 +32,7 @@ export default function LoveCollectionScene({ gameWon, discoveredIds, onOpenNote
       <span><b>{discoveredIds.length}</b> discovered</span><span className="collection-meta-divider" />
       <span><b>{items.length}</b> little keepsakes</span>
     </div>
+    <FutureLetters />
     <div className="collection-tools">
       <label className="collection-search">
         <span className="collection-search-label">find a note by feeling or word</span>

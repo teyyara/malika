@@ -1,0 +1,72 @@
+/* Loop 029 — compact, optional letters from imagined tomorrows. */
+.future-letters{width:100%;margin:15px 0 19px;color:var(--text-primary,#f4edf9)}
+.future-letters-disclosure{overflow:hidden;border:1px solid rgba(202,176,246,.17);border-radius:17px;background:radial-gradient(ellipse at 3% 0%,rgba(174,125,231,.1),transparent 43%),linear-gradient(130deg,rgba(35,23,53,.76),rgba(22,14,36,.88));box-shadow:inset 0 1px 0 rgba(255,255,255,.025)}
+.future-letters-disclosure>summary{display:grid;grid-template-columns:43px minmax(0,1fr) auto;align-items:center;gap:13px;min-height:86px;padding:13px 17px;cursor:pointer;list-style:none;touch-action:manipulation;transition:background .2s ease}
+.future-letters-disclosure>summary::-webkit-details-marker{display:none}
+.future-letters-disclosure>summary:hover,.future-letters-disclosure[open]>summary{background:linear-gradient(100deg,rgba(201,166,246,.075),rgba(201,166,246,.015))}
+.future-letters-disclosure>summary:focus-visible{outline:3px solid var(--focus,#e5c5ff);outline-offset:-4px}
+.future-letters-seal,.future-letter-postmark{display:grid;place-items:center;flex:0 0 auto;width:43px;height:43px;border:1px solid rgba(211,184,255,.23);border-radius:50%;color:#e4ccff;background:radial-gradient(circle at 28% 20%,rgba(213,187,255,.19),rgba(115,75,157,.09));box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 0 24px rgba(160,111,218,.07);font-size:20px}
+.future-letters-summary-copy{display:grid;justify-items:start;gap:3px;min-width:0}
+.future-letters-eyebrow,.future-letter-choice-kicker{color:rgba(212,188,239,.72);font-size:8px;font-weight:650;letter-spacing:.16em;line-height:1.5;text-transform:uppercase}
+.future-letters-summary-copy strong{color:#f5eefe;font-family:var(--lux-serif,Georgia,serif);font-size:clamp(18px,1.7vw,22px);font-weight:400;line-height:1.15}
+.future-letters-summary-copy small{color:rgba(222,209,236,.68);font-size:10px;line-height:1.5}
+.future-letters-summary-action{display:inline-flex;align-items:center;gap:9px;padding:8px 10px;border:1px solid rgba(211,184,255,.13);border-radius:999px;color:#dfc5ff;background:rgba(180,138,231,.055);font-size:9px;white-space:nowrap}
+.future-letters-summary-action>span{display:inline-block;font-size:15px;transition:transform .2s ease}
+.future-letters-disclosure[open] .future-letters-summary-action>span{transform:rotate(180deg)}
+.future-letters-content{padding:0 15px 16px;border-top:1px solid rgba(202,176,246,.105);animation:future-letters-appear .25s ease both}
+.future-letters-disclaimer{margin:13px 2px 12px;color:rgba(225,210,240,.74);font-size:10px;line-height:1.7}
+.future-letter-choices{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+.future-letter-choice{display:flex;min-width:0;min-height:165px;flex-direction:column;align-items:flex-start;gap:7px;padding:12px 12px 10px;border:1px solid rgba(205,179,245,.13);border-radius:12px;color:#f1e7fb;text-align:left;background:linear-gradient(150deg,rgba(58,39,78,.55),rgba(27,18,41,.58));cursor:pointer;transition:border-color .2s ease,background .2s ease,transform .2s ease,box-shadow .2s ease}
+.future-letter-choice:hover{border-color:rgba(222,195,255,.35);background:linear-gradient(150deg,rgba(73,48,99,.68),rgba(33,20,50,.8));transform:translateY(-2px)}
+.future-letter-choice:focus-visible,.future-letter-close:focus-visible{outline:3px solid var(--focus,#e5c5ff);outline-offset:3px}
+.future-letter-choice.is-selected{border-color:rgba(226,199,255,.49);background:linear-gradient(150deg,rgba(95,64,127,.55),rgba(41,26,62,.79));box-shadow:inset 0 0 0 1px rgba(226,199,255,.06),0 0 21px rgba(172,128,221,.065)}
+.future-letter-choice-symbol{display:grid;place-items:center;width:31px;height:31px;margin-bottom:1px;border:1px solid rgba(230,204,255,.18);border-radius:10px;color:#efdfff;background:rgba(207,177,246,.085);font-size:16px}
+.future-letter-choice--rainy-sunday .future-letter-choice-symbol{color:#bfd8ff;background:rgba(131,166,230,.11)}
+.future-letter-choice--little-escape .future-letter-choice-symbol{color:#e5c7ff;background:rgba(181,136,236,.11)}
+.future-letter-choice--ordinary-tuesday .future-letter-choice-symbol{color:#ffe0b9;background:rgba(229,166,113,.1)}
+.future-letter-choice--heavy-day .future-letter-choice-symbol{color:#ffcee8;background:rgba(231,142,190,.1)}
+.future-letter-choice-kicker{font-size:7px;letter-spacing:.12em}
+.future-letter-choice>strong{color:#fbf4ff;font-family:var(--lux-serif,Georgia,serif);font-size:15px;font-weight:400;line-height:1.25}
+.future-letter-choice-preview{color:rgba(222,209,236,.69);font-size:9px;line-height:1.55}
+.future-letter-choice-action{display:flex;align-items:center;justify-content:space-between;gap:7px;width:100%;margin-top:auto;padding-top:7px;border-top:1px solid rgba(206,179,244,.1);color:#d9bafc;font-size:8px;letter-spacing:.015em}
+.future-letter-choice-action>span{font-size:11px}
+.future-letter-reveal{overflow:hidden;margin-top:14px;border:1px solid rgba(228,207,238,.25);border-radius:15px;color:#403148;background:radial-gradient(ellipse at 90% 0%,rgba(197,162,231,.19),transparent 40%),linear-gradient(135deg,#f8f0f8 0%,#f3e8f2 55%,#f9f0e9 100%);box-shadow:0 16px 38px rgba(6,2,15,.2),inset 0 1px 0 rgba(255,255,255,.85);animation:future-letter-unfold .3s cubic-bezier(.2,.8,.2,1) both}
+.future-letter-reveal-top{display:grid;grid-template-columns:39px minmax(0,1fr) 32px;align-items:center;gap:12px;padding:15px 18px 13px;border-bottom:1px solid rgba(113,77,130,.14);background:linear-gradient(90deg,rgba(255,255,255,.3),transparent)}
+.future-letter-postmark{width:38px;height:38px;color:#77548d;border-color:rgba(119,84,141,.22);background:rgba(177,143,197,.12)}
+.future-letter-reveal-heading{min-width:0}
+.future-letter-reveal-heading .future-letters-eyebrow{color:#8e719b;font-size:7px}
+.future-letter-reveal-heading h3{margin:3px 0 0;color:#3c2948;font-family:var(--lux-serif,Georgia,serif);font-size:clamp(20px,2vw,26px);font-weight:400;line-height:1.2}
+.future-letter-close{display:grid;place-items:center;width:31px;height:31px;padding:0;border:1px solid rgba(104,75,120,.2);border-radius:50%;color:#6b4b7b;background:rgba(255,255,255,.42);font-size:23px;cursor:pointer}
+.future-letter-paper{padding:20px clamp(17px,3.4vw,35px) 22px}
+.future-letter-paper p{max-width:72ch;margin:0 0 12px;color:#56435f;font-size:12px;line-height:1.8}
+.future-letter-paper .future-letter-salutation{color:#4b315c;font-family:var(--lux-serif,Georgia,serif);font-size:17px}
+.future-letter-paper .future-letter-closing{margin-top:16px;color:#6c4c7d;font-family:var(--lux-serif,Georgia,serif);font-size:16px;font-style:italic}
+.future-letter-paper .future-letter-signoff{margin-top:17px;margin-bottom:4px;color:#78627e;font-size:10px}
+.future-letter-signature{color:#573c67;font-family:var(--lux-serif,Georgia,serif);font-size:16px;font-weight:500}
+@keyframes future-letters-appear{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:translateY(0)}}
+@keyframes future-letter-unfold{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:1020px){.future-letter-choices{grid-template-columns:repeat(2,minmax(0,1fr))}.future-letter-choice{min-height:145px}}
+@media(max-width:560px){
+ .future-letters-disclosure>summary{grid-template-columns:36px minmax(0,1fr);gap:10px;min-height:75px;padding:12px}
+ .future-letters-seal{width:36px;height:36px;font-size:17px}
+ .future-letters-summary-copy strong{font-size:19px}
+ .future-letters-summary-copy small{font-size:9px}
+ .future-letters-summary-action{grid-column:2;justify-self:start;margin-top:-3px;padding:6px 8px;font-size:8px}
+ .future-letters-content{padding-inline:10px;padding-bottom:11px}
+ .future-letters-disclaimer{font-size:9px}
+ .future-letter-choices{gap:7px}
+ .future-letter-choice{min-height:155px;padding:9px 9px 8px;gap:6px}
+ .future-letter-choice>strong{font-size:13px}
+ .future-letter-choice-preview{font-size:8px}
+ .future-letter-choice-kicker{font-size:6px;letter-spacing:.08em}
+ .future-letter-choice-action{font-size:7px}
+ .future-letter-reveal-top{grid-template-columns:32px minmax(0,1fr) 28px;gap:8px;padding:12px}
+ .future-letter-postmark{width:32px;height:32px;font-size:15px}
+ .future-letter-reveal-heading h3{font-size:20px}
+ .future-letter-paper{padding:17px 13px 18px}
+ .future-letter-paper p{font-size:11px;line-height:1.72}
+}
+@media(prefers-reduced-motion:reduce){
+ .future-letters-disclosure>summary,.future-letters-summary-action>span,.future-letter-choice{transition:none!important}
+ .future-letters-content,.future-letter-reveal{animation:none!important}
+}

@@ -1,5 +1,5 @@
 {
-  "contractVersion": "1.2",
+  "contractVersion": "1.3",
   "capturedAt": "2026-10-13",
   "personalization": {
     "recipient": "Malika",
@@ -112,6 +112,13 @@
       "risk": "R1",
       "validation": "Playwright journey: initial, partial, full bloom; reduced motion and existing responsive matrix",
       "status": "VALIDATED_PR_CI_MAIN_CI_PENDING"
+    },
+    {
+      "id": "REQ-016",
+      "requirement": "Love Notes offers four accessible, clearly labeled imagined-future letters in a collapsed-by-default disclosure, with selectable full-letter content and no storage or external service.",
+      "risk": "R1",
+      "validation": "Playwright: disclosure state, four choices, content switching, close action, unchanged keepsake count, 1366x768 and 375x812 overflow checks",
+      "status": "IMPLEMENTED_VALIDATION_PENDING"
     }
   ]
 }

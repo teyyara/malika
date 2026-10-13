@@ -45,14 +45,14 @@ export default function MimisStorybook() {
   }
 
   return <div className="mimi-storybook-layout">
-    <div className={"mimi-storybook-stage" + (phase === "ending" ? " is-story-complete" : "")} aria-hidden="true">
-      <div className="mimi-storybook-moon">☾</div>
-      <span className="mimi-storybook-star mimi-storybook-star-one">✦</span>
-      <span className="mimi-storybook-star mimi-storybook-star-two">✧</span>
-      <span className="mimi-storybook-orbit mimi-storybook-orbit-one" />
-      <span className="mimi-storybook-orbit mimi-storybook-orbit-two" />
-      <div className="mimi-storybook-cat"><CatCharacter mood={phase === "ending" ? "happy" : chapterIndex === 1 ? "curious" : "love"} /></div>
-      <div className="mimi-storybook-ladybug"><Ladybug decorative /></div>
+    <div className={"mimi-storybook-stage" + (phase === "ending" ? " is-story-complete" : "")}>
+      <div className="mimi-storybook-moon" aria-hidden="true">☾</div>
+      <span className="mimi-storybook-star mimi-storybook-star-one" aria-hidden="true">✦</span>
+      <span className="mimi-storybook-star mimi-storybook-star-two" aria-hidden="true">✧</span>
+      <span className="mimi-storybook-orbit mimi-storybook-orbit-one" aria-hidden="true" />
+      <span className="mimi-storybook-orbit mimi-storybook-orbit-two" aria-hidden="true" />
+      <div className="mimi-storybook-cat"><CatCharacter mood={phase === "ending" ? "happy" : chapterIndex === 1 ? "curious" : "love"} label="Pet Mimi while reading her storybook" /></div>
+      <div className="mimi-storybook-ladybug" aria-hidden="true"><Ladybug decorative /></div>
       <p className="mimi-storybook-stage-caption">{phase === "ending" ? "a story made from your choices" : "Mimi, official storybook explorer"}</p>
     </div>
 

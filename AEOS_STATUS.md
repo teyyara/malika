@@ -4,9 +4,9 @@ Date: 13 October 2026
 Repository: https://github.com/teyyara/malika  
 Release branch: `main`  
 Current completed loop: **034 — Keyboard-Ready Companion Tabs** (merged and validated)  
-Current candidate: **None — waiting for a new CONTINUE instruction**  
+Current candidate: **Loop 035 — The Storybook That Plays Along** (feature branch awaiting CI)  
 Latest validated application checkpoint: `a0dc68a06899be673491ac8b28ebfd9e8aa47bc9`  
-Next state: **WAITING_FOR_CONTINUE**
+Next state: **WAITING_FOR_CI**
 
 ## Product state
 
@@ -157,3 +157,13 @@ The Loop 009 application merge commit is `8d40e627acff41fdc6cd2e7681cc563ed8a653
 - The companion tablist now has one normal Tab stop, Left/Right Arrow navigation with wraparound, and Home/End shortcuts. Focus, `aria-selected`, and the visible panel stay synchronized.
 - No package, backend, storage, analytics, paid API, remote asset, or outside service was introduced.
 - No manual Vercel deployment was initiated. Public production alias, human screen-reader behavior, and physical-device QA remain unverified.
+
+
+## Loop 035 — The Storybook That Plays Along (candidate)
+
+- Branch: `feat/loop-035-living-storybook`, based on main `9c3ca78b689b59e6f3bb87a4770622d272cbe92f`.
+- Adds a soft page-turn entrance, chapter/ending-responsive illustration accents, and generated sound cues inside Mimi's existing storybook. Existing global sound settings remain in control; reduced-motion mode suppresses the transition.
+- No new scene, audio file, dependency, storage, external service, or remote asset.
+- Exact-head validation is pending. A new browser assertion checks the Web Audio tone path and reduced-motion mode in addition to the existing story branching/replay and phone-width coverage.
+- The prior application-code main run `38481311313` passed the production build and all 58 browser journeys. A later docs-only post-merge run `38484282755` was still in progress at the last check; do not label that run as passed without rechecking.
+- No manual Vercel deployment will be initiated. Production alias, human screen-reader QA and physical-device QA remain unverified.

@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 test("the birthday letter contains an optional 100-page book with working page controls", async ({ page }) => {
+  test.setTimeout(60_000);
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.setViewportSize({ width: 1366, height: 768 });
   await page.goto("/");

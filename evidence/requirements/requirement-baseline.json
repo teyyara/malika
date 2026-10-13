@@ -1,5 +1,5 @@
 {
-  "contractVersion": "1.4",
+  "contractVersion": "1.5",
   "capturedAt": "2026-10-13",
   "personalization": {
     "recipient": "Malika",
@@ -126,6 +126,13 @@
       "risk": "R1",
       "validation": "Playwright privacy, composer, clipboard fallback, and responsive journeys",
       "status": "IMPLEMENTED_VALIDATED"
+    },
+    {
+      "id": "REQ-018",
+      "requirement": "The birthday letter offers a collapsed-by-default book of 100 unique affirmations, with accessible page navigation, an end-of-book restart, and session-only progress.",
+      "risk": "R1",
+      "validation": "Node/content uniqueness test and Playwright page, boundary, reset, and responsive journeys",
+      "status": "IMPLEMENTED_VALIDATION_PENDING"
     }
   ],
   "validationEvidence": {

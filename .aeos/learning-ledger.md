@@ -21,3 +21,13 @@
 - Candidate maps visit-only progress (distinct notes + hearts + twice the number of released wishes) into five stages, uses the existing live cat reply for its reward copy, and respects reduced motion.
 - Added a Playwright journey for closed, partial, and full bloom, plus Product Contract v1.2 and REQ-015.
 - Validation awaits PR CI. Local clone/build was unavailable because GitHub host resolution failed; do not describe local tests as run. CI is the validation gate.
+
+
+## Loop 028 — final outcome (2026-10-13)
+
+- Merged PR #33 at `89254069beb42d89381735a6d3c3e9e68207a11b`.
+- Exact PR-head run 38332835598 passed Node/content tests, production build, and complete Chromium browser journeys.
+- Post-merge main run 38333209788 had passed Node/content tests and production build; browser journeys were still in progress at the time of the final status check.
+- The browser regression uncovered during development was fixed by preserving the flower's stable accessible name and its established wish-note action before full bloom. The corrected PR-head suite passed.
+- No package, backend, browser storage, paid service, or remote asset was added. No manual deployment was performed; production alias validation remains outstanding.
+- Loop checkpoint is merged and safe. Orchestration state returns to WAITING_FOR_CONTINUE.

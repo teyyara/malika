@@ -3,9 +3,9 @@
 Date: 13 October 2026  
 Repository: https://github.com/teyyara/malika  
 Release branch: `main`  
-Current completed loop: **027 — the evolving sky and companion studio**  
-Current candidate: **Loop 028 — The Flower That Grows With Love** (feature branch pending CI)  
-Next state: **VALIDATION_PENDING**
+Current completed loop: **028 — The Flower That Grows With Love**  
+Latest application checkpoint: `89254069beb42d89381735a6d3c3e9e68207a11b`  
+Next state: **WAITING_FOR_CONTINUE**
 
 ## Product state
 
@@ -81,3 +81,14 @@ The Loop 009 application merge commit is `8d40e627acff41fdc6cd2e7681cc563ed8a653
 - Prior verified work: Loop 026 laptop-layout PR and main CI passed (PR run 38322276452; main run 38324287298). Loop 027 companion-studio PR and main CI passed (PR run 38325030718; main run 38325414131).
 - Deployment: no deployment was initiated. Current production alias remains unverified; do not infer readiness from a source or preview CI result.
 - Local validation limitation: this environment could not resolve github.com for a local clone, so no local build/test PASS is claimed.
+
+
+## Loop 028 — final checkpoint reconciliation
+
+- **PR #33 merged:** https://github.com/teyyara/malika/pull/33
+- **Merge commit:** `89254069beb42d89381735a6d3c3e9e68207a11b`
+- **Exact PR-head validation:** [run 38332835598](https://github.com/teyyara/malika/actions/runs/38332835598) — success. Node/content tests, production build, complete Chromium browser journeys, and evidence uploads passed on PR head `3f2e631d7f47d9f95abeca970937d5189ecfbe38`. Its tree is identical to the merge commit's tree.
+- **Post-merge main validation:** [run 38333209788](https://github.com/teyyara/malika/actions/runs/38333209788) — Node/content tests and production build passed; Chromium journeys were still marked in progress when this status was recorded. This is explicitly pending, not a PASS claim.
+- **Local checks:** unavailable in this execution environment because GitHub hostname resolution prevented a local clone. No local build/test PASS is claimed.
+- **Deployment:** no manual Vercel deployment was initiated. The live production alias has not been independently verified.
+- **Next loop:** wait for a standalone `CONTINUE` message before beginning more implementation.

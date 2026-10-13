@@ -20,3 +20,12 @@ A gradual flower bloom tied to small discoveries will make exploration feel cumu
 - Candidate CI is required to run Node/content tests, the production Vite build, and all Chromium journeys. Exact run and commit evidence will be appended after the run completes.
 - Local clone/build was not possible because GitHub host resolution failed. No local-test PASS is claimed.
 - Physical touch, screen-reader, human audio listening, and production-alias validation remain unobserved.
+
+
+## Final CI outcome
+
+- **PR:** [#33](https://github.com/teyyara/malika/pull/33), merged.
+- **Application/merge commit:** `89254069beb42d89381735a6d3c3e9e68207a11b`.
+- **Green candidate validation:** [run 38332835598](https://github.com/teyyara/malika/actions/runs/38332835598) completed successfully for PR head `3f2e631d7f47d9f95abeca970937d5189ecfbe38`. The candidate tree and merge tree are identical; Node/content tests, production build, and the complete Chromium suite passed.
+- **Post-merge validation:** [run 38333209788](https://github.com/teyyara/malika/actions/runs/38333209788) had passed Node/content tests and production build but remained in the Chromium journey step at the last status check. It is not recorded as a pass.
+- Local test execution, physical touch-device QA, screen-reader validation, human audio listening, and production-alias validation were not observed.

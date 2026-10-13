@@ -7,22 +7,18 @@
   "progressionBranch": "feat/loop-028-love-blossom",
   "currentLoop": 28,
   "candidate": "malika-birthday-028-love-blossom",
-  "status": "IMPLEMENTED_VALIDATION_PENDING",
-  "orchestrationState": "WAITING_FOR_CI",
-  "validatedApplicationCheckpoint": "c2905d1d39bb7b09b9d0a9b452d0054c0f6f8237",
+  "status": "MERGED_PR_CI_PASS_MAIN_CI_IN_PROGRESS",
+  "orchestrationState": "WAITING_FOR_CONTINUE",
+  "validatedApplicationCheckpoint": "89254069beb42d89381735a6d3c3e9e68207a11b",
   "latestPassingWorkflowForCandidate": {
-    "runId": 38256068964,
-    "url": "https://github.com/teyyara/malika/actions/runs/38256068964",
-    "headSha": "175ac1a4244dfc898919a1a3a51d6aa83e913b27",
+    "runId": 38332835598,
+    "url": "https://github.com/teyyara/malika/actions/runs/38332835598",
+    "headSha": "3f2e631d7f47d9f95abeca970937d5189ecfbe38",
     "conclusion": "success",
-    "nodeTestsPassed": 8,
-    "nodeTestsFailed": 0,
-    "playwrightTestsPassed": 21,
-    "playwrightTestsFailed": 0,
+    "nodeContentTests": "PASS",
     "productionBuild": "PASS",
-    "browser": "Chromium",
-    "browserReportArtifact": "https://github.com/teyyara/malika/actions/runs/38256068964/artifacts/11750432061",
-    "visualScreenshotArtifact": "https://github.com/teyyara/malika/actions/runs/38256068964/artifacts/11750586910"
+    "chromiumBrowserJourneys": "PASS",
+    "note": "PR-head tree is identical to merged main tree at 89254069beb42d89381735a6d3c3e9e68207a11b."
   },
   "personalization": {
     "recipientName": "Malika",
@@ -30,10 +26,11 @@
     "birthday": "12 October"
   },
   "pullRequest": {
-    "url": "https://github.com/teyyara/malika/pull/11",
-    "number": 11,
+    "url": "https://github.com/teyyara/malika/pull/33",
+    "number": 33,
     "state": "MERGED",
-    "mergeCommitSha": "8d40e627acff41fdc6cd2e7681cc563ed8a65392"
+    "headSha": "3f2e631d7f47d9f95abeca970937d5189ecfbe38",
+    "mergeCommitSha": "89254069beb42d89381735a6d3c3e9e68207a11b"
   },
   "automatedBrowserQA": {
     "status": "PASS",
@@ -80,9 +77,8 @@
   "screenReaderQA": "NOT_YET_OBSERVED",
   "realMobileDeviceQA": "NOT_TESTED",
   "nextHighValueWork": [
-    "Complete Loop 028 PR CI and reconcile status after merge.",
-    "Do not claim production is current until owner verifies Vercel.",
-    "Physical-device touch QA and VoiceOver/NVDA validation remain outstanding."
+    "Wait for a standalone CONTINUE message before starting another loop.",
+    "Reconcile post-merge main workflow 38333209788 if its final result is later checked."
   ],
   "arcadeMastery": {
     "games": [
@@ -98,12 +94,19 @@
     "automatedTest": "Completing all five arcade quests unlocks the grand-secret finale."
   },
   "releaseStateCommit": "478890f724f47961e8f0ddb3c90ba860ba05c241",
-  "currentCandidate": {
-    "branch": "feat/loop-028-love-blossom",
-    "baseCommit": "c2905d1d39bb7b09b9d0a9b452d0054c0f6f8237",
-    "feature": "The Flower That Grows With Love",
-    "requirement": "REQ-015",
-    "validation": "Awaiting PR CI; local clone/build unavailable because GitHub host resolution failed."
-  },
-  "lastUpdated": "2026-10-13"
+  "lastUpdated": "2026-10-13",
+  "postMergeMainWorkflow": {
+    "runId": 38333209788,
+    "url": "https://github.com/teyyara/malika/actions/runs/38333209788",
+    "headSha": "89254069beb42d89381735a6d3c3e9e68207a11b",
+    "status": "IN_PROGRESS_AT_LAST_INSPECTION",
+    "passedSteps": [
+      "Node/content tests",
+      "Production build",
+      "Chromium installation"
+    ],
+    "pendingSteps": [
+      "Chromium browser journeys"
+    ]
+  }
 }

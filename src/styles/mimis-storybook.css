@@ -87,3 +87,5 @@
  .mimi-storybook-moon,.mimi-storybook-star-one,.mimi-storybook-star-two{animation:none!important}
  .mimi-storybook-primary,.mimi-storybook-secondary,.mimi-storybook-choice,.mimi-storybook-progress>span{transition:none!important}
 }
+
+.mimi-storybook-pet-note{margin:0 0 10px;padding:9px 11px;border-left:2px solid rgba(219,190,255,.5);border-radius:0 8px 8px 0;color:#e4d5fa;background:linear-gradient(90deg,rgba(173,136,225,.11),transparent);font-size:10px;line-height:1.7}

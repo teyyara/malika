@@ -232,7 +232,10 @@ test("Mimi's tiny storybook turns three choices into a repeatable branching fair
   await page.getByRole("tab", { name: "Mimi's tiny storybook" }).click();
 
   const panel = page.locator(".companion-panel-storybook");
-  await expect(panel.getByRole("button", { name: "Pet Mimi while reading her storybook" })).toBeVisible();
+  const petMimi = panel.getByRole("button", { name: "Pet Mimi while reading her storybook" });
+  await expect(petMimi).toBeVisible();
+  await petMimi.click();
+  await expect(panel.getByRole("status")).toContainText("Mimi slow-blinks, then nudges the envelope");
   await expect(panel.getByRole("heading", { name: "One tiny story. Three little choices." })).toBeVisible();
   await expect(panel).toContainText("not a memory of something that happened");
   await page.getByRole("button", { name: /Begin Mimi's story/ }).click();

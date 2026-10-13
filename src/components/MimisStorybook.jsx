@@ -10,6 +10,7 @@ export default function MimisStorybook() {
   const [phase, setPhase] = useState("intro");
   const [chapterIndex, setChapterIndex] = useState(0);
   const [choices, setChoices] = useState(initialChoices);
+  const [petNote, setPetNote] = useState("");
   const reduceMotion = useReducedMotion();
   const chapter = storybookChapters[chapterIndex];
   const selection = choices[chapterIndex];
@@ -42,6 +43,7 @@ export default function MimisStorybook() {
     setChoices(initialChoices());
     setChapterIndex(0);
     setPhase("intro");
+    setPetNote("");
   }
 
   return <div className="mimi-storybook-layout">
@@ -51,12 +53,13 @@ export default function MimisStorybook() {
       <span className="mimi-storybook-star mimi-storybook-star-two" aria-hidden="true">✧</span>
       <span className="mimi-storybook-orbit mimi-storybook-orbit-one" aria-hidden="true" />
       <span className="mimi-storybook-orbit mimi-storybook-orbit-two" aria-hidden="true" />
-      <div className="mimi-storybook-cat"><CatCharacter mood={phase === "ending" ? "happy" : chapterIndex === 1 ? "curious" : "love"} label="Pet Mimi while reading her storybook" /></div>
+      <div className="mimi-storybook-cat"><CatCharacter mood={phase === "ending" ? "happy" : chapterIndex === 1 ? "curious" : "love"} label="Pet Mimi while reading her storybook" onClick={() => setPetNote("Mimi slow-blinks, then nudges the envelope with one tiny paw. ♡")} /></div>
       <div className="mimi-storybook-ladybug" aria-hidden="true"><Ladybug decorative /></div>
       <p className="mimi-storybook-stage-caption">{phase === "ending" ? "a story made from your choices" : "Mimi, official storybook explorer"}</p>
     </div>
 
     <div className="mimi-storybook-copy">
+      {petNote && <p className="mimi-storybook-pet-note" role="status" aria-live="polite">{petNote}</p>}
       <p className="companion-kicker"><span aria-hidden="true">✧</span> a choose-your-own tiny fairytale</p>
       {phase === "intro" && <>
         <h3>One tiny story. Three little choices.</h3>

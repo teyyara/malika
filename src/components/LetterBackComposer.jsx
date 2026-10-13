@@ -85,7 +85,7 @@ export default function LetterBackComposer() {
               <div className="letter-back-envelope-top">
                 <span className="letter-back-postmark" aria-hidden="true">♡</span>
                 <div>
-                  <span className="letter-back-eyebrow">WRITTEN BY YOU, KEPT BY YOU</span>
+                  <span className="letter-back-eyebrow">WRITTEN BY YOU, READY WHEN YOU ARE</span>
                   <h3 id="letter-back-preview-heading">A little note for {siteConfig.senderName}</h3>
                 </div>
               </div>

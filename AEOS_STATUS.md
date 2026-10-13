@@ -3,10 +3,10 @@
 Date: 13 October 2026  
 Repository: https://github.com/teyyara/malika  
 Release branch: `main`  
-Current completed loop: **032 — Mimi's Tiny Storybook** (merged and validated)  
-Current candidate: **Loop 033 — Mimi's Vocal Personality** (feature branch awaiting CI)  
-Latest validated application checkpoint: `2e9e0568e7835d0cb8e5cd266fe16133a1e55f1a`  
-Next state: **WAITING_FOR_CI**
+Current completed loop: **033 — Mimi's Vocal Personality** (merged and validated)  
+Current candidate: **None — waiting for a new CONTINUE instruction**  
+Latest validated application checkpoint: `01b47ae4c8f5c0bfe6b37954b857b258936f6702`  
+Next state: **WAITING_FOR_CONTINUE**
 
 ## Product state
 
@@ -137,10 +137,12 @@ The Loop 009 application merge commit is `8d40e627acff41fdc6cd2e7681cc563ed8a653
 - No manual Vercel deployment was initiated. The public production alias remains unverified by the assistant. Human screen-reader and physical-device QA remain outstanding.
 
 
-## Loop 033 — Mimi's Vocal Personality (candidate)
+## Loop 033 — Mimi's Vocal Personality (merged and validated)
 
-- Branch: `feat/loop-033-mimis-vocal-personality`, based on current main `ced48f014df43be417e4a293493e4ee9eb4d6dfb`.
-- “Tell her a secret” now uses Mimi's locally bundled recorded purr rather than a synthetic love chord. Existing cuddle/nap purrs and the recorded meow on ribbon play remain.
-- Added a browser test that checks real Web Audio buffer durations and mute interruption rather than only checking copy or CSS classes.
-- No new asset, dependency, external runtime request, storage, or service. Merge only after exact PR-head CI passes.
-- No manual Vercel deployment is being initiated. Production-alias, human screen-reader, and physical-device QA remain unverified.
+- **PR #41 merged:** https://github.com/teyyara/malika/pull/41
+- **Merge commit:** `01b47ae4c8f5c0bfe6b37954b857b258936f6702`.
+- **Exact PR-head validation:** [run 38476623426](https://github.com/teyyara/malika/actions/runs/38476623426) — success on `9d35c118f24e687101760c4f0c3226794bc00244`.
+- **Post-merge main validation:** [run 38477205346](https://github.com/teyyara/malika/actions/runs/38477205346) — success on the merge commit. Both runs passed Node/content tests, production build, and all **57 Chromium browser journeys**.
+- “Tell her a secret” now plays the existing bundled cat purr instead of a synthesized “love” chord. Cuddle/nap continue using the purr; ribbon play uses the recorded meow plus its playful dance cue.
+- The new browser regression checks actual Web Audio buffer starts for meow and purr, then verifies the master mute stops the active animal voice. No new audio asset, package, remote runtime request, or service was added.
+- No manual Vercel deployment was initiated. The public production alias remains unverified by the assistant. Human sound-quality review, screen-reader QA and physical-device QA remain outstanding.

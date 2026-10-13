@@ -90,3 +90,11 @@
 - The fix uses existing locally bundled assets and preserves the existing sound mixer. No new asset, package, backend, storage, analytics, external runtime request, paid feature, or manual Vercel deployment was added.
 - Public production alias, human sound-quality review, human screen-reader behavior, and physical-device QA remain unverified.
 - Loop 033 is closed. Orchestration returns to `WAITING_FOR_CONTINUE`.
+
+
+## Loop 034 — Keyboard-Ready Companion Tabs (candidate)
+
+- Completes the horizontal ARIA tablist pattern in `GardenCompanionStudio.jsx`: roving `tabIndex`, Left/Right Arrow with wraparound, and Home/End.
+- Focus and panel selection move together, with the existing tab/panel IDs and visible focus design retained.
+- Added Playwright coverage for roving focus, selection/panel synchronization, Home/End, both wraparound directions, and exactly one tab stop.
+- **Candidate branch:** `feat/loop-034-keyboard-companion-tabs`. Merge only if exact PR-head Node/content tests, production build, and all Chromium browser journeys pass. No manual Vercel deployment is initiated.

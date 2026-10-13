@@ -40,3 +40,8 @@ A Little Letter Back lets Malika write from her side of the story without buildi
 ## D-010 — Keep the reasons book page-by-page and session-only
 
 A Hundred Little Reasons I Love You lives inside the existing birthday letter scene, not in navigation. Only one authored page is shown at a time to avoid a long wall of text; the progress indicator makes the sequence legible. Page state stays in React memory and resets when the scene unmounts. No persistent progress or new service is allowed.
+
+
+## D-011 — Keep Mimi's storybook fictional, branch-consistent, and local
+
+Mimi's Tiny Storybook is a fifth tab inside the existing garden companion studio, not a new top-level destination. Three authored chapters each provide three options; later selections clear when an earlier choice changes so the displayed ending always matches the path. The story is explicitly marked as an invented fairytale, and all state remains in component memory. Use the existing CatCharacter and Ladybug art; add no new packages, remote assets, or service.

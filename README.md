@@ -106,3 +106,8 @@ The birthday letter scene now includes an optional little book of 100 authored r
 ## Loop 032 — Mimi's Tiny Storybook
 
 The garden companion area gains a fifth, optional panel where Malika can help Mimi through a made-up fairytale. Three choices shape the path, the small kindness that solves a puzzle, and the final gift in the envelope. She can replay it with a different route; if she changes an earlier answer, later answers reset so the ending always matches her choices. The story is explicitly labeled as fiction, uses the existing kitten and ladybug artwork, fits tested laptop/phone layouts, and adds no top-level navigation, persistence, dependency, remote asset, or service.
+
+
+## Loop 033 — Mimi's Vocal Personality
+
+Mimi's love language now uses her recorded cat voice more intentionally. A cuddle and cozy nap trigger the locally bundled purr; play with ribbon adds a recorded meow to the playful dance cue; whispering a secret now triggers the recorded purr instead of a synthesized musical chime. The existing sound mixer and master mute still control every cue. The browser regression inspects actual Web Audio buffer playback for the meow and purr and verifies mute interrupts the voice. No new audio asset, dependency, runtime service, or remote fetch was added.

@@ -80,3 +80,11 @@
 - Three chapters × three choices build a fairytale from selected passages. Changing an earlier answer clears later answers; replay resets all choices and the pet response. State is ephemeral.
 - No new package, backend, browser storage, paid service, remote asset, analytics, or manual Vercel deployment was added. Production alias, human screen-reader behavior, and physical-device QA remain unverified.
 - Loop 032 is closed. Orchestration returns to `WAITING_FOR_CONTINUE`.
+
+
+## Loop 033 — Mimi's Vocal Personality (candidate)
+
+- Audit found a mismatch in the existing companion interaction: “Tell her a secret” displayed Mimi's slow-blink response but played a synthesized “love” chord rather than an animal vocalization.
+- The action now plays the existing bundled recorded purr. Play-with-ribbon retains its real meow plus the playful dance cue; cuddle and cozy nap also retain the local purr.
+- Added a browser regression that instruments Web Audio and verifies a meow-length decoded buffer plays for ribbon play, the longer purr buffer plays for a whispered secret, and master mute stops an active voice.
+- No new audio assets, dependencies, remote runtime requests, storage, backend, or paid service. Exact PR-head Node/content tests, production build and full Chromium suite are mandatory before merge; then verify post-merge main.

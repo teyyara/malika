@@ -7,9 +7,9 @@
   "progressionBranch": "feat/loop-034-keyboard-companion-tabs",
   "currentLoop": 34,
   "candidate": "malika-birthday-034-keyboard-companion-tabs",
-  "status": "IMPLEMENTED_VALIDATION_PENDING",
-  "orchestrationState": "WAITING_FOR_CI",
-  "validatedApplicationCheckpoint": "2ad3a4e3244fd30e08f3c95b7ad0e7a8da5bc9f4",
+  "status": "VALIDATED_MERGED",
+  "orchestrationState": "WAITING_FOR_CONTINUE",
+  "validatedApplicationCheckpoint": "a0dc68a06899be673491ac8b28ebfd9e8aa47bc9",
   "personalization": {
     "recipientName": "Malika",
     "senderName": "Zack",
@@ -17,7 +17,7 @@
   },
   "automatedBrowserQA": {
     "status": "PASS",
-    "specsPassed": 57,
+    "specsPassed": 58,
     "coverage": [
       "Core navigation and all primary birthday scenes",
       "Heart-game reset and successful retry",
@@ -44,7 +44,11 @@
       "Mimi's Tiny Storybook: tested 375px viewport without horizontal overflow",
       "Mimi's Vocal Personality: recorded meow buffer plays on ribbon play",
       "Mimi's Vocal Personality: recorded purr buffer plays on whispered secret instead of a synthetic love chord",
-      "Mimi's Vocal Personality: master mute interrupts an active recorded animal voice"
+      "Mimi's Vocal Personality: master mute interrupts an active recorded animal voice",
+      "Companion tabs: roving Tab stop leaves exactly one keyboard tab stop",
+      "Companion tabs: Left/Right Arrow changes focus and active panel with wraparound at both ends",
+      "Companion tabs: Home/End selects and focuses the first/last tab",
+      "Companion tabs: aria-selected, focus and visible panel stay synchronized"
     ],
     "note": "Automated Chromium checks do not certify human sound-quality judgement, physical-device or human screen-reader behavior."
   },
@@ -53,8 +57,8 @@
     "projectName": "malika-birthday",
     "projectDashboard": "https://vercel.com/tyyr1/malika-birthday",
     "productionStatus": "NOT_VERIFIED_OWNER_HANDOFF",
-    "latestMainCommit": "01b47ae4c8f5c0bfe6b37954b857b258936f6702",
-    "latestMainStatus": "Loop 033 post-merge main CI passed: https://github.com/teyyara/malika/actions/runs/38477205346. Node/content tests, production build, and 57 Chromium journeys passed. This verifies CI only, not the public production alias.",
+    "latestMainCommit": "a0dc68a06899be673491ac8b28ebfd9e8aa47bc9",
+    "latestMainStatus": "Loop 034 post-merge main CI passed: https://github.com/teyyara/malika/actions/runs/38481311313. Node/content tests, production build, and 58 Chromium journeys passed. This verifies CI only, not the public production alias.",
     "lastKnownReadyCommit": "be66face920cffdc16dce08213ae7c232938d7d5",
     "lastKnownReadyDeploymentId": "dpl_CzGS17bNAaTbaUCH7uLAP7XR6rQv",
     "previousFailedMainCommit": "5fdbd292707e27a84ae85b8782fe4cc3c27c5e8f",
@@ -69,13 +73,13 @@
     ],
     "accessProblem": "Production was not inspected or verified by assistant per owner request; do not infer readiness from a preview status."
   },
-  "manualVisualQA": "Loop 032 rendered visual-review screenshots and browser report uploaded by passing PR/main CI; physical-device QA not performed.",
+  "manualVisualQA": "Loop 034 rendered visual-review screenshots and browser report uploaded by passing PR/main CI; physical-device QA not performed.",
   "screenReaderQA": "NOT_YET_OBSERVED",
   "realMobileDeviceQA": "NOT_TESTED",
   "nextHighValueWork": [
-    "Complete exact-head keyboard journey validation for REQ-021.",
-    "Merge only if exact PR-head Node/content tests, production build, and all Chromium browser journeys pass.",
-    "Keep release state aligned with successful main CI; do not initiate a manual Vercel deployment or claim production-alias verification."
+    "Wait for a new CONTINUE instruction before beginning another feature loop.",
+    "Keep additions local-only, keyboard-accessible, responsive, and reduced-motion-aware.",
+    "Do not initiate a manual Vercel deployment or claim production-alias verification."
   ],
   "arcadeMastery": {
     "games": [
@@ -90,55 +94,54 @@
     "unlockRequirement": "Complete all five games, including all five wish-jar wishes.",
     "automatedTest": "Completing all five arcade quests unlocks the grand-secret finale."
   },
-  "releaseStateCommit": "2ad3a4e3244fd30e08f3c95b7ad0e7a8da5bc9f4",
+  "releaseStateCommit": "a0dc68a06899be673491ac8b28ebfd9e8aa47bc9",
   "lastUpdated": "2026-10-13",
   "postMergeMainWorkflow": {
-    "runId": 38477205346,
-    "url": "https://github.com/teyyara/malika/actions/runs/38477205346",
-    "headSha": "01b47ae4c8f5c0bfe6b37954b857b258936f6702",
+    "runId": 38481311313,
+    "url": "https://github.com/teyyara/malika/actions/runs/38481311313",
+    "headSha": "a0dc68a06899be673491ac8b28ebfd9e8aa47bc9",
     "status": "completed",
     "conclusion": "success",
     "nodeContentTests": "PASS",
     "productionBuild": "PASS",
     "chromiumBrowserJourneys": "PASS",
-    "chromiumJourneysPassed": 57
+    "chromiumJourneysPassed": 58
   },
   "previousLoopMainValidation": {
-    "runId": 38477205346,
-    "url": "https://github.com/teyyara/malika/actions/runs/38477205346",
-    "headSha": "01b47ae4c8f5c0bfe6b37954b857b258936f6702",
+    "runId": 38481311313,
+    "url": "https://github.com/teyyara/malika/actions/runs/38481311313",
+    "headSha": "a0dc68a06899be673491ac8b28ebfd9e8aa47bc9",
     "status": "completed",
     "conclusion": "success"
   },
   "latestMainCheckpointValidation": {
-    "runId": 38478658490,
-    "url": "https://github.com/teyyara/malika/actions/runs/38478658490",
-    "headSha": "2ad3a4e3244fd30e08f3c95b7ad0e7a8da5bc9f4",
+    "runId": 38481311313,
+    "url": "https://github.com/teyyara/malika/actions/runs/38481311313",
+    "headSha": "a0dc68a06899be673491ac8b28ebfd9e8aa47bc9",
     "conclusion": "success"
   },
   "currentCandidate": {
     "branch": "feat/loop-034-keyboard-companion-tabs",
-    "baseCommit": "2ad3a4e3244fd30e08f3c95b7ad0e7a8da5bc9f4",
     "feature": "Keyboard-Ready Companion Tabs",
     "requirement": "REQ-021",
-    "validation": "Await exact-head Node/content tests, production build, and all Chromium browser journeys. Do not merge before these pass."
+    "validation": "PR #43 merged at a0dc68a06899be673491ac8b28ebfd9e8aa47bc9. Exact PR-head workflow 38480765929 on 83c92c5521cecd7065ca9e8e11f0c168dff72081 and post-merge main workflow 38481311313 both passed Node/content tests, production build, and all 58 Chromium browser journeys."
   },
   "pullRequest": {
-    "url": "https://github.com/teyyara/malika/pull/41",
-    "number": 41,
+    "url": "https://github.com/teyyara/malika/pull/43",
+    "number": 43,
     "state": "MERGED",
-    "headSha": "9d35c118f24e687101760c4f0c3226794bc00244",
-    "baseSha": "ced48f014df43be417e4a293493e4ee9eb4d6dfb",
-    "mergeCommitSha": "01b47ae4c8f5c0bfe6b37954b857b258936f6702"
+    "headSha": "83c92c5521cecd7065ca9e8e11f0c168dff72081",
+    "baseSha": "2ad3a4e3244fd30e08f3c95b7ad0e7a8da5bc9f4",
+    "mergeCommitSha": "a0dc68a06899be673491ac8b28ebfd9e8aa47bc9"
   },
   "latestPassingWorkflowForCandidate": {
-    "runId": 38476623426,
-    "url": "https://github.com/teyyara/malika/actions/runs/38476623426",
-    "headSha": "9d35c118f24e687101760c4f0c3226794bc00244",
+    "runId": 38480765929,
+    "url": "https://github.com/teyyara/malika/actions/runs/38480765929",
+    "headSha": "83c92c5521cecd7065ca9e8e11f0c168dff72081",
     "conclusion": "success",
     "nodeContentTests": "PASS",
     "productionBuild": "PASS",
     "chromiumBrowserJourneys": "PASS",
-    "chromiumJourneysPassed": 57
+    "chromiumJourneysPassed": 58
   }
 }

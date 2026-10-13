@@ -72,10 +72,11 @@
 - Production-alias verification remains with the owner; physical-device and screen-reader QA remain outstanding.
 
 
-## Loop 032 — Mimi's Tiny Storybook (candidate)
+## Loop 032 — final outcome (2026-10-13)
 
-- Adds a fifth panel within the existing garden companion studio. The story is fiction, not a claim about past events.
-- Three chapters each have three authored choices. The resulting fairytale includes the selected passages and a matching final paragraph; changing an earlier selection clears later answers.
-- State remains in React component memory and resets when the tab is unmounted. No storage, service, dependency, remote asset, or top-level navigation item is added.
-- Added Node content checks and a Playwright journey for branch composition, backtracking/reset, replay, reduced motion, and 375px bounds.
-- **Candidate branch:** `feat/loop-032-mimis-storybook`. Merge only if exact PR-head Node/content tests, production build, and all Chromium browser journeys pass. No manual Vercel deployment is initiated.
+- Merged PR #39 at `2e9e0568e7835d0cb8e5cd266fe16133a1e55f1a`.
+- Exact PR-head workflow [38430124661](https://github.com/teyyara/malika/actions/runs/38430124661) and post-merge main workflow [38430789459](https://github.com/teyyara/malika/actions/runs/38430789459) both passed Node/content tests, production build, and all **56 Chromium browser journeys**.
+- An earlier browser run exposed that the kitten's pet control was not an actionable control in the rendered tree. The test stayed strict; Mimi's button received a working click response and a live status message, and the final exact-head test verifies both.
+- Three chapters × three choices build a fairytale from selected passages. Changing an earlier answer clears later answers; replay resets all choices and the pet response. State is ephemeral.
+- No new package, backend, browser storage, paid service, remote asset, analytics, or manual Vercel deployment was added. Production alias, human screen-reader behavior, and physical-device QA remain unverified.
+- Loop 032 is closed. Orchestration returns to `WAITING_FOR_CONTINUE`.

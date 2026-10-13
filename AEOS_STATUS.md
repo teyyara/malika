@@ -3,10 +3,10 @@
 Date: 13 October 2026  
 Repository: https://github.com/teyyara/malika  
 Release branch: `main`  
-Current completed loop: **031 — A Hundred Little Reasons I Love You** (merged and validated)  
-Current candidate: **Loop 032 — Mimi's Tiny Storybook** (feature branch awaiting CI)  
-Latest validated application checkpoint: `0a9cbf5e4741cbd0036213a83cf449b476c815b1`  
-Next state: **WAITING_FOR_CI**
+Current completed loop: **032 — Mimi's Tiny Storybook** (merged and validated)  
+Current candidate: **None — waiting for a new CONTINUE instruction**  
+Latest validated application checkpoint: `2e9e0568e7835d0cb8e5cd266fe16133a1e55f1a`  
+Next state: **WAITING_FOR_CONTINUE**
 
 ## Product state
 
@@ -125,10 +125,13 @@ The Loop 009 application merge commit is `8d40e627acff41fdc6cd2e7681cc563ed8a653
 
 
 
-## Loop 032 — Mimi's Tiny Storybook (candidate)
+## Loop 032 — Mimi's Tiny Storybook (merged and validated)
 
-- Branch: `feat/loop-032-mimis-storybook`, based on main commit `0a9cbf5e4741cbd0036213a83cf449b476c815b1`.
-- Adds a fifth tab inside the existing garden companion studio. Three choices shape an explicitly fictional fairytale about Mimi carrying an envelope to Malika.
-- Choice state is ephemeral and resets when the tab is unmounted. Changing an earlier answer clears later answers so the ending stays consistent.
-- Added Node content checks, Playwright branch composition/backtracking/replay checks, and 375px overflow coverage. Exact PR-head CI must pass before merge.
-- No manual Vercel deployment is being initiated. Production-alias verification remains with the owner.
+- **PR #39 merged:** https://github.com/teyyara/malika/pull/39
+- **Merge commit:** `2e9e0568e7835d0cb8e5cd266fe16133a1e55f1a`.
+- **Exact PR-head validation:** [run 38430124661](https://github.com/teyyara/malika/actions/runs/38430124661) — success on `5506ead108ceddd6ec3740a641f50073d400dcdf`.
+- **Post-merge main validation:** [run 38430789459](https://github.com/teyyara/malika/actions/runs/38430789459) — success on the merge commit. Both runs passed Node/content tests, the production build, and all **56 Chromium browser journeys**.
+- Added a fifth companion tab with an original, explicitly fictional, three-chapter fairytale. Each chapter has three choices; changing earlier answers clears later choices. The ending combines the chosen story passages and a matching gift ending.
+- Mimi remains a visible, keyboard-focusable pet button that responds with an accessible live message. Replay resets choices and the message. Added responsive 375px checks and reduced-motion handling.
+- No backend, storage, analytics, paid service, new package, remote asset, or extra top-level navigation was introduced.
+- No manual Vercel deployment was initiated. The public production alias remains unverified by the assistant. Human screen-reader and physical-device QA remain outstanding.

@@ -1,6 +1,6 @@
 # Product Contract v1.7 — Malika Birthday Universe
 
-Status: Loop 033 implementation candidate on 13 October 2026. Product Contract v1.6 remains the prior baseline; this version makes Mimi's existing recorded cat voice more consistent with her love-language actions.
+Status: Loop 033 merged and validated on 13 October 2026. Product Contract v1.6 remains the prior baseline; this version makes Mimi's existing recorded cat voice more consistent with her love-language actions.
 
 ## Change request CR-033 — Mimi's Vocal Personality
 
@@ -24,3 +24,10 @@ Status: Loop 033 implementation candidate on 13 October 2026. Product Contract v
 ## Evidence standard
 
 Only exact PR-head CI supports promotion to main. Passing automation does not certify human sound-quality judgement, physical-device behavior, human screen-reader behavior, or production-alias behavior.
+
+
+## REQ-020 validation record
+
+**Validated:** exact PR-head workflow [38476623426](https://github.com/teyyara/malika/actions/runs/38476623426) on `9d35c118f24e687101760c4f0c3226794bc00244` and post-merge main workflow [38477205346](https://github.com/teyyara/malika/actions/runs/38477205346) on merge `01b47ae4c8f5c0bfe6b37954b857b258936f6702` passed Node/content tests, the production build, and all **57 Chromium browser journeys**. The voice regression verified meow and purr buffer playback and master mute interruption.
+
+Human sound-quality judgement, physical-device behavior, human screen-reader behavior, and production-alias behavior are not certified by these automated runs.

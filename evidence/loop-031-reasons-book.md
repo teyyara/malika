@@ -11,9 +11,11 @@ The existing birthday letter scene gains an optional, collapsed-by-default book 
 - Current page lives in component state only. Leaving the birthday scene unmounts the component and resets it on return.
 - No browser storage, server, backend, analytics, external runtime asset, paid service, new package, or remote API is added.
 
-## Validation planned
+## Validation result
 
-- Exact PR-head CI must pass Node/content tests, production build, and the complete Chromium browser journeys before merge.
-- Browser coverage includes closed-by-default behavior, reading forward/back, the 100th page, restart, state reset after navigation, and 375px viewport fit.
-- Manual physical-device and screen-reader testing are not claimed.
-- No Vercel deployment is initiated; production-alias status remains with the owner.
+- **PR #37 merged:** https://github.com/teyyara/malika/pull/37
+- **Merge commit:** `41a2e115aaf3ac62e6f07a9fdaa87a3b9a68b4a7`
+- **Exact PR-head CI:** [run 38423721213](https://github.com/teyyara/malika/actions/runs/38423721213) — success on `0074d8015839558501bab3696a056671c7f28f52`.
+- **Post-merge main CI:** [run 38424375461](https://github.com/teyyara/malika/actions/runs/38424375461) — success on the merge commit.
+- Both runs passed Node/content tests, the production build, and all **55 Chromium browser journeys**. Browser report and rendered visual-review screenshots were uploaded.
+- Physical-device and screen-reader QA are not claimed. No Vercel deployment was initiated; production-alias verification remains with the owner.

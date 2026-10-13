@@ -53,9 +53,11 @@
 - Independent post-merge main workflow 38418153563 also completed successfully on the merge commit.
 - Four imagined future letters live in the existing Love Notes scene; no memories, predictions, or guarantees are presented as fact. No persistence, dependency, backend, paid service, remote asset, or manual deployment was added.
 
-## Loop 030 — A Little Letter Back (candidate)
+## Loop 030 — final outcome (2026-10-13)
 
-- Adds a collapsed-by-default composer so Malika can write a note to Zack, preview it, return to editing, and explicitly copy it.
-- The draft uses React state only, is never sent, is never saved, and clears on refresh. Clipboard errors have a manual-copy fallback.
-- Added REQ-017, contract v1.4, privacy acceptance criteria, and tests for starters, empty input, preview/edit, clipboard handling, and mobile viewport fit.
-- Exact-head CI is required before merge. Production-alias verification remains the owner's responsibility.
+- Merged PR #35 at `5fe1732a8939d27a4eb0ed15c6bdd5930648caf0`.
+- Exact PR-head workflow 38420686468 and post-merge main workflow 38421421971 both passed Node/content tests, production build, and all **53 Chromium browser journeys**.
+- The first browser run identified an actionability issue: a 1px hover translation moved the copy button while Playwright was trying to click it. Removing the translation while retaining the color highlight fixed the problem; the corrected exact-head run passed both new letter-composer tests.
+- The composer lets Malika write and copy a note without transmitting or persisting it. Draft remains in component state and is cleared by refresh.
+- No package, backend, browser storage, paid service, remote asset, or manual deployment was added. Production-alias verification remains with the owner.
+- Loop 030 checkpoint is complete; orchestration returns to WAITING_FOR_CONTINUE.

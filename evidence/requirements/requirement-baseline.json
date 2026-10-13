@@ -138,13 +138,14 @@
       "id": "REQ-019",
       "requirement": "The existing garden companion studio offers a clearly fictional, three-chapter fairytale whose nine possible choice slots create a branch-consistent ending, with replay reset and responsive keyboard-operable controls.",
       "risk": "R1",
-      "validation": "Node story-content test; Playwright choice composition, progress, backtracking invalidation, replay reset and responsive viewport journey",
-      "status": "IMPLEMENTED_VALIDATION_PENDING"
+      "validation": "PASS — exact PR-head workflow 38430124661 (head 5506ead108ceddd6ec3740a641f50073d400dcdf) and post-merge main workflow 38430789459 (merge 2e9e0568e7835d0cb8e5cd266fe16133a1e55f1a) passed Node/content tests, production build, and all 56 Chromium browser journeys.",
+      "status": "IMPLEMENTED_VALIDATED"
     }
   ],
   "validationEvidence": {
     "prHeadRun": "https://github.com/teyyara/malika/actions/runs/38423721213",
     "mainRun": "https://github.com/teyyara/malika/actions/runs/38424375461",
     "result": "55 Chromium journeys passed; Node/content tests, including 100-entry uniqueness, and the production build passed on both runs."
-  }
+  },
+  "lastValidatedAt": "2026-10-13"
 }

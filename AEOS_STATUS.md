@@ -3,10 +3,10 @@
 Date: 13 October 2026  
 Repository: https://github.com/teyyara/malika  
 Release branch: `main`  
-Current completed loop: **029 — Letters from Future Us** (merged and validated)  
-Current candidate: **Loop 030 — A Little Letter Back** (feature branch awaiting CI)  
-Latest main checkpoint: `5a035f7bc1def88c111bac997c6fe96759584fdd`  
-Next state: **WAITING_FOR_CI**
+Current completed loop: **030 — A Little Letter Back** (merged and validated)  
+Current candidate: **Loop 031 — not started**  
+Latest validated application checkpoint: `5fe1732a8939d27a4eb0ed15c6bdd5930648caf0`  
+Next state: **WAITING_FOR_CONTINUE**
 
 ## Product state
 
@@ -103,10 +103,13 @@ The Loop 009 application merge commit is `8d40e627acff41fdc6cd2e7681cc563ed8a653
 - Post-merge main validation: [run 38418153563](https://github.com/teyyara/malika/actions/runs/38418153563) — success on the merge commit.
 - No manual Vercel deployment was initiated. Production-alias verification remains with the owner.
 
-## Loop 030 — A Little Letter Back (candidate)
+## Loop 030 — A Little Letter Back (merged and validated)
 
-- Branch: `feat/loop-030-little-letter-back`, based on main commit `5a035f7bc1def88c111bac997c6fe96759584fdd`.
-- Adds an optional, collapsed-by-default note composer inside Love Notes, with writing starters, preview/edit, and a copy action.
-- Draft stays in React state only, is neither sent nor saved, and clears on refresh. Clipboard denial has a manual-copy fallback.
-- Added Product Contract v1.4 / REQ-017 and browser coverage. Exact PR-head CI is required before merge.
-- No manual deployment is being initiated. Production-alias verification remains with the owner.
+- **PR #35 merged:** https://github.com/teyyara/malika/pull/35
+- **Merge commit:** `5fe1732a8939d27a4eb0ed15c6bdd5930648caf0`
+- **Exact PR-head validation:** [run 38420686468](https://github.com/teyyara/malika/actions/runs/38420686468) — success. Node/content tests, production build, all 53 Chromium browser journeys, and evidence uploads passed on PR head `51421c0a7fabc7278f1e1b48dad887505a4b2596`.
+- **Post-merge main validation:** [run 38421421971](https://github.com/teyyara/malika/actions/runs/38421421971) — success on the merge commit; 53 Chromium journeys passed.
+- A first browser run found that the copy button's hover translation prevented Playwright from observing a stable click target. The hover now changes its visual highlight without moving the button; the full suite passes with real clicks.
+- The composer remains page-memory only. No message is sent or saved; refresh clears the draft.
+- No manual Vercel deployment was initiated. Production-alias verification remains with the owner.
+- Screen-reader and physical-device QA remain unperformed; automated browser checks are not a replacement.

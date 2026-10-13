@@ -27,7 +27,17 @@
 
 - Merged PR #33 at `89254069beb42d89381735a6d3c3e9e68207a11b`.
 - Exact PR-head run 38332835598 passed Node/content tests, production build, and complete Chromium browser journeys.
-- Post-merge main run 38333209788 had passed Node/content tests and production build; browser journeys were still in progress at the time of the final status check.
+- Post-merge main run 38333209788 completed successfully, and main checkpoint run 38333588376 also completed successfully.
 - The browser regression uncovered during development was fixed by preserving the flower's stable accessible name and its established wish-note action before full bloom. The corrected PR-head suite passed.
 - No package, backend, browser storage, paid service, or remote asset was added. No manual deployment was performed; production alias validation remains outstanding.
 - Loop checkpoint is merged and safe. Orchestration state returns to WAITING_FOR_CONTINUE.
+
+
+## Loop 029 — Letters from Future Us (candidate)
+
+- Added four authored, explicitly imaginary future letters inside the existing Love Notes scene; no fabricated past memories or future guarantees are stated.
+- The new section is optional and closed by default to keep the laptop-first collection compact. Each choice opens one letter inline on pearl-toned paper; choosing another switches the revealed content.
+- Implemented data-driven React component, responsive dark/purple card design, reduced-motion accommodations, keyboard-accessible native disclosure/buttons, and a Playwright journey for selection/switching/closing and laptop/phone bounds.
+- Requirements baseline and Product Contract v1.3 add REQ-016. CI must pass on the exact PR head before merge.
+- No package, API, browser storage, backend, paid service, remote image/audio, or deployment was added.
+- Current starting main commit: 60fdb949f1584ca37762dc0ef66025a5ce555eab. Loop 028 main workflow 38333209788 and checkpoint workflow 38333588376 both completed successfully.

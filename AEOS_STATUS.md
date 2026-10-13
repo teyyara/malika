@@ -4,8 +4,9 @@ Date: 13 October 2026
 Repository: https://github.com/teyyara/malika  
 Release branch: `main`  
 Current completed loop: **028 — The Flower That Grows With Love**  
-Latest application checkpoint: `89254069beb42d89381735a6d3c3e9e68207a11b`  
-Next state: **WAITING_FOR_CONTINUE**
+Current candidate: **Loop 029 — Letters from Future Us** (feature branch pending CI)  
+Latest main checkpoint: `60fdb949f1584ca37762dc0ef66025a5ce555eab`  
+Next state: **VALIDATION_PENDING**
 
 ## Product state
 
@@ -92,3 +93,15 @@ The Loop 009 application merge commit is `8d40e627acff41fdc6cd2e7681cc563ed8a653
 - **Local checks:** unavailable in this execution environment because GitHub hostname resolution prevented a local clone. No local build/test PASS is claimed.
 - **Deployment:** no manual Vercel deployment was initiated. The live production alias has not been independently verified.
 - **Next loop:** wait for a standalone `CONTINUE` message before beginning more implementation.
+
+
+## Loop 029 — Letters from Future Us (candidate)
+
+- Branch: `feat/loop-029-future-letters`, based on main commit `60fdb949f1584ca37762dc0ef66025a5ce555eab`.
+- Love Notes now contains a collapsed-by-default, optional disclosure with four imagined letters and an inline pearl-paper reveal.
+- Added a data module, responsive styles, browser journey, Product Contract v1.3 / REQ-016, change evidence, and updated state ledger.
+- Explicit writing disclaimer avoids presenting speculative future scenes as actual shared history or guarantees.
+- Status: waiting for exact-head CI (Node/content tests, production build, complete Chromium suite).
+- Prior loop CI: PR #33 exact-head workflow 38332835598 passed; post-merge main workflow 38333209788 passed; main checkpoint workflow 38333588376 passed.
+- No manual deployment is being initiated. Production-alias verification remains with the owner.
+- Local clone/build is unavailable in this environment; no local PASS is claimed.

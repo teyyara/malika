@@ -172,3 +172,53 @@ test("the love blossom grows with discoveries and reveals Zack's note when fully
   await flower.click();
   await expect(page.locator(".cat-reply")).toContainText("a hundred little reasons to smile");
 });
+
+
+test("Letters from Future Us reveals imagined letters without changing the keepsake collection", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.setViewportSize({ width: 1366, height: 768 });
+  await page.goto("/");
+  await page.getByRole("button", { name: /Open your birthday surprise/ }).click();
+  await page.getByRole("button", { name: "Love notes", exact: true }).click();
+
+  await expect(page.getByRole("heading", { name: "The love collection" })).toBeVisible();
+  const disclosure = page.locator(".future-letters-disclosure");
+  await expect(disclosure).not.toHaveAttribute("open", "");
+  await expect(page.locator(".collection-meta")).toContainText("35 little keepsakes");
+  await disclosure.locator("summary").click();
+
+  await expect(page.getByText(/These are imagined little tomorrows—not memories, predictions, or promises/i)).toBeVisible();
+  const choices = page.getByRole("button", { name: /Read future letter:/ });
+  await expect(choices).toHaveCount(4);
+
+  const rainyLetter = page.getByRole("button", { name: "Read future letter: A rainy Sunday together" });
+  await rainyLetter.click();
+  const revealed = page.getByRole("article", { name: "A rainy Sunday together" });
+  await expect(revealed).toBeVisible();
+  await expect(revealed).toContainText("Imagine rain drawing little rivers down the window");
+  await expect(rainyLetter).toHaveAttribute("aria-pressed", "true");
+
+  const tuesdayLetter = page.getByRole("button", { name: "Read future letter: A Tuesday we'd never post about" });
+  await tuesdayLetter.click();
+  await expect(page.getByRole("article", { name: "A Tuesday we'd never post about" })).toBeVisible();
+  await expect(revealed).not.toContainText("Imagine rain drawing little rivers down the window");
+  await expect(tuesdayLetter).toHaveAttribute("aria-pressed", "true");
+
+  await page.getByRole("button", { name: "Close future letter" }).click();
+  await expect(page.locator(".future-letter-reveal")).toHaveCount(0);
+
+  await page.setViewportSize({ width: 375, height: 812 });
+  await page.locator(".future-letters-disclosure > summary").click();
+  await page.getByRole("button", { name: "Read future letter: For a day that feels heavy" }).click();
+  await expect(page.getByRole("article", { name: "For a day that feels heavy" })).toBeVisible();
+  const layout = await page.evaluate(() => ({
+    viewport: window.innerWidth,
+    document: document.documentElement.scrollWidth,
+    section: document.querySelector(".future-letters").getBoundingClientRect().toJSON(),
+    letter: document.querySelector(".future-letter-reveal").getBoundingClientRect().toJSON()
+  }));
+  expect(layout.document).toBeLessThanOrEqual(layout.viewport);
+  expect(layout.section.x).toBeGreaterThanOrEqual(0);
+  expect(layout.section.right).toBeLessThanOrEqual(layout.viewport + 1);
+  expect(layout.letter.right).toBeLessThanOrEqual(layout.viewport + 1);
+});

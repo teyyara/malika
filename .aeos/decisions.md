@@ -25,3 +25,8 @@ Use Malika, Zack, and 12 October in the live content. Since no real shared memor
 ## D-007 — Reuse the garden flower as a progress-driven keepsake
 
 The Love Blossom extends the existing interactive flower rather than adding another scene or companion tab. Its five stages derive only from current-visit note discoveries, hearts, and wishes. This keeps the interaction visible in the garden, avoids more laptop scrolling, uses the existing live reply for feedback, and has no persistence or service side effects.
+
+
+## D-008 — Keep future letters optional and explicitly imagined
+
+Add the future-letter archive inside the existing Love Notes scene, rather than creating a fifth navigation destination or extending the always-visible page. Use a native details/summary disclosure that is closed by default, four data-driven selections, and an inline pearl-paper reading panel. State explicitly that the writing is speculative daydreaming rather than memory or promise. Keep selection in component state and use no third-party assets or services.

@@ -389,3 +389,16 @@ Open **Love notes** and expand **A Little Letter Back** near the top of the coll
 6. If browser clipboard access is unavailable, the interface should offer manual selection/copying instead of claiming success.
 7. At 375×812, check the composer and preview remain inside the viewport. Keyboard users should be able to reach the disclosure, prompt buttons, text area, fold/edit/copy controls, and see focus. Reduced motion should remove the optional reveal animation.
 8. Reload. The draft must be gone; no previous note should reappear.
+
+
+## 21. A Hundred Little Reasons I Love You
+
+Open **Birthday letter** and expand **A Hundred Little Reasons I Love You** beneath the letter and its final surprise.
+
+1. Confirm the book is closed by default and does not add another navigation item.
+2. Open the book and confirm it begins on **01 / 100**. Previous should be disabled at the first page.
+3. Move to the next page, then back again. The text, page number, and progress indicator should all stay in sync.
+4. Continue to page 100. The interface should offer **Begin again**, which returns to page 1.
+5. Leave Birthday letter for the garden, return, reopen the book, and check it starts at page 1.
+6. At 375×812, check the page card and controls fit inside the viewport. Keyboard focus should remain visible, and reduced motion should remove the page-turn animation.
+7. The content must remain the same static 100-entry set; the current page is in memory only and is not saved across leaving the scene or reloading.

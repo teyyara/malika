@@ -12,9 +12,10 @@ A private note composer sits inside the existing Love Notes page. Malika can dra
 - The UI explicitly says the note is neither sent nor saved and is cleared on refresh.
 - Copying is an explicit, user-initiated action. If the browser blocks clipboard access, the text remains visible for manual selection/copying.
 
-## Validation planned
+## Validation outcome
 
-- Exact PR-head CI must pass Node/content tests, production build, and complete Chromium browser journeys before merge.
-- Added browser coverage for optional starter prompts, empty guard, 800-character counter, preview/edit preservation, clipboard success/fallback, and mobile fit.
+- Exact PR-head CI [run 38420686468](https://github.com/teyyara/malika/actions/runs/38420686468) passed Node/content tests, production build, all 53 Chromium browser journeys, and evidence uploads.
+- Post-merge main CI [run 38421421971](https://github.com/teyyara/malika/actions/runs/38421421971) also passed the same 53 Chromium journeys and build/test gates. Added browser coverage for optional starter prompts, empty guard, 800-character counter, preview/edit preservation, clipboard success/fallback, mobile fit, unchanged keepsake count, and refresh clearing the draft.
+- The first browser run exposed the primary button's 1px hover translation as an actionability problem; removing the translation fixed the issue while preserving a color-only hover highlight. The corrected exact-head suite passed.
 - Local build/test is not claimed because this execution environment cannot clone the repository.
 - No Vercel deployment is initiated and production alias status remains with the owner.

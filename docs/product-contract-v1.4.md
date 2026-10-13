@@ -1,6 +1,6 @@
 # Product Contract v1.4 — Malika Birthday Universe
 
-Status: Loop 030 change request accepted for implementation on 13 October 2026. Product Contract v1.3 remains the prior baseline; this version adds a private, page-only letter composer.
+Status: Loop 030 implemented and validated on 13 October 2026; exact PR-head and post-merge main workflows passed. Product Contract v1.3 remains the prior baseline; this version adds a private, page-only letter composer.
 
 ## Change request CR-030 — A Little Letter Back
 
@@ -26,4 +26,4 @@ The existing Love Notes scene must provide an optional letter composer that lets
 
 ## Evidence standard
 
-Only exact-head CI supports promotion to main. Passing automation does not certify physical-device, screen-reader, or production-alias behavior.
+Exact PR-head CI [run 38420686468](https://github.com/teyyara/malika/actions/runs/38420686468) and post-merge main CI [run 38421421971](https://github.com/teyyara/malika/actions/runs/38421421971) passed Node/content tests, production build, and the full 53-journey Chromium suite. Passing automation does not certify physical-device, screen-reader, or production-alias behavior.

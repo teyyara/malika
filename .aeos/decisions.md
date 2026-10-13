@@ -35,3 +35,8 @@ Add the future-letter archive inside the existing Love Notes scene, rather than 
 ## D-009 — Keep the reply letter private and ephemeral
 
 A Little Letter Back lets Malika write from her side of the story without building a submission system. Drafts remain in React component state only and are cleared on refresh. Copying is explicit, client-side, and optional, with a manual-copy fallback. No network request, browser storage, backend, account, analytics, package, or external service is permitted.
+
+
+## D-010 — Keep the reasons book page-by-page and session-only
+
+A Hundred Little Reasons I Love You lives inside the existing birthday letter scene, not in navigation. Only one authored page is shown at a time to avoid a long wall of text; the progress indicator makes the sequence legible. Page state stays in React memory and resets when the scene unmounts. No persistent progress or new service is allowed.

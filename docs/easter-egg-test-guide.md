@@ -402,3 +402,16 @@ Open **Birthday letter** and expand **A Hundred Little Reasons I Love You** bene
 5. Leave Birthday letter for the garden, return, reopen the book, and check it starts at page 1.
 6. At 375×812, check the page card and controls fit inside the viewport. Keyboard focus should remain visible, and reduced motion should remove the page-turn animation.
 7. The content must remain the same static 100-entry set; the current page is in memory only and is not saved across leaving the scene or reloading.
+
+
+## 22. Mimi's Tiny Storybook
+
+Open **The garden** and choose **Mimi's tiny storybook** in the companion tabs.
+
+1. Confirm the introduction says this is a made-up fairytale, not a memory. Select **Begin Mimi's story**.
+2. Choose a first path, continue, pick how Mimi solves the small puzzle, then choose the gift in the envelope. The progress bar should report 0, 1, 2, and 3 choices as the selections are made.
+3. Reveal the ending and check that all three selected passages appear in the story, together with the selected gift's unique ending.
+4. Choose **Tell another tiny story**. It should return to the introduction and reset all selections.
+5. Make a different first choice, proceed to chapter two, then go back and change chapter one. Later chapter selections must clear to avoid a mismatched ending.
+6. At 1366×768 and 375×812, check the story panel, illustrated stage, ending paper, and replay control fit without horizontal overflow.
+7. Keyboard users should be able to choose every path and move through the chapters; focus styling must remain visible. Under reduced-motion preference, decorative animation and story reveals should settle.

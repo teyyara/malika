@@ -48,7 +48,11 @@
       "Wrong Pawprint Rhythm input and retry",
       "Ladybug toast auto-dismiss after panel switch",
       "Keyboard operation of footer-star secret",
-      "Garden clue guide has no spoiler-map disclosure or contents"
+      "Garden clue guide has no spoiler-map disclosure or contents",
+      "Reasons book: 100 distinct pages validated by Node content test",
+      "Reasons book: closed-by-default disclosure, previous/next pages, progress indicator, final page restart",
+      "Reasons book: current page resets after leaving and revisiting Birthday letter",
+      "Reasons book: phone viewport fit at 375px"
     ],
     "note": "Automated Chromium checks do not certify physical-device or screen-reader behavior."
   },
@@ -57,8 +61,8 @@
     "projectName": "malika-birthday",
     "projectDashboard": "https://vercel.com/tyyr1/malika-birthday",
     "productionStatus": "NOT_VERIFIED_OWNER_HANDOFF",
-    "latestMainCommit": "478890f724f47961e8f0ddb3c90ba860ba05c241",
-    "latestMainStatus": "The Loop 009 application merge commit had a pending Vercel status at last check; a documentation-only commit was subsequently merged. Neither was verified as serving on the public alias. Owner will handle redeployment.",
+    "latestMainCommit": "41a2e115aaf3ac62e6f07a9fdaa87a3b9a68b4a7",
+    "latestMainStatus": "Loop 031 main CI passed: https://github.com/teyyara/malika/actions/runs/38424375461. This verifies CI only, not the public production alias. Owner will handle deployment verification.",
     "lastKnownReadyCommit": "be66face920cffdc16dce08213ae7c232938d7d5",
     "lastKnownReadyDeploymentId": "dpl_CzGS17bNAaTbaUCH7uLAP7XR6rQv",
     "previousFailedMainCommit": "5fdbd292707e27a84ae85b8782fe4cc3c27c5e8f",
@@ -77,8 +81,8 @@
   "screenReaderQA": "NOT_YET_OBSERVED",
   "realMobileDeviceQA": "NOT_TESTED",
   "nextHighValueWork": [
-    "Choose the next improvement without adding new top-level navigation if the existing scene can accommodate it.",
-    "Keep new work local-only, keyboard-accessible, responsive, and reduced-motion-aware.",
+    "Wait for a new CONTINUE instruction before beginning another feature loop.",
+    "Keep additions local-only, keyboard-accessible, responsive, and reduced-motion-aware.",
     "Do not initiate a manual Vercel deployment or claim production-alias verification."
   ],
   "arcadeMastery": {
@@ -124,6 +128,6 @@
     "branch": "feat/loop-031-book-of-100-reasons",
     "feature": "A Hundred Little Reasons I Love You",
     "requirement": "REQ-018",
-    "validation": "Exact PR-head and post-merge main CI passed."
+    "validation": "Validated: exact PR-head run 38423721213 and post-merge main run 38424375461 passed Node/content tests, production build, and all 55 Chromium browser journeys."
   }
 }

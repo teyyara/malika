@@ -11,7 +11,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "node --test src/game/gameLogic.test.js src/data/reasonsBook.test.js",
+    "test": "node --test src/game/gameLogic.test.js src/data/reasonsBook.test.js src/data/mimisStorybook.test.js",
     "test:e2e": "playwright test"
   },
   "dependencies": {

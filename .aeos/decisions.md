@@ -50,3 +50,8 @@ Mimi's Tiny Storybook is a fifth tab inside the existing garden companion studio
 ## D-012 — Let Mimi's recorded voice carry her love language
 
 Keep musical tones for interface and celebratory moments, but don't use them as a substitute for a cat vocalization where the interaction explicitly depicts Mimi vocalizing. The whispered-secret action now selects the already-bundled local purr recording, complementing the existing purr on cuddle/nap and recorded meow on playful ribbon/dance. Keep the existing master mute and local-asset approach; no new audio download, dependency, browser storage, or service is needed.
+
+
+## D-012 — Give the companion tablist a complete keyboard pattern
+
+The companion studio already uses ARIA tabs. Complete their keyboard model with a single Tab stop, Left/Right Arrow navigation with wraparound, and Home/End shortcuts. Move focus and selected content together so keyboard users do not land on hidden panels or need five Tab presses to cross the studio. Keep the existing visual layout, native button controls, reduced-motion behavior, and visit-only state; no new service or package.

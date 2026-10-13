@@ -305,3 +305,53 @@ test("Mimi's tiny storybook turns three choices into a repeatable branching fair
   expect(layout.ending.right).toBeLessThanOrEqual(layout.viewport + 1);
   expect(layout.controls.right).toBeLessThanOrEqual(layout.viewport + 1);
 });
+
+
+
+test("companion tabs support roving focus, arrow navigation, Home and End", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await enterGarden(page);
+  const tabs = page.getByRole("tab");
+  await expect(tabs).toHaveCount(5);
+  await expect(tabs.nth(0)).toHaveAttribute("tabindex", "0");
+  await expect(tabs.nth(1)).toHaveAttribute("tabindex", "-1");
+  await tabs.nth(0).focus();
+
+  await tabs.nth(0).press("ArrowRight");
+  await expect(tabs.nth(1)).toBeFocused();
+  await expect(tabs.nth(1)).toHaveAttribute("aria-selected", "true");
+  await expect(tabs.nth(1)).toHaveAttribute("tabindex", "0");
+  await expect(page.locator(".companion-panel-wishes").getByRole("heading", { name: "Give a wish to the sky." })).toBeVisible();
+
+  await tabs.nth(1).press("ArrowRight");
+  await expect(tabs.nth(2)).toBeFocused();
+  await expect(tabs.nth(2)).toHaveAttribute("aria-selected", "true");
+  await tabs.nth(2).press("ArrowLeft");
+  await expect(tabs.nth(1)).toBeFocused();
+  await expect(tabs.nth(1)).toHaveAttribute("aria-selected", "true");
+
+  await tabs.nth(1).press("Home");
+  await expect(tabs.nth(0)).toBeFocused();
+  await expect(tabs.nth(0)).toHaveAttribute("aria-selected", "true");
+
+  await tabs.nth(0).press("End");
+  await expect(tabs.nth(4)).toBeFocused();
+  await expect(tabs.nth(4)).toHaveAttribute("aria-selected", "true");
+  await expect(page.locator(".companion-panel-storybook").getByRole("heading", { name: "One tiny story. Three little choices." })).toBeVisible();
+
+  await tabs.nth(4).press("ArrowRight");
+  await expect(tabs.nth(0)).toBeFocused();
+  await expect(tabs.nth(0)).toHaveAttribute("aria-selected", "true");
+  await tabs.nth(0).press("ArrowLeft");
+  await expect(tabs.nth(4)).toBeFocused();
+  await expect(tabs.nth(4)).toHaveAttribute("aria-selected", "true");
+
+  const keyboardState = await tabs.evaluateAll((elements) => ({
+    tabStops: elements.filter((element) => element.tabIndex === 0).length,
+    focused: elements.findIndex((element) => document.activeElement === element),
+    selected: elements.findIndex((element) => element.getAttribute("aria-selected") === "true")
+  }));
+  expect(keyboardState.tabStops).toBe(1);
+  expect(keyboardState.focused).toBe(4);
+  expect(keyboardState.selected).toBe(4);
+});

@@ -1,6 +1,6 @@
 # Product Contract v1.5 — Malika Birthday Universe
 
-Status: Loop 031 change request proposed for implementation on 13 October 2026. Product Contract v1.4 remains the prior baseline; this version adds a page-by-page collection of 100 authored affirmations.
+Status: Loop 031 implementation merged and validated on 13 October 2026. This version adds a page-by-page collection of 100 authored affirmations.
 
 ## Change request CR-031 — A Hundred Little Reasons I Love You
 
@@ -21,7 +21,7 @@ The birthday letter scene must offer an optional book containing 100 distinct re
 8. Existing birthday letter text, surprise reveal, main navigation, and all existing game/secret behavior remain unchanged.
 
 **Risk:** R1 (new optional interaction inside the final letter scene).  
-**Validation:** Node/content test verifies the exact count and uniqueness. Playwright covers collapsed state, page navigation, endpoints, reset-on-return, and phone layout. Node/content tests, production build, and the complete Chromium suite remain required.
+**Validation:** Node/content test verifies the exact count and uniqueness. Playwright covers collapsed state, page navigation, endpoints, reset-on-return, and phone layout. Validation completed: exact PR-head workflow 38423721213 and post-merge main workflow 38424375461 passed Node/content tests, production build, and all 55 Chromium browser journeys.
 
 ## Evidence standard
 

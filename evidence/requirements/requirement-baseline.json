@@ -1,5 +1,5 @@
 {
-  "contractVersion": "1.7",
+  "contractVersion": "1.8",
   "capturedAt": "2026-10-13",
   "personalization": {
     "recipient": "Malika",
@@ -147,6 +147,13 @@
       "risk": "R1",
       "validation": "PASS — exact PR-head workflow 38476623426 (head 9d35c118f24e687101760c4f0c3226794bc00244) and post-merge main workflow 38477205346 (merge 01b47ae4c8f5c0bfe6b37954b857b258936f6702) passed Node/content tests, production build, and all 57 Chromium browser journeys.",
       "status": "IMPLEMENTED_VALIDATED"
+    },
+    {
+      "id": "REQ-021",
+      "requirement": "The companion tablist is keyboard-operable with one roving Tab stop, Left/Right Arrow navigation with wraparound, and Home/End navigation, keeping focus, selected state and visible panel synchronized.",
+      "risk": "R1",
+      "validation": "Playwright: tab-stop count; Left/Right Arrow; wraparound; Home/End; active panel and aria-selected; full Chromium suite",
+      "status": "IMPLEMENTED_VALIDATION_PENDING"
     }
   ],
   "validationEvidence": {

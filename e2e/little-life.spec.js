@@ -484,3 +484,48 @@ test("each main scene and all five arcade games select their own soundtrack", as
     await expect.poll(() => page.locator("html").getAttribute("data-soundtrack-theme")).toBe("garden");
   }
 });
+
+
+test("Mimi's love language uses real local cat vocalizations for play and a whispered secret", async ({ page }) => {
+  await page.addInitScript(() => {
+    window.__mimiVoiceAudioProbe = { durations: [], stops: 0 };
+    const AudioClass = window.AudioContext || window.webkitAudioContext;
+    if (!AudioClass) return;
+    const originalCreate = AudioClass.prototype.createBufferSource;
+    AudioClass.prototype.createBufferSource = function () {
+      const source = originalCreate.call(this);
+      const start = source.start.bind(source);
+      const stop = source.stop.bind(source);
+      source.start = (...args) => {
+        window.__mimiVoiceAudioProbe.durations.push(source.buffer?.duration || 0);
+        return start(...args);
+      };
+      source.stop = (...args) => {
+        window.__mimiVoiceAudioProbe.stops += 1;
+        return stop(...args);
+      };
+      return source;
+    };
+  });
+
+  await page.goto("/");
+  await page.getByRole("button", { name: /Open your birthday surprise/ }).click();
+  await page.getByRole("tab", { name: "Mimi's little life" }).click();
+
+  await page.getByRole("button", { name: /Play with ribbon/ }).click();
+  await expect(page.locator(".mimi-life-message")).toContainText("full zoomie mode");
+  await expect.poll(() => page.evaluate(() => window.__mimiVoiceAudioProbe.durations.some(
+    (duration) => duration >= 0.8 && duration <= 2.5
+  ))).toBeTruthy();
+
+  await page.getByRole("button", { name: /Tell her a secret/ }).click();
+  await expect(page.locator(".mimi-life-message")).toContainText("Mimi slow-blinks");
+  await expect.poll(() => page.evaluate(() => window.__mimiVoiceAudioProbe.durations.some(
+    (duration) => duration >= 7
+  ))).toBeTruthy();
+
+  const stopsBeforeMute = await page.evaluate(() => window.__mimiVoiceAudioProbe.stops);
+  await page.getByRole("button", { name: "Turn off tiny sounds" }).click();
+  await expect(page.getByRole("button", { name: "Turn on tiny sounds" })).toHaveAttribute("aria-pressed", "false");
+  await expect.poll(() => page.evaluate(() => window.__mimiVoiceAudioProbe.stops)).toBeGreaterThan(stopsBeforeMute);
+});

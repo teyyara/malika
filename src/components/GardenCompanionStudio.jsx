@@ -25,7 +25,7 @@ const mimiActions = {
   pet: { mood: "love", message: "Mimi leans into your hand. This is now officially a cuddle appointment.", sound: "purr" },
   play: { mood: "happy", message: "Ribbon spotted. Dignity lost. Mimi has entered full zoomie mode.", sound: "dance" },
   nap: { mood: "sleepy", message: "Mimi has curled into a lavender comma. Please admire quietly.", sound: "purr" },
-  sweet: { mood: "love", message: "You whisper something sweet. Mimi slow-blinks, which is practically a love letter.", sound: "love" }
+  sweet: { mood: "love", message: "You whisper something sweet. Mimi slow-blinks, which is practically a love letter.", sound: "purr" }
 };
 
 const tracks = [

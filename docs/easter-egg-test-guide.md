@@ -375,3 +375,17 @@ Choose any of four little imagined letters:
 Selecting a card opens its full letter on a soft, pearl-toned paper panel. You can choose another letter or close the current one. These are written as possible tomorrows; they are not claims about shared past events, promises about the future, or predictions. The choice is in React page state only and is not saved between visits.
 
 **Browser regression coverage:** `e2e/journey-features.spec.js` checks the default-collapsed state, all four choices, letter switching and closing, the unchanged keepsake count, reduced motion, and layout bounds at 1366×768 and 375×812.
+
+
+## 20. A Little Letter Back
+
+Open **Love notes** and expand **A Little Letter Back** near the top of the collection.
+
+1. Confirm it is closed on first arrival and the existing collection still contains 35 keepsakes.
+2. Open it and read the privacy note: drafting does not send or save anything, and refreshing clears the draft.
+3. Confirm **Fold my little letter** is disabled for an empty draft. Select a writing starter and check that it fills the field; then edit the text.
+4. Fold the letter. Check the preview uses **Dear Zack** and signs as **Malika**.
+5. Choose **Keep writing**, verify the draft remains, edit it, fold it again, and copy it. A successful copy should say the note was copied and not sent.
+6. If browser clipboard access is unavailable, the interface should offer manual selection/copying instead of claiming success.
+7. At 375×812, check the composer and preview remain inside the viewport. Keyboard users should be able to reach the disclosure, prompt buttons, text area, fold/edit/copy controls, and see focus. Reduced motion should remove the optional reveal animation.
+8. Reload. The draft must be gone; no previous note should reappear.

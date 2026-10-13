@@ -4,6 +4,7 @@ import { loveMessages, messageCategories } from "../data/loveMessages.js";
 import { memories } from "../data/memories.js";
 import { siteConfig } from "../data/siteConfig.js";
 import FutureLetters from "../components/FutureLetters.jsx";
+import LetterBackComposer from "../components/LetterBackComposer.jsx";
 
 export default function LoveCollectionScene({ gameWon, discoveredIds, onOpenNote }) {
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -33,6 +34,7 @@ export default function LoveCollectionScene({ gameWon, discoveredIds, onOpenNote
       <span><b>{items.length}</b> little keepsakes</span>
     </div>
     <FutureLetters />
+    <LetterBackComposer />
     <div className="collection-tools">
       <label className="collection-search">
         <span className="collection-search-label">find a note by feeling or word</span>

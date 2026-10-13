@@ -91,3 +91,8 @@ The pink flower in the garden now opens a little more as Malika discovers notes,
 ## Loop 029 — Letters from Future Us
 
 The Love Notes scene now includes an optional, collapsed-by-default window into four imagined tomorrows: a rainy Sunday, an unplanned little escape, an ordinary Tuesday, and a letter for a difficult day. Each choice opens a pearl-paper letter signed by Zack. The content is explicitly framed as daydreams—not remembered events, predictions, or promises. The disclosure and card selection work with native buttons/summary controls, respect reduced-motion preferences, fit laptop and phone layouts, and use no persistence, backend, extra package, or remote asset.
+
+
+## Loop 030 — A Little Letter Back
+
+Love Notes now has an optional, collapsed-by-default space where Malika can write a note to Zack in her own words. The composer offers optional opening ideas, a letter preview, an edit-again path that keeps the current draft, and explicit copying where the browser permits it. The UI explains that nothing is sent or saved and that refresh clears the draft. Everything stays in React memory; there is no submission endpoint, browser storage, extra package, third-party service, or remote asset.

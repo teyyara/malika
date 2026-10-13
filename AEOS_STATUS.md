@@ -3,10 +3,10 @@
 Date: 13 October 2026  
 Repository: https://github.com/teyyara/malika  
 Release branch: `main`  
-Current completed loop: **028 — The Flower That Grows With Love**  
-Current candidate: **Loop 029 — Letters from Future Us** (feature branch pending CI)  
-Latest main checkpoint: `60fdb949f1584ca37762dc0ef66025a5ce555eab`  
-Next state: **VALIDATION_PENDING**
+Current completed loop: **029 — Letters from Future Us** (merged and validated)  
+Current candidate: **Loop 030 — A Little Letter Back** (feature branch awaiting CI)  
+Latest main checkpoint: `5a035f7bc1def88c111bac997c6fe96759584fdd`  
+Next state: **WAITING_FOR_CI**
 
 ## Product state
 
@@ -95,13 +95,18 @@ The Loop 009 application merge commit is `8d40e627acff41fdc6cd2e7681cc563ed8a653
 - **Next loop:** wait for a standalone `CONTINUE` message before beginning more implementation.
 
 
-## Loop 029 — Letters from Future Us (candidate)
+## Loop 029 — Letters from Future Us (merged and validated)
 
-- Branch: `feat/loop-029-future-letters`, based on main commit `60fdb949f1584ca37762dc0ef66025a5ce555eab`.
-- Love Notes now contains a collapsed-by-default, optional disclosure with four imagined letters and an inline pearl-paper reveal.
-- Added a data module, responsive styles, browser journey, Product Contract v1.3 / REQ-016, change evidence, and updated state ledger.
-- Explicit writing disclaimer avoids presenting speculative future scenes as actual shared history or guarantees.
-- Status: waiting for exact-head CI (Node/content tests, production build, complete Chromium suite).
-- Prior loop CI: PR #33 exact-head workflow 38332835598 passed; post-merge main workflow 38333209788 passed; main checkpoint workflow 38333588376 passed.
+- PR #34 merged: https://github.com/teyyara/malika/pull/34
+- Merge commit: `5a035f7bc1def88c111bac997c6fe96759584fdd`
+- Exact PR-head validation: [run 38417184094](https://github.com/teyyara/malika/actions/runs/38417184094) — success.
+- Post-merge main validation: [run 38418153563](https://github.com/teyyara/malika/actions/runs/38418153563) — success on the merge commit.
+- No manual Vercel deployment was initiated. Production-alias verification remains with the owner.
+
+## Loop 030 — A Little Letter Back (candidate)
+
+- Branch: `feat/loop-030-little-letter-back`, based on main commit `5a035f7bc1def88c111bac997c6fe96759584fdd`.
+- Adds an optional, collapsed-by-default note composer inside Love Notes, with writing starters, preview/edit, and a copy action.
+- Draft stays in React state only, is neither sent nor saved, and clears on refresh. Clipboard denial has a manual-copy fallback.
+- Added Product Contract v1.4 / REQ-017 and browser coverage. Exact PR-head CI is required before merge.
 - No manual deployment is being initiated. Production-alias verification remains with the owner.
-- Local clone/build is unavailable in this environment; no local PASS is claimed.

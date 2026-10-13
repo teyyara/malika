@@ -1,5 +1,5 @@
 {
-  "contractVersion": "1.3",
+  "contractVersion": "1.4",
   "capturedAt": "2026-10-13",
   "personalization": {
     "recipient": "Malika",
@@ -118,6 +118,13 @@
       "requirement": "Love Notes offers four accessible, clearly labeled imagined-future letters in a collapsed-by-default disclosure, with selectable full-letter content and no storage or external service.",
       "risk": "R1",
       "validation": "Playwright: disclosure state, four choices, content switching, close action, unchanged keepsake count, 1366x768 and 375x812 overflow checks",
+      "status": "IMPLEMENTED_VALIDATION_PENDING"
+    },
+    {
+      "id": "REQ-017",
+      "requirement": "Malika can draft, preview, edit, and copy a private letter to Zack without sending or saving it.",
+      "risk": "R1",
+      "validation": "Playwright privacy, composer, clipboard fallback, and responsive journeys",
       "status": "IMPLEMENTED_VALIDATION_PENDING"
     }
   ]

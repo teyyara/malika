@@ -17,6 +17,7 @@ import "./styles/aurora-refinement.css";
 import "./styles/laptop-layout.css";
 import "./styles/journey-features.css";
 import "./styles/future-letters.css";
+import "./styles/letter-back.css";
 
 createRoot(document.getElementById("root")).render(
   <React.StrictMode><App /></React.StrictMode>

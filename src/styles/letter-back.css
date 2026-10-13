@@ -1,0 +1,78 @@
+/* Loop 030 — a private, page-only note composer for Malika. */
+.letter-back{width:100%;margin:0 0 21px;color:var(--text-primary,#f4edf9)}
+.letter-back-disclosure{overflow:hidden;border:1px solid rgba(202,176,246,.16);border-radius:17px;background:radial-gradient(ellipse at 100% 0%,rgba(203,136,211,.075),transparent 40%),linear-gradient(130deg,rgba(31,22,47,.8),rgba(20,13,34,.91));box-shadow:inset 0 1px 0 rgba(255,255,255,.025)}
+.letter-back-disclosure>summary{display:grid;grid-template-columns:43px minmax(0,1fr) auto;align-items:center;gap:13px;min-height:83px;padding:13px 17px;cursor:pointer;list-style:none;touch-action:manipulation;transition:background .2s ease}
+.letter-back-disclosure>summary::-webkit-details-marker{display:none}
+.letter-back-disclosure>summary:hover,.letter-back-disclosure[open]>summary{background:linear-gradient(100deg,rgba(206,163,246,.07),rgba(206,163,246,.012))}
+.letter-back-disclosure>summary:focus-visible{outline:3px solid var(--focus,#e5c5ff);outline-offset:-4px}
+.letter-back-stamp{display:grid;place-items:center;width:43px;height:43px;border:1px solid rgba(221,188,255,.23);border-radius:50%;color:#f0d8ff;background:radial-gradient(circle at 28% 20%,rgba(234,201,255,.17),rgba(119,75,152,.09));font-size:20px}
+.letter-back-summary-copy{display:grid;justify-items:start;gap:3px;min-width:0}
+.letter-back-eyebrow{color:rgba(214,188,240,.73);font-size:8px;font-weight:650;letter-spacing:.16em;line-height:1.5;text-transform:uppercase}
+.letter-back-summary-copy strong{color:#f6effb;font-family:var(--lux-serif,Georgia,serif);font-size:clamp(18px,1.7vw,22px);font-weight:400;line-height:1.15}
+.letter-back-summary-copy small{color:rgba(222,209,236,.7);font-size:10px;line-height:1.5}
+.letter-back-summary-action{display:inline-flex;align-items:center;gap:9px;padding:8px 10px;border:1px solid rgba(211,184,255,.13);border-radius:999px;color:#e1c5fb;background:rgba(180,138,231,.055);font-size:9px;white-space:nowrap}
+.letter-back-summary-action>span{display:inline-block;font-size:15px;transition:transform .2s ease}
+.letter-back-disclosure[open] .letter-back-summary-action>span{transform:rotate(180deg)}
+.letter-back-content{padding:14px 16px 17px;border-top:1px solid rgba(202,176,246,.1);animation:letter-back-appear .25s ease both}
+.letter-back-intro{margin:0 2px 8px;color:#e8d8f4;font-family:var(--lux-serif,Georgia,serif);font-size:15px;line-height:1.65}
+.letter-back-privacy{margin:0 2px 15px;color:rgba(220,205,234,.62);font-size:9px;line-height:1.7}
+.letter-back-editor{padding:14px;border:1px solid rgba(208,180,242,.12);border-radius:13px;background:rgba(10,7,19,.2)}
+.letter-back-prompts{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin-bottom:13px}
+.letter-back-prompt-label{width:100%;color:rgba(214,188,240,.7);font-size:8px;letter-spacing:.12em;text-transform:uppercase}
+.letter-back-prompt{display:inline-flex;align-items:center;gap:7px;padding:7px 9px;border:1px solid rgba(213,186,246,.15);border-radius:999px;color:#ddc4f3;background:rgba(180,138,231,.055);font-size:9px;cursor:pointer;transition:border-color .18s ease,background .18s ease}
+.letter-back-prompt:hover{border-color:rgba(225,196,255,.36);background:rgba(180,138,231,.11)}
+.letter-back-prompt:focus-visible,.letter-back-primary:focus-visible,.letter-back-secondary:focus-visible{outline:3px solid var(--focus,#e5c5ff);outline-offset:3px}
+.letter-back-field{display:grid;gap:6px;color:#f5eefe;font-family:var(--lux-serif,Georgia,serif);font-size:16px}
+.letter-back-field-hint{color:rgba(220,205,234,.6);font-family:inherit;font-size:10px;line-height:1.5}
+.letter-back-textarea{width:100%;min-height:136px;resize:vertical;margin-top:3px;padding:13px 14px;border:1px solid rgba(206,176,237,.18);border-radius:11px;outline:none;color:#f7efff;background:rgba(7,4,13,.3);font:12px/1.8 var(--body-font,Inter,system-ui,sans-serif);box-sizing:border-box;transition:border-color .2s ease,box-shadow .2s ease}
+.letter-back-textarea::placeholder{color:rgba(220,205,234,.37)}
+.letter-back-textarea:focus-visible{border-color:rgba(226,196,255,.56);box-shadow:0 0 0 3px rgba(190,150,236,.1)}
+.letter-back-editor-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px}
+.letter-back-counter{color:rgba(217,202,231,.55);font-size:9px;font-variant-numeric:tabular-nums}
+.letter-back-primary,.letter-back-secondary{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:37px;padding:9px 13px;border-radius:999px;font-size:10px;font-weight:600;cursor:pointer;transition:transform .18s ease,border-color .18s ease,background .18s ease}
+.letter-back-primary{border:1px solid rgba(225,194,255,.35);color:#2f1d3d;background:linear-gradient(135deg,#edd8ff,#d0b0ee);box-shadow:0 4px 18px rgba(168,116,207,.1)}
+.letter-back-primary:hover:not(:disabled){background:linear-gradient(135deg,#f2e4ff,#dfc3f4)}
+.letter-back-primary:disabled{opacity:.4;cursor:not-allowed}
+.letter-back-secondary{border:1px solid rgba(213,186,246,.2);color:#e3cef7;background:rgba(180,138,231,.045)}
+.letter-back-secondary:hover{border-color:rgba(225,196,255,.38);background:rgba(180,138,231,.1)}
+.letter-back-envelope{overflow:hidden;margin-top:4px;border:1px solid rgba(231,208,241,.29);border-radius:14px;color:#4b3656;background:radial-gradient(ellipse at 95% 0%,rgba(200,170,228,.17),transparent 38%),linear-gradient(135deg,#faf1f8 0%,#f2e7f3 58%,#f9f0e9 100%);box-shadow:0 14px 32px rgba(4,2,10,.17),inset 0 1px 0 rgba(255,255,255,.85);animation:letter-back-unfold .3s cubic-bezier(.2,.8,.2,1) both}
+.letter-back-envelope-top{display:grid;grid-template-columns:39px minmax(0,1fr);align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid rgba(113,77,130,.14);background:linear-gradient(90deg,rgba(255,255,255,.35),transparent)}
+.letter-back-postmark{display:grid;place-items:center;width:38px;height:38px;border:1px solid rgba(119,84,141,.22);border-radius:50%;color:#77548d;background:rgba(177,143,197,.12);font-size:19px}
+.letter-back-envelope-top h3{margin:3px 0 0;color:#3c2948;font-family:var(--lux-serif,Georgia,serif);font-size:clamp(20px,2vw,26px);font-weight:400;line-height:1.2}
+.letter-back-paper{padding:20px clamp(17px,3.4vw,35px) 22px}
+.letter-back-paper p{margin:0 0 11px;color:#57445f;font-size:12px;line-height:1.8}
+.letter-back-paper .letter-back-salutation{color:#4a315a;font-family:var(--lux-serif,Georgia,serif);font-size:17px}
+.letter-back-paper .letter-back-message{min-height:45px;white-space:pre-wrap;overflow-wrap:anywhere}
+.letter-back-paper .letter-back-signoff{margin-top:16px;margin-bottom:3px;color:#78627e;font-size:10px}
+.letter-back-signature{color:#573c67;font-family:var(--lux-serif,Georgia,serif);font-size:16px;font-weight:500}
+.letter-back-actions{display:flex;justify-content:flex-end;flex-wrap:wrap;gap:9px;padding:0 18px 16px}
+.letter-back-status{margin:0 18px 16px;color:#795c88;font-size:10px;line-height:1.7}
+@keyframes letter-back-appear{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:translateY(0)}}
+@keyframes letter-back-unfold{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:1020px){.letter-back-content{padding-inline:12px}.letter-back-editor{padding:11px}}
+@media(max-width:560px){
+ .letter-back-disclosure>summary{grid-template-columns:36px minmax(0,1fr);gap:10px;min-height:75px;padding:12px}
+ .letter-back-stamp{width:36px;height:36px;font-size:17px}
+ .letter-back-summary-copy strong{font-size:19px}
+ .letter-back-summary-copy small{font-size:9px}
+ .letter-back-summary-action{grid-column:2;justify-self:start;margin-top:-3px;padding:6px 8px;font-size:8px}
+ .letter-back-content{padding:12px 9px}
+ .letter-back-intro{font-size:14px}
+ .letter-back-editor{padding:9px}
+ .letter-back-prompt{max-width:100%;white-space:normal;text-align:left;font-size:8px}
+ .letter-back-field{font-size:15px}
+ .letter-back-editor-footer{align-items:flex-start;flex-direction:column}
+ .letter-back-editor-footer .letter-back-primary{align-self:flex-end}
+ .letter-back-envelope-top{grid-template-columns:32px minmax(0,1fr);gap:8px;padding:12px}
+ .letter-back-postmark{width:32px;height:32px;font-size:16px}
+ .letter-back-envelope-top h3{font-size:20px}
+ .letter-back-paper{padding:16px 13px 18px}
+ .letter-back-paper p{font-size:11px;line-height:1.72}
+ .letter-back-actions{padding:0 12px 13px;gap:7px}
+ .letter-back-primary,.letter-back-secondary{min-height:35px;padding:8px 10px;font-size:9px}
+ .letter-back-status{margin-inline:12px}
+}
+@media(prefers-reduced-motion:reduce){
+ .letter-back-disclosure>summary,.letter-back-summary-action>span,.letter-back-prompt,.letter-back-primary,.letter-back-secondary,.letter-back-textarea{transition:none!important}
+ .letter-back-content,.letter-back-envelope{animation:none!important}
+}

@@ -4,9 +4,9 @@ Date: 13 October 2026
 Repository: https://github.com/teyyara/malika  
 Release branch: `main`  
 Current completed loop: **032 — Mimi's Tiny Storybook** (merged and validated)  
-Current candidate: **None — waiting for a new CONTINUE instruction**  
+Current candidate: **Loop 033 — Mimi's Vocal Personality** (feature branch awaiting CI)  
 Latest validated application checkpoint: `2e9e0568e7835d0cb8e5cd266fe16133a1e55f1a`  
-Next state: **WAITING_FOR_CONTINUE**
+Next state: **WAITING_FOR_CI**
 
 ## Product state
 
@@ -135,3 +135,12 @@ The Loop 009 application merge commit is `8d40e627acff41fdc6cd2e7681cc563ed8a653
 - Mimi remains a visible, keyboard-focusable pet button that responds with an accessible live message. Replay resets choices and the message. Added responsive 375px checks and reduced-motion handling.
 - No backend, storage, analytics, paid service, new package, remote asset, or extra top-level navigation was introduced.
 - No manual Vercel deployment was initiated. The public production alias remains unverified by the assistant. Human screen-reader and physical-device QA remain outstanding.
+
+
+## Loop 033 — Mimi's Vocal Personality (candidate)
+
+- Branch: `feat/loop-033-mimis-vocal-personality`, based on current main `ced48f014df43be417e4a293493e4ee9eb4d6dfb`.
+- “Tell her a secret” now uses Mimi's locally bundled recorded purr rather than a synthetic love chord. Existing cuddle/nap purrs and the recorded meow on ribbon play remain.
+- Added a browser test that checks real Web Audio buffer durations and mute interruption rather than only checking copy or CSS classes.
+- No new asset, dependency, external runtime request, storage, or service. Merge only after exact PR-head CI passes.
+- No manual Vercel deployment is being initiated. Production-alias, human screen-reader, and physical-device QA remain unverified.

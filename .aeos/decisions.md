@@ -55,3 +55,8 @@ Keep musical tones for interface and celebratory moments, but don't use them as 
 ## D-012 — Give the companion tablist a complete keyboard pattern
 
 The companion studio already uses ARIA tabs. Complete their keyboard model with a single Tab stop, Left/Right Arrow navigation with wraparound, and Home/End shortcuts. Move focus and selected content together so keyboard users do not land on hidden panels or need five Tab presses to cross the studio. Keep the existing visual layout, native button controls, reduced-motion behavior, and visit-only state; no new service or package.
+
+
+## D-012 — Make storybook motion and sound preference-aware
+
+Loop 035 enhances the existing storybook rather than adding a new destination. Use a keyed motion page for phase/chapter entry and subtle illustration accents, with reduced-motion preference skipping the entrance motion. Use only the existing synthesized playCuteSound melodies for story cues; the global sound controls remain authoritative. Keep branch choices, state resets and all story text behavior unchanged. No file-based sound, remote asset, dependency or storage is needed.

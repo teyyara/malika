@@ -132,12 +132,12 @@
       "requirement": "The birthday letter offers a collapsed-by-default book of 100 unique affirmations, with accessible page navigation, an end-of-book restart, and session-only progress.",
       "risk": "R1",
       "validation": "Node/content uniqueness test and Playwright page, boundary, reset, and responsive journeys",
-      "status": "IMPLEMENTED_VALIDATION_PENDING"
+      "status": "IMPLEMENTED_VALIDATED"
     }
   ],
   "validationEvidence": {
-    "prHeadRun": "https://github.com/teyyara/malika/actions/runs/38420686468",
-    "mainRun": "https://github.com/teyyara/malika/actions/runs/38421421971",
-    "result": "53 Chromium journeys passed; Node/content tests and production build passed on both runs."
+    "prHeadRun": "https://github.com/teyyara/malika/actions/runs/38423721213",
+    "mainRun": "https://github.com/teyyara/malika/actions/runs/38424375461",
+    "result": "55 Chromium journeys passed; Node/content tests, including 100-entry uniqueness, and the production build passed on both runs."
   }
 }

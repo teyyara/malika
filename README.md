@@ -116,3 +116,8 @@ Mimi's love language now uses her recorded cat voice more intentionally. A cuddl
 ## Loop 034 — Keyboard-Ready Companion Tabs
 
 The five tabs in Mimi's companion studio now follow the expected keyboard pattern for a horizontal tablist. Only the selected tab is a normal Tab stop; Left/Right Arrow moves between tabs and wraps at either end, while Home/End goes straight to the first/last tab. Focus, the selected state, and the visible panel update together. Native buttons remain the interaction surface, visible focus styling is retained, and this adds no dependency or persistent state.
+
+
+## Loop 035 — The Storybook That Plays Along
+
+Mimi's Tiny Storybook now turns from the introduction to each chapter with a soft editorial page motion and a corresponding glow in the illustrated moonlit stage. Gentle synthesized cues mark story start, changed choices, chapter navigation, the final reveal, and replay. The cues use the existing Web Audio sound system and continue to respect the site's sound toggle and volume. Reduced-motion visitors get a near-instant transition. No sound files, external assets, new packages, storage, service, or extra scene were added.

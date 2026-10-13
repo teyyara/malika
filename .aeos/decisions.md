@@ -45,3 +45,8 @@ A Hundred Little Reasons I Love You lives inside the existing birthday letter sc
 ## D-011 — Keep Mimi's storybook fictional, branch-consistent, and local
 
 Mimi's Tiny Storybook is a fifth tab inside the existing garden companion studio, not a new top-level destination. Three authored chapters each provide three options; later selections clear when an earlier choice changes so the displayed ending always matches the path. The story is explicitly marked as an invented fairytale, and all state remains in component memory. Use the existing CatCharacter and Ladybug art; add no new packages, remote assets, or service.
+
+
+## D-012 — Let Mimi's recorded voice carry her love language
+
+Keep musical tones for interface and celebratory moments, but don't use them as a substitute for a cat vocalization where the interaction explicitly depicts Mimi vocalizing. The whispered-secret action now selects the already-bundled local purr recording, complementing the existing purr on cuddle/nap and recorded meow on playful ribbon/dance. Keep the existing master mute and local-asset approach; no new audio download, dependency, browser storage, or service is needed.

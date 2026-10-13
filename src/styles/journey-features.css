@@ -522,7 +522,7 @@
 /* Loop 028 — the existing garden flower quietly grows with her discoveries. */
 .interactive-flower {
   --blossom-scale: .08;
-  --blossom-offset: 0px;
+  --petal-distance: -5px;
 }
 .interactive-flower .love-bloom-petal {
   position: absolute;
@@ -538,14 +538,20 @@
   opacity: .42;
   pointer-events: none;
   transform-origin: 50% 50%;
-  transform: rotate(calc(var(--petal-index) * 60deg)) translateY(var(--blossom-offset)) scale(var(--blossom-scale));
+  transform: translate(-50%, -50%) rotate(var(--petal-angle)) translateY(var(--petal-distance)) scale(var(--blossom-scale));
   transition: transform .52s cubic-bezier(.2, .8, .2, 1), opacity .32s ease, box-shadow .42s ease;
 }
-.interactive-flower[data-blossom-level="1"] { --blossom-scale: .34; --blossom-offset: -3px; }
-.interactive-flower[data-blossom-level="2"] { --blossom-scale: .52; --blossom-offset: -5px; }
-.interactive-flower[data-blossom-level="3"] { --blossom-scale: .7; --blossom-offset: -7px; }
-.interactive-flower[data-blossom-level="4"] { --blossom-scale: .88; --blossom-offset: -9px; }
-.interactive-flower[data-blossom-level="5"] { --blossom-scale: 1; --blossom-offset: -11px; }
+.interactive-flower .love-bloom-petal:nth-of-type(1) { --petal-angle: 0deg; }
+.interactive-flower .love-bloom-petal:nth-of-type(2) { --petal-angle: 60deg; }
+.interactive-flower .love-bloom-petal:nth-of-type(3) { --petal-angle: 120deg; }
+.interactive-flower .love-bloom-petal:nth-of-type(4) { --petal-angle: 180deg; }
+.interactive-flower .love-bloom-petal:nth-of-type(5) { --petal-angle: 240deg; }
+.interactive-flower .love-bloom-petal:nth-of-type(6) { --petal-angle: 300deg; }
+.interactive-flower[data-blossom-level="1"] { --blossom-scale: .34; --petal-distance: -8px; }
+.interactive-flower[data-blossom-level="2"] { --blossom-scale: .52; --petal-distance: -10px; }
+.interactive-flower[data-blossom-level="3"] { --blossom-scale: .7; --petal-distance: -12px; }
+.interactive-flower[data-blossom-level="4"] { --blossom-scale: .88; --petal-distance: -14px; }
+.interactive-flower[data-blossom-level="5"] { --blossom-scale: 1; --petal-distance: -16px; }
 .interactive-flower[data-blossom-level="1"] .love-bloom-petal { opacity: .62; }
 .interactive-flower[data-blossom-level="2"] .love-bloom-petal,
 .interactive-flower[data-blossom-level="3"] .love-bloom-petal { opacity: .8; }

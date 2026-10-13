@@ -147,7 +147,7 @@ export default function GardenScene({ discoveredCount, heartsCollected = 0, requ
       >
         <i /><i /><i /><b />
         {Array.from({ length: 6 }, (_, index) => (
-          <span key={index} className="love-bloom-petal" style={{ "--petal-index": index }} aria-hidden="true" />
+          <span key={index} className="love-bloom-petal" aria-hidden="true" />
         ))}
       </button>
       <div className="garden-cat-wrap"><CatCharacter mood="curious" onClick={greetCat} label="Pet Mimi the kitten and hear a new greeting" /></div>

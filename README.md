@@ -96,3 +96,8 @@ The Love Notes scene now includes an optional, collapsed-by-default window into 
 ## Loop 030 — A Little Letter Back
 
 Love Notes now has an optional, collapsed-by-default space where Malika can write a note to Zack in her own words. The composer offers optional opening ideas, a letter preview, an edit-again path that keeps the current draft, and explicit copying where the browser permits it. The UI explains that nothing is sent or saved and that refresh clears the draft. Everything stays in React memory; there is no submission endpoint, browser storage, extra package, third-party service, or remote asset.
+
+
+## Loop 031 — A Hundred Little Reasons I Love You
+
+The birthday letter scene now includes an optional little book of 100 authored reasons and reflections, revealed one page at a time. The page number and progress bar update together, Previous is disabled on page one, and the last page offers a return to the beginning. The book stays closed by default to preserve the letter's first impression, adds no navigation item, respects reduced motion, and resets when the scene is left. Its 100 entries are checked for uniqueness; no progress is persisted and no external service, package, or remote asset is added.

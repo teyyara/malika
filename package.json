@@ -4,12 +4,14 @@
   "private": true,
   "type": "module",
   "description": "A little interactive birthday universe made with love.",
-  "engines": { "node": ">=20.19.0" },
+  "engines": {
+    "node": ">=20.19.0"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "node --test src/game/gameLogic.test.js",
+    "test": "node --test src/game/gameLogic.test.js src/data/reasonsBook.test.js",
     "test:e2e": "playwright test"
   },
   "dependencies": {

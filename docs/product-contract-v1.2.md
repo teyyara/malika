@@ -13,7 +13,7 @@ The existing garden flower must progressively blossom from current-visit discove
 **Acceptance criteria**
 1. The flower starts at stage 0 on a fresh visit.
 2. Its visual progress is derived from discovered love notes, collected hearts, and released wishes. Wishes contribute a little extra to reflect the observatory activity.
-3. It has five ordered bloom stages and reaches stage 5 after enough activity; each state has an accessible name that includes progress or the fully bloomed state.
+3. It has five ordered bloom stages and reaches stage 5 after enough activity; the button retains its established accessible name, while an accessible description and tooltip announce the current bloom stage.
 4. Clicking before full bloom gives a helpful hint through the existing live cat-reply region. Clicking after full bloom reveals a short, clearly authored note and uses the existing local sound-effect path.
 5. The action works with a keyboard as well as pointer/touch. Petal transitions respect prefers-reduced-motion.
 6. Progress is React in-memory state for this visit only. No browser storage, backend, analytics, paid API, new dependency, or remote asset is permitted.

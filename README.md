@@ -85,4 +85,4 @@ See `AEOS_STATUS.md`, `.aeos/state.json`, `docs/product-contract-v1.1.md`, and `
 
 ## Loop 028 — The Flower That Grows With Love
 
-The pink flower in the garden now opens a little more as Malika discovers notes, collects hearts, and releases wishes. Five gentle growth stages are derived from the current visit's progress; nothing is stored in the browser or sent anywhere. At full bloom, the flower reveals a tiny note from Zack in Mimi's live reply. The flower stays keyboard-operable, its progress is available through its accessible name, and its petal transitions are removed when reduced motion is requested.
+The pink flower in the garden now opens a little more as Malika discovers notes, collects hearts, and releases wishes. Five gentle growth stages are derived from the current visit's progress; nothing is stored in the browser or sent anywhere. At full bloom, the flower reveals a tiny note from Zack in Mimi's live reply. The flower stays keyboard-operable, its current bloom stage is available through an accessible description and tooltip, and its petal transitions are removed when reduced motion is requested.

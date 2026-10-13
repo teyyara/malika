@@ -108,7 +108,7 @@
     },
     {
       "id": "REQ-015",
-      "requirement": "The garden love blossom progresses from notes, hearts, and released wishes, then reveals a short authored note when fully open.",
+      "requirement": "The garden love blossom progresses from notes, hearts, and released wishes; its stable button name is paired with an accessible stage description and it reveals a short authored note when fully open.",
       "risk": "R1",
       "validation": "Playwright journey: initial, partial, full bloom; reduced motion and existing responsive matrix",
       "status": "IMPLEMENTED_VALIDATION_PENDING"

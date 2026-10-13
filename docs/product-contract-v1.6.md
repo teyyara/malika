@@ -1,6 +1,6 @@
 # Product Contract v1.6 — Malika Birthday Universe
 
-Status: Loop 032 change request implemented on a feature branch on 13 October 2026. Product Contract v1.5 remains the prior baseline; this version adds a small branching fairytale inside the existing garden companion studio.
+Status: Loop 032 merged and validated on 13 October 2026. Product Contract v1.5 remains the prior baseline; this version adds a small branching fairytale inside the existing garden companion studio.
 
 ## Change request CR-032 — Mimi's Tiny Storybook
 
@@ -27,3 +27,6 @@ The garden companion studio must provide an optional interactive fairytale with 
 ## Evidence standard
 
 Only exact PR-head CI supports promotion to main. Passing automation does not certify physical-device, screen-reader, or production-alias behavior.
+
+
+Validation completed: exact PR-head workflow 38430124661 and post-merge main workflow 38430789459 both passed Node/content tests, production build, and all 56 Chromium browser journeys.

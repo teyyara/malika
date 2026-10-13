@@ -39,11 +39,25 @@ const tracks = [
 export default function GardenCompanionStudio({ discoveredCount, heartsCollected, releasedWishes, onReleaseWish }) {
   const [activeTab, setActiveTab] = useState("mimi");
   const [activeTrack, setActiveTrack] = useState(null);
+  const tabRefs = useRef({});
   const reduceMotion = useReducedMotion();
 
   useEffect(() => () => {
     setMusicOverride("soundtrack-player", null);
   }, []);
+
+  function handleStudioTabKeyDown(event, currentIndex) {
+    let nextIndex = null;
+    if (event.key === "ArrowRight") nextIndex = (currentIndex + 1) % studioTabs.length;
+    else if (event.key === "ArrowLeft") nextIndex = (currentIndex - 1 + studioTabs.length) % studioTabs.length;
+    else if (event.key === "Home") nextIndex = 0;
+    else if (event.key === "End") nextIndex = studioTabs.length - 1;
+    if (nextIndex === null) return;
+    event.preventDefault();
+    const nextTab = studioTabs[nextIndex];
+    setActiveTab(nextTab.id);
+    tabRefs.current[nextTab.id]?.focus();
+  }
 
   function playTrack(track) {
     setActiveTrack(track.id);
@@ -61,9 +75,12 @@ export default function GardenCompanionStudio({ discoveredCount, heartsCollected
       <h2 id="companion-studio-heading">The little things that make this world <em>ours.</em></h2>
       <p>Mimi has her own tiny routine, the sky keeps track of your discoveries, and there is always room for one more wish.</p>
     </div>
-    <div className="companion-tab-list" role="tablist" aria-label="Explore the little universe">
-      {studioTabs.map((tab) => <button
+    <div className="companion-tab-list" role="tablist" aria-label="Explore the little universe" aria-orientation="horizontal">
+      {studioTabs.map((tab, index) => <button
         key={tab.id}
+        ref={(element) => { tabRefs.current[tab.id] = element; }}
+        tabIndex={activeTab === tab.id ? 0 : -1}
+        onKeyDown={(event) => handleStudioTabKeyDown(event, index)}
         type="button"
         role="tab"
         id={"companion-tab-" + tab.id}

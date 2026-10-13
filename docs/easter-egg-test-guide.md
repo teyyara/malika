@@ -415,3 +415,16 @@ Open **The garden** and choose **Mimi's tiny storybook** in the companion tabs.
 5. Make a different first choice, proceed to chapter two, then go back and change chapter one. Later chapter selections must clear to avoid a mismatched ending.
 6. At 1366×768 and 375×812, check the story panel, illustrated stage, ending paper, and replay control fit without horizontal overflow.
 7. Keyboard users should be able to choose every path and move through the chapters; focus styling must remain visible. Under reduced-motion preference, decorative animation and story reveals should settle.
+
+
+## 23. Keyboard-Ready Companion Tabs
+
+Open **The garden** and move to **Explore the little universe**.
+
+1. Confirm the companion studio has five tabs and only the selected tab participates in the ordinary Tab sequence.
+2. Focus the selected tab. Press **Right Arrow** and confirm focus and selection move to the next tab and its panel appears; press **Left Arrow** to go back.
+3. Press **Home** from any tab; focus and selection should move to **Mimi's little life**.
+4. Press **End** from any tab; focus and selection should move to **Mimi's tiny storybook**.
+5. From the last tab, press **Right Arrow** to wrap to the first. From the first, press **Left Arrow** to wrap to the last.
+6. At each step, exactly one tab should have `tabindex="0"`, its `aria-selected` should be `true`, and focus should match the selected tab.
+7. Check at 1366×768 and 375×812. Keyboard navigation must not cause horizontal overflow or require a mouse. Existing focus-visible styling must remain visible.

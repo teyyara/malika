@@ -1,10 +1,11 @@
 # AEOS Status — Malika Birthday Universe
 
-Date: 12 October 2026  
+Date: 13 October 2026  
 Repository: https://github.com/teyyara/malika  
 Release branch: `main`  
-Current completed loop: **009 — immersive arcade rewards and spoiler-free clues**  
-Next state: **WAITING_FOR_CONTINUE**
+Current completed loop: **027 — the evolving sky and companion studio**  
+Current candidate: **Loop 028 — The Flower That Grows With Love** (feature branch pending CI)  
+Next state: **VALIDATION_PENDING**
 
 ## Product state
 
@@ -69,3 +70,14 @@ The Loop 009 application merge commit is `8d40e627acff41fdc6cd2e7681cc563ed8a653
 - Physical-device testing on a real phone has not been performed.
 - VoiceOver/NVDA or mobile screen-reader testing has not been performed.
 - Chromium responsive checks are not a substitute for real touch and assistive-technology validation.
+
+
+## Loop 028 — The Flower That Grows With Love (candidate)
+
+- Branch: feat/loop-028-love-blossom, based on main revision c2905d1d39bb7b09b9d0a9b452d0054c0f6f8237.
+- The existing garden flower now has six decorative petals and five growth stages derived from notes discovered, hearts collected, and wishes released. Full bloom reveals a short note from Zack.
+- Added browser coverage, Product Contract v1.2 / REQ-015, a change record, and reduced-motion/keyboard considerations.
+- Status: implementation committed to candidate; PR CI is required before this status can advance.
+- Prior verified work: Loop 026 laptop-layout PR and main CI passed (PR run 38322276452; main run 38324287298). Loop 027 companion-studio PR and main CI passed (PR run 38325030718; main run 38325414131).
+- Deployment: no deployment was initiated. Current production alias remains unverified; do not infer readiness from a source or preview CI result.
+- Local validation limitation: this environment could not resolve github.com for a local clone, so no local build/test PASS is claimed.

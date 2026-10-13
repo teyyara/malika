@@ -81,3 +81,8 @@ The extra secrets are optional; all core birthday scenes stay available without 
 ## Project status and evidence
 
 See `AEOS_STATUS.md`, `.aeos/state.json`, `docs/product-contract-v1.1.md`, and `evidence/loop-004-release.md`, `evidence/loop-005-easter-eggs.md`, and `docs/easter-egg-test-guide.md`. Automated tests pass; screen-reader validation and physical-device touch QA remain separate, unobserved gates.
+
+
+## Loop 028 — The Flower That Grows With Love
+
+The pink flower in the garden now opens a little more as Malika discovers notes, collects hearts, and releases wishes. Five gentle growth stages are derived from the current visit's progress; nothing is stored in the browser or sent anywhere. At full bloom, the flower reveals a tiny note from Zack in Mimi's live reply. The flower stays keyboard-operable, its progress is available through its accessible name, and its petal transitions are removed when reduced motion is requested.

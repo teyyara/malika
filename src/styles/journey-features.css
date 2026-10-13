@@ -517,3 +517,51 @@
   .living-picture-frame.is-alive .living-picture-bug,
   .living-picture-frame.is-alive .living-picture-mimi { animation: none !important; }
 }
+
+
+/* Loop 028 — the existing garden flower quietly grows with her discoveries. */
+.interactive-flower {
+  --blossom-scale: .08;
+  --blossom-offset: 0px;
+}
+.interactive-flower .love-bloom-petal {
+  position: absolute;
+  z-index: 2;
+  left: 36px;
+  top: 8px;
+  width: 11px;
+  height: 16px;
+  border: 1px solid rgba(250, 224, 255, .36);
+  border-radius: 85% 0 85% 0;
+  background: linear-gradient(145deg, #f6dff4 0%, #d5b1f0 56%, #a88bdc 100%);
+  box-shadow: 0 0 8px rgba(210, 174, 246, .12);
+  opacity: .42;
+  pointer-events: none;
+  transform-origin: 50% 50%;
+  transform: rotate(calc(var(--petal-index) * 60deg)) translateY(var(--blossom-offset)) scale(var(--blossom-scale));
+  transition: transform .52s cubic-bezier(.2, .8, .2, 1), opacity .32s ease, box-shadow .42s ease;
+}
+.interactive-flower[data-blossom-level="1"] { --blossom-scale: .34; --blossom-offset: -3px; }
+.interactive-flower[data-blossom-level="2"] { --blossom-scale: .52; --blossom-offset: -5px; }
+.interactive-flower[data-blossom-level="3"] { --blossom-scale: .7; --blossom-offset: -7px; }
+.interactive-flower[data-blossom-level="4"] { --blossom-scale: .88; --blossom-offset: -9px; }
+.interactive-flower[data-blossom-level="5"] { --blossom-scale: 1; --blossom-offset: -11px; }
+.interactive-flower[data-blossom-level="1"] .love-bloom-petal { opacity: .62; }
+.interactive-flower[data-blossom-level="2"] .love-bloom-petal,
+.interactive-flower[data-blossom-level="3"] .love-bloom-petal { opacity: .8; }
+.interactive-flower[data-blossom-level="4"] .love-bloom-petal,
+.interactive-flower[data-blossom-level="5"] .love-bloom-petal {
+  opacity: 1;
+  box-shadow: 0 0 12px rgba(207, 174, 247, .3);
+}
+.interactive-flower[data-blossom-level="5"] .love-bloom-petal {
+  background: linear-gradient(145deg, #fff0fd 0%, #e7c9fb 48%, #b69ce8 100%);
+  box-shadow: 0 0 15px rgba(222, 193, 255, .52);
+}
+.interactive-flower[data-blossom-level="5"] b {
+  background: #fff0fb;
+  box-shadow: 0 0 25px rgba(239, 200, 255, .88);
+}
+@media (prefers-reduced-motion: reduce) {
+  .interactive-flower .love-bloom-petal { transition: none; }
+}

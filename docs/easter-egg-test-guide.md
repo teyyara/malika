@@ -428,3 +428,12 @@ Open **The garden** and move to **Explore the little universe**.
 5. From the last tab, press **Right Arrow** to wrap to the first. From the first, press **Left Arrow** to wrap to the last.
 6. At each step, exactly one tab should have `tabindex="0"`, its `aria-selected` should be `true`, and focus should match the selected tab.
 7. Check at 1366×768 and 375×812. Keyboard navigation must not cause horizontal overflow or require a mouse. Existing focus-visible styling must remain visible.
+
+
+## 23. The Storybook That Plays Along
+
+Open **The garden** → **Mimi's tiny storybook**. If sound is enabled, its existing generated tones should give a gentle cue when starting, choosing a different option, turning the chapter, going back, revealing the ending, and replaying. Choosing the same option again should not add an extra choice cue. Use the existing global sound control to mute/unmute and verify the storybook does not override it.
+
+Confirm that the illustrated orbit brightens subtly on chapter two/three and at the ending. Under reduced-motion preference, page contents should appear without the sliding/rotating entrance. Continue through all three chapters, change chapter one after visiting chapter two, and check later answers are cleared; reveal the ending and replay. At 375×812, confirm no horizontal overflow.
+
+The automated oscillator check verifies that the local tone scheduler is reached, not human-perceived loudness or sound quality. Human listening, screen-reader behavior, physical-device behavior, and live deployment remain separate QA checks.

@@ -89,3 +89,27 @@
 }
 
 .mimi-storybook-pet-note{margin:0 0 10px;padding:9px 11px;border-left:2px solid rgba(219,190,255,.5);border-radius:0 8px 8px 0;color:#e4d5fa;background:linear-gradient(90deg,rgba(173,136,225,.11),transparent);font-size:10px;line-height:1.7}
+
+/* Loop 035 — pages turn with the tale; every cue is a locally generated tone. */
+.mimi-storybook-copy{perspective:1000px}
+.mimi-storybook-page{min-width:0;transform-origin:left center;backface-visibility:hidden}
+.mimi-storybook-stage[data-story-phase="choices"][data-story-chapter="2"] .mimi-storybook-orbit-one{
+  border-color:rgba(172,194,255,.22);
+  box-shadow:0 0 24px rgba(151,176,255,.07)
+}
+.mimi-storybook-stage[data-story-phase="choices"][data-story-chapter="3"] .mimi-storybook-orbit-one,
+.mimi-storybook-stage.is-story-complete .mimi-storybook-orbit-one{
+  border-color:rgba(239,208,255,.27);
+  box-shadow:0 0 30px rgba(219,178,255,.09)
+}
+.mimi-storybook-stage.is-story-complete .mimi-storybook-star{
+  color:#f0d5ff;
+  text-shadow:0 0 16px rgba(226,189,255,.7)
+}
+.mimi-storybook-stage.is-story-complete .mimi-storybook-moon{
+  color:#f0dcff;
+  text-shadow:0 0 29px rgba(227,194,255,.55)
+}
+@media(prefers-reduced-motion:reduce){
+  .mimi-storybook-page{transform:none!important;backface-visibility:visible}
+}

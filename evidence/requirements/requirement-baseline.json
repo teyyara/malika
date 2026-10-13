@@ -1,5 +1,5 @@
 {
-  "contractVersion": "1.8",
+  "contractVersion": "1.9",
   "capturedAt": "2026-10-13",
   "personalization": {
     "recipient": "Malika",
@@ -154,6 +154,13 @@
       "risk": "R1",
       "validation": "PASS — exact PR-head workflow 38480765929 (head 83c92c5521cecd7065ca9e8e11f0c168dff72081) and post-merge main workflow 38481311313 (merge a0dc68a06899be673491ac8b28ebfd9e8aa47bc9) passed Node/content tests, production build, and all 58 Chromium browser journeys.",
       "status": "IMPLEMENTED_VALIDATED"
+    },
+    {
+      "id": "REQ-022",
+      "requirement": "Mimi's existing storybook uses reduced-motion-aware page transitions, chapter-specific illustration accents, and brief synthesized sound cues for story start, changed choices, chapter navigation, finale, and replay while respecting the global sound control.",
+      "risk": "R1",
+      "validation": "Playwright storybook journey: phase/chapter transitions, reduced-motion mode, Web Audio oscillator cue activity on story start and changed choice, branch consistency, replay reset, and 375px layout",
+      "status": "IMPLEMENTED_VALIDATION_PENDING"
     }
   ],
   "validationEvidence": {

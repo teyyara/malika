@@ -118,6 +118,13 @@
     "baseCommit": "ced48f014df43be417e4a293493e4ee9eb4d6dfb",
     "feature": "Mimi's Vocal Personality",
     "requirement": "REQ-020",
-    "validation": "Waiting for exact PR-head Node/content tests, production build, and full Chromium browser journeys; merge only after all pass."
+    "validation": "PR #41 is open. Exact-head Node/content tests, production build, and all Chromium browser journeys must pass before merge."
+  },
+  "pullRequest": {
+    "url": "https://github.com/teyyara/malika/pull/41",
+    "number": 41,
+    "state": "OPEN",
+    "headSha": "c1b874d6e40e13d19db22b09ff1b2e588fe10e8f",
+    "baseSha": "ced48f014df43be417e4a293493e4ee9eb4d6dfb"
   }
 }

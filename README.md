@@ -53,6 +53,21 @@ Loop 026 adds a dedicated desktop composition layer for common laptop viewports 
 
 The changes are isolated to `src/styles/laptop-layout.css` at desktop widths of 1024–1600px; existing tablet and mobile rules are left in place. Automated Chromium checks cover all three laptop viewport sizes across the welcome, garden, heart game, love collection, and birthday letter, plus the Secret Arcade and Firefly Hunt dialog fit at 1366×768.
 
+## A living sky, Mimi's tiny life, and the little universe studio
+
+Loop 027 makes the garden a more personal, evolving place through a four-part **companion studio**:
+
+- **Mimi's Tiny Daily Life + Love Language:** Mimi rotates through small routines while the garden is open—keeping watch over the stars, taking a nap, spotting butterflies, or saving a purr for Malika. Petting her, playing with a ribbon, inviting a cozy nap, or telling her something sweet triggers a distinct reaction and locally bundled cat sound.
+- **A Sky That Changes With Your Journey:** the shared background progresses from twilight to moonrise, a dreamier sky, a bright constellation field, and finally a full-universe finale. The changes respond to notes discovered, hearts collected, and wishes released; the wish stars also remain visible in the shared sky as you move between scenes.
+- **A Little Wish Sky:** Malika can choose one of six handcrafted wishes from Zack or write a wish of her own (up to 160 characters). Releasing it animates a glowing star with a tiny trail, adds it to the sky and the wishes collection, and changes the world's progress state.
+- **Our Soundtrack Player:** choose from five original moods: the garden, rain against the window, a sky full of stars, a cozy evening, or the birthday song. The new arrangements are composed locally through the existing Web Audio engine. Scene scores resume when the player is paused or the garden is left, while love-note and arcade overrides retain their priority.
+- **The Picture That Comes Alive:** tap a locally illustrated keepsake frame to animate Mimi, the night sky, floating light, and a tiny ladybug. No external image is loaded.
+- **The Grand Finale — A Universe Made for Her:** opening the last surprise changes the app-wide sky, adds a cinematic reveal, and acknowledges the wishes she released.
+
+The companion studio is grouped into four tabs so the garden doesn't become a wall of unrelated widgets. Wish history, chosen music, and the finale state use in-memory React state only. They reset with a fresh page visit; no account, backend, analytics, browser storage, remote asset service, paid API, or new dependency is added. Audio still respects the existing sound switch, browser audio policy, mixer, and reduced-motion preferences.
+
+New automated coverage lives in `e2e/journey-features.spec.js`: Mimi's responses, prepared/custom wishes and sky state, soundtrack selection and restoration, the living-picture toggle, the universe finale, and horizontal-fit checks at phone and laptop sizes.
+
 ## Vercel deployment
 
 The Vercel project **malika-birthday** is connected to this repository. The last previously confirmed production deployment is recorded at the [Vercel dashboard](https://vercel.com/tyyr1/malika-birthday/CzGS17bNAaTbaUCH7uLAP7XR6rQv). The Loop 007 production attempt reported failed ([deployment details](https://vercel.com/tyyr1/malika-birthday/GrbCE3RnoKGws4A54c3NvJyoV7TE)). Loop 008's PR preview passed, but the latest main commit has not reported a Vercel status through GitHub and the connected Vercel integration cannot access deployment logs. The latest production release is therefore unverified; treat it as live only after Vercel reports Ready. No access-bypass token is stored in this repository.

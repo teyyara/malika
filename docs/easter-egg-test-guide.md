@@ -1,4 +1,4 @@
-# Complete easter-egg guide — Loop 026
+# Complete easter-egg guide — Loop 027
 
 **Full spoilers.** This is the complete walkthrough for Zack, not a hint sheet to hand to Malika before she explores. The website's hidden progress exists only in the current page session: it is not written to a server, browser storage, or analytics. Reloading starts a fresh hunt. None of these secrets is required to read the birthday letter or finish the main heart game.
 
@@ -316,7 +316,32 @@ The dedicated `src/styles/laptop-layout.css` layer targets desktop widths from 1
 
 **Browser regression coverage:** the Chromium suite checks 1280×800, 1366×768, and 1440×900 for horizontal overflow, header collisions, balanced welcome sizing, aligned garden destinations, arena height, note-card columns, and non-overlapping letter art. A separate 1366×768 journey checks that the Secret Arcade and Firefly Hunt overlays stay within the viewport.
 
-## 16. Progress, accessibility, and reset behavior
+## 16. Loop 027 — The evolving sky and companion studio
+
+### Mimi's Tiny Daily Life and Love Language
+Open the Garden and select **Mimi's little life**. Mimi cycles through tiny moments while this panel is visible. Her four responses include a cuddle/pet, a ribbon game, a cozy nap, and a whispered secret. Each action changes her expression and copy; petting, play, and rest request the existing bundled meow/purr sounds or an existing one-shot cue. If sound is muted, her visual reaction still works.
+
+### A Sky That Changes With Your Journey
+The ambient backdrop is now driven by in-memory progress: notes opened, hearts collected, and released wishes. It advances through **twilight**, **moonrise**, **dreaming**, and **constellation** moods. The final reveal explicitly moves the shared sky to **universe**. Released wish lights are decorative in the background; their interactive copies live inside the Wish sky panel.
+
+### Release and revisit wishes
+1. Open the companion studio's **Wish sky** tab.
+2. Choose one of Zack's prepared wishes or type a custom wish (maximum 160 characters).
+3. Select **Release into the sky**. A new glowing star appears; select any star to show its message. All wishes also appear in the little collection beneath the composer.
+4. Navigate to another scene and return to the garden. The wishes remain in React page memory for this visit. Reloading resets them.
+
+### Our Soundtrack Player
+The **Our soundtrack** tab provides five local arrangements: the Garden, Rain Against the Window, A Sky Full of Stars, One More Cozy Evening, and the Birthday song. Selecting a track sets an override in the existing Web Audio scheduler; pausing or leaving the garden removes that override and lets the scene's own score resume. A still-open love note and an active arcade soundtrack retain higher playback priority. Theme selection is tested in Chromium; that check does not certify sound quality on physical speakers.
+
+### The Picture That Comes Alive
+In the **Living picture** tab, activate the picture by pressing its frame or the adjacent action. Its locally rendered Mimi illustration floats, the stars twinkle, the ladybug flutters, and light sparkles appear. Press again to return to the still keepsake. No remote photograph or image service is needed.
+
+### The Grand Finale — A Universe Made for Her
+On the Birthday Letter page, open **One last little surprise…**. The app-level sky moves to the universe state and the finale card acknowledges any wishes released during the visit. Closing the little reveal restores the progress-based sky. Navigating away from the birthday finale also clears the active finale effect.
+
+**Verification added:** `e2e/journey-features.spec.js` covers the Mimi interactions, prepared and custom wishes, star count and sky progression, soundtrack switching and restore behavior, the living-picture toggle, grand-finale entry/exit, and horizontal fit at 1366×768 and 375×812. All wishes and modes are visit-only React state; the features add no browser storage, backend, network resource, or package.
+
+## 17. Progress, accessibility, and reset behavior
 
 - The arcade tracks completed quests and found secrets only in page memory for this visit. Refreshing the page resets them; no third-party storage, account, API, or paid service is involved.
 - Dialogs can be closed with their close button or **Escape**. Focus returns to the opener and stays inside the dialog while it is open.

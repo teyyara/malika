@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import CatCharacter from "../components/CatCharacter.jsx";
 import Ladybug from "../components/Ladybug.jsx";
+import GardenCompanionStudio from "../components/GardenCompanionStudio.jsx";
 import { loveMessages } from "../data/loveMessages.js";
 import { memories } from "../data/memories.js";
 
@@ -36,7 +37,7 @@ const gardenMotes = Array.from({ length: 30 }, (_, index) => ({
   duration: 5 + (index % 6) * 1.1 + "s"
 }));
 
-export default function GardenScene({ discoveredCount, requiredHearts, onOpenNote, onGoToGame, onGoToCollection, onOpenLetter }) {
+export default function GardenScene({ discoveredCount, heartsCollected = 0, requiredHearts, releasedWishes = [], onReleaseWish, onOpenNote, onGoToGame, onGoToCollection, onOpenLetter }) {
   const [catMessage, setCatMessage] = useState("");
   const [greetingIndex, setGreetingIndex] = useState(-1);
   const [constellationStep, setConstellationStep] = useState(0);
@@ -141,6 +142,12 @@ export default function GardenScene({ discoveredCount, requiredHearts, onOpenNot
       <button className="destination-link" type="button" onClick={onGoToCollection}><span className="destination-icon destination-icon-note" aria-hidden="true">✉</span><span><strong>The love collection</strong><small>35 notes, birthday wishes, and little dreams</small></span><span className="destination-arrow" aria-hidden="true">↗</span></button>
       <button className="destination-link" type="button" onClick={onOpenLetter}><span className="destination-icon destination-icon-letter" aria-hidden="true">♡</span><span><strong>A letter from Zack</strong><small>A birthday letter made just for Malika</small></span><span className="destination-arrow" aria-hidden="true">↗</span></button>
     </div>
+    <GardenCompanionStudio
+      discoveredCount={discoveredCount}
+      heartsCollected={heartsCollected}
+      releasedWishes={releasedWishes}
+      onReleaseWish={onReleaseWish}
+    />
     <aside className="curiosity-guide" aria-label="Optional clues for curious explorers">
       <details className="curiosity-guide-root">
         <summary>

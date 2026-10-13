@@ -15,7 +15,7 @@ const hearts = [
   { left: "69%", top: "83%", delay: "4s", size: "17px" }
 ];
 
-export default function AnimatedBackground() {
+export default function AnimatedBackground({ skyMood = "twilight", releasedWishes = [] }) {
   const worldRef = useRef(null);
 
   useEffect(() => {
@@ -64,7 +64,7 @@ export default function AnimatedBackground() {
     };
   }, []);
 
-  return <div ref={worldRef} className="ambient-world" aria-hidden="true">
+  return <div ref={worldRef} className="ambient-world" data-sky-mood={skyMood} data-wish-count={releasedWishes.length} aria-hidden="true">
     <div className="ambient-glow ambient-glow-one" />
     <div className="ambient-glow ambient-glow-two" />
     <div className="star-layer">{stars.map((star) =>
@@ -80,5 +80,6 @@ export default function AnimatedBackground() {
       }}>♥</span>
     )}</div>
     <div className="horizon-haze" />
+    <div className="sky-wish-layer">{releasedWishes.slice(-12).map((wish) => <i className="sky-wish-trail" key={wish.id} style={{ left: wish.left + "%", top: wish.top + "%", "--wish-delay": wish.delay }} />)}</div>
   </div>;
 }

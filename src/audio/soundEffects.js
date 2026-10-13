@@ -150,9 +150,12 @@ const MUSIC_ARRANGEMENTS = {
   "arcade-memory":{roots:[45,50,47,48],barSeconds:2.8,chord:[0,3,7,10],arp:[0,3,7,10,12,10],melody:[10,7,3],chordOctave:12,arpOctave:24,melodyOctave:24,arpStep:.48,arpDuration:.74,bass:.005,pad:.0043,pluck:.0067,lead:.0075,padType:"triangle",pluckType:"sine",leadType:"sine",pan:.13},
   "arcade-rhythm":{roots:[43,47,45,40],barSeconds:1.72,chord:[0,4,7],arp:[0,7,4,12,7],melody:[12,7,9],chordOctave:12,arpOctave:24,melodyOctave:24,arpStep:.27,arpDuration:.32,bass:.0058,pad:.0028,pluck:.0087,lead:.0078,padType:"triangle",pluckType:"triangle",leadType:"triangle",pan:.08},
   "arcade-fireflies":{roots:[48,43,45,41],barSeconds:2.55,chord:[0,4,7,11],arp:[19,23,26,23,21],melody:[26,24,23],chordOctave:12,arpOctave:24,melodyOctave:24,arpStep:.42,arpDuration:.68,bass:.0038,pad:.0028,pluck:.0094,lead:.007,padType:"sine",pluckType:"sine",leadType:"sine",pan:.32},
-  "arcade-wishes":{roots:[43,48,50,45],barSeconds:3.35,chord:[0,4,7,9],arp:[0,4,9,7,4],melody:[9,7,4],chordOctave:12,arpOctave:24,melodyOctave:24,arpStep:.62,arpDuration:.92,bass:.0049,pad:.0041,pluck:.0065,lead:.0089,padType:"sine",pluckType:"sine",leadType:"sine",pan:.2}
+  "arcade-wishes":{roots:[43,48,50,45],barSeconds:3.35,chord:[0,4,7,9],arp:[0,4,9,7,4],melody:[9,7,4],chordOctave:12,arpOctave:24,melodyOctave:24,arpStep:.62,arpDuration:.92,bass:.0049,pad:.0041,pluck:.0065,lead:.0089,padType:"sine",pluckType:"sine",leadType:"sine",pan:.2},
+  "soundtrack-rainy-window":{roots:[45,41,48,43],barSeconds:3.7,chord:[0,3,7,10],arp:[0,3,7,10,7],melody:[10,7,3],chordOctave:12,arpOctave:24,melodyOctave:24,arpStep:.67,arpDuration:1.02,bass:.0041,pad:.0048,pluck:.0058,lead:.0068,padType:"sine",pluckType:"sine",leadType:"sine",pan:.3},
+  "soundtrack-starlight":{roots:[50,45,48,43],barSeconds:3.15,chord:[0,4,7,11],arp:[12,16,19,23,26,23],melody:[23,19,16],chordOctave:12,arpOctave:24,melodyOctave:24,arpStep:.53,arpDuration:.84,bass:.0037,pad:.0037,pluck:.0089,lead:.0078,padType:"sine",pluckType:"sine",leadType:"triangle",pan:.31},
+  "soundtrack-cozy-evening":{roots:[45,50,48,43],barSeconds:3.5,chord:[0,3,7,10],arp:[0,3,7,10,12,10],melody:[10,7,5],chordOctave:12,arpOctave:24,melodyOctave:24,arpStep:.58,arpDuration:.88,bass:.0046,pad:.0047,pluck:.0063,lead:.007,padType:"triangle",pluckType:"sine",leadType:"sine",pan:.16}
 };
-const MUSIC_OVERRIDE_PRIORITY = { "arcade-game": 1, "love-note": 2 };
+const MUSIC_OVERRIDE_PRIORITY = { "arcade-game": 1.5, "soundtrack-player": 1, "love-note": 2 };
 
 function getAudioContext() {
   if (typeof window === "undefined") return null;

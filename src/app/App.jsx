@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useReducer } from "react";
+import React, { useCallback, useEffect, useMemo, useReducer, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import AnimatedBackground from "../components/AnimatedBackground.jsx";
 import EasterEggSystem from "../components/EasterEggSystem.jsx";
@@ -20,11 +20,36 @@ const nav = [{id:"garden",label:"The garden"},{id:"game",label:"Heart game"},{id
 
 export default function App() {
   const [state, dispatch] = useReducer(experienceReducer, null, () => createInitialExperienceState(siteConfig.requiredHearts));
+  const [releasedWishes, setReleasedWishes] = useState([]);
+  const [finaleActive, setFinaleActive] = useState(false);
+  const wishSequence = useRef(0);
   const reduceMotion = useReducedMotion();
   const activeMessage = useMemo(() => allNotes.find((item) => item.id === state.activeMessageId) || null, [state.activeMessageId]);
   const openNote = useCallback((id) => { if (allNotes.some((item) => item.id === id)) dispatch({type:"OPEN_NOTE",id}); }, []);
   const closeNote = useCallback(() => dispatch({type:"CLOSE_NOTE"}), []);
-  const go = useCallback((scene) => dispatch({type:"NAVIGATE",scene}), []);
+  const go = useCallback((scene) => {
+    if (scene !== "finale") setFinaleActive(false);
+    dispatch({type:"NAVIGATE",scene});
+  }, []);
+  const releaseWish = useCallback((text) => {
+    const index = wishSequence.current++;
+    const id = "released-wish-" + (index + 1);
+    const wish = {
+      id,
+      text: String(text).trim().slice(0, 160),
+      left: 12 + ((index * 23 + 7) % 76),
+      top: 23 + ((index * 29 + 11) % 52),
+      delay: "-" + ((index % 5) * 0.6) + "s"
+    };
+    setReleasedWishes((current) => [...current, wish]);
+    return id;
+  }, []);
+  const journeyPoints = state.discoveredMessageIds.length + state.game.count + releasedWishes.length * 3;
+  const skyMood = finaleActive ? "universe"
+    : state.game.status === "won" || journeyPoints >= 12 ? "constellation"
+    : journeyPoints >= 5 || releasedWishes.length >= 2 ? "dreaming"
+    : journeyPoints >= 1 || releasedWishes.length > 0 ? "moonrise"
+    : "twilight";
   const enterExperience = useCallback(() => {
     // This first deliberate tap unlocks browser audio without requiring a separate sound-toggle tap.
     void setCuteSoundEnabled(true);
@@ -43,15 +68,29 @@ export default function App() {
   }, [state.scene]);
 
   let scene;
-  if (state.scene === "garden") scene = <GardenScene discoveredCount={state.discoveredMessageIds.length} requiredHearts={state.game.requiredHearts} onOpenNote={openNote} onGoToGame={() => go("game")} onGoToCollection={() => go("collection")} onOpenLetter={() => go("finale")} />;
+  if (state.scene === "garden") scene = <GardenScene
+    discoveredCount={state.discoveredMessageIds.length}
+    heartsCollected={state.game.count}
+    requiredHearts={state.game.requiredHearts}
+    releasedWishes={releasedWishes}
+    onReleaseWish={releaseWish}
+    onOpenNote={openNote}
+    onGoToGame={() => go("game")}
+    onGoToCollection={() => go("collection")}
+    onOpenLetter={() => go("finale")}
+  />;
   else if (state.scene === "game") scene = <HeartGardenScene game={state.game} onGameAction={gameAction} onBonusNote={openNote} onGoToFinale={() => go("finale")} onGoToGarden={() => go("garden")} />;
   else if (state.scene === "collection") scene = <LoveCollectionScene gameWon={state.game.status === "won"} discoveredIds={state.discoveredMessageIds} onOpenNote={openNote} />;
-  else if (state.scene === "finale") scene = <BirthdayFinale onGoToGarden={() => go("garden")} />;
+  else if (state.scene === "finale") scene = <BirthdayFinale
+    onGoToGarden={() => go("garden")}
+    onGrandFinale={setFinaleActive}
+    wishCount={releasedWishes.length}
+  />;
   else scene = <WelcomeScene onEnter={enterExperience} />;
 
-  return <div className={reduceMotion ? "app-shell prefers-less-motion" : "app-shell"}>
+  return <div className={(reduceMotion ? "app-shell prefers-less-motion" : "app-shell") + (finaleActive ? " is-grand-finale" : "")}>
     <a className="skip-link" href="#main-content">Skip to the surprise</a>
-    <AnimatedBackground />
+    <AnimatedBackground skyMood={skyMood} releasedWishes={releasedWishes} />
     {state.scene !== "welcome" && <header className="site-header">
       <button className="brand-mark" type="button" onClick={() => go("garden")} aria-label="Return to Malika's birthday garden"><span className="brand-heart" aria-hidden="true">♥</span><span className="brand-copy"><strong>for Malika</strong><small>made with love by Zack</small></span></button>
       <nav className="scene-navigation" aria-label="Explore Malika's birthday universe">{nav.map((item) => <button key={item.id} type="button" className={state.scene === item.id ? "nav-link is-current" : "nav-link"} aria-current={state.scene === item.id ? "page" : undefined} onClick={() => go(item.id)}>{item.label}</button>)}</nav>

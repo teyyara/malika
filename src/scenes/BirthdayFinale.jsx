@@ -21,7 +21,7 @@ const revealSparks = Array.from({ length: 32 }, (_, index) => ({
   drift: ((index % 5) - 2) * 15
 }));
 
-export default function BirthdayFinale({ onGoToGarden }) {
+export default function BirthdayFinale({ onGoToGarden, onGrandFinale, wishCount = 0 }) {
   const [extraSurprise, setExtraSurprise] = useState(false);
   const [sealSecretOpen, setSealSecretOpen] = useState(false);
   const sealTapCount = useRef(0);
@@ -112,10 +112,14 @@ export default function BirthdayFinale({ onGoToGarden }) {
           <p>Three careful taps, and the little wax seal gives way. Zack tucked one more tiny reminder behind the letter: even after the last page, there is always one more reason to smile. Keep this little secret close. 💜</p>
         </motion.div>}
       </AnimatePresence>
-      <button className="button button-primary finale-surprise-button" type="button" onClick={() => setExtraSurprise((value) => !value)}>
+      <button className="button button-primary finale-surprise-button" type="button" onClick={() => setExtraSurprise((value) => {
+        const next = !value;
+        onGrandFinale?.(next);
+        return next;
+      })}>
         {extraSurprise ? "Keep the little magic" : "One last little surprise…"} <span aria-hidden="true">✦</span>
       </button>
-      <AnimatePresence>{extraSurprise && <motion.div className="extra-surprise"
+      <AnimatePresence>{extraSurprise && <motion.div className="extra-surprise is-universe-made-for-you"
         initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 14, scale: 0.96 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 8, scale: 0.98 }}
@@ -138,7 +142,9 @@ export default function BirthdayFinale({ onGoToGarden }) {
           <span className="extra-portal-heart">♥</span>
         </div>
         <div className="extra-surprise-lights" aria-hidden="true">♥　✦　♥　✧　♥</div>
-        <p>May today hold a hundred little reasons to smile — and may you remember that you are worth celebrating long after the candles are gone.</p>
+        <p className="universe-finale-kicker">A UNIVERSE MADE FOR YOU</p>
+        <h2 className="universe-finale-title">Look what your little world has become.</h2>
+        <p>Every discovery brought another light into the sky. ${wishCount > 0 ? "You sent " + wishCount + (wishCount === 1 ? " wish" : " wishes") + " into the stars, and each one has a place here. " : ""}May the world always feel a little softer when you remember how much you deserve to be loved, celebrated, and surprised.</p>
         <div className="extra-surprise-friends"><CatCharacter mood="happy" /><Ladybug decorative /></div>
       </motion.div>}</AnimatePresence>
       <button className="text-button finale-back" type="button" onClick={onGoToGarden}>Wander back into the garden ↗</button>

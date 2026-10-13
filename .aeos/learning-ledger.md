@@ -61,3 +61,12 @@
 - The composer lets Malika write and copy a note without transmitting or persisting it. Draft remains in component state and is cleared by refresh.
 - No package, backend, browser storage, paid service, remote asset, or manual deployment was added. Production-alias verification remains with the owner.
 - Loop 030 checkpoint is complete; orchestration returns to WAITING_FOR_CONTINUE.
+
+
+## Loop 031 — final outcome (2026-10-13)
+
+- Merged PR #37 at `41a2e115aaf3ac62e6f07a9fdaa87a3b9a68b4a7`.
+- Exact PR-head workflow 38423721213 and post-merge main workflow 38424375461 both passed Node/content tests, production build, and all **55 Chromium browser journeys**.
+- The Node content test verifies 100 distinct, finished entries. Browser journeys cover closed-by-default behavior, page navigation, the last-page restart, reset after scene navigation, and phone viewport fit.
+- The book stays inside the existing birthday letter scene and resets when the scene is left. No persistence, backend, dependency, paid service, remote asset, or manual deployment was added.
+- Production-alias verification remains with the owner; physical-device and screen-reader QA remain outstanding.

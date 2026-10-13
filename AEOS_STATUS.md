@@ -97,17 +97,16 @@ The Loop 009 application merge commit is `8d40e627acff41fdc6cd2e7681cc563ed8a653
 
 ## Loop 029 — Letters from Future Us (merged and validated)
 
-- **PR #34 merged:** https://github.com/teyyara/malika/pull/34
-- **Merge commit:** `5a035f7bc1def88c111bac997c6fe96759584fdd`
-- **Exact PR-head validation:** [run 38417184094](https://github.com/teyyara/malika/actions/runs/38417184094) — success. Node/content tests, production build, complete Chromium browser journeys, and evidence uploads passed on the exact PR head.
-- **Post-merge main validation:** [run 38418153563](https://github.com/teyyara/malika/actions/runs/38418153563) — success on the merge commit.
+- PR #34 merged: https://github.com/teyyara/malika/pull/34
+- Merge commit: `5a035f7bc1def88c111bac997c6fe96759584fdd`
+- Exact PR-head validation: [run 38417184094](https://github.com/teyyara/malika/actions/runs/38417184094) — success.
+- Post-merge main validation: [run 38418153563](https://github.com/teyyara/malika/actions/runs/38418153563) — success on the merge commit.
 - No manual Vercel deployment was initiated. Production-alias verification remains with the owner.
-- Local clone/build is unavailable in this environment; no local PASS is claimed.
 
 ## Loop 030 — A Little Letter Back (candidate)
 
 - Branch: `feat/loop-030-little-letter-back`, based on main commit `5a035f7bc1def88c111bac997c6fe96759584fdd`.
-- Adds an optional, collapsed-by-default local note composer inside Love Notes. Malika can add a writing starter, edit her text, preview it as a letter to Zack, and copy it.
-- Explicit privacy copy says the note is not sent or saved; it lives only in React state and clears on refresh. Clipboard denial has a transparent manual-copy fallback.
-- Added Product Contract v1.4 / REQ-017 and browser coverage. The exact PR-head CI must pass before merge.
+- Adds an optional, collapsed-by-default note composer inside Love Notes, with writing starters, preview/edit, and a copy action.
+- Draft stays in React state only, is neither sent nor saved, and clears on refresh. Clipboard denial has a manual-copy fallback.
+- Added Product Contract v1.4 / REQ-017 and browser coverage. Exact PR-head CI is required before merge.
 - No manual deployment is being initiated. Production-alias verification remains with the owner.

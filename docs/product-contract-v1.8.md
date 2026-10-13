@@ -1,6 +1,6 @@
 # Product Contract v1.8 — Malika Birthday Universe
 
-Status: Loop 034 is implemented on a feature branch on 13 October 2026. Product Contract v1.7 remains the prior baseline; this change completes keyboard operation of the existing companion tablist.
+Status: Loop 034 merged and validated on 13 October 2026. Product Contract v1.7 remains the prior baseline; this change completes keyboard operation of the existing companion tablist.
 
 ## Change request CR-034 — Keyboard-Ready Companion Tabs
 
@@ -25,3 +25,10 @@ Status: Loop 034 is implemented on a feature branch on 13 October 2026. Product 
 ## Evidence standard
 
 Only exact PR-head CI supports promotion to main. Automated keyboard events do not certify human screen-reader or physical-device behavior.
+
+
+## REQ-021 validation record
+
+**Validated:** exact PR-head workflow [38480765929](https://github.com/teyyara/malika/actions/runs/38480765929) on `83c92c5521cecd7065ca9e8e11f0c168dff72081` and post-merge main workflow [38481311313](https://github.com/teyyara/malika/actions/runs/38481311313) on merge `a0dc68a06899be673491ac8b28ebfd9e8aa47bc9` passed Node/content tests, the production build, and all **58 Chromium browser journeys**.
+
+The new keyboard journey verified single Tab stop, Left/Right Arrow navigation, wraparound, Home/End, and synchronization of focus, selection, and the visible panel. Human screen-reader and physical-device behavior are not certified by automated CI.

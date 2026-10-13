@@ -30,3 +30,8 @@ The Love Blossom extends the existing interactive flower rather than adding anot
 ## D-008 — Keep future letters optional and explicitly imagined
 
 Add the future-letter archive inside the existing Love Notes scene, rather than creating a fifth navigation destination or extending the always-visible page. Use a native details/summary disclosure that is closed by default, four data-driven selections, and an inline pearl-paper reading panel. State explicitly that the writing is speculative daydreaming rather than memory or promise. Keep selection in component state and use no third-party assets or services.
+
+
+## D-009 — Keep the reply letter private and ephemeral
+
+A Little Letter Back lets Malika write from her side of the story without building a submission system. Drafts remain in React component state only and are cleared on refresh. Copying is explicit, client-side, and optional, with a manual-copy fallback. No network request, browser storage, backend, account, analytics, package, or external service is permitted.

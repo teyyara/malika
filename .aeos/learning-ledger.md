@@ -33,11 +33,16 @@
 - Loop checkpoint is merged and safe. Orchestration state returns to WAITING_FOR_CONTINUE.
 
 
-## Loop 029 — Letters from Future Us (candidate)
+## Loop 029 — final outcome (2026-10-13)
 
-- Added four authored, explicitly imaginary future letters inside the existing Love Notes scene; no fabricated past memories or future guarantees are stated.
-- The new section is optional and closed by default to keep the laptop-first collection compact. Each choice opens one letter inline on pearl-toned paper; choosing another switches the revealed content.
-- Implemented data-driven React component, responsive dark/purple card design, reduced-motion accommodations, keyboard-accessible native disclosure/buttons, and a Playwright journey for selection/switching/closing and laptop/phone bounds.
-- Requirements baseline and Product Contract v1.3 add REQ-016. CI must pass on the exact PR head before merge.
-- No package, API, browser storage, backend, paid service, remote image/audio, or deployment was added.
-- Current starting main commit: 60fdb949f1584ca37762dc0ef66025a5ce555eab. Loop 028 main workflow 38333209788 and checkpoint workflow 38333588376 both completed successfully.
+- Merged PR #34 at `5a035f7bc1def88c111bac997c6fe96759584fdd`.
+- Exact PR-head workflow 38417184094 passed Node/content tests, the production build, and all Chromium browser journeys.
+- The independent post-merge main workflow 38418153563 also completed successfully on the merge commit.
+- Four imagined future letters live in the existing Love Notes scene; no memories, predictions, or guarantees are presented as fact. No persistence, dependency, backend, paid service, remote asset, or manual deployment was added.
+
+## Loop 030 — A Little Letter Back (candidate)
+
+- Adds a collapsed-by-default composer so Malika can write a note to Zack, preview it, return to editing, and explicitly copy it.
+- The draft uses React state only, is never sent, is never saved, and clears on refresh. Clipboard errors have an honest manual-copy fallback.
+- Added REQ-017, contract v1.4, privacy acceptance criteria, and tests for starters, empty input, preview/edit, clipboard handling, and mobile viewport fit.
+- Exact-head CI is required before merge. Production-alias verification remains the owner's responsibility.

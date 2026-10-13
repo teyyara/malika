@@ -12,9 +12,11 @@ The existing garden companion studio gets a fifth tab: an original fairytale in 
 - Changing a prior answer clears later answers. Leaving the tab unmounts the component and resets the story.
 - Uses existing CatCharacter and Ladybug artwork. No additional dependency, browser storage, backend, analytics, paid service, remote asset, or outside API is added.
 
-## Validation planned
+## Validation results
 
-- Exact PR-head CI must pass Node/content tests, production build, and the full Chromium browser journey suite before merge.
-- Browser coverage includes story composition from selected passages, progress, backtracking invalidation, replay reset, reduced motion, and 375px viewport bounds.
+- **Exact PR-head:** [workflow 38430124661](https://github.com/teyyara/malika/actions/runs/38430124661) passed on head `5506ead108ceddd6ec3740a641f50073d400dcdf`.
+- **Post-merge main:** [workflow 38430789459](https://github.com/teyyara/malika/actions/runs/38430789459) passed on merge commit `2e9e0568e7835d0cb8e5cd266fe16133a1e55f1a`.
+- Both runs passed Node/content tests, the Vite production build, and all **56 Chromium browser journeys**. The storybook browser journey covers path selection, progress, composition of all three selected passages, backtracking invalidation, replay reset, live kitten interaction, and 375px viewport bounds.
+- The first candidate browser run failed because the kitten's pet control was not actionable. Rather than remove the assertion, the component gained a working click response and accessible live status. Subsequent exact-head and main runs passed.
 - Local build/test is not claimed because the execution environment could not clone the repository; CI is the validation gate.
 - No Vercel deployment is initiated. Production-alias status remains with the owner.

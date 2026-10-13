@@ -54,6 +54,8 @@ export default function GardenScene({ discoveredCount, heartsCollected = 0, requ
         "Mimi checks the little flower with one careful paw: " + blossomLevel +
         " of 5 petals are awake. Discover notes, collect hearts, or send wishes to help it bloom."
       );
+      // Preserve the original discovery on a fresh visit; the bloom hint becomes the reward later.
+      if (blossomLevel === 0) onOpenNote("wish-04");
       return;
     }
     setCatMessage(
@@ -139,9 +141,11 @@ export default function GardenScene({ discoveredCount, heartsCollected = 0, requ
         className="garden-plant plant-right interactive-flower"
         type="button"
         data-blossom-level={blossomLevel}
-        aria-label={blossomLevel === 5
-          ? "Touch the fully blossomed love flower to reveal Zack's little note"
-          : "Love blossom: " + blossomLevel + " of 5 petals open. Explore to help it bloom"}
+        aria-label={blossomLevel === 0
+          ? "Touch the pink flower to find a birthday wish"
+          : blossomLevel === 5
+            ? "Touch the fully blossomed love flower to reveal Zack's little note"
+            : "Love blossom: " + blossomLevel + " of 5 petals open. Explore to help it bloom"}
         title={"Love blossom · " + blossomLevel + " of 5 petals"}
         onClick={tendLoveBlossom}
       >

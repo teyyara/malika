@@ -3,6 +3,7 @@ import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import CatCharacter from "../components/CatCharacter.jsx";
 import Ladybug from "../components/Ladybug.jsx";
 import { siteConfig } from "../data/siteConfig.js";
+import ReasonsBook from "../components/ReasonsBook.jsx";
 
 const skyMotes = Array.from({ length: 18 }, (_, index) => ({
   id: index,
@@ -147,6 +148,7 @@ export default function BirthdayFinale({ onGoToGarden, onGrandFinale, wishCount 
         <p>Every discovery brought another light into the sky. ${wishCount > 0 ? "You sent " + wishCount + (wishCount === 1 ? " wish" : " wishes") + " into the stars, and each one has a place here. " : ""}May the world always feel a little softer when you remember how much you deserve to be loved, celebrated, and surprised.</p>
         <div className="extra-surprise-friends"><CatCharacter mood="happy" /><Ladybug decorative /></div>
       </motion.div>}</AnimatePresence>
+      <ReasonsBook />
       <button className="text-button finale-back" type="button" onClick={onGoToGarden}>Wander back into the garden ↗</button>
     </div>
   </section>;

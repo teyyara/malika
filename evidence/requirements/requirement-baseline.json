@@ -157,9 +157,9 @@
     }
   ],
   "validationEvidence": {
-    "prHeadRun": "https://github.com/teyyara/malika/actions/runs/38423721213",
-    "mainRun": "https://github.com/teyyara/malika/actions/runs/38424375461",
-    "result": "55 Chromium journeys passed; Node/content tests, including 100-entry uniqueness, and the production build passed on both runs."
+    "prHeadRun": "https://github.com/teyyara/malika/actions/runs/38480765929",
+    "mainRun": "https://github.com/teyyara/malika/actions/runs/38481311313",
+    "result": "Loop 034 exact PR-head and post-merge main CI passed Node/content tests, production build, and all 58 Chromium journeys. REQ-021 covers keyboard tabs and synchronized focus/panel behavior."
   },
   "lastValidatedAt": "2026-10-13"
 }

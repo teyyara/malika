@@ -46,3 +46,16 @@
 - The draft uses React state only, is never sent, is never saved, and clears on refresh. Clipboard errors have an honest manual-copy fallback.
 - Added REQ-017, contract v1.4, privacy acceptance criteria, and tests for starters, empty input, preview/edit, clipboard handling, and mobile viewport fit.
 - Exact-head CI is required before merge. Production-alias verification remains the owner's responsibility.
+## Loop 029 — final outcome (2026-10-13)
+
+- Merged PR #34 at `5a035f7bc1def88c111bac997c6fe96759584fdd`.
+- Exact PR-head workflow 38417184094 passed Node/content tests, the production build, and all Chromium browser journeys.
+- Independent post-merge main workflow 38418153563 also completed successfully on the merge commit.
+- Four imagined future letters live in the existing Love Notes scene; no memories, predictions, or guarantees are presented as fact. No persistence, dependency, backend, paid service, remote asset, or manual deployment was added.
+
+## Loop 030 — A Little Letter Back (candidate)
+
+- Adds a collapsed-by-default composer so Malika can write a note to Zack, preview it, return to editing, and explicitly copy it.
+- The draft uses React state only, is never sent, is never saved, and clears on refresh. Clipboard errors have a manual-copy fallback.
+- Added REQ-017, contract v1.4, privacy acceptance criteria, and tests for starters, empty input, preview/edit, clipboard handling, and mobile viewport fit.
+- Exact-head CI is required before merge. Production-alias verification remains the owner's responsibility.

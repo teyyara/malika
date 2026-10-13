@@ -152,14 +152,14 @@
       "id": "REQ-021",
       "requirement": "The companion tablist is keyboard-operable with one roving Tab stop, Left/Right Arrow navigation with wraparound, and Home/End navigation, keeping focus, selected state and visible panel synchronized.",
       "risk": "R1",
-      "validation": "Playwright: tab-stop count; Left/Right Arrow; wraparound; Home/End; active panel and aria-selected; full Chromium suite",
-      "status": "IMPLEMENTED_VALIDATION_PENDING"
+      "validation": "PASS — exact PR-head workflow 38480765929 (head 83c92c5521cecd7065ca9e8e11f0c168dff72081) and post-merge main workflow 38481311313 (merge a0dc68a06899be673491ac8b28ebfd9e8aa47bc9) passed Node/content tests, production build, and all 58 Chromium browser journeys.",
+      "status": "IMPLEMENTED_VALIDATED"
     }
   ],
   "validationEvidence": {
-    "prHeadRun": "https://github.com/teyyara/malika/actions/runs/38423721213",
-    "mainRun": "https://github.com/teyyara/malika/actions/runs/38424375461",
-    "result": "55 Chromium journeys passed; Node/content tests, including 100-entry uniqueness, and the production build passed on both runs."
+    "prHeadRun": "https://github.com/teyyara/malika/actions/runs/38480765929",
+    "mainRun": "https://github.com/teyyara/malika/actions/runs/38481311313",
+    "result": "Loop 034 exact PR-head and post-merge main CI passed Node/content tests, production build, and all 58 Chromium journeys. REQ-021 covers keyboard tabs and synchronized focus/panel behavior."
   },
   "lastValidatedAt": "2026-10-13"
 }

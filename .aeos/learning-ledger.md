@@ -92,9 +92,11 @@
 - Loop 033 is closed. Orchestration returns to `WAITING_FOR_CONTINUE`.
 
 
-## Loop 034 — Keyboard-Ready Companion Tabs (candidate)
+## Loop 034 — final outcome (2026-10-13)
 
-- Completes the horizontal ARIA tablist pattern in `GardenCompanionStudio.jsx`: roving `tabIndex`, Left/Right Arrow with wraparound, and Home/End.
-- Focus and panel selection move together, with the existing tab/panel IDs and visible focus design retained.
-- Added Playwright coverage for roving focus, selection/panel synchronization, Home/End, both wraparound directions, and exactly one tab stop.
-- **Candidate branch:** `feat/loop-034-keyboard-companion-tabs`. Merge only if exact PR-head Node/content tests, production build, and all Chromium browser journeys pass. No manual Vercel deployment is initiated.
+- Merged PR #43 at `a0dc68a06899be673491ac8b28ebfd9e8aa47bc9`.
+- Exact PR-head workflow [38480765929](https://github.com/teyyara/malika/actions/runs/38480765929) and post-merge main workflow [38481311313](https://github.com/teyyara/malika/actions/runs/38481311313) both passed Node/content tests, production build, and all **58 Chromium browser journeys**.
+- Added the expected horizontal tab pattern to the companion studio: a single Tab stop, Left/Right Arrow navigation with wraparound, and Home/End. The final browser journey verifies focus, `aria-selected`, and active panel remain synchronized.
+- Existing labels, panel content and visual styling remain unchanged. No package, backend, browser storage, paid service, remote asset, analytics, or manual Vercel deployment was added.
+- Production-alias verification, human screen-reader behavior, and physical-device QA remain outstanding.
+- Loop 034 is closed. Orchestration returns to `WAITING_FOR_CONTINUE`.

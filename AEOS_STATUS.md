@@ -3,9 +3,9 @@
 Date: 13 October 2026  
 Repository: https://github.com/teyyara/malika  
 Release branch: `main`  
-Current completed loop: **033 — Mimi's Vocal Personality** (merged and validated)  
+Current completed loop: **034 — Keyboard-Ready Companion Tabs** (merged and validated)  
 Current candidate: **None — waiting for a new CONTINUE instruction**  
-Latest validated application checkpoint: `01b47ae4c8f5c0bfe6b37954b857b258936f6702`  
+Latest validated application checkpoint: `a0dc68a06899be673491ac8b28ebfd9e8aa47bc9`  
 Next state: **WAITING_FOR_CONTINUE**
 
 ## Product state
@@ -146,3 +146,14 @@ The Loop 009 application merge commit is `8d40e627acff41fdc6cd2e7681cc563ed8a653
 - “Tell her a secret” now plays the existing bundled cat purr instead of a synthesized “love” chord. Cuddle/nap continue using the purr; ribbon play uses the recorded meow plus its playful dance cue.
 - The new browser regression checks actual Web Audio buffer starts for meow and purr, then verifies the master mute stops the active animal voice. No new audio asset, package, remote runtime request, or service was added.
 - No manual Vercel deployment was initiated. The public production alias remains unverified by the assistant. Human sound-quality review, screen-reader QA and physical-device QA remain outstanding.
+
+
+## Loop 034 — Keyboard-Ready Companion Tabs (merged and validated)
+
+- **PR #43 merged:** https://github.com/teyyara/malika/pull/43
+- **Merge commit:** `a0dc68a06899be673491ac8b28ebfd9e8aa47bc9`.
+- **Exact PR-head validation:** [run 38480765929](https://github.com/teyyara/malika/actions/runs/38480765929) — success on `83c92c5521cecd7065ca9e8e11f0c168dff72081`.
+- **Post-merge main validation:** [run 38481311313](https://github.com/teyyara/malika/actions/runs/38481311313) — success on the merge commit. Both runs passed Node/content tests, the production build, and all **58 Chromium browser journeys**.
+- The companion tablist now has one normal Tab stop, Left/Right Arrow navigation with wraparound, and Home/End shortcuts. Focus, `aria-selected`, and the visible panel stay synchronized.
+- No package, backend, storage, analytics, paid API, remote asset, or outside service was introduced.
+- No manual Vercel deployment was initiated. Public production alias, human screen-reader behavior, and physical-device QA remain unverified.

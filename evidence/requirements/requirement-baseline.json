@@ -145,8 +145,8 @@
       "id": "REQ-020",
       "requirement": "Mimi's love-language responses use the existing locally bundled recorded cat voices where the interaction is a cat vocal response: recorded meow for ribbon play and recorded purr for cuddle, cozy nap, and whispering a secret.",
       "risk": "R1",
-      "validation": "Playwright instruments Web Audio buffer sources to verify meow/purr sample durations and confirms the global mute stops the active animal voice",
-      "status": "IMPLEMENTED_VALIDATION_PENDING"
+      "validation": "PASS — exact PR-head workflow 38476623426 (head 9d35c118f24e687101760c4f0c3226794bc00244) and post-merge main workflow 38477205346 (merge 01b47ae4c8f5c0bfe6b37954b857b258936f6702) passed Node/content tests, production build, and all 57 Chromium browser journeys.",
+      "status": "IMPLEMENTED_VALIDATED"
     }
   ],
   "validationEvidence": {

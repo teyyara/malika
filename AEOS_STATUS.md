@@ -183,7 +183,7 @@ The Loop 009 application merge commit is `8d40e627acff41fdc6cd2e7681cc563ed8a653
 - No manual Vercel deployment was initiated. Production alias, human screen-reader behavior, and physical-device QA remain unverified.
 
 
-## Loop 037 — The Wish Sky Becomes a Constellation (candidate)
+## Loop 037 — The Wish Sky Becomes a Constellation (merged and validated)
 
 - Branch: `feat/loop-037-wish-constellation`, based on checkpoint merge `73767abae28833b94cc700337128add446e64f01`.
 - Released wishes now gain a subtle SVG trace through their existing star positions when there are at least two stars. The trace sits behind the real buttons, has no pointer handling, and is hidden from assistive technology.

@@ -60,3 +60,8 @@ The companion studio already uses ARIA tabs. Complete their keyboard model with 
 ## D-012 — Make storybook motion and sound preference-aware
 
 Loop 035 enhances the existing storybook rather than adding a new destination. Use a keyed motion page for phase/chapter entry and subtle illustration accents, with reduced-motion preference skipping the entrance motion. Use only the existing synthesized playCuteSound melodies for story cues; the global sound controls remain authoritative. Keep branch choices, state resets and all story text behavior unchanged. No file-based sound, remote asset, dependency or storage is needed.
+
+
+## D-012 — Weave current-visit sky wishes into the storybook ending
+
+The storybook can use a wish already released into the current visit's sky, creating continuity between existing features without a backend or persistence. Offer only the five most recent wishes so the ending does not grow without bound. Default to the latest release, show the selected text in the story itself, make choice buttons native and aria-pressed, and reset the selector to the latest wish when replay starts. When no wish exists, omit this extra UI entirely. No new top-level destination or service.

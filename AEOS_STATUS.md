@@ -189,4 +189,4 @@ The Loop 009 application merge commit is `8d40e627acff41fdc6cd2e7681cc563ed8a653
 - Released wishes now gain a subtle SVG trace through their existing star positions when there are at least two stars. The trace sits behind the real buttons, has no pointer handling, and is hidden from assistive technology.
 - No extra line is rendered for zero or one wish. Existing star buttons and selected-wish text remain unchanged.
 - Added a browser journey for zero/one/multiple wishes, trace-point count, star selection, and laptop/375px bounds.
-- Exact-head CI is required before merge. No manual Vercel deployment is initiated; the production alias remains owner-unverified.
+- Exact PR-head workflow 38643157760 and post-merge main workflow 38645157634 both passed Node/content tests, production build, and all 60 Chromium browser journeys. No manual Vercel deployment was initiated; the production alias remains owner-unverified.

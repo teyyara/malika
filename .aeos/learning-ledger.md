@@ -129,3 +129,13 @@
 - No trace with zero/one wish; one polyline connects all existing released wish positions with two or more stars. SVG is hidden from assistive technology and cannot intercept pointer input.
 - Existing star selection and wish text remain unchanged. Added Playwright coverage for counts/points, hit testing by clicking a star, and 375px/laptop viewport bounds.
 - No new package, storage, backend, asset, paid feature, or service. Merged PR #49 at `5b86e56ef2c2ef03beec934144d130a5212aac6d`. Exact PR-head workflow 38643157760 and post-merge main workflow 38645157634 both passed Node/content tests, production build, and all 60 Chromium browser journeys.
+
+
+## Loop 038 — Take This Little Story With You (candidate)
+
+- Adds an explicit copy action to the completed fairytale in Mimi's Tiny Storybook.
+- Plain text includes only the selected chapter passages, final-choice ending, existing sign-off, and optional selected wish from this visit.
+- Success is announced only after the clipboard write resolves. If clipboard access is unavailable, a labelled read-only text area allows manual selection.
+- Selecting another wish clears stale copy feedback/fallback; replay clears them too. Everything is ephemeral and client-side.
+- No package, backend, storage, analytics, paid service, remote asset, or sending endpoint.
+- Candidate branch: `feat/loop-038-copyable-fairytale`; exact PR-head CI is the merge gate.

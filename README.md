@@ -80,7 +80,7 @@ The extra secrets are optional; all core birthday scenes stay available without 
 
 ## Project status and evidence
 
-See `AEOS_STATUS.md`, `.aeos/state.json`, `docs/product-contract-v1.1.md`, and `evidence/loop-004-release.md`, `evidence/loop-005-easter-eggs.md`, and `docs/easter-egg-test-guide.md`. Automated tests pass; screen-reader validation and physical-device touch QA remain separate, unobserved gates.
+See `AEOS_STATUS.md`, `.aeos/state.json`, `docs/product-contract-v2.2.md`, and `evidence/loop-004-release.md`, `evidence/loop-005-easter-eggs.md`, and `docs/easter-egg-test-guide.md`. Automated tests pass; screen-reader validation and physical-device touch QA remain separate, unobserved gates.
 
 
 ## Loop 028 — The Flower That Grows With Love
@@ -131,3 +131,8 @@ If Malika releases wishes into the sky during the current visit, Mimi's storyboo
 ## Loop 037 — The Wish Sky Becomes a Constellation
 
 When two or more wishes have been released into the sky, a fine, low-contrast line connects their existing star positions into one little constellation. The line stays behind the real star buttons, is decorative to assistive technology, and cannot intercept clicks. With zero or one wish, no line appears. No extra animation, package, or state is needed.
+
+
+## Loop 038 — Take This Little Story With You
+
+The completed Mimi fairytale now has a deliberate copy action. The plain-text story includes the three choices, the matching ending, its sign-off, and the wish selected from the current sky when one is present. If clipboard access fails, a labelled read-only text field provides the same text for manual copying. Nothing is sent or saved; the feedback and fallback reset when the story is restarted or the wish selection changes.

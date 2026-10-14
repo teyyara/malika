@@ -1,5 +1,5 @@
 {
-  "contractVersion": "2.1",
+  "contractVersion": "2.2",
   "capturedAt": "2026-10-13",
   "personalization": {
     "recipient": "Malika",
@@ -175,6 +175,13 @@
       "risk": "R1",
       "validation": "PASS — exact PR-head workflow 38643157760 on 3a0ebc4662e8920a6d196bcb7a111a8227975391 and post-merge main workflow 38645157634 on merge 5b86e56ef2c2ef03beec934144d130a5212aac6d passed Node/content tests, production build, and all 60 Chromium browser journeys.",
       "status": "IMPLEMENTED_VALIDATED"
+    },
+    {
+      "id": "REQ-025",
+      "requirement": "The storybook ending offers an explicit copy action for the story composed from the three selected passages, final-choice ending, and optional selected current-visit sky wish. It confirms clipboard success only after the write succeeds, and provides selectable read-only manual-copy text when clipboard access is unavailable. No story is sent or saved by the site.",
+      "risk": "R1",
+      "validation": "Node content test for composed text; Playwright verifies selected passages and wish inclusion, clipboard success feedback, rejected-write fallback and text selection, replay reset, and 375px viewport fit.",
+      "status": "IMPLEMENTED_VALIDATION_PENDING"
     }
   ],
   "validationEvidence": {

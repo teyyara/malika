@@ -81,3 +81,21 @@ export const storybookChapters = [
     ]
   }
 ];
+
+
+export function composeMimisStorybookText(selectedPath, selectedWish = null) {
+  if (!Array.isArray(selectedPath) || selectedPath.length !== 3 || selectedPath.some((choice) => !choice)) {
+    return "";
+  }
+
+  const wishText = typeof selectedWish?.text === "string" ? selectedWish.text.trim() : "";
+  const sections = [
+    "Mimi's tiny fairytale for Malika",
+    ...selectedPath.map((choice) => choice.passage),
+    selectedPath[2].ending,
+    wishText ? "A wish from your sky:\n" + wishText : "",
+    "And somewhere in the moonlit garden, Mimi curled up beside the now-empty envelope, already dreaming of the next little adventure. ♡"
+  ];
+
+  return sections.filter(Boolean).join("\n\n");
+}

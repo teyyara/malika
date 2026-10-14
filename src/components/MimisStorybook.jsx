@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import CatCharacter from "./CatCharacter.jsx";
 import Ladybug from "./Ladybug.jsx";
-import { storybookChapters } from "../data/mimisStorybook.js";
+import { storybookChapters, composeMimisStorybookText } from "../data/mimisStorybook.js";
 import { playCuteSound } from "../audio/soundEffects.js";
 
 const initialChoices = () => [null, null, null];
@@ -12,6 +12,8 @@ export default function MimisStorybook({ releasedWishes = [] }) {
   const [chapterIndex, setChapterIndex] = useState(0);
   const [choices, setChoices] = useState(initialChoices);
   const [petNote, setPetNote] = useState("");
+  const [copyStatus, setCopyStatus] = useState("");
+  const [showManualCopy, setShowManualCopy] = useState(false);
   const [selectedWishId, setSelectedWishId] = useState(() => releasedWishes.at(-1)?.id || null);
   const reduceMotion = useReducedMotion();
   const availableWishes = releasedWishes.slice(-5);
@@ -24,6 +26,7 @@ export default function MimisStorybook({ releasedWishes = [] }) {
     item.choices.find((choice) => choice.id === choices[index])
   );
   const finalGift = selectedPath[2];
+  const storyText = composeMimisStorybookText(selectedPath, selectedWish);
 
   function chooseOption(id) {
     if (selection !== id) playCuteSound("collect");
@@ -52,12 +55,27 @@ export default function MimisStorybook({ releasedWishes = [] }) {
     }
   }
 
+  async function copyStory() {
+    if (!storyText) return;
+    try {
+      if (!navigator.clipboard?.writeText) throw new Error("Clipboard unavailable");
+      await navigator.clipboard.writeText(storyText);
+      setShowManualCopy(false);
+      setCopyStatus("Copied. Nothing was sent or saved; the story is yours to keep.");
+    } catch {
+      setShowManualCopy(true);
+      setCopyStatus("Automatic copy is unavailable here. Select the story text below and copy it yourself.");
+    }
+  }
+
   function beginAgain() {
     playCuteSound("on");
     setChoices(initialChoices());
     setChapterIndex(0);
     setPhase("intro");
     setPetNote("");
+    setCopyStatus("");
+    setShowManualCopy(false);
     setSelectedWishId(releasedWishes.at(-1)?.id || null);
   }
 
@@ -156,6 +174,8 @@ export default function MimisStorybook({ releasedWishes = [] }) {
               onClick={() => {
                 if (selectedWishId !== wish.id) playCuteSound("collect");
                 setSelectedWishId(wish.id);
+                setCopyStatus("");
+                setShowManualCopy(false);
               }}>
               <span className="mimi-storybook-wish-option-number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
               <span>{wish.text}</span>
@@ -163,6 +183,21 @@ export default function MimisStorybook({ releasedWishes = [] }) {
             </button>)}
           </div>
         </section>}
+        <section className="mimi-storybook-share" aria-labelledby="mimi-storybook-share-heading">
+          <p className="mimi-storybook-share-kicker"><span aria-hidden="true">✧</span> a little story to take with you</p>
+          <h4 id="mimi-storybook-share-heading">Keep this tiny fairytale.</h4>
+          <p className="mimi-storybook-share-copy">Copy the story shaped by your choices, including the wish you picked. It is not uploaded or stored by this page.</p>
+          <button type="button" className="mimi-storybook-primary mimi-storybook-copy-button" onClick={copyStory}>
+            Copy this tiny fairytale <span aria-hidden="true">⧉</span>
+          </button>
+          {copyStatus && <p className="mimi-storybook-copy-status" role="status" aria-live="polite">{copyStatus}</p>}
+          {showManualCopy && <label className="mimi-storybook-manual-copy">
+            <span>Story text for manual copying</span>
+            <textarea aria-label="Story text for manual copying" value={storyText} readOnly rows={7}
+              onFocus={(event) => event.currentTarget.select()}
+              onClick={(event) => event.currentTarget.select()} />
+          </label>}
+        </section>
         <button type="button" className="mimi-storybook-primary mimi-storybook-restart" onClick={beginAgain}>Tell another tiny story <span aria-hidden="true">↻</span></button>
       </>}
       </motion.div>

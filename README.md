@@ -80,7 +80,7 @@ The extra secrets are optional; all core birthday scenes stay available without 
 
 ## Project status and evidence
 
-See `AEOS_STATUS.md`, `.aeos/state.json`, `docs/product-contract-v1.1.md`, and `evidence/loop-004-release.md`, `evidence/loop-005-easter-eggs.md`, and `docs/easter-egg-test-guide.md`. Automated tests pass; screen-reader validation and physical-device touch QA remain separate, unobserved gates.
+See `AEOS_STATUS.md`, `.aeos/state.json`, `docs/product-contract-v2.2.md`, and `evidence/loop-004-release.md`, `evidence/loop-005-easter-eggs.md`, and `docs/easter-egg-test-guide.md`. Automated tests pass; screen-reader validation and physical-device touch QA remain separate, unobserved gates.
 
 
 ## Loop 028 — The Flower That Grows With Love

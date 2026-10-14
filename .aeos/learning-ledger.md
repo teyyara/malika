@@ -121,3 +121,11 @@
 - REQ-023 is `IMPLEMENTED_VALIDATED` under Product Contract v2.0.
 - No storage, backend, package, remote asset, analytics, paid feature, external service, or manual Vercel deployment was introduced. Public production alias, human screen-reader and physical-device QA remain unverified.
 - Loop 036 is closed. Orchestration returns to `WAITING_FOR_CONTINUE`.
+
+
+## Loop 037 — The Wish Sky Becomes a Constellation (candidate)
+
+- Adds a subtle SVG line through the positions of released sky wishes to make the existing wish field feel like one growing constellation.
+- No trace with zero/one wish; one polyline connects all existing released wish positions with two or more stars. SVG is hidden from assistive technology and cannot intercept pointer input.
+- Existing star selection and wish text remain unchanged. Added Playwright coverage for counts/points, hit testing by clicking a star, and 375px/laptop viewport bounds.
+- No new package, storage, backend, asset, paid feature, or service. Exact final PR-head CI remains the merge gate.

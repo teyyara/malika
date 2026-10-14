@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.0",
-  "runId": "malika-20261014-037",
-  "activeKeyphrase": "Malika Birthday Universe — Loop 037 The Wish Sky Becomes a Constellation",
+  "runId": "malika-20261014-038",
+  "activeKeyphrase": "Malika Birthday Universe — Loop 038 Take This Little Story With You",
   "repository": "teyyara/malika",
   "releaseBranch": "main",
-  "progressionBranch": "feat/loop-037-wish-constellation",
-  "currentLoop": 37,
-  "candidate": "malika-birthday-037-wish-constellation",
-  "status": "VALIDATED_MERGED",
-  "orchestrationState": "WAITING_FOR_CONTINUE",
+  "progressionBranch": "feat/loop-038-copyable-fairytale",
+  "currentLoop": 38,
+  "candidate": "malika-birthday-038-copyable-fairytale",
+  "status": "IMPLEMENTED_VALIDATION_PENDING",
+  "orchestrationState": "WAITING_FOR_CI",
   "validatedApplicationCheckpoint": "5b86e56ef2c2ef03beec934144d130a5212aac6d",
   "personalization": {
     "recipientName": "Malika",
@@ -55,8 +55,8 @@
     "projectName": "malika-birthday",
     "projectDashboard": "https://vercel.com/tyyr1/malika-birthday",
     "productionStatus": "NOT_VERIFIED_OWNER_HANDOFF",
-    "latestMainCommit": "5b86e56ef2c2ef03beec934144d130a5212aac6d",
-    "latestMainStatus": "Loop 037 main CI passed: https://github.com/teyyara/malika/actions/runs/38645157634. This verifies CI only, not the public production alias. Owner will handle deployment verification.",
+    "latestMainCommit": "6353eff85240f23a7338b38c0769a6fd55ffd527",
+    "latestMainStatus": "Loop 037 release-checkpoint main CI passed: https://github.com/teyyara/malika/actions/runs/38646854640. This verifies CI only, not the public production alias. Owner will handle deployment verification.",
     "lastKnownReadyCommit": "be66face920cffdc16dce08213ae7c232938d7d5",
     "lastKnownReadyDeploymentId": "dpl_CzGS17bNAaTbaUCH7uLAP7XR6rQv",
     "previousFailedMainCommit": "5fdbd292707e27a84ae85b8782fe4cc3c27c5e8f",
@@ -75,8 +75,8 @@
   "screenReaderQA": "NOT_YET_OBSERVED",
   "realMobileDeviceQA": "NOT_TESTED",
   "nextHighValueWork": [
-    "Wait for a new CONTINUE instruction before beginning another feature loop.",
-    "Keep additions local-only, keyboard-accessible, responsive, and reduced-motion-aware.",
+    "Validate Loop 038 content composition, clipboard success/failure, manual-copy accessibility, replay reset, and mobile layout on the exact PR head.",
+    "Merge only after exact PR-head CI passes, then check post-merge main.",
     "Do not initiate a manual Vercel deployment or claim production-alias verification."
   ],
   "arcadeMastery": {
@@ -95,9 +95,9 @@
   "releaseStateCommit": "5b86e56ef2c2ef03beec934144d130a5212aac6d",
   "lastUpdated": "2026-10-14",
   "postMergeMainWorkflow": {
-    "runId": 38645157634,
-    "url": "https://github.com/teyyara/malika/actions/runs/38645157634",
-    "headSha": "5b86e56ef2c2ef03beec934144d130a5212aac6d",
+    "runId": 38646854640,
+    "url": "https://github.com/teyyara/malika/actions/runs/38646854640",
+    "headSha": "6353eff85240f23a7338b38c0769a6fd55ffd527",
     "status": "completed",
     "conclusion": "success",
     "nodeContentTests": "PASS",
@@ -106,32 +106,26 @@
     "chromiumJourneysPassed": 60
   },
   "previousLoopMainValidation": {
-    "runId": 38645157634,
-    "url": "https://github.com/teyyara/malika/actions/runs/38645157634",
-    "headSha": "5b86e56ef2c2ef03beec934144d130a5212aac6d",
+    "runId": 38646854640,
+    "url": "https://github.com/teyyara/malika/actions/runs/38646854640",
+    "headSha": "6353eff85240f23a7338b38c0769a6fd55ffd527",
     "status": "completed",
     "conclusion": "success"
   },
   "latestMainCheckpointValidation": {
-    "runId": 38645157634,
-    "url": "https://github.com/teyyara/malika/actions/runs/38645157634",
-    "headSha": "5b86e56ef2c2ef03beec934144d130a5212aac6d",
+    "runId": 38646854640,
+    "url": "https://github.com/teyyara/malika/actions/runs/38646854640",
+    "headSha": "6353eff85240f23a7338b38c0769a6fd55ffd527",
     "conclusion": "success"
   },
   "currentCandidate": {
-    "branch": "feat/loop-037-wish-constellation",
-    "feature": "The Wish Sky Becomes a Constellation",
-    "requirement": "REQ-024",
-    "validation": "PR #49 merged at 5b86e56ef2c2ef03beec934144d130a5212aac6d. Exact PR-head workflow 38643157760 and post-merge main workflow 38645157634 both passed Node/content tests, production build, and all 60 Chromium browser journeys."
+    "branch": "feat/loop-038-copyable-fairytale",
+    "baseCommit": "6353eff85240f23a7338b38c0769a6fd55ffd527",
+    "feature": "Take This Little Story With You",
+    "requirement": "REQ-025",
+    "validation": "Exact PR-head Node/content tests, production build, and full Chromium suite must pass before merge. The browser journey must verify clipboard success, clipboard failure/manual fallback, selected wish inclusion, reset, and 375px viewport fit."
   },
-  "pullRequest": {
-    "url": "https://github.com/teyyara/malika/pull/49",
-    "number": 49,
-    "state": "MERGED",
-    "headSha": "3a0ebc4662e8920a6d196bcb7a111a8227975391",
-    "baseSha": "73767abae28833b94cc700337128add446e64f01",
-    "mergeCommitSha": "5b86e56ef2c2ef03beec934144d130a5212aac6d"
-  },
+  "pullRequest": null,
   "latestPassingWorkflowForCandidate": {
     "runId": 38643157760,
     "url": "https://github.com/teyyara/malika/actions/runs/38643157760",

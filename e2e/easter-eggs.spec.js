@@ -31,6 +31,7 @@ async function expectCelebration(page, title, theme, score) {
   await expect(reward.locator(".egg-celebration-heart-burst i")).toHaveCount(24);
   await expect(reward.locator(".egg-celebration-shockwaves i")).toHaveCount(3);
   await expect(reward.locator(".egg-reward-score")).toHaveText(score);
+  await expect(reward.locator('.egg-game-companion[data-mimi-mood="happy"] .cat-art')).toHaveClass(/cat-reaction-delighted/);
   const viewport = await page.evaluate(() => ({ width: window.innerWidth, height: window.innerHeight }));
   const bounds = await reward.boundingBox();
   expect(bounds.width, "celebration must span the full viewport width").toBeGreaterThanOrEqual(viewport.width - 1);

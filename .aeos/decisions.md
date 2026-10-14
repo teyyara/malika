@@ -70,3 +70,8 @@ The storybook can use a wish already released into the current visit's sky, crea
 ## D-013 — Keep the wish constellation trace decorative and behind the controls
 
 Connect released wishes with a single faint SVG polyline that follows their existing position order. Only draw it once at least two wishes exist. Place it behind the star buttons and disable pointer handling so it cannot interfere with selection. Mark the SVG as decorative (`aria-hidden`, `focusable=false`); the individual labelled star buttons remain the accessible controls. No extra animation, package, or state is needed.
+
+
+## D-014 — Make the authored story copyable without a delivery system
+
+The completed fairytale should be easy to keep without adding transmission or persistence. Compose plain text from only the selected path, the final gift ending, the existing sign-off, and the optional selected sky wish. Offer explicit clipboard copy; report success only after the browser confirms it. If clipboard writing fails, expose the same text in a labelled read-only control for manual selection. Changing the wish clears stale copy feedback, and replay resets the helper. No new service, package, or storage.

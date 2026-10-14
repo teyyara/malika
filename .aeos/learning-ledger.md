@@ -123,9 +123,9 @@
 - Loop 036 is closed. Orchestration returns to `WAITING_FOR_CONTINUE`.
 
 
-## Loop 037 — The Wish Sky Becomes a Constellation (candidate)
+## Loop 037 — The Wish Sky Becomes a Constellation (final outcome, 2026-10-14)
 
 - Adds a subtle SVG line through the positions of released sky wishes to make the existing wish field feel like one growing constellation.
 - No trace with zero/one wish; one polyline connects all existing released wish positions with two or more stars. SVG is hidden from assistive technology and cannot intercept pointer input.
 - Existing star selection and wish text remain unchanged. Added Playwright coverage for counts/points, hit testing by clicking a star, and 375px/laptop viewport bounds.
-- No new package, storage, backend, asset, paid feature, or service. Exact final PR-head CI remains the merge gate.
+- No new package, storage, backend, asset, paid feature, or service. Merged PR #49 at `5b86e56ef2c2ef03beec934144d130a5212aac6d`. Exact PR-head workflow 38643157760 and post-merge main workflow 38645157634 both passed Node/content tests, production build, and all 60 Chromium browser journeys.

@@ -228,16 +228,31 @@ test("Letters from Future Us reveals imagined letters without changing the keeps
 test("Mimi's tiny storybook turns three choices into a repeatable branching fairytale", async ({ page }) => {
   await page.addInitScript(() => {
     const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-    if (!AudioContextClass) return;
-    const originalCreateOscillator = AudioContextClass.prototype.createOscillator;
-    AudioContextClass.prototype.createOscillator = function (...args) {
-      window.__storybookCueCount = (window.__storybookCueCount || 0) + 1;
-      return originalCreateOscillator.apply(this, args);
-    };
+    if (AudioContextClass) {
+      const originalCreateOscillator = AudioContextClass.prototype.createOscillator;
+      AudioContextClass.prototype.createOscillator = function (...args) {
+        window.__storybookCueCount = (window.__storybookCueCount || 0) + 1;
+        return originalCreateOscillator.apply(this, args);
+      };
+    }
+    window.__copiedFairytales = [];
+    window.__failFairytaleCopy = false;
+    Object.defineProperty(navigator, "clipboard", {
+      configurable: true,
+      value: {
+        writeText: async (text) => {
+          if (window.__failFairytaleCopy) throw new Error("Clipboard write blocked");
+          window.__copiedFairytales.push(text);
+        }
+      }
+    });
   });
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.setViewportSize({ width: 1366, height: 768 });
   await enterGarden(page);
+  await page.getByRole("tab", { name: "Wish sky" }).click();
+  await page.getByRole("button", { name: /Tiny wonders/ }).click();
+  await page.getByRole("button", { name: /Release into the sky/ }).click();
   await page.getByRole("tab", { name: "Mimi's tiny storybook" }).click();
 
   const panel = page.locator(".companion-panel-storybook");
@@ -289,6 +304,24 @@ test("Mimi's tiny storybook turns three choices into a repeatable branching fair
   await expect(story).toContainText("Mimi called to the ladybug and the sleepy garden moth");
   await expect(story).toContainText("It could not promise every day would be easy");
   await expect(story).toContainText("Mimi curled up beside the now-empty envelope");
+  await expect(story).toContainText("May you keep finding flowers, cats, unexpected kindness");
+
+  await page.getByRole("button", { name: /Copy this tiny fairytale/ }).click();
+  await expect(panel.getByRole("status")).toContainText("Copied. Nothing was sent or saved");
+  const copiedStory = await page.evaluate(() => window.__copiedFairytales[0]);
+  expect(copiedStory).toContain("Mimi followed a ladybug carrying a lantern");
+  expect(copiedStory).toContain("A wish from your sky:\\nMay you keep finding flowers, cats, unexpected kindness");
+  expect(copiedStory).toContain("It could not promise every day would be easy");
+
+  await page.evaluate(() => { window.__failFairytaleCopy = true; });
+  await page.getByRole("button", { name: /Copy this tiny fairytale/ }).click();
+  const manualCopy = panel.getByRole("textbox", { name: "Story text for manual copying" });
+  await expect(panel.getByRole("status")).toContainText("Automatic copy is unavailable");
+  await expect(manualCopy).toBeVisible();
+  await expect(manualCopy).toHaveValue(copiedStory);
+  await manualCopy.click();
+  const selectedLength = await manualCopy.evaluate((element) => element.selectionEnd - element.selectionStart);
+  expect(selectedLength).toBe(copiedStory.length);
 
   await page.getByRole("button", { name: /Tell another tiny story/ }).click();
   await expect(storyUi).toHaveAttribute("data-storybook-phase", "intro");
@@ -313,12 +346,16 @@ test("Mimi's tiny storybook turns three choices into a repeatable branching fair
   await expect(story).toContainText("one small next step is enough");
 
   await page.setViewportSize({ width: 375, height: 812 });
+  await page.getByRole("button", { name: /Copy this tiny fairytale/ }).click();
+  const mobileManualCopy = panel.getByRole("textbox", { name: "Story text for manual copying" });
+  await expect(mobileManualCopy).toBeVisible();
   const layout = await page.evaluate(() => ({
     viewport: window.innerWidth,
     document: document.documentElement.scrollWidth,
     panel: document.querySelector(".companion-panel-storybook").getBoundingClientRect().toJSON(),
     stage: document.querySelector(".mimi-storybook-stage").getBoundingClientRect().toJSON(),
     ending: document.querySelector(".mimi-storybook-ending").getBoundingClientRect().toJSON(),
+    manualCopy: document.querySelector(".mimi-storybook-manual-copy textarea").getBoundingClientRect().toJSON(),
     controls: document.querySelector(".mimi-storybook-restart").getBoundingClientRect().toJSON()
   }));
   expect(layout.document).toBeLessThanOrEqual(layout.viewport);
@@ -326,6 +363,7 @@ test("Mimi's tiny storybook turns three choices into a repeatable branching fair
   expect(layout.panel.right).toBeLessThanOrEqual(layout.viewport + 1);
   expect(layout.stage.right).toBeLessThanOrEqual(layout.viewport + 1);
   expect(layout.ending.right).toBeLessThanOrEqual(layout.viewport + 1);
+  expect(layout.manualCopy.right).toBeLessThanOrEqual(layout.viewport + 1);
   expect(layout.controls.right).toBeLessThanOrEqual(layout.viewport + 1);
 });
 

@@ -3,10 +3,10 @@
 Date: 13 October 2026  
 Repository: https://github.com/teyyara/malika  
 Release branch: `main`  
-Current completed loop: **034 — Keyboard-Ready Companion Tabs** (merged and validated)  
-Current candidate: **Loop 035 — The Storybook That Plays Along** (feature branch awaiting CI)  
-Latest validated application checkpoint: `a0dc68a06899be673491ac8b28ebfd9e8aa47bc9`  
-Next state: **WAITING_FOR_CI**
+Current completed loop: **035 — The Storybook That Plays Along** (merged and validated)  
+Current candidate: **None — waiting for a new CONTINUE instruction**  
+Latest validated application checkpoint: `3c7bba4a9bcaffcaeeaff65faf63bedeae1052a3`  
+Next state: **WAITING_FOR_CONTINUE**
 
 ## Product state
 
@@ -159,11 +159,13 @@ The Loop 009 application merge commit is `8d40e627acff41fdc6cd2e7681cc563ed8a653
 - No manual Vercel deployment was initiated. Public production alias, human screen-reader behavior, and physical-device QA remain unverified.
 
 
-## Loop 035 — The Storybook That Plays Along (candidate)
+## Loop 035 — The Storybook That Plays Along (merged and validated)
 
-- Branch: `feat/loop-035-living-storybook`, based on main `9c3ca78b689b59e6f3bb87a4770622d272cbe92f`.
-- Adds a soft page-turn entrance, chapter/ending-responsive illustration accents, and generated sound cues inside Mimi's existing storybook. Existing global sound settings remain in control; reduced-motion mode suppresses the transition.
-- No new scene, audio file, dependency, storage, external service, or remote asset.
-- Exact-head validation is pending. A new browser assertion checks the Web Audio tone path and reduced-motion mode in addition to the existing story branching/replay and phone-width coverage.
-- The prior application-code main run `38481311313` passed the production build and all 58 browser journeys. A later docs-only post-merge run `38484282755` was still in progress at the last check; do not label that run as passed without rechecking.
-- No manual Vercel deployment will be initiated. Production alias, human screen-reader QA and physical-device QA remain unverified.
+- **PR #45 merged:** https://github.com/teyyara/malika/pull/45
+- **Merge commit:** `3c7bba4a9bcaffcaeeaff65faf63bedeae1052a3`.
+- **Exact final PR-head validation:** [run 38485047179](https://github.com/teyyara/malika/actions/runs/38485047179) — success on `ab0ddc8ce7b10dc8905cc7685fc227b945b499a6`.
+- **Post-merge main validation:** [run 38485545190](https://github.com/teyyara/malika/actions/runs/38485545190) — success on the merge commit. Both runs passed Node/content tests, production build, and all **58 Chromium browser journeys**.
+- Mimi's existing storybook now has restrained page-turn transitions, chapter/ending-responsive illustration accents, and local synthesized cues for starting, changing choices, page navigation, the finale, and replay. Reduced-motion and global sound controls remain respected.
+- No new scene, dependency, audio file, storage, analytics, remote asset, or outside service was added.
+- **REQ-022** is `IMPLEMENTED_VALIDATED` in Product Contract v1.9 baseline.
+- No manual Vercel deployment was initiated. The public production alias remains unverified; human sound-quality, screen-reader, and physical-device QA remain outstanding.

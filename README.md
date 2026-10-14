@@ -121,3 +121,8 @@ The five tabs in Mimi's companion studio now follow the expected keyboard patter
 ## Loop 035 — The Storybook That Plays Along
 
 Mimi's Tiny Storybook now turns from the introduction to each chapter with a soft editorial page motion and a corresponding glow in the illustrated moonlit stage. Gentle synthesized cues mark story start, changed choices, chapter navigation, the final reveal, and replay. The cues use the existing Web Audio sound system and continue to respect the site's sound toggle and volume. Reduced-motion visitors get a near-instant transition. No sound files, external assets, new packages, storage, service, or extra scene were added.
+
+
+## Loop 036 — A Wish Woven Into the Story
+
+If Malika releases wishes into the sky during the current visit, Mimi's storybook can invite one of them onto the last page. The five most recent wishes are offered as selectable stars; the latest is chosen by default, and the wish printed in the story changes when she picks another. Replaying restores the newest wish. Without a released wish, the existing storybook ending stays as it was. This is only shared React state for the current visit—no persistence, new service, package, or remote asset.

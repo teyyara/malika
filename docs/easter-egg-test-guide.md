@@ -448,3 +448,13 @@ The automated oscillator check verifies that the local tone scheduler is reached
 5. Choose **Tell another tiny story**, complete the chapters again, and confirm the selector defaults to the latest wish once more.
 6. At 375×812, check that the wish selector, long text and in-story card fit without horizontal overflow. Use the keyboard to focus and change wish choices; verify visible focus styling.
 7. With no wishes released, open the storybook and finish a story. The extra wish selector/inlay should not appear.
+
+
+## 26. The Wish Sky Becomes a Constellation
+
+1. Enter **The garden** and open **Wish sky** before releasing anything. There should be no constellation trace and the empty-sky hint should remain visible.
+2. Release one wish. Check that the star button appears and remains selectable, but no trace is drawn yet.
+3. Release two more wishes. A faint connected line should pass through the star positions. It must sit behind the stars and must not prevent clicking the third star or selecting its wish text.
+4. Inspect the trace: its SVG must have `aria-hidden="true"` and `focusable="false"`; it is decorative only. The star buttons keep their readable names and `aria-pressed` state.
+5. Repeat at 1366×768 and 375×812. The document must not gain horizontal overflow, and all stars must stay inside the sky field.
+6. Under reduced-motion preference, the constellation line should remain still; no extra movement is necessary.

@@ -444,3 +444,59 @@ test("a wish released into the sky can be woven into Mimi's story ending", async
   await expect(chooser.getByRole("button", { name: "Weave this wish into the ending: " + secondWish })).toHaveAttribute("aria-pressed", "true");
   await expect(story.locator(".mimi-storybook-wish-inlay")).toContainText(secondWish);
 });
+
+
+test("released wishes connect into a quiet constellation without blocking star controls", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.setViewportSize({ width: 1366, height: 768 });
+  await enterGarden(page);
+  await page.getByRole("tab", { name: "Wish sky" }).click();
+
+  const release=page.getByRole("button", { name: /Release into the sky/ });
+  const draft=page.getByRole("textbox", { name: "Write a wish in your own words" });
+  const field=page.locator(".wish-sky-field");
+  await expect(field.locator(".released-wish-star")).toHaveCount(0);
+  await expect(field.locator(".wish-constellation-lines")).toHaveCount(0);
+
+  await page.getByRole("button", { name: /Tiny wonders/ }).click();
+  await release.click();
+  await expect(field.locator(".released-wish-star")).toHaveCount(1);
+  await expect(field.locator(".wish-constellation-lines")).toHaveCount(0);
+
+  await draft.fill("May small joys find their way to you, even on ordinary days.");
+  await release.click();
+  await draft.fill("May every new beginning feel a little gentler.");
+  await release.click();
+
+  const stars=field.locator(".released-wish-star");
+  const overlay=field.locator(".wish-constellation-lines");
+  const trace=overlay.locator(".wish-constellation-path");
+  await expect(stars).toHaveCount(3);
+  await expect(overlay).toHaveAttribute("aria-hidden","true");
+  await expect(overlay).toHaveAttribute("focusable","false");
+  await expect(trace).toHaveCount(1);
+  const points=await trace.getAttribute("points");
+  expect(points.trim().split(/\s+/)).toHaveLength(3);
+  await expect(stars.nth(0)).toBeVisible();
+  await stars.nth(2).click();
+  await expect(stars.nth(2)).toHaveAttribute("aria-pressed","true");
+  await expect(page.locator(".wish-selected-note")).toContainText("May every new beginning feel a little gentler");
+
+  for (const viewport of [{width:1366,height:768},{width:375,height:812}]) {
+    await page.setViewportSize(viewport);
+    const bounds=await page.evaluate(()=>({
+      viewport:window.innerWidth,
+      document:document.documentElement.scrollWidth,
+      field:document.querySelector(".wish-sky-field").getBoundingClientRect().toJSON(),
+      trace:document.querySelector(".wish-constellation-lines").getBoundingClientRect().toJSON(),
+      stars:[...document.querySelectorAll(".released-wish-star")].map(el=>el.getBoundingClientRect().toJSON())
+    }));
+    expect(bounds.document).toBeLessThanOrEqual(bounds.viewport);
+    expect(bounds.trace.x).toBeGreaterThanOrEqual(bounds.field.x-1);
+    expect(bounds.trace.right).toBeLessThanOrEqual(bounds.field.right+1);
+    for(const star of bounds.stars){
+      expect(star.left).toBeGreaterThanOrEqual(bounds.field.left-1);
+      expect(star.right).toBeLessThanOrEqual(bounds.field.right+1);
+    }
+  }
+});

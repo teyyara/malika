@@ -65,3 +65,8 @@ Loop 035 enhances the existing storybook rather than adding a new destination. U
 ## D-012 — Weave current-visit sky wishes into the storybook ending
 
 The storybook can use a wish already released into the current visit's sky, creating continuity between existing features without a backend or persistence. Offer only the five most recent wishes so the ending does not grow without bound. Default to the latest release, show the selected text in the story itself, make choice buttons native and aria-pressed, and reset the selector to the latest wish when replay starts. When no wish exists, omit this extra UI entirely. No new top-level destination or service.
+
+
+## D-013 — Keep the wish constellation trace decorative and behind the controls
+
+Connect released wishes with a single faint SVG polyline that follows their existing position order. Only draw it once at least two wishes exist. Place it behind the star buttons and disable pointer handling so it cannot interfere with selection. Mark the SVG as decorative (`aria-hidden`, `focusable=false`); the individual labelled star buttons remain the accessible controls. No extra animation, package, or state is needed.

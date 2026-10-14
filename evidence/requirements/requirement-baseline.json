@@ -1,5 +1,5 @@
 {
-  "contractVersion": "2.0",
+  "contractVersion": "2.1",
   "capturedAt": "2026-10-13",
   "personalization": {
     "recipient": "Malika",
@@ -168,6 +168,13 @@
       "risk": "R1",
       "validation": "PASS — exact PR-head workflow 38640128647 (head 6c52a9e084ad4b19c721345b6734c7f4c2653491) and post-merge main workflow 38640794831 (merge 98ceb9d184566b2498b0fc605eb0ea809c97e3b5) passed Node/content tests, production build, and all 59 Chromium browser journeys.",
       "status": "IMPLEMENTED_VALIDATED"
+    },
+    {
+      "id": "REQ-024",
+      "requirement": "Wish sky draws one faint decorative constellation trace through the positions of released wishes when two or more exist; it remains hidden with zero or one wish, is excluded from the accessibility tree and pointer hit-testing, and does not block star selection or create viewport overflow.",
+      "risk": "R1",
+      "validation": "Playwright releases three wishes; verifies trace absence at zero/one, one trace with exactly three point coordinates at three, aria-hidden/focusable attributes, star selection unaffected, and bounds at 1366px and 375px.",
+      "status": "IMPLEMENTED_VALIDATION_PENDING"
     }
   ],
   "validationEvidence": {

@@ -1,12 +1,12 @@
 # AEOS Status — Malika Birthday Universe
 
-Date: 13 October 2026  
+Date: 14 October 2026  
 Repository: https://github.com/teyyara/malika  
 Release branch: `main`  
 Current completed loop: **036 — A Wish Woven Into the Story** (merged and validated)  
-Current candidate: **None — waiting for a new CONTINUE instruction**  
+Current candidate: **Loop 037 — The Wish Sky Becomes a Constellation** (feature branch awaiting CI)  
 Latest validated application checkpoint: `98ceb9d184566b2498b0fc605eb0ea809c97e3b5`  
-Next state: **WAITING_FOR_CONTINUE**
+Next state: **WAITING_FOR_CI**
 
 ## Product state
 
@@ -181,3 +181,12 @@ The Loop 009 application merge commit is `8d40e627acff41fdc6cd2e7681cc563ed8a653
 - The in-story selection uses the existing React state only. No browser storage, backend, new package, remote asset, outside service, or top-level navigation was added.
 - **REQ-023** is `IMPLEMENTED_VALIDATED` in Product Contract v2.0 baseline.
 - No manual Vercel deployment was initiated. Production alias, human screen-reader behavior, and physical-device QA remain unverified.
+
+
+## Loop 037 — The Wish Sky Becomes a Constellation (candidate)
+
+- Branch: `feat/loop-037-wish-constellation`, based on checkpoint merge `73767abae28833b94cc700337128add446e64f01`.
+- Released wishes now gain a subtle SVG trace through their existing star positions when there are at least two stars. The trace sits behind the real buttons, has no pointer handling, and is hidden from assistive technology.
+- No extra line is rendered for zero or one wish. Existing star buttons and selected-wish text remain unchanged.
+- Added a browser journey for zero/one/multiple wishes, trace-point count, star selection, and laptop/375px bounds.
+- Exact-head CI is required before merge. No manual Vercel deployment is initiated; the production alias remains owner-unverified.

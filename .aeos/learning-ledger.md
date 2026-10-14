@@ -112,9 +112,12 @@
 - Loop 035 is closed. Orchestration returns to `WAITING_FOR_CONTINUE`.
 
 
-## Loop 036 — A Wish Woven Into the Story (candidate)
+## Loop 036 — final outcome (2026-10-14)
 
-- Connects the existing visit-only Wish sky collection to Mimi's existing fairytale ending.
-- The chooser offers up to the five most recently released wishes, defaults to the latest one, and updates the visible in-story wish when another is selected. Replaying the story restores the newest wish; with no wishes, no chooser or extra story card is rendered.
-- This passes data already held in parent React state. No local storage, external persistence, package, remote asset, backend, paid feature, analytics, or service is added.
-- Added a Playwright journey for two wishes, initial default, selection swap, final-page composition, replay reset, and mobile-width bounds. Exact final PR-head CI is the merge gate.
+- Merged PR #47 at `98ceb9d184566b2498b0fc605eb0ea809c97e3b5`.
+- Exact final PR-head workflow [38640128647](https://github.com/teyyara/malika/actions/runs/38640128647) and post-merge main workflow [38640794831](https://github.com/teyyara/malika/actions/runs/38640794831) both passed Node/content tests, production build, and all **59 Chromium browser journeys**.
+- The Wish sky's current-visit list is passed into the storybook ending. The last five wishes are offered; the latest is selected by default. Changing the selection updates the text inside the story, and replay restores the newest wish. Empty wish collections render no extra UI.
+- The browser journey verifies two different wishes, initial selection, selection swapping, the in-story card, replay reset and 375px bounds.
+- REQ-023 is `IMPLEMENTED_VALIDATED` under Product Contract v2.0.
+- No storage, backend, package, remote asset, analytics, paid feature, external service, or manual Vercel deployment was introduced. Public production alias, human screen-reader and physical-device QA remain unverified.
+- Loop 036 is closed. Orchestration returns to `WAITING_FOR_CONTINUE`.

@@ -7,12 +7,15 @@ import { playCuteSound } from "../audio/soundEffects.js";
 
 const initialChoices = () => [null, null, null];
 
-export default function MimisStorybook() {
+export default function MimisStorybook({ releasedWishes = [] }) {
   const [phase, setPhase] = useState("intro");
   const [chapterIndex, setChapterIndex] = useState(0);
   const [choices, setChoices] = useState(initialChoices);
   const [petNote, setPetNote] = useState("");
+  const [selectedWishId, setSelectedWishId] = useState(() => releasedWishes.at(-1)?.id || null);
   const reduceMotion = useReducedMotion();
+  const availableWishes = releasedWishes.slice(-5);
+  const selectedWish = availableWishes.find((wish) => wish.id === selectedWishId) || availableWishes.at(-1) || null;
   const chapter = storybookChapters[chapterIndex];
   const selection = choices[chapterIndex];
   const selectedOption = chapter.choices.find((choice) => choice.id === selection) || null;
@@ -55,6 +58,7 @@ export default function MimisStorybook() {
     setChapterIndex(0);
     setPhase("intro");
     setPetNote("");
+    setSelectedWishId(releasedWishes.at(-1)?.id || null);
   }
 
   return <div className="mimi-storybook-layout" data-storybook-phase={phase} data-storybook-chapter={chapterIndex + 1}>
@@ -85,6 +89,7 @@ export default function MimisStorybook() {
         <h3>One tiny story. Three little choices.</h3>
         <p className="mimi-storybook-description">Mimi has found an envelope for Malika, but the path and the surprise are yours to choose. Pick the details, then see what sort of ending the little night will make.</p>
         <p className="mimi-storybook-note">This is a made-up little fairytale for play—not a memory of something that happened.</p>
+        {availableWishes.length > 0 && <p className="mimi-storybook-wish-hint">One of the stars you sent into the sky can find its way into the ending, too.</p>}
         <button type="button" className="mimi-storybook-primary" onClick={() => { playCuteSound("note"); setPhase("choices"); }}>Begin Mimi's story <span aria-hidden="true">↗</span></button>
       </>}
 
@@ -133,8 +138,31 @@ export default function MimisStorybook() {
             transition={{ duration: reduceMotion ? 0.01 : 0.24, delay: reduceMotion ? 0 : 0.32 }}>
             {finalGift.ending}
           </motion.p>
+          {selectedWish && <div className="mimi-storybook-wish-inlay" role="status" aria-live="polite">
+            <span className="mimi-storybook-wish-inlay-star" aria-hidden="true">✦</span>
+            <div><small>A WISH FROM YOUR SKY</small><p>{selectedWish.text}</p><em>This wish found its way into the last page.</em></div>
+          </div>}
           <p className="mimi-storybook-signoff">And somewhere in the moonlit garden, Mimi curled up beside the now-empty envelope, already dreaming of the next little adventure. ♡</p>
         </article>
+        {availableWishes.length > 0 && <section className="mimi-storybook-wish-chooser" aria-labelledby="mimi-storybook-wish-chooser-heading">
+          <p className="mimi-storybook-wish-chooser-kicker"><span aria-hidden="true">✧</span> a little star from your sky</p>
+          <h4 id="mimi-storybook-wish-chooser-heading">Which wish should follow Mimi home?</h4>
+          <p className="mimi-storybook-wish-chooser-copy">Choose one of the five most recent wishes you released this visit. It will appear on the story's last page, just for this visit.</p>
+          <div className="mimi-storybook-wish-options" role="group" aria-label="Choose a wish to weave into Mimi's story">
+            {availableWishes.map((wish, index) => <button key={wish.id} type="button"
+              className={"mimi-storybook-wish-option" + (selectedWishId === wish.id ? " is-selected" : "")}
+              aria-label={"Weave this wish into the ending: " + wish.text}
+              aria-pressed={selectedWishId === wish.id}
+              onClick={() => {
+                if (selectedWishId !== wish.id) playCuteSound("collect");
+                setSelectedWishId(wish.id);
+              }}>
+              <span className="mimi-storybook-wish-option-number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+              <span>{wish.text}</span>
+              <span className="mimi-storybook-wish-option-mark" aria-hidden="true">{selectedWishId === wish.id ? "✓" : "✧"}</span>
+            </button>)}
+          </div>
+        </section>}
         <button type="button" className="mimi-storybook-primary mimi-storybook-restart" onClick={beginAgain}>Tell another tiny story <span aria-hidden="true">↻</span></button>
       </>}
       </motion.div>

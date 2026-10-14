@@ -307,7 +307,7 @@ test("Mimi's tiny storybook turns three choices into a repeatable branching fair
   await expect(story).toContainText("May you keep finding flowers, cats, unexpected kindness");
 
   await page.getByRole("button", { name: /Copy this tiny fairytale/ }).click();
-  await expect(panel.getByRole("status")).toContainText("Copied. Nothing was sent or saved");
+  await expect(panel.locator(".mimi-storybook-copy-status")).toContainText("Copied. Nothing was sent or saved");
   const copiedStory = await page.evaluate(() => window.__copiedFairytales[0]);
   expect(copiedStory).toContain("Mimi followed a ladybug carrying a lantern");
   expect(copiedStory).toContain("A wish from your sky:\nMay you keep finding flowers, cats, unexpected kindness");
@@ -316,7 +316,7 @@ test("Mimi's tiny storybook turns three choices into a repeatable branching fair
   await page.evaluate(() => { window.__failFairytaleCopy = true; });
   await page.getByRole("button", { name: /Copy this tiny fairytale/ }).click();
   const manualCopy = panel.getByRole("textbox", { name: "Story text for manual copying" });
-  await expect(panel.getByRole("status")).toContainText("Automatic copy is unavailable");
+  await expect(panel.locator(".mimi-storybook-copy-status")).toContainText("Automatic copy is unavailable");
   await expect(manualCopy).toBeVisible();
   await expect(manualCopy).toHaveValue(copiedStory);
   await manualCopy.click();
@@ -324,6 +324,8 @@ test("Mimi's tiny storybook turns three choices into a repeatable branching fair
   expect(selectedLength).toBe(copiedStory.length);
 
   await page.getByRole("button", { name: /Tell another tiny story/ }).click();
+  await expect(panel.locator(".mimi-storybook-copy-status")).toHaveCount(0);
+  await expect(panel.getByRole("textbox", { name: "Story text for manual copying" })).toHaveCount(0);
   await expect(storyUi).toHaveAttribute("data-storybook-phase", "intro");
   await expect(panel.getByRole("heading", { name: "One tiny story. Three little choices." })).toBeVisible();
   await page.getByRole("button", { name: /Begin Mimi's story/ }).click();

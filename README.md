@@ -126,3 +126,8 @@ Mimi's Tiny Storybook now turns from the introduction to each chapter with a sof
 ## Loop 036 — A Wish Woven Into the Story
 
 If Malika releases wishes into the sky during the current visit, Mimi's storybook can invite one of them onto the last page. The five most recent wishes are offered as selectable stars; the latest is chosen by default, and the wish printed in the story changes when she picks another. Replaying restores the newest wish. Without a released wish, the existing storybook ending stays as it was. This is only shared React state for the current visit—no persistence, new service, package, or remote asset.
+
+
+## Loop 037 — The Wish Sky Becomes a Constellation
+
+When two or more wishes have been released into the sky, a fine, low-contrast line connects their existing star positions into one little constellation. The line stays behind the real star buttons, is decorative to assistive technology, and cannot intercept clicks. With zero or one wish, no line appears. No extra animation, package, or state is needed.

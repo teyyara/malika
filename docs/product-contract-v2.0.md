@@ -1,6 +1,6 @@
 # Product Contract v2.0 — Malika Birthday Universe
 
-Status: Loop 036 change request implemented on a feature branch on 14 October 2026. Product Contract v1.9 is the preceding validated baseline; this change makes existing Wish sky content an optional part of Mimi's storybook ending.
+Status: Loop 036 merged and validated on 14 October 2026. Product Contract v1.9 is the preceding validated baseline; this change makes existing Wish sky content an optional part of Mimi's storybook ending.
 
 ## Change request CR-036 — A Wish Woven Into the Story
 
@@ -22,6 +22,8 @@ When wishes have been released during this visit, Mimi's storybook ending offers
 
 **Risk:** R1 (cross-feature data flow into an existing interactive ending).  
 **Validation:** Playwright releases two wishes, verifies latest-wish default, changes the selection and checks the rendered story text, checks responsive bounds, and confirms replay restores the latest choice. The existing storybook journey exercises the empty-wish state. Exact PR-head Node/content tests, production build and the full Chromium browser suite are required before merge.
+
+**Validation completed:** exact final PR-head workflow [38640128647](https://github.com/teyyara/malika/actions/runs/38640128647) on `6c52a9e084ad4b19c721345b6734c7f4c2653491` and post-merge main workflow [38640794831](https://github.com/teyyara/malika/actions/runs/38640794831) on merge `98ceb9d184566b2498b0fc605eb0ea809c97e3b5` both passed Node/content tests, production build, and all 59 Chromium browser journeys.
 
 ## Evidence standard
 

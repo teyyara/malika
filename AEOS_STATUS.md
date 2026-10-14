@@ -3,10 +3,10 @@
 Date: 13 October 2026  
 Repository: https://github.com/teyyara/malika  
 Release branch: `main`  
-Current completed loop: **035 — The Storybook That Plays Along** (merged and validated)  
-Current candidate: **Loop 036 — A Wish Woven Into the Story** (feature branch awaiting CI)  
-Latest validated application checkpoint: `ba40db1c88d09207cf1e068b9c7df09d1a7428a8`  
-Next state: **WAITING_FOR_CI**
+Current completed loop: **036 — A Wish Woven Into the Story** (merged and validated)  
+Current candidate: **None — waiting for a new CONTINUE instruction**  
+Latest validated application checkpoint: `98ceb9d184566b2498b0fc605eb0ea809c97e3b5`  
+Next state: **WAITING_FOR_CONTINUE**
 
 ## Product state
 
@@ -171,10 +171,13 @@ The Loop 009 application merge commit is `8d40e627acff41fdc6cd2e7681cc563ed8a653
 - No manual Vercel deployment was initiated. The public production alias remains unverified; human sound-quality, screen-reader, and physical-device QA remain outstanding.
 
 
-## Loop 036 — A Wish Woven Into the Story (candidate)
+## Loop 036 — A Wish Woven Into the Story (merged and validated)
 
-- Branch: `feat/loop-036-wishwoven-storybook`, based on reconciled main `ba40db1c88d09207cf1e068b9c7df09d1a7428a8`.
-- A wish released into the sky can be selected into Mimi's storybook ending. The chooser shows at most the five most recent wishes, starts with the latest, changes the in-story wish in place, and resets to the latest when replaying.
-- No persistence or new storage was added; this reuses the current visit's existing wish array. Without released wishes the selector is absent and the story retains its previous layout.
-- Added a browser journey for selection, ending content, replay reset, and 375px overflow. Merge only when Node/content tests, production build, and all Chromium journeys pass on the exact final PR head.
-- No manual Vercel deployment is initiated.
+- **PR #47 merged:** https://github.com/teyyara/malika/pull/47
+- **Merge commit:** `98ceb9d184566b2498b0fc605eb0ea809c97e3b5`.
+- **Exact final PR-head validation:** [run 38640128647](https://github.com/teyyara/malika/actions/runs/38640128647) — success on `6c52a9e084ad4b19c721345b6734c7f4c2653491`.
+- **Post-merge main validation:** [run 38640794831](https://github.com/teyyara/malika/actions/runs/38640794831) — success on the merge commit. Both runs passed Node/content tests, production build, and all **59 Chromium browser journeys**.
+- If Malika has released wishes during the current visit, the storybook ending can include one of up to five recent wishes. The latest defaults, another can be selected in place, and replay returns to the newest wish. With no released wishes, the extra UI is hidden.
+- The in-story selection uses the existing React state only. No browser storage, backend, new package, remote asset, outside service, or top-level navigation was added.
+- **REQ-023** is `IMPLEMENTED_VALIDATED` in Product Contract v2.0 baseline.
+- No manual Vercel deployment was initiated. Production alias, human screen-reader behavior, and physical-device QA remain unverified.

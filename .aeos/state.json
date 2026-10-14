@@ -7,9 +7,9 @@
   "progressionBranch": "feat/loop-036-wishwoven-storybook",
   "currentLoop": 36,
   "candidate": "malika-birthday-036-wishwoven-storybook",
-  "status": "IMPLEMENTED_VALIDATION_PENDING",
-  "orchestrationState": "WAITING_FOR_CI",
-  "validatedApplicationCheckpoint": "ba40db1c88d09207cf1e068b9c7df09d1a7428a8",
+  "status": "VALIDATED_MERGED",
+  "orchestrationState": "WAITING_FOR_CONTINUE",
+  "validatedApplicationCheckpoint": "98ceb9d184566b2498b0fc605eb0ea809c97e3b5",
   "personalization": {
     "recipientName": "Malika",
     "senderName": "Zack",
@@ -17,7 +17,7 @@
   },
   "automatedBrowserQA": {
     "status": "PASS",
-    "specsPassed": 58,
+    "specsPassed": 59,
     "coverage": [
       "Core navigation and all primary birthday scenes",
       "Heart-game reset and successful retry",
@@ -26,39 +26,29 @@
       "Mimi and three-star constellation interactions",
       "All five arcade games open their own fullscreen reward treatment",
       "Each reward includes 64 sparkle particles, score, distinct theme and viewport-sized presentation",
-      "Completing all five games still unlocks Keeper of Little Wonders",
+      "Completing all five arcade quests unlocks Keeper of Little Wonders",
       "Wrong Memory Match pair and recovery",
       "Wrong Pawprint Rhythm input and retry",
       "Ladybug toast auto-dismiss after panel switch",
       "Keyboard operation of footer-star secret",
       "Garden clue guide has no spoiler-map disclosure or contents",
       "Reasons book: 100 distinct pages validated by Node content test",
-      "Reasons book: closed-by-default disclosure, previous/next pages, progress indicator, final page restart",
-      "Reasons book: current page resets after leaving and revisiting Birthday letter",
-      "Reasons book: phone viewport fit at 375px",
-      "Mimi's Tiny Storybook: three authored chapters with three unique choices each verified by Node content test",
-      "Mimi's Tiny Storybook: choices, progress, full ending composition and selected-gift ending",
-      "Mimi's Tiny Storybook: changing an earlier answer clears later answers",
-      "Mimi's Tiny Storybook: replay resets all choices and pet response",
-      "Mimi's Tiny Storybook: Mimi pet button is visible, keyboard-focusable, and produces an accessible live response",
-      "Mimi's Tiny Storybook: tested 375px viewport without horizontal overflow",
-      "Mimi's Vocal Personality: recorded meow buffer plays on ribbon play",
-      "Mimi's Vocal Personality: recorded purr buffer plays on whispered secret instead of a synthetic love chord",
-      "Mimi's Vocal Personality: master mute interrupts an active recorded animal voice",
-      "Companion tabs: roving Tab stop leaves exactly one keyboard tab stop",
-      "Companion tabs: Left/Right Arrow changes focus and active panel with wraparound at both ends",
-      "Companion tabs: Home/End selects and focuses the first/last tab",
-      "Companion tabs: aria-selected, focus and visible panel stay synchronized"
+      "Reasons book: closed-by-default disclosure, page navigation, progress and replay",
+      "Companion tabs: roving focus, arrow navigation, Home/End and synchronized selected panel",
+      "Mimi's storybook: choice composition, backtracking invalidation, replay reset and responsive layout",
+      "Mimi's storybook sensory cues and reduced-motion handling",
+      "Wish sky: prepared/custom release, star counts and in-visit navigation",
+      "Loop 036: up to five most recent wishes, latest-wish default, selected wish reflected in story, replay reset, and 375px bounds"
     ],
-    "note": "Automated Chromium checks do not certify human sound-quality judgement, physical-device or human screen-reader behavior."
+    "note": "Automated Chromium checks do not certify human screen-reader, physical-device, production-alias, or human sound-quality behavior."
   },
   "deployment": {
     "target": "Vercel",
     "projectName": "malika-birthday",
     "projectDashboard": "https://vercel.com/tyyr1/malika-birthday",
     "productionStatus": "NOT_VERIFIED_OWNER_HANDOFF",
-    "latestMainCommit": "ba40db1c88d09207cf1e068b9c7df09d1a7428a8",
-    "latestMainStatus": "Loop 035 release-checkpoint main CI passed: https://github.com/teyyara/malika/actions/runs/38639400902. This verifies CI only, not the public production alias. Owner will handle deployment verification.",
+    "latestMainCommit": "98ceb9d184566b2498b0fc605eb0ea809c97e3b5",
+    "latestMainStatus": "Loop 036 main CI passed: https://github.com/teyyara/malika/actions/runs/38640794831. This verifies CI only, not the public production alias. Owner will handle deployment verification.",
     "lastKnownReadyCommit": "be66face920cffdc16dce08213ae7c232938d7d5",
     "lastKnownReadyDeploymentId": "dpl_CzGS17bNAaTbaUCH7uLAP7XR6rQv",
     "previousFailedMainCommit": "5fdbd292707e27a84ae85b8782fe4cc3c27c5e8f",
@@ -73,12 +63,12 @@
     ],
     "accessProblem": "Production was not inspected or verified by assistant per owner request; do not infer readiness from a preview status."
   },
-  "manualVisualQA": "Loop 035 screenshots and browser report uploaded by passing exact-head and main CI; physical-device QA not performed.",
+  "manualVisualQA": "Loop 036 screenshots and browser report uploaded by passing exact-head and main CI; physical-device QA not performed.",
   "screenReaderQA": "NOT_YET_OBSERVED",
   "realMobileDeviceQA": "NOT_TESTED",
   "nextHighValueWork": [
-    "Validate Loop 036 on the exact final PR head with Node/content tests, production build, and all Chromium journeys.",
-    "Merge only if exact-head CI passes, then verify the post-merge main workflow.",
+    "Wait for a new CONTINUE instruction before beginning another feature loop.",
+    "Keep additions local-only, keyboard-accessible, responsive, and reduced-motion-aware.",
     "Do not initiate a manual Vercel deployment or claim production-alias verification."
   ],
   "arcadeMastery": {
@@ -94,56 +84,55 @@
     "unlockRequirement": "Complete all five games, including all five wish-jar wishes.",
     "automatedTest": "Completing all five arcade quests unlocks the grand-secret finale."
   },
-  "releaseStateCommit": "3c7bba4a9bcaffcaeeaff65faf63bedeae1052a3",
+  "releaseStateCommit": "98ceb9d184566b2498b0fc605eb0ea809c97e3b5",
   "lastUpdated": "2026-10-14",
   "postMergeMainWorkflow": {
-    "runId": 38485545190,
-    "url": "https://github.com/teyyara/malika/actions/runs/38485545190",
-    "headSha": "3c7bba4a9bcaffcaeeaff65faf63bedeae1052a3",
+    "runId": 38640794831,
+    "url": "https://github.com/teyyara/malika/actions/runs/38640794831",
+    "headSha": "98ceb9d184566b2498b0fc605eb0ea809c97e3b5",
     "status": "completed",
     "conclusion": "success",
     "nodeContentTests": "PASS",
     "productionBuild": "PASS",
     "chromiumBrowserJourneys": "PASS",
-    "chromiumJourneysPassed": 58
+    "chromiumJourneysPassed": 59
   },
   "previousLoopMainValidation": {
-    "runId": 38639400902,
-    "url": "https://github.com/teyyara/malika/actions/runs/38639400902",
-    "headSha": "ba40db1c88d09207cf1e068b9c7df09d1a7428a8",
+    "runId": 38640794831,
+    "url": "https://github.com/teyyara/malika/actions/runs/38640794831",
+    "headSha": "98ceb9d184566b2498b0fc605eb0ea809c97e3b5",
     "status": "completed",
     "conclusion": "success"
   },
   "latestMainCheckpointValidation": {
-    "runId": 38639400902,
-    "url": "https://github.com/teyyara/malika/actions/runs/38639400902",
-    "headSha": "ba40db1c88d09207cf1e068b9c7df09d1a7428a8",
+    "runId": 38640794831,
+    "url": "https://github.com/teyyara/malika/actions/runs/38640794831",
+    "headSha": "98ceb9d184566b2498b0fc605eb0ea809c97e3b5",
     "conclusion": "success"
   },
   "currentCandidate": {
     "branch": "feat/loop-036-wishwoven-storybook",
-    "baseCommit": "ba40db1c88d09207cf1e068b9c7df09d1a7428a8",
     "feature": "A Wish Woven Into the Story",
     "requirement": "REQ-023",
-    "validation": "PR #47 is open. Exact final PR-head Node/content tests, production build, and the complete Chromium browser suite must pass before merge.",
-    "headSha": "c8cc8453849d1aca3c26ecd73456a39e5d6e0a2e"
+    "validation": "PR #47 merged at 98ceb9d184566b2498b0fc605eb0ea809c97e3b5. Exact PR-head workflow 38640128647 and post-merge main workflow 38640794831 both passed Node/content tests, production build, and all 59 Chromium browser journeys."
   },
   "pullRequest": {
     "url": "https://github.com/teyyara/malika/pull/47",
     "number": 47,
-    "state": "OPEN",
-    "headSha": "c8cc8453849d1aca3c26ecd73456a39e5d6e0a2e",
-    "baseSha": "ba40db1c88d09207cf1e068b9c7df09d1a7428a8"
+    "state": "MERGED",
+    "headSha": "6c52a9e084ad4b19c721345b6734c7f4c2653491",
+    "baseSha": "ba40db1c88d09207cf1e068b9c7df09d1a7428a8",
+    "mergeCommitSha": "98ceb9d184566b2498b0fc605eb0ea809c97e3b5"
   },
   "latestPassingWorkflowForCandidate": {
-    "runId": 38485047179,
-    "url": "https://github.com/teyyara/malika/actions/runs/38485047179",
-    "headSha": "ab0ddc8ce7b10dc8905cc7685fc227b945b499a6",
+    "runId": 38640128647,
+    "url": "https://github.com/teyyara/malika/actions/runs/38640128647",
+    "headSha": "6c52a9e084ad4b19c721345b6734c7f4c2653491",
     "conclusion": "success",
     "nodeContentTests": "PASS",
     "productionBuild": "PASS",
     "chromiumBrowserJourneys": "PASS",
-    "chromiumJourneysPassed": 58
+    "chromiumJourneysPassed": 59
   },
   "postMergeDocumentationCheckpoint": {
     "runId": 38484282755,

@@ -310,7 +310,7 @@ test("Mimi's tiny storybook turns three choices into a repeatable branching fair
   await expect(panel.getByRole("status")).toContainText("Copied. Nothing was sent or saved");
   const copiedStory = await page.evaluate(() => window.__copiedFairytales[0]);
   expect(copiedStory).toContain("Mimi followed a ladybug carrying a lantern");
-  expect(copiedStory).toContain("A wish from your sky:\\nMay you keep finding flowers, cats, unexpected kindness");
+  expect(copiedStory).toContain("A wish from your sky:\nMay you keep finding flowers, cats, unexpected kindness");
   expect(copiedStory).toContain("It could not promise every day would be easy");
 
   await page.evaluate(() => { window.__failFairytaleCopy = true; });

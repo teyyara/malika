@@ -376,3 +376,59 @@ test("Secret Arcade keeps keyboard focus inside its dialog when focus starts beh
   await expect(lastFocusable).toBeFocused();
 });
 
+test("Mimi visibly reacts to mistakes and correct moves in all five arcade games", async ({ page }) => {
+  await openArcade(page);
+  const companion = page.locator(".egg-game-companion");
+  const mimiArt = companion.locator(".cat-art");
+
+  await page.getByRole("button", { name: /Mimi's constellation chase/ }).click();
+  await expect(companion).toHaveAttribute("data-mimi-mood", "curious");
+  await page.getByTestId("star-target-3").click();
+  await expect(companion).toHaveAttribute("data-mimi-mood", "surprised");
+  await expect(mimiArt).toHaveClass(/cat-reaction-surprised/);
+  await expect(companion).toContainText("Follow her little clue");
+  await page.getByTestId("star-target-1").click();
+  await expect(companion).toHaveAttribute("data-mimi-mood", "delighted");
+  await expect(mimiArt).toHaveClass(/cat-reaction-delighted/);
+  await page.getByRole("button", { name: /Back to arcade/ }).click();
+
+  await page.getByRole("button", { name: /Mimi's memory match/ }).click();
+  await page.getByTestId("memory-card-moon-a").click();
+  await page.getByTestId("memory-card-paw-a").click();
+  await expect(companion).toHaveAttribute("data-mimi-mood", "surprised");
+  await expect(mimiArt).toHaveClass(/cat-reaction-surprised/);
+  await expect(page.locator(".egg-memory-card.is-mismatch")).toHaveCount(0, { timeout: 3000 });
+  await page.getByTestId("memory-card-moon-a").click();
+  await page.getByTestId("memory-card-moon-b").click();
+  await expect(companion).toHaveAttribute("data-mimi-mood", "delighted");
+  await expect(mimiArt).toHaveClass(/cat-reaction-delighted/);
+  await page.getByRole("button", { name: /Back to arcade/ }).click();
+
+  await page.getByRole("button", { name: /Pawprint rhythm/ }).click();
+  await page.getByRole("button", { name: "Play moon" }).click();
+  await expect(companion).toHaveAttribute("data-mimi-mood", "surprised");
+  await expect(mimiArt).toHaveClass(/cat-reaction-surprised/);
+  await page.locator(".egg-rhythm-watch").click();
+  await expect(page.getByRole("button", { name: "Play pawprints" })).toBeEnabled({ timeout: 6500 });
+  await page.getByRole("button", { name: "Play pawprints" }).click();
+  await expect(companion).toHaveAttribute("data-mimi-mood", "delighted");
+  await expect(mimiArt).toHaveClass(/cat-reaction-delighted/);
+  await page.getByRole("button", { name: /Back to arcade/ }).click();
+
+  await page.getByRole("button", { name: /Firefly hunt/ }).click();
+  await page.getByTestId("firefly-decoy-3").click();
+  await expect(companion).toHaveAttribute("data-mimi-mood", "surprised");
+  await expect(mimiArt).toHaveClass(/cat-reaction-surprised/);
+  await page.getByTestId("firefly-target-1").click();
+  await expect(companion).toHaveAttribute("data-mimi-mood", "delighted");
+  await expect(mimiArt).toHaveClass(/cat-reaction-delighted/);
+  await page.getByRole("button", { name: /Back to arcade/ }).click();
+
+  await page.getByRole("button", { name: /The little wish jar/ }).click();
+  await page.getByTestId("wish-key-paws").click();
+  await expect(companion).toHaveAttribute("data-mimi-mood", "surprised");
+  await expect(mimiArt).toHaveClass(/cat-reaction-surprised/);
+  await page.getByTestId("wish-key-moon").click();
+  await expect(companion).toHaveAttribute("data-mimi-mood", "love");
+  await expect(mimiArt).toHaveClass(/cat-reaction-love/);
+});

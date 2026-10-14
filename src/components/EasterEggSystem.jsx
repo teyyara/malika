@@ -651,6 +651,10 @@ export default function EasterEggSystem() {
             </div>
           </div>
           <div className="egg-celebration-content">
+            <div className="egg-game-companion egg-game-companion-happy" data-mimi-mood="happy">
+              <div className="egg-game-companion-portrait"><CatCharacter mood="happy" /></div>
+              <p className="egg-game-companion-copy">{GAME_MOOD_COPY.happy}</p>
+            </div>
             <button type="button" className="egg-reward-medallion" aria-label="Tap your prize to replay the victory fanfare" data-sound-cue={"achievement-" + celebrationId} onClick={() => playCuteSound("achievement-" + celebrationId)}>
               <span className="egg-reward-medallion-orbit">✧　·　♡　·　✦</span>
               <span className="egg-reward-medallion-symbol">{reward.glyph}</span>

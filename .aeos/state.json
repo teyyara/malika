@@ -123,9 +123,15 @@
     "baseCommit": "6353eff85240f23a7338b38c0769a6fd55ffd527",
     "feature": "Take This Little Story With You",
     "requirement": "REQ-025",
-    "validation": "Exact PR-head Node/content tests, production build, and full Chromium suite must pass before merge. The browser journey must verify clipboard success, clipboard failure/manual fallback, selected wish inclusion, reset, and 375px viewport fit."
+    "validation": "PR #51 is open. Node/content tests, production build, and the full Chromium browser suite must pass on the exact latest PR head before merge. Coverage includes clipboard success, rejected-write/manual fallback, selected-path text, replay reset, and 375px fit."
   },
-  "pullRequest": null,
+  "pullRequest": {
+    "url": "https://github.com/teyyara/malika/pull/51",
+    "number": 51,
+    "state": "OPEN",
+    "headSha": "f19c398eb333fe58f0b10e9ed7c04002b979d03a",
+    "baseSha": "6353eff85240f23a7338b38c0769a6fd55ffd527"
+  },
   "latestPassingWorkflowForCandidate": {
     "runId": 38643157760,
     "url": "https://github.com/teyyara/malika/actions/runs/38643157760",

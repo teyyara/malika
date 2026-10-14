@@ -14,16 +14,28 @@ test("Mimi has a tiny routine and responds through her own love language", async
 
   await expect(page.getByRole("heading", { name: "She has a whole tiny life of her own." })).toBeVisible();
   await expect(page.locator(".mimi-life-stage")).toBeVisible();
+  const mimiArt = page.locator(".mimi-life-stage .cat-art");
+  await expect(mimiArt).toHaveClass(/cat-reaction-curious/);
   await expect(page.locator(".mimi-life-stats")).toContainText("0 little notes found");
   await expect(page.locator(".mimi-life-message")).toContainText(/Mimi is keeping|Mimi has decided|Mimi just spotted|Mimi is saving/);
 
   await page.getByRole("button", { name: /Play with ribbon/ }).click();
   await expect(page.locator(".mimi-life-message")).toHaveText("Ribbon spotted. Dignity lost. Mimi has entered full zoomie mode.");
   await expect(page.locator(".mimi-life-stage")).toHaveClass(/mood-happy/);
+  await expect(mimiArt).toHaveClass(/cat-reaction-delighted/);
 
   await page.getByRole("button", { name: /Tell her a secret/ }).click();
   await expect(page.locator(".mimi-life-message")).toContainText("Mimi slow-blinks");
   await expect(page.locator(".mimi-life-stage")).toHaveClass(/mood-love/);
+  await expect(mimiArt).toHaveClass(/cat-reaction-love/);
+
+  await page.getByRole("button", { name: /Cozy nap/ }).click();
+  await expect(page.locator(".mimi-life-message")).toContainText("lavender comma");
+  await expect(mimiArt).toHaveClass(/cat-reaction-sleepy/);
+
+  await page.getByRole("button", { name: /A cuddle/ }).click();
+  await expect(page.locator(".mimi-life-message")).toContainText("cuddle appointment");
+  await expect(mimiArt).toHaveClass(/cat-reaction-love/);
 });
 
 test("prepared and custom wishes become glowing stars and stay in the sky while navigating", async ({ page }) => {

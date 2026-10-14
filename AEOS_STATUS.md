@@ -3,23 +3,26 @@
 Date: 14 October 2026  
 Repository: https://github.com/teyyara/malika  
 Release branch: `main`  
-Latest completed/validated loop: **037 — The Wish Sky Becomes a Constellation** (merged and validated)  
-Latest validated application checkpoint: `5b86e56ef2c2ef03beec934144d130a5212aac6d`  
-Current candidate: **Loop 038 — Mimi's Reactions Match the Words** (`fix/loop-038-mimi-reactive-gameplay`)  
-Candidate state: **VALIDATING_CANDIDATE — exact PR-head CI required before merge**  
-Deployment policy: **Owner-managed; do not initiate Vercel deployments.**
+Latest completed/validated loop: **038 — Mimi's Reactions Match the Words** (PR #52 merged and validated)  
+Latest validated application checkpoint: `ad94781b15af0c35a34f935bd4e80d53f1e8f902`  
+Current candidate: **None — waiting for a new CONTINUE instruction**  
+Exact PR-head validation: [workflow 38649741358](https://github.com/teyyara/malika/actions/runs/38649741358) — Node/content tests, production build, and 61 Chromium browser journeys passed.  
+Post-merge main validation: [workflow 38650387617](https://github.com/teyyara/malika/actions/runs/38650387617) — Node/content tests, production build, and 61 Chromium browser journeys passed.  
+Next state: **WAITING_FOR_CONTINUE**  
+Deployment policy: **Owner-managed. No Vercel deployment was initiated by this work.**
 
-## Loop 038 — Mimi's Reactions Match the Words (candidate)
+## Loop 038 — Mimi's Reactions Match the Words (merged and validated)
 
-- Branch: `fix/loop-038-mimi-reactive-gameplay`, based on the validated Loop 037 main checkpoint.
-- Fixed `CatCharacter` so its initial expression and idle motion follow its supplied scene mood; direct pet reactions remain temporary, and reduced-motion behavior stays supported.
-- Added a visible Mimi companion to all five Secret Arcade games. Wrong choices trigger her surprised expression, correct choices trigger delight (or a warm response in the wish jar), and a new game begins with curious Mimi.
-- Added Playwright regression assertions for ribbon play, nap, cuddle, and whispered-secret moods, plus wrong/correct moves in all five arcade games.
-- Added Product Contract v2.2 / REQ-025 and the Loop 038 evidence record.
-- No new dependency, external asset, backend, storage, paid feature, or Vercel action.
-- **Validation: pending. Do not merge until the exact PR-head workflow passes Node/content tests, production build, and the Chromium browser suite.**
-- **Last known-good commit remains:** `5b86e56ef2c2ef03beec934144d130a5212aac6d` (Loop 037).  
-- Current state: `VALIDATING_CANDIDATE`.
+- Pull request: [#52 — Loop 038: make Mimi react to moods and arcade moves](https://github.com/teyyara/malika/pull/52), merged at `ad94781b15af0c35a34f935bd4e80d53f1e8f902`.
+- Corrected `CatCharacter` so its default expression and idle motion follow the supplied scene mood; short pet reactions remain, and reduced-motion behavior is retained.
+- Added a visible Mimi companion to all five Secret Arcade games. Wrong moves show a surprised reaction, correct moves show delight or warmth, and completed games show her celebrating.
+- Added Playwright regressions for ribbon play, nap, cuddle, a whispered secret, wrong/correct interactions in all five mini-games, and the victory expression.
+- Added and accepted Product Contract v2.2 / REQ-025; evidence is recorded in `evidence/loop-038-mimi-reactive-gameplay.md`.
+- Exact PR-head CI and post-merge main CI both passed 61 Chromium journeys, Node/content tests, and the production build.
+- No new package, backend, external asset, storage, paid feature, or service was introduced.
+- Deployment remains owner-managed. Production alias, physical-device behavior, screen-reader behavior, and human audio-quality QA are not certified by the CI result.
+- The connected Vercel status check reported a separate `build-rate-limit` failure. No Vercel deployment action was used; do not infer production status from that check.
+- Current state: `WAITING_FOR_CONTINUE`. Do not start another autonomous loop until the next standalone `CONTINUE`.
 
 ## Product state
 

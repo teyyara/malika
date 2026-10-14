@@ -1,6 +1,6 @@
 # Product Contract v2.2 — Malika Birthday Universe
 
-Status: Loop 038 candidate — validation pending. Product Contract v2.1 remains the preceding accepted baseline until this change is validated and merged.
+Status: ACCEPTED — Loop 038 merged and validated in PR #52 at ad94781b15af0c35a34f935bd4e80d53f1e8f902. Product Contract v2.2 is now the accepted baseline for REQ-025; previously accepted requirements remain in force.
 
 ## Change request CR-038 — Mimi reacts like her words
 
@@ -21,3 +21,11 @@ Status: Loop 038 candidate — validation pending. Product Contract v2.1 remains
 **Risk:** R1 component/game feedback behavior.
 
 **Validation:** exact-PR-head Node/content tests, production build, and Playwright Chromium suite. New regression journeys assert actual kitten reaction classes for each daily-life mood and all five minigames. Passing automation does not certify human speaker-quality, screen-reader, physical-device, or production-alias behavior.
+
+
+## Validation record — Loop 038
+
+- Exact PR-head workflow [38649741358](https://github.com/teyyara/malika/actions/runs/38649741358): PASS — Node/content tests, production build, and 61 Chromium browser journeys.
+- Post-merge main workflow [38650387617](https://github.com/teyyara/malika/actions/runs/38650387617): PASS — Node/content tests, production build, and 61 Chromium browser journeys.
+- Merge commit: `ad94781b15af0c35a34f935bd4e80d53f1e8f902`.
+- Deployment / production alias: not performed or certified by this validation; owner-managed.

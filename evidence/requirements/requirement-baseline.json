@@ -159,8 +159,8 @@
       "id": "REQ-022",
       "requirement": "Mimi's existing storybook uses reduced-motion-aware page transitions, chapter-specific illustration accents, and brief synthesized sound cues for story start, changed choices, chapter navigation, finale, and replay while respecting the global sound control.",
       "risk": "R1",
-      "validation": "Playwright storybook journey: phase/chapter transitions, reduced-motion mode, Web Audio oscillator cue activity on story start and changed choice, branch consistency, replay reset, and 375px layout",
-      "status": "IMPLEMENTED_VALIDATION_PENDING"
+      "validation": "PASS — exact final PR-head workflow 38485047179 (head ab0ddc8ce7b10dc8905cc7685fc227b945b499a6) and post-merge main workflow 38485545190 (merge 3c7bba4a9bcaffcaeeaff65faf63bedeae1052a3) passed Node/content tests, production build, and all 58 Chromium browser journeys.",
+      "status": "IMPLEMENTED_VALIDATED"
     }
   ],
   "validationEvidence": {
@@ -168,5 +168,5 @@
     "mainRun": "https://github.com/teyyara/malika/actions/runs/38481311313",
     "result": "Loop 034 exact PR-head and post-merge main CI passed Node/content tests, production build, and all 58 Chromium journeys. REQ-021 covers keyboard tabs and synchronized focus/panel behavior."
   },
-  "lastValidatedAt": "2026-10-13"
+  "lastValidatedAt": "2026-10-14"
 }

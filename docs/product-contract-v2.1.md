@@ -26,3 +26,8 @@ When two or more wishes are released into the sky, Wish sky must draw a faint co
 ## Evidence standard
 
 Only exact PR-head CI supports promotion to main. Automated layout checks do not certify physical-device, human screen-reader, or production-alias behavior.
+
+
+## REQ-024 validation record
+
+Validated: exact PR-head workflow 38643157760 on `3a0ebc4662e8920a6d196bcb7a111a8227975391` and post-merge main workflow 38645157634 on merge `5b86e56ef2c2ef03beec934144d130a5212aac6d` passed Node/content tests, the production build, and all 60 Chromium browser journeys.

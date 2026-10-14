@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.0",
-  "runId": "malika-20261014-037",
-  "activeKeyphrase": "Malika Birthday Universe — Loop 037 The Wish Sky Becomes a Constellation",
+  "runId": "malika-20261014-038",
+  "activeKeyphrase": "Malika Birthday Universe — Loop 038: Mood-Consistent Mimi and Reactive Arcade Games",
   "repository": "teyyara/malika",
   "releaseBranch": "main",
-  "progressionBranch": "feat/loop-037-wish-constellation",
-  "currentLoop": 37,
-  "candidate": "malika-birthday-037-wish-constellation",
-  "status": "VALIDATED_MERGED",
-  "orchestrationState": "WAITING_FOR_CONTINUE",
+  "progressionBranch": "fix/loop-038-mimi-reactive-gameplay",
+  "currentLoop": 38,
+  "candidate": "malika-birthday-038-mimi-reactive-gameplay",
+  "status": "CANDIDATE_VALIDATION_PENDING",
+  "orchestrationState": "VALIDATING_CANDIDATE",
   "validatedApplicationCheckpoint": "5b86e56ef2c2ef03beec934144d130a5212aac6d",
   "personalization": {
     "recipientName": "Malika",
@@ -16,7 +16,7 @@
     "birthday": "12 October"
   },
   "automatedBrowserQA": {
-    "status": "PASS",
+    "status": "PASS — PREVIOUS VALIDATED MAIN CHECKPOINT ONLY",
     "specsPassed": 60,
     "coverage": [
       "Core navigation and all primary birthday scenes",
@@ -48,7 +48,7 @@
       "Wish constellation: star selection still updates selected wish",
       "Wish constellation: 1366px laptop and 375px phone viewport bounds"
     ],
-    "note": "Automated Chromium checks do not certify human screen-reader, physical-device, production-alias, or human sound-quality behavior."
+    "note": "The 60 Chromium journeys recorded here validate Loop 037 checkpoint 5b86e56ef2c2ef03beec934144d130a5212aac6d, not the Loop 038 candidate. Do not transfer this PASS to the candidate; see candidateValidation."
   },
   "deployment": {
     "target": "Vercel",
@@ -75,9 +75,11 @@
   "screenReaderQA": "NOT_YET_OBSERVED",
   "realMobileDeviceQA": "NOT_TESTED",
   "nextHighValueWork": [
-    "Wait for a new CONTINUE instruction before beginning another feature loop.",
-    "Keep additions local-only, keyboard-accessible, responsive, and reduced-motion-aware.",
-    "Do not initiate a manual Vercel deployment or claim production-alias verification."
+    "Open the Loop 038 candidate as a pull request to main.",
+    "Run exact PR-head Node/content tests, production build, and all Chromium browser journeys; fix failures before merge.",
+    "Merge to main only after all required PR-head checks pass, then verify post-merge main CI.",
+    "Do not initiate a Vercel deployment; the repository owner handles deployment and production verification.",
+    "After the validated checkpoint is merged, stop and wait for the next standalone CONTINUE."
   ],
   "arcadeMastery": {
     "games": [
@@ -119,10 +121,10 @@
     "conclusion": "success"
   },
   "currentCandidate": {
-    "branch": "feat/loop-037-wish-constellation",
-    "feature": "The Wish Sky Becomes a Constellation",
-    "requirement": "REQ-024",
-    "validation": "PR #49 merged at 5b86e56ef2c2ef03beec934144d130a5212aac6d. Exact PR-head workflow 38643157760 and post-merge main workflow 38645157634 both passed Node/content tests, production build, and all 60 Chromium browser journeys."
+    "branch": "fix/loop-038-mimi-reactive-gameplay",
+    "feature": "Mimi's Reactions Match the Words",
+    "requirement": "REQ-025",
+    "validation": "PENDING — exact PR-head workflow must pass Node/content tests, production build, and Chromium browser journeys before merge."
   },
   "pullRequest": {
     "url": "https://github.com/teyyara/malika/pull/49",
@@ -149,5 +151,15 @@
     "status": "IN_PROGRESS_AT_LAST_CHECK",
     "conclusion": null,
     "note": "This run contains only Loop 034 release-documentation changes. The latest application-code main run is 38481311313 and passed all 58 Chromium journeys. Do not claim this separate documentation checkpoint run passed unless rechecked."
+  },
+  "candidateValidation": {
+    "status": "PENDING",
+    "branch": "fix/loop-038-mimi-reactive-gameplay",
+    "baseCommit": "6353eff85240f23a7338b38c0769a6fd55ffd527",
+    "nodeContentTests": "PENDING",
+    "productionBuild": "PENDING",
+    "chromiumBrowserJourneys": "PENDING",
+    "mergeGate": "Exact PR-head CI must pass before merge to main.",
+    "deployment": "Owner-managed; no Vercel deployment may be initiated."
   }
 }

@@ -166,8 +166,8 @@
       "id": "REQ-023",
       "requirement": "When wishes have been released during the current visit, Mimi's storybook ending offers a keyboard-operable selector for up to five recent wishes, shows the chosen wish inside the final story, defaults to the latest wish, restores that default on replay, and hides the selector if there are no wishes.",
       "risk": "R1",
-      "validation": "Playwright releases two wishes, verifies latest-wish default, changes the selection and the story inlay, checks no overflow at 375px, and verifies replay restores the latest-wish selection; prior storybook journey covers the no-wish state.",
-      "status": "IMPLEMENTED_VALIDATION_PENDING"
+      "validation": "PASS — exact PR-head workflow 38640128647 (head 6c52a9e084ad4b19c721345b6734c7f4c2653491) and post-merge main workflow 38640794831 (merge 98ceb9d184566b2498b0fc605eb0ea809c97e3b5) passed Node/content tests, production build, and all 59 Chromium browser journeys.",
+      "status": "IMPLEMENTED_VALIDATED"
     }
   ],
   "validationEvidence": {

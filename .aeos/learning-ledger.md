@@ -110,3 +110,11 @@
 - REQ-022 in Product Contract v1.9 is now `IMPLEMENTED_VALIDATED`.
 - No package, remote asset, audio file, persistence, backend, analytics, paid feature, or manual Vercel deployment was added. Public production alias, human listening, physical-device, and human screen-reader checks remain unverified.
 - Loop 035 is closed. Orchestration returns to `WAITING_FOR_CONTINUE`.
+
+
+## Loop 036 — A Wish Woven Into the Story (candidate)
+
+- Connects the existing visit-only Wish sky collection to Mimi's existing fairytale ending.
+- The chooser offers up to the five most recently released wishes, defaults to the latest one, and updates the visible in-story wish when another is selected. Replaying the story restores the newest wish; with no wishes, no chooser or extra story card is rendered.
+- This passes data already held in parent React state. No local storage, external persistence, package, remote asset, backend, paid feature, analytics, or service is added.
+- Added a Playwright journey for two wishes, initial default, selection swap, final-page composition, replay reset, and mobile-width bounds. Exact final PR-head CI is the merge gate.

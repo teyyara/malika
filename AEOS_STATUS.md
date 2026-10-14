@@ -4,9 +4,9 @@ Date: 14 October 2026
 Repository: https://github.com/teyyara/malika  
 Release branch: `main`  
 Current completed loop: **037 — The Wish Sky Becomes a Constellation** (merged and validated)  
-Current candidate: **None — waiting for a new CONTINUE instruction**  
+Current candidate: **Loop 038 — Take This Little Story With You** (feature branch awaiting CI)  
 Latest validated application checkpoint: `5b86e56ef2c2ef03beec934144d130a5212aac6d`  
-Next state: **WAITING_FOR_CONTINUE**
+Next state: **WAITING_FOR_CI**
 
 ## Product state
 
@@ -190,3 +190,13 @@ The Loop 009 application merge commit is `8d40e627acff41fdc6cd2e7681cc563ed8a653
 - No extra line is rendered for zero or one wish. Existing star buttons and selected-wish text remain unchanged.
 - Added a browser journey for zero/one/multiple wishes, trace-point count, star selection, and laptop/375px bounds.
 - Exact PR-head workflow 38643157760 and post-merge main workflow 38645157634 both passed Node/content tests, production build, and all 60 Chromium browser journeys. No manual Vercel deployment was initiated; the production alias remains owner-unverified.
+
+
+## Loop 038 — Take This Little Story With You (candidate)
+
+- Branch: `feat/loop-038-copyable-fairytale`, based on main checkpoint `6353eff85240f23a7338b38c0769a6fd55ffd527`.
+- Adds a copy action to the completed fairytale. Plain text follows the chosen chapters, matching ending, sign-off, and current selected sky wish if present.
+- Clipboard success is reported only after the write resolves. A failed/unavailable clipboard exposes a labelled read-only field so the story can be manually selected.
+- Selecting another wish clears stale copy feedback; replay resets copy state. No sending or saving is performed by the site.
+- REQ-025 in Product Contract v2.2 is pending exact PR-head CI: Node/content tests, production build and all Chromium journeys.
+- No manual Vercel deployment is initiated. Production alias, human screen-reader and physical-device QA remain unverified.

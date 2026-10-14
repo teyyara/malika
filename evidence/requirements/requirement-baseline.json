@@ -1,5 +1,5 @@
 {
-  "contractVersion": "1.9",
+  "contractVersion": "2.0",
   "capturedAt": "2026-10-13",
   "personalization": {
     "recipient": "Malika",
@@ -161,6 +161,13 @@
       "risk": "R1",
       "validation": "PASS — exact final PR-head workflow 38485047179 (head ab0ddc8ce7b10dc8905cc7685fc227b945b499a6) and post-merge main workflow 38485545190 (merge 3c7bba4a9bcaffcaeeaff65faf63bedeae1052a3) passed Node/content tests, production build, and all 58 Chromium browser journeys.",
       "status": "IMPLEMENTED_VALIDATED"
+    },
+    {
+      "id": "REQ-023",
+      "requirement": "When wishes have been released during the current visit, Mimi's storybook ending offers a keyboard-operable selector for up to five recent wishes, shows the chosen wish inside the final story, defaults to the latest wish, restores that default on replay, and hides the selector if there are no wishes.",
+      "risk": "R1",
+      "validation": "Playwright releases two wishes, verifies latest-wish default, changes the selection and the story inlay, checks no overflow at 375px, and verifies replay restores the latest-wish selection; prior storybook journey covers the no-wish state.",
+      "status": "IMPLEMENTED_VALIDATION_PENDING"
     }
   ],
   "validationEvidence": {
@@ -168,5 +175,6 @@
     "mainRun": "https://github.com/teyyara/malika/actions/runs/38481311313",
     "result": "Loop 034 exact PR-head and post-merge main CI passed Node/content tests, production build, and all 58 Chromium journeys. REQ-021 covers keyboard tabs and synchronized focus/panel behavior."
   },
-  "lastValidatedAt": "2026-10-14"
+  "lastValidatedAt": "2026-10-14",
+  "lastUpdated": "2026-10-14"
 }

@@ -437,3 +437,14 @@ Open **The garden** → **Mimi's tiny storybook**. If sound is enabled, its exis
 Confirm that the illustrated orbit brightens subtly on chapter two/three and at the ending. Under reduced-motion preference, page contents should appear without the sliding/rotating entrance. Continue through all three chapters, change chapter one after visiting chapter two, and check later answers are cleared; reveal the ending and replay. At 375×812, confirm no horizontal overflow.
 
 The automated oscillator check verifies that the local tone scheduler is reached, not human-perceived loudness or sound quality. Human listening, screen-reader behavior, physical-device behavior, and live deployment remain separate QA checks.
+
+
+## 24. A Wish Woven Into the Story
+
+1. Open **The garden** → **Wish sky** and release two distinct wishes (one prepared wish and one custom wish are fine).
+2. Open **Mimi's tiny storybook**. Its introduction should mention that a star from the sky can join the ending.
+3. Complete the three chapters. On the final page, the latest wish should be selected and appear inside the pearl-paper story card. The wish selector must offer just the wishes released this visit (maximum five).
+4. Select the earlier wish. Its button should have `aria-pressed="true"`, the previously selected wish should become false, and the text inside the story should update without restarting the story.
+5. Choose **Tell another tiny story**, complete the chapters again, and confirm the selector defaults to the latest wish once more.
+6. At 375×812, check that the wish selector, long text and in-story card fit without horizontal overflow. Use the keyboard to focus and change wish choices; verify visible focus styling.
+7. With no wishes released, open the storybook and finish a story. The extra wish selector/inlay should not appear.

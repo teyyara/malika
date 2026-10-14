@@ -107,7 +107,7 @@ export default function GardenCompanionStudio({ discoveredCount, heartsCollected
           {activeTab === "wishes" && <WishSky releasedWishes={releasedWishes} onReleaseWish={onReleaseWish} />}
           {activeTab === "music" && <SoundtrackPlayer activeTrack={activeTrack} onPlayTrack={playTrack} onPauseTrack={pauseTrack} />}
           {activeTab === "picture" && <LivingPicture />}
-          {activeTab === "storybook" && <MimisStorybook />}
+          {activeTab === "storybook" && <MimisStorybook releasedWishes={releasedWishes} />}
         </motion.div>
       </AnimatePresence>
     </div>

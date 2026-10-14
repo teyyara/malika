@@ -378,3 +378,69 @@ test("companion tabs support roving focus, arrow navigation, Home and End", asyn
   expect(keyboardState.focused).toBe(4);
   expect(keyboardState.selected).toBe(4);
 });
+
+
+test("a wish released into the sky can be woven into Mimi's story ending", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.setViewportSize({ width: 1366, height: 768 });
+  await enterGarden(page);
+  await page.getByRole("tab", { name: "Wish sky" }).click();
+
+  const draft=page.getByRole("textbox", { name: "Write a wish in your own words" });
+  await page.getByRole("button", { name: /Tiny wonders/ }).click();
+  await page.getByRole("button", { name: /Release into the sky/ }).click();
+  const firstWish="May you keep finding flowers, cats, unexpected kindness, and little bits of magic tucked into ordinary days.";
+  const secondWish="May the small wonders you notice find their way back to you again.";
+  await draft.fill(secondWish);
+  await page.getByRole("button", { name: /Release into the sky/ }).click();
+  await expect(page.locator(".released-wish-star")).toHaveCount(2);
+
+  await page.getByRole("tab", { name: "Mimi's tiny storybook" }).click();
+  const panel=page.locator(".companion-panel-storybook");
+  await expect(panel).toContainText("One of the stars you sent into the sky can find its way into the ending");
+  await page.getByRole("button", { name: /Begin Mimi's story/ }).click();
+  await page.getByRole("button", { name: /Follow a ladybug lantern/ }).click();
+  await page.getByRole("button", { name: /Turn the tiny page/ }).click();
+  await page.getByRole("button", { name: /Invite the tiny friends/ }).click();
+  await page.getByRole("button", { name: /Turn the tiny page/ }).click();
+  await page.getByRole("button", { name: /A wish for softer days/ }).click();
+  await page.getByRole("button", { name: /Reveal our ending/ }).click();
+
+  const story=panel.getByRole("article", { name: "Mimi's tiny fairytale for Malika" });
+  const chooser=panel.locator(".mimi-storybook-wish-chooser");
+  await expect(chooser.getByRole("button")).toHaveCount(2);
+  const latestWish=chooser.getByRole("button", { name: "Weave this wish into the ending: " + secondWish });
+  const firstWishButton=chooser.getByRole("button", { name: "Weave this wish into the ending: " + firstWish });
+  await expect(latestWish).toHaveAttribute("aria-pressed", "true");
+  await expect(story.locator(".mimi-storybook-wish-inlay")).toContainText(secondWish);
+  await firstWishButton.click();
+  await expect(firstWishButton).toHaveAttribute("aria-pressed", "true");
+  await expect(latestWish).toHaveAttribute("aria-pressed", "false");
+  await expect(story.locator(".mimi-storybook-wish-inlay")).toContainText(firstWish);
+  await expect(story.locator(".mimi-storybook-wish-inlay")).not.toContainText(secondWish);
+
+  await page.setViewportSize({ width: 375, height: 812 });
+  const layout=await page.evaluate(()=>({
+    viewport:window.innerWidth,
+    document:document.documentElement.scrollWidth,
+    chooser:document.querySelector(".mimi-storybook-wish-chooser").getBoundingClientRect().toJSON(),
+    inlay:document.querySelector(".mimi-storybook-wish-inlay").getBoundingClientRect().toJSON(),
+    options:[...document.querySelectorAll(".mimi-storybook-wish-option")].map(e=>e.getBoundingClientRect().toJSON())
+  }));
+  expect(layout.document).toBeLessThanOrEqual(layout.viewport);
+  expect(layout.chooser.x).toBeGreaterThanOrEqual(0);
+  expect(layout.chooser.right).toBeLessThanOrEqual(layout.viewport+1);
+  expect(layout.inlay.right).toBeLessThanOrEqual(layout.viewport+1);
+  for(const option of layout.options) expect(option.right).toBeLessThanOrEqual(layout.viewport+1);
+
+  await page.getByRole("button", { name: /Tell another tiny story/ }).click();
+  await page.getByRole("button", { name: /Begin Mimi's story/ }).click();
+  await page.getByRole("button", { name: /Follow a ladybug lantern/ }).click();
+  await page.getByRole("button", { name: /Turn the tiny page/ }).click();
+  await page.getByRole("button", { name: /Invite the tiny friends/ }).click();
+  await page.getByRole("button", { name: /Turn the tiny page/ }).click();
+  await page.getByRole("button", { name: /A wish for softer days/ }).click();
+  await page.getByRole("button", { name: /Reveal our ending/ }).click();
+  await expect(chooser.getByRole("button", { name: "Weave this wish into the ending: " + secondWish })).toHaveAttribute("aria-pressed", "true");
+  await expect(story.locator(".mimi-storybook-wish-inlay")).toContainText(secondWish);
+});

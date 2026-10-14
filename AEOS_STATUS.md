@@ -4,9 +4,9 @@ Date: 13 October 2026
 Repository: https://github.com/teyyara/malika  
 Release branch: `main`  
 Current completed loop: **035 — The Storybook That Plays Along** (merged and validated)  
-Current candidate: **None — waiting for a new CONTINUE instruction**  
-Latest validated application checkpoint: `3c7bba4a9bcaffcaeeaff65faf63bedeae1052a3`  
-Next state: **WAITING_FOR_CONTINUE**
+Current candidate: **Loop 036 — A Wish Woven Into the Story** (feature branch awaiting CI)  
+Latest validated application checkpoint: `ba40db1c88d09207cf1e068b9c7df09d1a7428a8`  
+Next state: **WAITING_FOR_CI**
 
 ## Product state
 
@@ -169,3 +169,12 @@ The Loop 009 application merge commit is `8d40e627acff41fdc6cd2e7681cc563ed8a653
 - No new scene, dependency, audio file, storage, analytics, remote asset, or outside service was added.
 - **REQ-022** is `IMPLEMENTED_VALIDATED` in Product Contract v1.9 baseline.
 - No manual Vercel deployment was initiated. The public production alias remains unverified; human sound-quality, screen-reader, and physical-device QA remain outstanding.
+
+
+## Loop 036 — A Wish Woven Into the Story (candidate)
+
+- Branch: `feat/loop-036-wishwoven-storybook`, based on reconciled main `ba40db1c88d09207cf1e068b9c7df09d1a7428a8`.
+- A wish released into the sky can be selected into Mimi's storybook ending. The chooser shows at most the five most recent wishes, starts with the latest, changes the in-story wish in place, and resets to the latest when replaying.
+- No persistence or new storage was added; this reuses the current visit's existing wish array. Without released wishes the selector is absent and the story retains its previous layout.
+- Added a browser journey for selection, ending content, replay reset, and 375px overflow. Merge only when Node/content tests, production build, and all Chromium journeys pass on the exact final PR head.
+- No manual Vercel deployment is initiated.

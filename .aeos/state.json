@@ -42,7 +42,11 @@
       "Wish constellation: no trace with zero or one released wish; one decorative polyline with the positions of three wishes",
       "Wish constellation: SVG hidden from the accessibility tree and focus order",
       "Wish constellation: selecting a star still updates the selected wish",
-      "Wish constellation: laptop 1366px and mobile 375px viewport bounds"
+      "Wish constellation: laptop 1366px and mobile 375px viewport bounds",
+      "Wish constellation: hidden at zero/one wish and shown as one decorative polyline for three wishes",
+      "Wish constellation: SVG is hidden from accessibility tree and focus order",
+      "Wish constellation: star selection still updates selected wish",
+      "Wish constellation: 1366px laptop and 375px phone viewport bounds"
     ],
     "note": "Automated Chromium checks do not certify human screen-reader, physical-device, production-alias, or human sound-quality behavior."
   },

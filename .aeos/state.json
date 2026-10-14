@@ -115,9 +115,16 @@
     "baseCommit": "73767abae28833b94cc700337128add446e64f01",
     "feature": "The Wish Sky Becomes a Constellation",
     "requirement": "REQ-024",
-    "validation": "PR-head Node/content tests, production build and the complete Chromium suite must pass on the final exact head before merge."
+    "validation": "PR #49 is open. Exact final PR-head Node/content tests, production build, and all Chromium journeys must pass before merge.",
+    "headSha": "f75b058c1d5d2ebb102c6e5c1e3ce9ae3890935b"
   },
-  "pullRequest": null,
+  "pullRequest": {
+    "url": "https://github.com/teyyara/malika/pull/49",
+    "number": 49,
+    "state": "OPEN",
+    "headSha": "f75b058c1d5d2ebb102c6e5c1e3ce9ae3890935b",
+    "baseSha": "73767abae28833b94cc700337128add446e64f01"
+  },
   "latestPassingWorkflowForCandidate": {
     "runId": 38640128647,
     "url": "https://github.com/teyyara/malika/actions/runs/38640128647",

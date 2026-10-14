@@ -3,10 +3,10 @@
 Date: 14 October 2026  
 Repository: https://github.com/teyyara/malika  
 Release branch: `main`  
-Current completed loop: **036 — A Wish Woven Into the Story** (merged and validated)  
-Current candidate: **Loop 037 — The Wish Sky Becomes a Constellation** (feature branch awaiting CI)  
-Latest validated application checkpoint: `98ceb9d184566b2498b0fc605eb0ea809c97e3b5`  
-Next state: **WAITING_FOR_CI**
+Current completed loop: **037 — The Wish Sky Becomes a Constellation** (merged and validated)  
+Current candidate: **None — waiting for a new CONTINUE instruction**  
+Latest validated application checkpoint: `5b86e56ef2c2ef03beec934144d130a5212aac6d`  
+Next state: **WAITING_FOR_CONTINUE**
 
 ## Product state
 

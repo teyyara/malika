@@ -14,8 +14,11 @@ A wish already released into Wish sky during the current visit can be woven into
 - Uses native buttons with explicit accessible names and `aria-pressed`, responsive layout, and existing sound cues.
 - No state is duplicated to storage. No new package, remote asset, backend, analytics, paid feature, or external service.
 
-## Validation plan
+## Validation results
 
-- Exact final PR-head CI must pass Node/content tests, production build, and the full Chromium browser suite.
-- Browser coverage releases two wishes, checks default and changed selection, confirms the in-story card matches the selected wish, checks replay reset, and measures 375px viewport bounds.
-- No manual Vercel deployment is initiated; production alias, human screen-reader and physical-device behavior remain owner/human QA gates.
+- **Exact final PR-head:** [workflow 38640128647](https://github.com/teyyara/malika/actions/runs/38640128647) passed on `6c52a9e084ad4b19c721345b6734c7f4c2653491`.
+- **Post-merge main:** [workflow 38640794831](https://github.com/teyyara/malika/actions/runs/38640794831) passed on merge commit `98ceb9d184566b2498b0fc605eb0ea809c97e3b5`.
+- Both passed Node/content tests, the production build and all **59 Chromium browser journeys**.
+- New coverage releases two wishes, confirms the latest default, changes the selection, verifies that the text rendered inside the story follows the selection, checks the no-overflow bounds at 375px, and confirms replay returns to the latest wish.
+- The original storybook journey still completes an ending with no wishes released and confirms the optional UI is absent.
+- No manual Vercel deployment is initiated. Production-alias, human screen-reader and physical-device status remain unverified.

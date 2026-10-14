@@ -102,10 +102,11 @@
 - Loop 034 is closed. Orchestration returns to `WAITING_FOR_CONTINUE`.
 
 
-## Loop 035 — The Storybook That Plays Along (candidate)
+## Loop 035 — final outcome (2026-10-14)
 
-- Adds reduced-motion-aware page transitions to Mimi's existing storybook, with restrained illustration accents keyed to chapter and ending.
-- Reuses the existing synthesized Web Audio melody helper for start, new-choice, next/back, ending and replay cues. Re-selecting the same choice is quiet, and the global sound flag/volume continue to govern playback.
-- Added Playwright assertions for phase/chapter changes, reduced-motion mode, tone oscillator activity on story start and a changed choice, the existing branching/replay behavior, and 375px bounds.
-- Product Contract v1.9 / REQ-022, content evidence and QA guide are included in this candidate.
-- **Candidate branch:** `feat/loop-035-living-storybook`. Merge only after exact PR-head Node/content tests, production build, and all Chromium journeys pass. No manual Vercel deployment is initiated.
+- Merged PR #45 at `3c7bba4a9bcaffcaeeaff65faf63bedeae1052a3`.
+- Exact final PR-head workflow [38485047179](https://github.com/teyyara/malika/actions/runs/38485047179) and post-merge main workflow [38485545190](https://github.com/teyyara/malika/actions/runs/38485545190) both passed Node/content tests, production build, and all **58 Chromium browser journeys**.
+- Storybook page/phase transitions are reduced-motion-aware, chapter two/three/end artwork responds subtly, and short tone cues use the existing Web Audio system. Existing sound toggle and volume are preserved.
+- REQ-022 in Product Contract v1.9 is now `IMPLEMENTED_VALIDATED`.
+- No package, remote asset, audio file, persistence, backend, analytics, paid feature, or manual Vercel deployment was added. Public production alias, human listening, physical-device, and human screen-reader checks remain unverified.
+- Loop 035 is closed. Orchestration returns to `WAITING_FOR_CONTINUE`.

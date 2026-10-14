@@ -1,6 +1,6 @@
 # Product Contract v1.9 — Malika Birthday Universe
 
-Status: Loop 035 change request implemented on a feature branch on 14 October 2026. Product Contract v1.8 remains the preceding baseline; this change makes Mimi's existing storybook feel more tactile without adding assets or navigation.
+Status: Loop 035 merged and validated on 14 October 2026. Product Contract v1.8 remains the preceding baseline; this change makes Mimi's existing storybook feel more tactile without adding assets or navigation.
 
 ## Change request CR-035 — The Storybook That Plays Along
 
@@ -22,6 +22,8 @@ The existing storybook must make progression, choices, and the final reveal feel
 
 **Risk:** R1 (animation/audio additions inside an existing interactive component).  
 **Validation:** Playwright asserts phase/chapter state, reduced-motion mode, sound cue oscillator activity on story start and a changed choice, all prior branching behavior, and 375px layout. CI must also pass Node/content tests, the production build, and all existing Chromium journeys.
+
+**Validation completed:** exact final PR-head workflow [38485047179](https://github.com/teyyara/malika/actions/runs/38485047179) on `ab0ddc8ce7b10dc8905cc7685fc227b945b499a6` and post-merge main workflow [38485545190](https://github.com/teyyara/malika/actions/runs/38485545190) on merge `3c7bba4a9bcaffcaeeaff65faf63bedeae1052a3` both passed Node/content tests, production build, and all 58 Chromium browser journeys.
 
 ## Evidence standard
 

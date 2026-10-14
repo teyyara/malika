@@ -651,3 +651,71 @@
   .egg-star-trail-progress { transition:none !important; }
   .egg-rhythm-cue { box-shadow:none; }
 }
+
+/* Loop 038 — give every arcade quest a visible, reactive Mimi companion. */
+.egg-game-companion {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: min(420px, 100%);
+  min-height: 74px;
+  margin: 0 auto 14px;
+  padding: 7px 16px;
+  border: 1px solid rgba(222, 198, 255, .16);
+  border-radius: 18px;
+  background: linear-gradient(110deg, rgba(153, 112, 202, .105), rgba(255, 255, 255, .025));
+  transition: border-color .2s ease, background .2s ease;
+}
+.egg-game-companion-portrait {
+  display: grid;
+  flex: 0 0 66px;
+  place-items: center;
+  width: 66px;
+  height: 62px;
+  overflow: visible;
+}
+.egg-game-companion-portrait .cat-character {
+  width: 100%;
+  margin: 0 auto;
+}
+.egg-game-companion-portrait .cat-art {
+  filter: drop-shadow(0 0 10px rgba(218, 183, 255, .15));
+}
+.egg-game-companion-copy {
+  flex: 1 1 auto;
+  margin: 0;
+  color: #e8d4ff;
+  text-align: left;
+  font-size: 11px;
+  line-height: 1.6;
+}
+.egg-game-companion-surprised {
+  border-color: rgba(255, 177, 213, .42);
+  background: linear-gradient(110deg, rgba(177, 90, 143, .13), rgba(255, 255, 255, .025));
+}
+.egg-game-companion-delighted,
+.egg-game-companion-happy {
+  border-color: rgba(255, 224, 166, .34);
+  background: linear-gradient(110deg, rgba(168, 126, 75, .12), rgba(255, 255, 255, .025));
+}
+@media (max-width: 380px) {
+  .egg-game-companion {
+    gap: 8px;
+    min-height: 66px;
+    padding-inline: 10px;
+  }
+  .egg-game-companion-portrait {
+    flex-basis: 56px;
+    width: 56px;
+    height: 56px;
+  }
+  .egg-game-companion-copy {
+    font-size: 10px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .egg-game-companion {
+    transition: none;
+  }
+}

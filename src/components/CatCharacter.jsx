@@ -2,24 +2,35 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { playCuteSound, subscribeToAnimalVoice } from "../audio/soundEffects.js";
 
-const reactions = ["idle", "curious", "delighted", "sleepy", "love", "surprised"];
+const reactions = ["curious", "delighted", "surprised", "sleepy", "love"];
+const moodReactions = { idle: "idle", curious: "curious", happy: "delighted", delighted: "delighted", sleepy: "sleepy", love: "love", surprised: "surprised" };
 const danceSparkles = ["♥", "✦", "✧", "♡"];
 
 export default function CatCharacter({ mood = "curious", onClick, label = "A little lavender kitten" }) {
   const reduceMotion = useReducedMotion();
-  const [reactionIndex, setReactionIndex] = useState(0);
+  const [reactionIndex, setReactionIndex] = useState(-1);
+  const [petReaction, setPetReaction] = useState(null);
   const [isDancing, setIsDancing] = useState(false);
   const [voiceReaction, setVoiceReaction] = useState("idle");
-  const reaction = reactions[reactionIndex];
+  const reaction = petReaction || moodReactions[mood] || "curious";
   const petStreak = useRef({ count: 0, lastAt: 0 });
   const danceTimer = useRef(null);
   const meowTimer = useRef(null);
+  const reactionTimer = useRef(null);
   const artRef = useRef(null);
 
   useEffect(() => () => {
     window.clearTimeout(danceTimer.current);
     window.clearTimeout(meowTimer.current);
+    window.clearTimeout(reactionTimer.current);
   }, []);
+
+  // Parent-provided moods describe the scene, so never let an old pet reaction
+  // mask a new cuddle, nap, zoomie, or surprise state.
+  useEffect(() => {
+    window.clearTimeout(reactionTimer.current);
+    setPetReaction(null);
+  }, [mood]);
 
   useEffect(() => {
     if (reduceMotion) return undefined;
@@ -38,10 +49,32 @@ export default function CatCharacter({ mood = "curious", onClick, label = "A lit
   let animation;
   let duration = 3.7;
   let repeat = Infinity;
+  const moodDrivesAnimation = petReaction === null;
+
   if (reduceMotion) {
     animation = { y: 0, rotate: 0, scale: 1 };
     duration = 0.01;
     repeat = 0;
+  } else if (moodDrivesAnimation && mood === "happy") {
+    animation = { y: [0, -6, -2, -8, 0], rotate: [0, -2, 2, -1, 0], scale: [1, 1.02, 1, 1.025, 1] };
+    duration = 2.8;
+    repeat = Infinity;
+  } else if (moodDrivesAnimation && mood === "love") {
+    animation = { y: [0, -3, 0], rotate: [0, -1.2, 0], scale: [1, 1.018, 1] };
+    duration = 2.4;
+    repeat = Infinity;
+  } else if (moodDrivesAnimation && mood === "sleepy") {
+    animation = { y: [0, 1.5, 0], rotate: [0, 1.1, 0], scale: [1, 0.995, 1] };
+    duration = 3.5;
+    repeat = Infinity;
+  } else if (moodDrivesAnimation && mood === "curious") {
+    animation = { y: [0, -3, 0], rotate: [0, -2.5, 2, 0] };
+    duration = 4.1;
+    repeat = Infinity;
+  } else if (moodDrivesAnimation && mood === "surprised") {
+    animation = { y: [0, -4, 0], rotate: [0, 1.5, -1, 0], scale: [1, 1.035, 1] };
+    duration = 1.15;
+    repeat = 2;
   } else if (reaction === "delighted") {
     animation = { y: [0, -12, -4, -15, 0], rotate: [0, -5, 6, -3, 0], scale: [1, 1.035, 1] };
     duration = 0.86;
@@ -58,14 +91,6 @@ export default function CatCharacter({ mood = "curious", onClick, label = "A lit
     animation = { y: [0, -8, 0], rotate: [0, -3, 3, 0], scale: [1, 1.025, 1] };
     duration = 1.05;
     repeat = 0;
-  } else if (reaction === "curious") {
-    animation = { y: [0, -4, 0], rotate: [0, -2, 2, 0] };
-    duration = 0.72;
-    repeat = 0;
-  } else if (mood === "happy") {
-    animation = { y: [0, -6, -2, -8, 0], rotate: [0, -2, 2, -1, 0], scale: [1, 1.02, 1, 1.025, 1] };
-    duration = 2.8;
-    repeat = Infinity;
   } else {
     animation = { y: [0, -3, 0], rotate: [0, -0.6, 0.6, 0] };
     duration = 4.2;
@@ -89,7 +114,17 @@ export default function CatCharacter({ mood = "curious", onClick, label = "A lit
     const startedDance = streak >= 3;
     petStreak.current = startedDance ? { count: 0, lastAt: 0 } : { count: streak, lastAt: now };
 
-    setReactionIndex((current) => (current + 1) % reactions.length);
+    const nextReactionIndex = (reactionIndex + 1) % reactions.length;
+    setReactionIndex(nextReactionIndex);
+    // A scene mood wins over the generic pet cycle when the parent is describing
+    // a specific action. Neutral garden pets still get a varied little reaction.
+    const nextReaction = mood === "curious" || mood === "idle"
+      ? reactions[nextReactionIndex]
+      : (moodReactions[mood] || reactions[nextReactionIndex]);
+    setPetReaction(startedDance ? "delighted" : nextReaction);
+    window.clearTimeout(reactionTimer.current);
+    reactionTimer.current = window.setTimeout(() => setPetReaction(null), startedDance ? 2450 : 1650);
+
     const voice = startedDance ? "meow" : streak % 2 === 0 ? "purr" : "meow";
     setVoiceReaction(voice);
     window.clearTimeout(meowTimer.current);

@@ -3,10 +3,23 @@
 Date: 14 October 2026  
 Repository: https://github.com/teyyara/malika  
 Release branch: `main`  
-Current completed loop: **037 — The Wish Sky Becomes a Constellation** (merged and validated)  
-Current candidate: **None — waiting for a new CONTINUE instruction**  
+Latest completed/validated loop: **037 — The Wish Sky Becomes a Constellation** (merged and validated)  
 Latest validated application checkpoint: `5b86e56ef2c2ef03beec934144d130a5212aac6d`  
-Next state: **WAITING_FOR_CONTINUE**
+Current candidate: **Loop 038 — Mimi's Reactions Match the Words** (`fix/loop-038-mimi-reactive-gameplay`)  
+Candidate state: **VALIDATING_CANDIDATE — exact PR-head CI required before merge**  
+Deployment policy: **Owner-managed; do not initiate Vercel deployments.**
+
+## Loop 038 — Mimi's Reactions Match the Words (candidate)
+
+- Branch: `fix/loop-038-mimi-reactive-gameplay`, based on the validated Loop 037 main checkpoint.
+- Fixed `CatCharacter` so its initial expression and idle motion follow its supplied scene mood; direct pet reactions remain temporary, and reduced-motion behavior stays supported.
+- Added a visible Mimi companion to all five Secret Arcade games. Wrong choices trigger her surprised expression, correct choices trigger delight (or a warm response in the wish jar), and a new game begins with curious Mimi.
+- Added Playwright regression assertions for ribbon play, nap, cuddle, and whispered-secret moods, plus wrong/correct moves in all five arcade games.
+- Added Product Contract v2.2 / REQ-025 and the Loop 038 evidence record.
+- No new dependency, external asset, backend, storage, paid feature, or Vercel action.
+- **Validation: pending. Do not merge until the exact PR-head workflow passes Node/content tests, production build, and the Chromium browser suite.**
+- **Last known-good commit remains:** `5b86e56ef2c2ef03beec934144d130a5212aac6d` (Loop 037).  
+- Current state: `VALIDATING_CANDIDATE`.
 
 ## Product state
 

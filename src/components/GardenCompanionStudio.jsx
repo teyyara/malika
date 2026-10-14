@@ -199,6 +199,18 @@ function WishSky({ releasedWishes, onReleaseWish }) {
     <div className="wish-sky-field" aria-label="Your collection of released wishes">
       <span className="wish-sky-moon" aria-hidden="true">☾</span>
       <span className="wish-sky-orbit" aria-hidden="true" />
+      {releasedWishes.length > 1 && <svg
+        className="wish-constellation-lines"
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+        focusable="false"
+      ><polyline
+        className="wish-constellation-path"
+        points={releasedWishes.map((wish) => wish.left + "," + wish.top).join(" ")}
+        fill="none"
+        vectorEffect="non-scaling-stroke"
+      /></svg>}
       {releasedWishes.length === 0 && <p className="wish-sky-empty">Your first little star is waiting for a wish.</p>}
       {releasedWishes.map((wish) => <button
         key={wish.id}

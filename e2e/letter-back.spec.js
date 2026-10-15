@@ -109,7 +109,7 @@ test("letter starters never silently truncate a draft near its character limit",
   await draft.fill("x".repeat(750));
   await starter.click();
   const updatedDraft = await draft.inputValue();
-  expect(updatedDraft).toContain("\\n\\nSomething I want to thank you for is…");
+  expect(updatedDraft).toContain("\n\nSomething I want to thank you for is…");
   expect(updatedDraft.length).toBeLessThanOrEqual(800);
   await expect(page.locator(".letter-back-starter-status")).toHaveCount(0);
 });

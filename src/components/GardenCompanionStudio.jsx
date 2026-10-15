@@ -173,12 +173,13 @@ function MimiDailyLife({ discoveredCount, heartsCollected }) {
 
 function WishSky({ releasedWishes, onReleaseWish }) {
   const [draft, setDraft] = useState("");
-  const [chosenPreparedId, setChosenPreparedId] = useState(preparedWishes[0].id);
   const [selectedWishId, setSelectedWishId] = useState(releasedWishes.at(-1)?.id || null);
   const selectedWish = releasedWishes.find((wish) => wish.id === selectedWishId) || null;
+  // A preset is selected only while the draft exactly contains that preset.
+  // This keeps its visual and aria-pressed state honest after edits or release.
+  const chosenPreparedId = preparedWishes.find((wish) => wish.text === draft)?.id || null;
 
   function choosePrepared(wish) {
-    setChosenPreparedId(wish.id);
     setDraft(wish.text);
   }
 

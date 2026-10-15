@@ -46,8 +46,13 @@ test("prepared and custom wishes become glowing stars and stay in the sky while 
   await page.getByRole("tab", { name: "Wish sky" }).click();
 
   const draft = page.getByRole("textbox", { name: "Write a wish in your own words" });
-  await page.getByRole("button", { name: /Tiny wonders/ }).click();
+  const tinyWonders = page.getByRole("button", { name: /Tiny wonders/ });
+  await expect(tinyWonders).toHaveAttribute("aria-pressed", "false");
+  await expect(tinyWonders).not.toHaveClass(/is-selected/);
+
+  await tinyWonders.click();
   await expect(draft).toHaveValue(/cats, unexpected kindness/i);
+  await expect(tinyWonders).toHaveAttribute("aria-pressed", "true");
 
   await page.getByRole("button", { name: /Release into the sky/ }).click();
   await expect(page.locator(".released-wish-star")).toHaveCount(1);
@@ -55,8 +60,13 @@ test("prepared and custom wishes become glowing stars and stay in the sky while 
   await expect(page.locator(".wish-selected-note")).toContainText("Released with love by Zack");
   await expect(sky).toHaveAttribute("data-wish-count", "1");
   await expect(sky).toHaveAttribute("data-sky-mood", "moonrise");
+  await expect(draft).toHaveValue("");
+  await expect(tinyWonders).toHaveAttribute("aria-pressed", "false");
+  await expect(tinyWonders).not.toHaveClass(/is-selected/);
 
   await draft.fill("May Malika always find a reason to smile, even on an ordinary Tuesday.");
+  await expect(tinyWonders).toHaveAttribute("aria-pressed", "false");
+  await expect(tinyWonders).not.toHaveClass(/is-selected/);
   await page.getByRole("button", { name: /Release into the sky/ }).click();
   await expect(page.locator(".released-wish-star")).toHaveCount(2);
   await expect(page.locator(".released-wish-list button")).toHaveCount(2);

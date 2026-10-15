@@ -3,13 +3,22 @@
 Date: 15 October 2026  
 Repository: https://github.com/teyyara/malika  
 Release branch: `main`  
-Latest completed/validated loop: **040 — Contextual Arcade Hints** (PR #54 merged and validated)  
-Latest validated application checkpoint: `df18310c616af7c418a9930ead7e889cb84df900`  
-Current candidate: **None — waiting for a new CONTINUE instruction**  
-Exact PR-head validation: [workflow 38736617748](https://github.com/teyyara/malika/actions/runs/38736617748) — Node/content tests, production build, and 62 Chromium browser journeys passed.  
-Post-merge main validation: [workflow 38737299677](https://github.com/teyyara/malika/actions/runs/38737299677) — Node/content tests, production build, and 62 Chromium browser journeys passed.  
-Next state: **WAITING_FOR_CONTINUE**  
-Deployment policy: **Owner-managed. No manual Vercel deployment was initiated.**
+Latest completed/validated loop: **040 — Contextual Arcade Hints** (merged and validated)  
+Latest validated main metadata checkpoint: `fb607aadfd183bb36f5942732779094fd6fec0cc`  
+Current candidate: **Loop 041 — Prepared-Wish Selection Consistency** (`fix/loop-041-prepared-wish-selection`)  
+Candidate state: **VALIDATING_CANDIDATE — exact PR-head CI required before merge**  
+Deployment policy: **Owner-managed. No manual Vercel deployment.**
+
+## Loop 041 — Prepared-Wish Selection Consistency (candidate)
+
+- Branch: `fix/loop-041-prepared-wish-selection`, based on `fb607aadfd183bb36f5942732779094fd6fec0cc`, the latest validated main metadata checkpoint.
+- Fixed a Wish Sky mismatch: the first preset previously appeared selected before its text was placed into the draft, and selected styling could remain when the draft was changed to custom text or cleared after releasing.
+- Preset active state is now derived from whether the textarea exactly matches its text. The label, pressed state, and draft content therefore stay in sync.
+- Added regression assertions for initial state, selecting a preset, editing a custom wish, and releasing a wish.
+- Added Product Contract v2.5 / REQ-028 and Loop 041 evidence.
+- No new package, backend, browser storage, remote asset, paid feature, analytics, or external service.
+- **Validation pending. Do not merge until exact PR-head Node/content tests, production build, and all Chromium browser journeys pass.**
+- Deployment is owner-managed; no manual Vercel deployment is initiated.
 
 ## Loop 040 — Contextual Arcade Hints (merged and validated)
 

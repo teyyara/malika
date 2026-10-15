@@ -242,7 +242,8 @@ test("completing all five arcade quests unlocks the grand-secret finale", async 
 
   await page.getByRole("button", { name: /The little wish jar/ }).click();
   await page.getByTestId("wish-key-paws").click();
-  await expect(page.locator(".egg-toast")).toContainText("wax and wane");
+  await expect(page.locator(".egg-game-feedback")).toContainText("wax and wane");
+  await expect(page.locator(".egg-toast")).toHaveCount(0);
   for (const answer of ["moon", "paws", "heart", "star", "shooting-star"]) {
     await page.getByTestId("wish-key-" + answer).click();
   }
@@ -338,9 +339,11 @@ test("Pawprint rhythm rejects an incorrect beat and allows the code to be replay
   await page.getByRole("button", { name: /Pawprint rhythm/ }).click();
   await page.getByRole("button", { name: "Play moon" }).click();
   await expect(page.locator(".egg-progress")).toHaveText("Beats repeated: 0 / 6");
-  await expect(page.locator(".egg-toast")).toContainText("combo is gone");
+  await expect(page.locator(".egg-game-feedback")).toContainText("combo is gone");
+  await expect(page.locator(".egg-toast")).toHaveCount(0);
 
   await page.getByRole("button", { name: /Watch Mimi's rhythm/ }).click();
+  await expect(page.locator(".egg-game-feedback")).toHaveCount(0);
   await expect(page.getByRole("button", { name: "Play pawprints" })).toBeEnabled({ timeout: 6500 });
   for (const symbol of ["Play pawprints", "Play moon", "Play purple heart", "Play sparkle", "Play pawprints", "Play moon"]) {
     await page.getByRole("button", { name: symbol }).click();

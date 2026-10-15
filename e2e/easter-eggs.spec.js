@@ -100,7 +100,10 @@ test("the constellation chase keeps wrong-answer hints inside the game and still
   await expect(page.locator(".egg-toast")).toHaveCount(0);
   await expect(page.getByRole("dialog", { name: "Mimi's constellation chase" })).toBeVisible();
 
-  for (let step = 1; step <= 8; step += 1) await page.getByTestId("star-target-" + step).click();
+  await page.getByTestId("star-target-1").click();
+  await expect(page.locator(".egg-game-feedback")).toHaveCount(0);
+  await expect(page.locator(".egg-progress")).toHaveText("1 / 8 trail stars found");
+  for (let step = 2; step <= 8; step += 1) await page.getByTestId("star-target-" + step).click();
   await expectCelebration(page, "You found the heart in the stars.", "starlight", "8 / 8 trail stars found");
   await expect(page.locator(".egg-reward-score")).toHaveText("8 / 8 trail stars found");
 });
@@ -144,6 +147,7 @@ test("Mimi's six-beat rhythm can be replayed and must be repeated in sequence", 
   await expect(page.locator(".egg-game-feedback")).toContainText("combo is gone");
   await expect(page.locator(".egg-toast")).toHaveCount(0);
   await watch.click();
+  await expect(page.locator(".egg-game-feedback")).toHaveCount(0);
   await expect(paw).toBeEnabled({ timeout: 6500 });
 
   for (const symbol of ["Play pawprints", "Play moon", "Play purple heart", "Play sparkle", "Play pawprints", "Play moon"]) {
@@ -159,7 +163,9 @@ test("the firefly hunt rejects dim decoys and rewards the five golden lights", a
   await expect(page.locator(".egg-progress")).toHaveText("0 / 5 real fireflies caught");
   await expect(page.locator(".egg-game-feedback")).toContainText("fake light");
   await expect(page.locator(".egg-toast")).toHaveCount(0);
-  for (const id of [1, 2, 4, 5, 7]) await page.getByTestId("firefly-target-" + id).click();
+  await page.getByTestId("firefly-target-1").click();
+  await expect(page.locator(".egg-game-feedback")).toHaveCount(0);
+  for (const id of [2, 4, 5, 7]) await page.getByTestId("firefly-target-" + id).click();
   await expectCelebration(page, "You just lit up the whole garden.", "fireflies", "5 / 5 fireflies caught");
   await expect(page.locator(".egg-reward-score")).toHaveText("5 / 5 fireflies caught");
 });

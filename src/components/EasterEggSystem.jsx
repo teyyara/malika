@@ -158,6 +158,7 @@ export default function EasterEggSystem() {
   const [unlocked, setUnlocked] = useState([]);
   const [completedGames, setCompletedGames] = useState([]);
   const [toast, setToast] = useState("");
+  const [gameFeedback, setGameFeedback] = useState("");
   const [caughtStars, setCaughtStars] = useState([]);
   const [caughtFireflies, setCaughtFireflies] = useState([]);
   const [memoryDeck, setMemoryDeck] = useState(MEMORY_CARDS);
@@ -175,6 +176,7 @@ export default function EasterEggSystem() {
   const typedBuffer = useRef("");
   const counters = useRef({});
   const toastTimer = useRef(null);
+  const gameFeedbackTimer = useRef(null);
   const mismatchTimer = useRef(null);
   const mimiMoodTimer = useRef(null);
 
@@ -190,12 +192,37 @@ export default function EasterEggSystem() {
     }
   }
 
+  // Discovery toasts belong outside the arcade; in-game mistakes stay beside
+  // the puzzle so the message and its retry action remain in the active dialog.
   function announce(text) {
     setMimiReaction("surprised", 1900);
     playCuteSound("tease");
     setToast(text);
     window.clearTimeout(toastTimer.current);
     toastTimer.current = window.setTimeout(() => setToast(""), 6200);
+  }
+
+  function clearGameFeedback() {
+    window.clearTimeout(gameFeedbackTimer.current);
+    gameFeedbackTimer.current = null;
+    setGameFeedback("");
+  }
+
+  function announceGameHint(text) {
+    setMimiReaction("surprised", 1900);
+    playCuteSound("tease");
+    setGameFeedback(text);
+    window.clearTimeout(gameFeedbackTimer.current);
+    gameFeedbackTimer.current = window.setTimeout(() => {
+      setGameFeedback("");
+      gameFeedbackTimer.current = null;
+    }, 6200);
+  }
+
+  function renderGameFeedback() {
+    return gameFeedback
+      ? <p className="egg-game-feedback" role="status" aria-live="polite">{gameFeedback}</p>
+      : null;
   }
 
   function clearRhythmTimers() {
@@ -212,6 +239,7 @@ export default function EasterEggSystem() {
   function openArcade(achievement) {
     if (!panel) openerRef.current = document.activeElement;
     stopRhythmPlayback();
+    clearGameFeedback();
     setMimiReaction("curious", 0);
     if (achievement) addUnique(setUnlocked, achievement);
     setActiveGame(null);
@@ -246,6 +274,7 @@ export default function EasterEggSystem() {
 
   function returnToArcade() {
     stopRhythmPlayback();
+    clearGameFeedback();
     setMimiReaction("curious", 0);
     setPanel("cabinet");
     setActiveGame(null);
@@ -256,6 +285,7 @@ export default function EasterEggSystem() {
       returnToArcade();
     } else {
       stopRhythmPlayback();
+      clearGameFeedback();
       setMimiReaction("curious", 0);
       setPanel(null);
       setActiveGame(null);
@@ -265,6 +295,7 @@ export default function EasterEggSystem() {
   }
 
   function finishGame(id, achievement) {
+    clearGameFeedback();
     setMimiReaction("happy", 0);
     playCuteSound("achievement-" + id);
     addUnique(setCompletedGames, id);
@@ -275,6 +306,7 @@ export default function EasterEggSystem() {
 
   function startGame(id) {
     stopRhythmPlayback();
+    clearGameFeedback();
     setMimiReaction("curious", 0);
     setActiveGame(id);
     setPanel("game");
@@ -403,6 +435,7 @@ export default function EasterEggSystem() {
 
   useEffect(() => () => {
     window.clearTimeout(toastTimer.current);
+    window.clearTimeout(gameFeedbackTimer.current);
     window.clearTimeout(mismatchTimer.current);
     window.clearTimeout(mimiMoodTimer.current);
     rhythmTimers.current.forEach((timer) => window.clearTimeout(timer));
@@ -410,6 +443,7 @@ export default function EasterEggSystem() {
 
   function flipCard(id) {
     if (matchedCards.includes(id) || openedCards.includes(id) || gameWon) return;
+    clearGameFeedback();
     if (openedCards.length >= 2) {
       window.clearTimeout(mismatchTimer.current);
       mismatchTimer.current = null;
@@ -449,6 +483,7 @@ export default function EasterEggSystem() {
 
   function showRhythm() {
     if (gameWon || rhythmPlaybackActive) return;
+    clearGameFeedback();
     setMimiReaction("curious", 0);
     clearRhythmTimers();
     setRhythmStep(0);
@@ -469,6 +504,7 @@ export default function EasterEggSystem() {
   function playRhythm(symbol) {
     if (gameWon || rhythmPlaybackActive) return;
     if (symbol === RHYTHM_SEQUENCE[rhythmStep]) {
+      clearGameFeedback();
       const next = rhythmStep + 1;
       setMimiReaction("delighted", 1250);
       if (next < RHYTHM_SEQUENCE.length) playCuteSound("collect");
@@ -481,7 +517,7 @@ export default function EasterEggSystem() {
     } else {
       const missedBeat = rhythmStep + 1;
       setRhythmStep(0);
-      announce("Mimi flicked her tail at beat " + missedBeat + ". Your combo is gone. (She is pretending not to be smug.) Watch the rhythm again and have another go.");
+      announceGameHint("Mimi flicked her tail at beat " + missedBeat + ". Your combo is gone. (She is pretending not to be smug.) Watch the rhythm again and have another go.");
     }
   }
 
@@ -490,9 +526,10 @@ export default function EasterEggSystem() {
     const next = wishIndex + 1;
     const riddle = WISH_RIDDLES[next];
     if (symbol !== riddle.answer) {
-      announce("Mimi tips the jar away with one very judgmental paw. " + riddle.hint);
+      announceGameHint("Mimi tips the jar away with one very judgmental paw. " + riddle.hint);
       return;
     }
+    clearGameFeedback();
     setWishIndex(next);
     setMimiReaction("love", 1550);
     addUnique(setUnlocked, "wish-jar");
@@ -515,6 +552,7 @@ export default function EasterEggSystem() {
     if (activeGame === "stars") return <div className="egg-game-content">
       <p className="egg-game-instructions">Mimi drew a heart in the sky, then scattered four glittery decoys. Trace the eight-star trail in order, starting at the left curl and finishing at the bottom tip. Wrong taps do not erase progress—but Mimi will absolutely notice.</p>
       {renderMimiCompanion()}
+      {renderGameFeedback()}
       <div className="egg-star-field" aria-label="A heart-shaped constellation with eight stars and four decoys">
         <svg className="egg-star-trail" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
           <path className="egg-star-trail-line" d={STAR_TRAIL_PATH} />
@@ -530,12 +568,12 @@ export default function EasterEggSystem() {
             aria-label={caught ? "Star " + star.id + " caught" : "Tap sky star " + star.id}
             onClick={() => {
               if (!star.step) {
-                announce("A glittery decoy! Mimi made it extra convincing on purpose. Follow the faint heart trail, detective.");
+                announceGameHint("A glittery decoy! Mimi made it extra convincing on purpose. Follow the faint heart trail, detective.");
                 return;
               }
               const expectedStep = caughtStars.length + 1;
               if (star.step !== expectedStep) {
-                announce("Mimi caught you skipping ahead. The heart trail starts at the left curl and must be followed in order. No progress lost—yet.");
+                announceGameHint("Mimi caught you skipping ahead. The heart trail starts at the left curl and must be followed in order. No progress lost—yet.");
                 return;
               }
               const next = [...caughtStars, star.id];
@@ -559,6 +597,7 @@ export default function EasterEggSystem() {
     if (activeGame === "memory") return <div className="egg-game-content">
       <p className="egg-game-instructions">Eight cards, four pairs—and Mimi shuffled them while you were reading this. Turn over two at a time and remember where each symbol lives. The card labels will not give the pairs away. Mimi is not above a little mischief.</p>
       {renderMimiCompanion()}
+      {renderGameFeedback()}
       <div className="egg-memory-grid">
         {memoryDeck.map((card, index) => {
           const shown = openedCards.includes(card.id) || matchedCards.includes(card.id);
@@ -578,6 +617,7 @@ export default function EasterEggSystem() {
     if (activeGame === "rhythm") return <div className="egg-game-content">
       <p className="egg-game-instructions">Mimi has a six-beat secret. Watch the symbols one at a time, then repeat them from memory. The final two beats echo the opening pair. Miss a beat and your combo resets—but you can replay the cue whenever you need.</p>
       {renderMimiCompanion()}
+      {renderGameFeedback()}
       <div className={"egg-rhythm-cue" + (rhythmCueIndex >= 0 ? " is-showing" : "")} data-testid="rhythm-cue"
         role="status" aria-live="polite" aria-label={rhythmCueIndex >= 0 ? "Mimi's cue beat " + (rhythmCueIndex + 1) + " of " + RHYTHM_SEQUENCE.length : "Waiting for Mimi's rhythm cue"}>
         <span className="egg-rhythm-cue-symbol">{rhythmCueIndex >= 0 ? RHYTHM_SEQUENCE[rhythmCueIndex] : "✧"}</span>
@@ -597,6 +637,7 @@ export default function EasterEggSystem() {
     if (activeGame === "fireflies") return <div className="egg-game-content">
       <p className="egg-game-instructions">The ladybugs led you here. Catch five bright pearl fireflies; the dim violet lights are decoys Mimi put there to test you. Tap the bright ones in any order. No timer—but she is watching.</p>
       {renderMimiCompanion()}
+      {renderGameFeedback()}
       <div className="egg-firefly-field">
         {FIREFLIES.map((fly) => {
           const caught = caughtFireflies.includes(fly.id);
@@ -606,7 +647,7 @@ export default function EasterEggSystem() {
             aria-label={caught ? "Firefly " + fly.id + " caught" : "Tap glowing firefly " + fly.id}
             onClick={() => {
               if (!fly.isTarget) {
-                announce("Mimi planted a fake light. Nice try. The real fireflies glow pearl-white; the violet ones are just showing off.");
+                announceGameHint("Mimi planted a fake light. Nice try. The real fireflies glow pearl-white; the violet ones are just showing off.");
                 return;
               }
               const next = [...caughtFireflies, fly.id];
@@ -627,6 +668,7 @@ export default function EasterEggSystem() {
     return <div className="egg-game-content">
       <p className="egg-game-instructions">A glass jar holds five future-facing wishes, not memories. Mimi has locked it with five tiny riddles. Choose the symbol that answers each clue; a wrong guess earns a nudge, not a penalty.</p>
       {renderMimiCompanion()}
+      {renderGameFeedback()}
       <div className={wishIndex >= 0 ? "egg-wish-jar has-wish" : "egg-wish-jar"} aria-hidden="true">🫙<span>✧</span><span>♡</span><span>✦</span></div>
       {!gameWon && <p className="egg-wish-riddle" data-testid="wish-riddle">{activeRiddle.question}</p>}
       <div className="egg-wish-keys">

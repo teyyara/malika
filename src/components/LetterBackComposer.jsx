@@ -8,18 +8,25 @@ const openingIdeas = [
   { id: "tell", label: "Something I want you to know", text: "One tiny thing I want you to know is…" }
 ];
 
+const MAX_DRAFT_LENGTH = 800;
+
 export default function LetterBackComposer() {
   const [draft, setDraft] = useState("");
   const [stage, setStage] = useState("writing");
   const [copyStatus, setCopyStatus] = useState("");
+  const [starterStatus, setStarterStatus] = useState("");
   const cleanDraft = draft.trim();
   const letterText = "Dear " + siteConfig.senderName + ",\n\n" + cleanDraft + "\n\nWith love,\n" + siteConfig.recipientName + " ♡";
 
   function addOpening(text) {
-    setDraft((current) => {
-      const next = current.trim() ? current.trimEnd() + "\n\n" + text : text;
-      return next.slice(0, 800);
-    });
+    const next = draft.trim() ? draft.trimEnd() + "\n\n" + text : text;
+    if (next.length > MAX_DRAFT_LENGTH) {
+      const excess = next.length - MAX_DRAFT_LENGTH;
+      setStarterStatus("That starter needs " + excess + " more character" + (excess === 1 ? "" : "s") + " of room. Shorten your note first; nothing was removed.");
+      return;
+    }
+    setDraft(next);
+    setStarterStatus("");
     setCopyStatus("");
   }
 
@@ -66,15 +73,16 @@ export default function LetterBackComposer() {
                   </button>
                 ))}
               </div>
+              {starterStatus && <p className="letter-back-starter-status" role="status" aria-live="polite">{starterStatus}</p>}
               <label className="letter-back-field" htmlFor="letter-back-draft">
                 <span>Your letter to Zack</span>
                 <span className="letter-back-field-hint">Write in your own words. There is no perfect way to say it.</span>
                 <textarea id="letter-back-draft" className="letter-back-textarea" value={draft}
-                  onChange={(event) => { setDraft(event.target.value); setCopyStatus(""); }}
-                  maxLength={800} rows={6} placeholder="One little thought at a time…" />
+                  onChange={(event) => { setDraft(event.target.value); setCopyStatus(""); setStarterStatus(""); }}
+                  maxLength={MAX_DRAFT_LENGTH} rows={6} placeholder="One little thought at a time…" />
               </label>
               <div className="letter-back-editor-footer">
-                <span className="letter-back-counter">{draft.length} / 800 characters</span>
+                <span className="letter-back-counter">{draft.length} / {MAX_DRAFT_LENGTH} characters</span>
                 <button className="letter-back-primary" type="button" disabled={!cleanDraft} onClick={foldLetter}>
                   Fold my little letter <span aria-hidden="true">♡</span>
                 </button>

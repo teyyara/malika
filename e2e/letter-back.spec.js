@@ -85,3 +85,31 @@ test("A Little Letter Back explains the local-only fallback when clipboard acces
   await page.getByRole("button", { name: "Copy my letter" }).click();
   await expect(page.getByRole("status")).toContainText("select the letter above and copy it yourself");
 });
+
+
+test("letter starters never silently truncate a draft near its character limit", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  await expect(page.getByRole("heading", { name: "Malika, this little universe is yours." })).toBeVisible();
+  await page.getByRole("button", { name: /Open your birthday surprise/ }).click();
+  await page.getByRole("button", { name: "Love notes", exact: true }).click();
+
+  const disclosure = page.locator(".letter-back-disclosure");
+  await disclosure.locator("summary").click();
+  const draft = page.getByRole("textbox", { name: "Your letter to Zack" });
+  const starter = page.getByRole("button", { name: "Add opening: A small thank-you" });
+
+  const almostFull = "x".repeat(795);
+  await draft.fill(almostFull);
+  await starter.click();
+  await expect(draft).toHaveValue(almostFull);
+  await expect(page.getByRole("status")).toContainText("nothing was removed");
+  await expect(page.locator(".letter-back-starter-status")).toContainText("more character");
+
+  await draft.fill("x".repeat(750));
+  await starter.click();
+  const updatedDraft = await draft.inputValue();
+  expect(updatedDraft).toContain("\n\nSomething I want to thank you for is…");
+  expect(updatedDraft.length).toBeLessThanOrEqual(800);
+  await expect(page.locator(".letter-back-starter-status")).toHaveCount(0);
+});

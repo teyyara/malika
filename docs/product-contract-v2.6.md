@@ -1,6 +1,6 @@
 # Product Contract v2.6 — Malika Birthday Universe
 
-Status: Loop 042 candidate — validation pending. Product Contract v2.5 remains the accepted baseline until this change is validated and merged.
+Status: ACCEPTED — Loop 042 merged and validated in PR #56 at cc026a3db7a82ed0bc69c2ecb5e34f5634121664. Product Contract v2.6 is now the accepted baseline for REQ-029; previously accepted requirements remain in force.
 
 ## Change request CR-042 — Letter-starter character-limit integrity
 
@@ -21,3 +21,11 @@ Status: Loop 042 candidate — validation pending. Product Contract v2.5 remains
 **Risk:** R1 data-integrity and editing feedback.
 
 **Validation:** exact PR-head Node/content tests, production build, and Playwright Chromium journeys. New assertions cover rejection without truncation, accessible feedback, and successful insertion when there is enough room. Passing automation does not certify physical-device, human screen-reader, or production-alias behavior.
+
+
+## Validation record — Loop 042
+
+- Exact PR-head workflow [38744336958](https://github.com/teyyara/malika/actions/runs/38744336958): PASS — Node/content tests, production build, and 63 Chromium browser journeys.
+- Post-merge main workflow [38745052150](https://github.com/teyyara/malika/actions/runs/38745052150): PASS — Node/content tests, production build, and 63 Chromium browser journeys.
+- Merge commit: `cc026a3db7a82ed0bc69c2ecb5e34f5634121664`.
+- Deployment / production alias: owner-managed; no manual Vercel deployment was initiated.

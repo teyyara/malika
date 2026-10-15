@@ -3,23 +3,24 @@
 Date: 15 October 2026  
 Repository: https://github.com/teyyara/malika  
 Release branch: `main`  
-Latest completed/validated loop: **041 — Prepared-Wish Selection Consistency** (merged and validated)  
-Latest validated main checkpoint: `7ea17568ae1e2b87ed251d0922700d140195265f`  
-Current candidate: **Loop 042 — Letter-Starter Character-Limit Integrity** (`fix/loop-042-letter-starter-overflow`)  
-Candidate state: **VALIDATING_CANDIDATE — exact PR-head CI required before merge**  
-Deployment policy: **Owner-managed. No manual Vercel deployment.**
+Latest completed/validated loop: **042 — Letter-Starter Character-Limit Integrity** (PR #56 merged and validated)  
+Latest validated application checkpoint: `cc026a3db7a82ed0bc69c2ecb5e34f5634121664`  
+Current candidate: **None — waiting for a new CONTINUE instruction**  
+Exact PR-head validation: [workflow 38744336958](https://github.com/teyyara/malika/actions/runs/38744336958) — Node/content tests, production build, and 63 Chromium browser journeys passed.  
+Post-merge main validation: [workflow 38745052150](https://github.com/teyyara/malika/actions/runs/38745052150) — Node/content tests, production build, and 63 Chromium browser journeys passed.  
+Next state: **WAITING_FOR_CONTINUE**  
+Deployment policy: **Owner-managed. No manual Vercel deployment was initiated.**
 
-## Loop 042 — Letter-Starter Character-Limit Integrity (candidate)
+## Loop 042 — Letter-Starter Character-Limit Integrity (merged and validated)
 
-- Branch: `fix/loop-042-letter-starter-overflow`, based on the latest validated main checkpoint `7ea17568ae1e2b87ed251d0922700d140195265f`.
-- Fixed a data-integrity bug in “A Little Letter Back”: optional opening prompts could silently truncate existing draft text when the combined text exceeded 800 characters.
-- The full starter is inserted only when it fits. Otherwise, the draft stays unchanged and an accessible message says how many extra characters are needed.
-- Editing the draft clears the stale warning.
-- Added regression coverage for no truncation near the character limit and successful insertion when room is available.
-- Added Product Contract v2.6 / REQ-029 and Loop 042 evidence.
-- No new package, backend, browser storage, remote asset, paid feature, analytics, or external service.
-- **Validation pending. Do not merge until exact PR-head Node/content tests, production build, and all Chromium browser journeys pass.**
-- Deployment remains owner-managed; no manual Vercel deployment is initiated.
+- Pull request: [#56 — prevent letter starters from truncating drafts](https://github.com/teyyara/malika/pull/56), merged at `cc026a3db7a82ed0bc69c2ecb5e34f5634121664`.
+- Optional opening prompts now insert in full only when the result fits the 800-character limit. If the starter would exceed the limit, the existing draft remains unchanged and an accessible polite status tells the user how much extra room is needed.
+- Editing the draft clears the stale warning; when enough room is available, the full starter is inserted.
+- Added regression coverage proving that near-limit text is not removed and that successful insertion works when the starter fits.
+- Product Contract v2.6 / REQ-029 is accepted; evidence is recorded in `evidence/loop-042-letter-starter-overflow.md`.
+- Exact PR-head and post-merge main CI both passed Node/content tests, production build, and all 63 Chromium browser journeys.
+- No new package, backend, browser storage, remote asset, paid feature, analytics, or external service was introduced.
+- No manual Vercel deployment was initiated. Production-alias verification and human screen-reader/device QA remain owner-managed.
 
 ## Loop 041 — Prepared-Wish Selection Consistency (merged and validated)
 

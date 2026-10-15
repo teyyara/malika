@@ -7,9 +7,9 @@
   "progressionBranch": "fix/loop-042-letter-starter-overflow",
   "currentLoop": 42,
   "candidate": "malika-birthday-042-letter-starter-overflow",
-  "status": "CANDIDATE_VALIDATION_PENDING",
-  "orchestrationState": "VALIDATING_CANDIDATE",
-  "validatedApplicationCheckpoint": "c85852fca289ef6ed65a3734944c1c36e844aea0",
+  "status": "VALIDATED_MERGED",
+  "orchestrationState": "WAITING_FOR_CONTINUE",
+  "validatedApplicationCheckpoint": "cc026a3db7a82ed0bc69c2ecb5e34f5634121664",
   "personalization": {
     "recipientName": "Malika",
     "senderName": "Zack",
@@ -17,7 +17,7 @@
   },
   "automatedBrowserQA": {
     "status": "PASS",
-    "specsPassed": 62,
+    "specsPassed": 63,
     "coverage": [
       "Core navigation and all primary birthday scenes",
       "Heart-game reset and successful retry",
@@ -61,17 +61,20 @@
       "Loop 041: no Wish Sky prepared preset appears selected while the draft is empty",
       "Loop 041: selecting a prepared wish marks that exact draft as selected",
       "Loop 041: editing preset text into a custom wish clears preset pressed/highlight state",
-      "Loop 041: releasing a wish clears draft and selected preset state"
+      "Loop 041: releasing a wish clears draft and selected preset state",
+      "Loop 042: optional letter starters preserve a near-limit draft when the complete starter cannot fit",
+      "Loop 042: accessible character-room status explains why an insertion was rejected",
+      "Loop 042: the full letter starter is inserted when sufficient room is available, and the warning clears"
     ],
-    "note": "Exact PR-head workflow 38739679561 and post-merge main workflow 38741098379 passed Node/content tests, production build, and all 62 Chromium journeys. Automation does not certify human screen-reader, physical-device, production-alias, or subjective audio-quality behavior."
+    "note": "Exact PR-head workflow 38744336958 and post-merge main workflow 38745052150 both passed Node/content tests, production build, and all 63 Chromium journeys. The first run revealed an incorrectly escaped newline in the new assertion; it was corrected, and the updated exact PR head passed. Automation does not certify human screen-reader, physical-device, production-alias, or subjective audio quality."
   },
   "deployment": {
     "target": "Vercel",
     "projectName": "malika-birthday",
     "projectDashboard": "https://vercel.com/tyyr1/malika-birthday",
     "productionStatus": "NOT_VERIFIED_OWNER_HANDOFF",
-    "latestMainCommit": "c85852fca289ef6ed65a3734944c1c36e844aea0",
-    "latestMainStatus": "Loop 041 main CI passed: workflow 38741098379 (https://github.com/teyyara/malika/actions/runs/38741098379); Node/content tests, production build, and 62 Chromium journeys passed.",
+    "latestMainCommit": "cc026a3db7a82ed0bc69c2ecb5e34f5634121664",
+    "latestMainStatus": "Loop 042 main CI passed: workflow 38745052150 (https://github.com/teyyara/malika/actions/runs/38745052150); Node/content tests, production build, and 63 Chromium journeys passed.",
     "lastKnownReadyCommit": "be66face920cffdc16dce08213ae7c232938d7d5",
     "lastKnownReadyDeploymentId": "dpl_CzGS17bNAaTbaUCH7uLAP7XR6rQv",
     "previousFailedMainCommit": "5fdbd292707e27a84ae85b8782fe4cc3c27c5e8f",
@@ -86,15 +89,13 @@
     ],
     "accessProblem": "Production alias remains owner-managed and was not verified by the assistant."
   },
-  "manualVisualQA": "Exact PR-head and post-merge main CI each passed 62 Chromium journeys. Human screen-reader, physical-device, subjective audio-quality, and production-alias QA remain owner/manual checks.",
+  "manualVisualQA": "Exact PR-head and post-merge main CI each passed all 63 Chromium journeys. Human screen-reader, physical-device, subjective audio-quality, and production-alias QA remain owner/manual checks.",
   "screenReaderQA": "NOT_YET_OBSERVED",
   "realMobileDeviceQA": "NOT_TESTED",
   "nextHighValueWork": [
-    "Open the Loop 042 candidate as a pull request to main.",
-    "Run exact PR-head Node/content tests, production build, and all Chromium browser journeys; fix failures before merge.",
-    "Merge to main only after all PR-head checks pass, then verify post-merge main CI.",
-    "Do not initiate a Vercel deployment; the repository owner handles deployment and production verification.",
-    "After the validated checkpoint is merged, stop and wait for the next standalone CONTINUE."
+    "Wait for a new standalone CONTINUE instruction before beginning another feature loop.",
+    "Keep additions local-only, keyboard-accessible, responsive, and reduced-motion-aware.",
+    "Do not initiate a manual Vercel deployment or claim production-alias verification."
   ],
   "arcadeMastery": {
     "games": [
@@ -109,18 +110,18 @@
     "unlockRequirement": "Complete all five games, including all five wish-jar wishes.",
     "automatedTest": "Completing all five arcade quests unlocks the grand-secret finale."
   },
-  "releaseStateCommit": "c85852fca289ef6ed65a3734944c1c36e844aea0",
+  "releaseStateCommit": "cc026a3db7a82ed0bc69c2ecb5e34f5634121664",
   "lastUpdated": "2026-10-15",
   "postMergeMainWorkflow": {
-    "runId": 38741098379,
-    "url": "https://github.com/teyyara/malika/actions/runs/38741098379",
-    "headSha": "c85852fca289ef6ed65a3734944c1c36e844aea0",
+    "runId": 38745052150,
+    "url": "https://github.com/teyyara/malika/actions/runs/38745052150",
+    "headSha": "cc026a3db7a82ed0bc69c2ecb5e34f5634121664",
     "status": "completed",
     "conclusion": "success",
     "nodeContentTests": "PASS",
     "productionBuild": "PASS",
     "chromiumBrowserJourneys": "PASS",
-    "chromiumJourneysPassed": 62
+    "chromiumJourneysPassed": 63
   },
   "previousLoopMainValidation": {
     "runId": 38741098379,
@@ -134,32 +135,39 @@
     "chromiumJourneysPassed": 62
   },
   "latestMainCheckpointValidation": {
-    "runId": 38741098379,
-    "url": "https://github.com/teyyara/malika/actions/runs/38741098379",
-    "headSha": "c85852fca289ef6ed65a3734944c1c36e844aea0",
+    "runId": 38745052150,
+    "url": "https://github.com/teyyara/malika/actions/runs/38745052150",
+    "headSha": "cc026a3db7a82ed0bc69c2ecb5e34f5634121664",
     "status": "completed",
     "conclusion": "success",
     "nodeContentTests": "PASS",
     "productionBuild": "PASS",
     "chromiumBrowserJourneys": "PASS",
-    "chromiumJourneysPassed": 62
+    "chromiumJourneysPassed": 63
   },
   "currentCandidate": {
     "branch": "fix/loop-042-letter-starter-overflow",
     "feature": "Letter-Starter Character-Limit Integrity",
     "requirement": "REQ-029",
-    "validation": "PENDING — exact PR-head Node/content tests, production build, and Chromium browser journeys must pass before merge."
+    "validation": "PR #56 merged at cc026a3db7a82ed0bc69c2ecb5e34f5634121664; exact-head workflow 38744336958 and post-merge main workflow 38745052150 both passed Node/content tests, production build, and all 63 Chromium journeys."
   },
-  "pullRequest": null,
+  "pullRequest": {
+    "url": "https://github.com/teyyara/malika/pull/56",
+    "number": 56,
+    "state": "MERGED",
+    "headSha": "4c7f821b319465943fdcf88d01a145d1f25032b0",
+    "baseSha": "7ea17568ae1e2b87ed251d0922700d140195265f",
+    "mergeCommitSha": "cc026a3db7a82ed0bc69c2ecb5e34f5634121664"
+  },
   "latestPassingWorkflowForCandidate": {
-    "runId": 38739679561,
-    "url": "https://github.com/teyyara/malika/actions/runs/38739679561",
-    "headSha": "3e95ab99b5e9c2498966b51f97cae44f8df74e9a",
+    "runId": 38744336958,
+    "url": "https://github.com/teyyara/malika/actions/runs/38744336958",
+    "headSha": "4c7f821b319465943fdcf88d01a145d1f25032b0",
     "conclusion": "success",
     "nodeContentTests": "PASS",
     "productionBuild": "PASS",
     "chromiumBrowserJourneys": "PASS",
-    "chromiumJourneysPassed": 62
+    "chromiumJourneysPassed": 63
   },
   "postMergeDocumentationCheckpoint": {
     "runId": 38484282755,
@@ -170,14 +178,27 @@
     "note": "This run contains only Loop 034 release-documentation changes. The latest application-code main run is 38481311313 and passed all 58 Chromium journeys. Do not claim this separate documentation checkpoint run passed unless rechecked."
   },
   "candidateValidation": {
-    "status": "PENDING",
+    "status": "PASS",
     "branch": "fix/loop-042-letter-starter-overflow",
     "baseCommit": "7ea17568ae1e2b87ed251d0922700d140195265f",
-    "nodeContentTests": "PENDING",
-    "productionBuild": "PENDING",
-    "chromiumBrowserJourneys": "PENDING",
-    "mergeGate": "Exact PR-head CI must pass before merge to main.",
-    "deployment": "Owner-managed; no Vercel deployment may be initiated."
+    "candidateHeadSha": "4c7f821b319465943fdcf88d01a145d1f25032b0",
+    "nodeContentTests": "PASS",
+    "productionBuild": "PASS",
+    "chromiumBrowserJourneys": "PASS",
+    "chromiumJourneysPassed": 63,
+    "prWorkflowRun": {
+      "id": 38744336958,
+      "url": "https://github.com/teyyara/malika/actions/runs/38744336958",
+      "conclusion": "success"
+    },
+    "mergeCommit": "cc026a3db7a82ed0bc69c2ecb5e34f5634121664",
+    "postMergeMainWorkflow": {
+      "id": 38745052150,
+      "url": "https://github.com/teyyara/malika/actions/runs/38745052150",
+      "conclusion": "success"
+    },
+    "mergeGate": "PASSED — exact PR-head validation completed before merge.",
+    "deployment": "Owner-managed; no manual Vercel deployment was initiated."
   },
   "previousPullRequest": {
     "url": "https://github.com/teyyara/malika/pull/55",

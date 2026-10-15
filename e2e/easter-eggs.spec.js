@@ -388,9 +388,12 @@ test("Mimi visibly reacts to mistakes and correct moves in all five arcade games
   await expect(companion).toHaveAttribute("data-mimi-mood", "surprised");
   await expect(mimiArt).toHaveClass(/cat-reaction-surprised/);
   await expect(companion).toContainText("Follow her little clue");
+  await expect(companion).toHaveAttribute("data-mimi-mood", "curious", { timeout: 2800 });
+
   await page.getByTestId("star-target-1").click();
   await expect(companion).toHaveAttribute("data-mimi-mood", "delighted");
   await expect(mimiArt).toHaveClass(/cat-reaction-delighted/);
+  await expect(companion).toHaveAttribute("data-mimi-mood", "curious", { timeout: 2200 });
   await page.getByRole("button", { name: /Back to arcade/ }).click();
 
   await page.getByRole("button", { name: /Mimi's memory match/ }).click();

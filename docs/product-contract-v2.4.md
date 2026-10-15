@@ -1,6 +1,6 @@
 # Product Contract v2.4 — Malika Birthday Universe
 
-Status: Loop 040 candidate — validation pending. Product Contract v2.3 remains the accepted baseline until this change is validated and merged.
+Status: ACCEPTED — Loop 040 merged and validated in PR #54 at df18310c616af7c418a9930ead7e889cb84df900. Product Contract v2.4 is now the accepted baseline for REQ-027; previously accepted requirements remain in force.
 
 ## Change request CR-040 — Contextual hints inside the Secret Arcade
 
@@ -22,3 +22,11 @@ Status: Loop 040 candidate — validation pending. Product Contract v2.3 remains
 **Risk:** R1 in-game feedback and navigation behavior.
 
 **Validation:** exact PR-head Node/content tests, production build, and Playwright Chromium journeys. New assertions prove wrong answers stay in the active game, no discovery toast appears, hints clear on recovery, and discovery toasts still work for actual discoveries. Passing automation does not certify human screen-reader behavior, physical devices, subjective sound quality, or the production alias.
+
+
+## Validation record — Loop 040
+
+- Exact PR-head workflow [38736617748](https://github.com/teyyara/malika/actions/runs/38736617748): PASS — Node/content tests, production build, and 62 Chromium browser journeys.
+- Post-merge main workflow [38737299677](https://github.com/teyyara/malika/actions/runs/38737299677): PASS — Node/content tests, production build, and 62 Chromium browser journeys.
+- Merge commit: `df18310c616af7c418a9930ead7e889cb84df900`.
+- Deployment and production alias: owner-managed; no manual Vercel deployment was initiated.

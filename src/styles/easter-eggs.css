@@ -719,3 +719,33 @@
     transition: none;
   }
 }
+
+/* Loop 040 — game mistakes get contextual feedback inside the active dialog. */
+.egg-game-feedback {
+  max-width: 520px;
+  margin: 0 auto 16px;
+  padding: 10px 14px;
+  border: 1px solid rgba(255, 198, 224, .25);
+  border-radius: 13px;
+  color: #f6e7ff;
+  background: rgba(108, 67, 131, .2);
+  font-size: 12px;
+  line-height: 1.7;
+  text-align: center;
+  animation: egg-game-feedback-in .2s ease-out both;
+}
+@keyframes egg-game-feedback-in {
+  from { opacity: 0; transform: translateY(3px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (max-width: 380px) {
+  .egg-game-feedback {
+    padding: 9px 10px;
+    font-size: 11px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .egg-game-feedback {
+    animation: none;
+  }
+}

@@ -1,15 +1,25 @@
 # AEOS Status — Malika Birthday Universe
 
-Date: 14 October 2026  
+Date: 15 October 2026  
 Repository: https://github.com/teyyara/malika  
 Release branch: `main`  
-Latest completed/validated loop: **038 — Mimi's Reactions Match the Words** (PR #52 merged and validated)  
-Latest validated application checkpoint: `ad94781b15af0c35a34f935bd4e80d53f1e8f902`  
-Current candidate: **None — waiting for a new CONTINUE instruction**  
-Exact PR-head validation: [workflow 38649741358](https://github.com/teyyara/malika/actions/runs/38649741358) — Node/content tests, production build, and 61 Chromium browser journeys passed.  
-Post-merge main validation: [workflow 38650387617](https://github.com/teyyara/malika/actions/runs/38650387617) — Node/content tests, production build, and 61 Chromium browser journeys passed.  
-Next state: **WAITING_FOR_CONTINUE**  
-Deployment policy: **Owner-managed. No Vercel deployment was initiated by this work.**
+Latest completed/validated loop: **038 — Mimi's Reactions Match the Words** (merged and validated)  
+Latest validated application checkpoint: `34ed6280c9f0d5551c81a9952a8075fc7194b20e`  
+Current candidate: **Loop 039 — Timed Arcade Reaction Lifecycle** (`fix/loop-039-game-reaction-lifecycle`)  
+Candidate state: **VALIDATING_CANDIDATE — exact PR-head CI required before merge**  
+Deployment policy: **Owner-managed; do not initiate Vercel deployments.**
+
+## Loop 039 — Timed Arcade Reaction Lifecycle (candidate)
+
+- Branch: `fix/loop-039-game-reaction-lifecycle`, based on the validated Loop 038 main checkpoint.
+- Wrong game actions now trigger a short-lived surprised reaction; correct actions trigger a short-lived delighted/warm reaction, then Mimi returns to curious unless another action replaces the timer.
+- Completing a quest keeps the celebratory mood active on the victory screen.
+- Rhythm preview timers are cancelled when the arcade panel/game changes or the player exits, so a hidden sequence does not keep advancing.
+- Added browser regressions for reaction timeout and replacing a prior reaction, plus leaving/reopening Pawprint Rhythm while playback is active.
+- Added Product Contract v2.3 / REQ-026 and the Loop 039 evidence record.
+- No dependency, service, backend, storage, remote asset, paid feature, or Vercel deployment is introduced.
+- **Validation: pending. Do not merge until exact PR-head Node/content tests, production build, and all Chromium journeys pass.**
+- **Last known-good application commit:** `34ed6280c9f0d5551c81a9952a8075fc7194b20e` (Loop 038 + validated state record).
 
 ## Loop 038 — Mimi's Reactions Match the Words (merged and validated)
 

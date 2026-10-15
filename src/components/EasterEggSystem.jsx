@@ -176,9 +176,22 @@ export default function EasterEggSystem() {
   const counters = useRef({});
   const toastTimer = useRef(null);
   const mismatchTimer = useRef(null);
+  const mimiMoodTimer = useRef(null);
+
+  function setMimiReaction(mood, resetAfterMs = 1600) {
+    window.clearTimeout(mimiMoodTimer.current);
+    mimiMoodTimer.current = null;
+    setMimiGameMood(mood);
+    if (resetAfterMs > 0) {
+      mimiMoodTimer.current = window.setTimeout(() => {
+        setMimiGameMood("curious");
+        mimiMoodTimer.current = null;
+      }, resetAfterMs);
+    }
+  }
 
   function announce(text) {
-    setMimiGameMood("surprised");
+    setMimiReaction("surprised", 1900);
     playCuteSound("tease");
     setToast(text);
     window.clearTimeout(toastTimer.current);
@@ -190,8 +203,16 @@ export default function EasterEggSystem() {
     rhythmTimers.current = [];
   }
 
+  function stopRhythmPlayback() {
+    clearRhythmTimers();
+    setRhythmPlaybackActive(false);
+    setRhythmCueIndex(-1);
+  }
+
   function openArcade(achievement) {
     if (!panel) openerRef.current = document.activeElement;
+    stopRhythmPlayback();
+    setMimiReaction("curious", 0);
     if (achievement) addUnique(setUnlocked, achievement);
     setActiveGame(null);
     setCelebrationId(null);
@@ -224,6 +245,8 @@ export default function EasterEggSystem() {
   }
 
   function returnToArcade() {
+    stopRhythmPlayback();
+    setMimiReaction("curious", 0);
     setPanel("cabinet");
     setActiveGame(null);
   }
@@ -232,6 +255,8 @@ export default function EasterEggSystem() {
     if (panel === "celebration") {
       returnToArcade();
     } else {
+      stopRhythmPlayback();
+      setMimiReaction("curious", 0);
       setPanel(null);
       setActiveGame(null);
       setArcadePassword("");
@@ -240,7 +265,7 @@ export default function EasterEggSystem() {
   }
 
   function finishGame(id, achievement) {
-    setMimiGameMood("happy");
+    setMimiReaction("happy", 0);
     playCuteSound("achievement-" + id);
     addUnique(setCompletedGames, id);
     if (achievement) addUnique(setUnlocked, achievement);
@@ -249,8 +274,8 @@ export default function EasterEggSystem() {
   }
 
   function startGame(id) {
-    clearRhythmTimers();
-    setMimiGameMood("curious");
+    stopRhythmPlayback();
+    setMimiReaction("curious", 0);
     setActiveGame(id);
     setPanel("game");
     setCaughtStars([]);
@@ -379,6 +404,7 @@ export default function EasterEggSystem() {
   useEffect(() => () => {
     window.clearTimeout(toastTimer.current);
     window.clearTimeout(mismatchTimer.current);
+    window.clearTimeout(mimiMoodTimer.current);
     rhythmTimers.current.forEach((timer) => window.clearTimeout(timer));
   }, []);
 
@@ -397,7 +423,7 @@ export default function EasterEggSystem() {
       const first = MEMORY_CARDS.find((card) => card.id === next[0]);
       const second = MEMORY_CARDS.find((card) => card.id === next[1]);
       if (first.pair === second.pair) {
-        setMimiGameMood("delighted");
+        setMimiReaction("delighted", 1250);
         window.clearTimeout(mismatchTimer.current);
         mismatchTimer.current = null;
         setMemoryMismatch(false);
@@ -409,7 +435,7 @@ export default function EasterEggSystem() {
           finishGame("memory", "memory-keeper");
         }
       } else {
-        setMimiGameMood("surprised");
+        setMimiReaction("surprised", 1900);
         setMemoryMismatch(true);
         window.clearTimeout(mismatchTimer.current);
         mismatchTimer.current = window.setTimeout(() => {
@@ -423,7 +449,7 @@ export default function EasterEggSystem() {
 
   function showRhythm() {
     if (gameWon || rhythmPlaybackActive) return;
-    setMimiGameMood("curious");
+    setMimiReaction("curious", 0);
     clearRhythmTimers();
     setRhythmStep(0);
     setRhythmCueIndex(-1);
@@ -444,7 +470,7 @@ export default function EasterEggSystem() {
     if (gameWon || rhythmPlaybackActive) return;
     if (symbol === RHYTHM_SEQUENCE[rhythmStep]) {
       const next = rhythmStep + 1;
-      setMimiGameMood("delighted");
+      setMimiReaction("delighted", 1250);
       if (next < RHYTHM_SEQUENCE.length) playCuteSound("collect");
       setRhythmStep(next);
       if (next === RHYTHM_SEQUENCE.length) {
@@ -468,7 +494,7 @@ export default function EasterEggSystem() {
       return;
     }
     setWishIndex(next);
-    setMimiGameMood("love");
+    setMimiReaction("love", 1550);
     addUnique(setUnlocked, "wish-jar");
     if (next === WISHES.length - 1) {
       setGameWon(true);
@@ -513,7 +539,7 @@ export default function EasterEggSystem() {
                 return;
               }
               const next = [...caughtStars, star.id];
-              setMimiGameMood("delighted");
+              setMimiReaction("delighted", 1250);
               setCaughtStars(next);
               if (next.length >= STAR_TARGET_COUNT) {
                 setGameWon(true);
@@ -584,7 +610,7 @@ export default function EasterEggSystem() {
                 return;
               }
               const next = [...caughtFireflies, fly.id];
-              setMimiGameMood("delighted");
+              setMimiReaction("delighted", 1250);
               setCaughtFireflies(next);
               if (next.length >= 5) { setGameWon(true); finishGame("fireflies", "five-fireflies"); }
               else playCuteSound("collect");

@@ -653,7 +653,11 @@ export default function EasterEggSystem() {
   useEffect(() => {
     const theme = panel === "game" && activeGame ? "arcade-" + activeGame : null;
     setMusicOverride("arcade-game", theme);
-    return () => setMusicOverride("arcade-game", null);
+    return () => {
+      setMusicOverride("arcade-game", null);
+      // Never let a hidden/closed rhythm sequence keep advancing in the background.
+      clearRhythmTimers();
+    };
   }, [panel, activeGame]);
 
   return <>

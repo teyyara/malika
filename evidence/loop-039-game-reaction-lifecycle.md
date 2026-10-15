@@ -21,7 +21,16 @@ Loop 038 made Mimi react to mistakes and correct answers, but an arcade reaction
 
 ## Validation record
 
-- Candidate validation: PENDING — exact PR-head Node/content tests, production build, and all Chromium journeys must pass before merge.
+- Candidate validation: PASS. PR #53 exact head `4a73f984aa4fd36dd54e89856aa33837299d5863` passed Node/content tests, production build, and all 62 Chromium browser journeys in [workflow 38733162968](https://github.com/teyyara/malika/actions/runs/38733162968).
 - Last known-good application checkpoint: `34ed6280c9f0d5551c81a9952a8075fc7194b20e`.
 - No Vercel deployment is initiated. The owner remains responsible for deployment and live production verification.
 - Human screen-reader, physical-device and subjective audio QA remain separate from automated checks.
+
+
+## Completed validation
+
+- PR #53 was merged into `main` at `79febb97bbfa69f65e6ce190f1a87c76c7fd1cd3` after the exact-head workflow passed.
+- Post-merge main workflow [38733810002](https://github.com/teyyara/malika/actions/runs/38733810002) passed Node/content tests, production build, and all 62 Chromium browser journeys on the merge commit.
+- Automated coverage verifies temporary reaction resets, replacement of older reaction timers, the persistent celebration mood, and clean cancellation/restart of a Pawprint Rhythm preview when leaving the game.
+- No manual Vercel deployment was initiated. Production alias verification remains owner-managed.
+- Human screen-reader, physical-device and subjective audio QA are not certified by automated tests.

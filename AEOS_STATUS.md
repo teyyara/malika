@@ -3,23 +3,26 @@
 Date: 15 October 2026  
 Repository: https://github.com/teyyara/malika  
 Release branch: `main`  
-Latest completed/validated loop: **038 — Mimi's Reactions Match the Words** (merged and validated)  
-Latest validated application checkpoint: `34ed6280c9f0d5551c81a9952a8075fc7194b20e`  
-Current candidate: **Loop 039 — Timed Arcade Reaction Lifecycle** (`fix/loop-039-game-reaction-lifecycle`)  
-Candidate state: **VALIDATING_CANDIDATE — exact PR-head CI required before merge**  
-Deployment policy: **Owner-managed; do not initiate Vercel deployments.**
+Latest completed/validated loop: **039 — Timed Arcade Reaction Lifecycle** (PR #53 merged and validated)  
+Latest validated application checkpoint: `79febb97bbfa69f65e6ce190f1a87c76c7fd1cd3`  
+Current candidate: **None — waiting for a new CONTINUE instruction**  
+Exact PR-head validation: [workflow 38733162968](https://github.com/teyyara/malika/actions/runs/38733162968) — Node/content tests, production build, and 62 Chromium browser journeys passed.  
+Post-merge main validation: [workflow 38733810002](https://github.com/teyyara/malika/actions/runs/38733810002) — Node/content tests, production build, and 62 Chromium browser journeys passed.  
+Next state: **WAITING_FOR_CONTINUE**  
+Deployment policy: **Owner-managed. No manual Vercel deployment was initiated.**
 
-## Loop 039 — Timed Arcade Reaction Lifecycle (candidate)
+## Loop 039 — Timed Arcade Reaction Lifecycle (merged and validated)
 
-- Branch: `fix/loop-039-game-reaction-lifecycle`, based on the validated Loop 038 main checkpoint.
+- Pull request: [#53 — Loop 039: give arcade reactions a clean lifecycle](https://github.com/teyyara/malika/pull/53), merged at `79febb97bbfa69f65e6ce190f1a87c76c7fd1cd3`.
 - Wrong game actions now trigger a short-lived surprised reaction; correct actions trigger a short-lived delighted/warm reaction, then Mimi returns to curious unless another action replaces the timer.
 - Completing a quest keeps the celebratory mood active on the victory screen.
 - Rhythm preview timers are cancelled when the arcade panel/game changes or the player exits, so a hidden sequence does not keep advancing.
-- Added browser regressions for reaction timeout and replacing a prior reaction, plus leaving/reopening Pawprint Rhythm while playback is active.
-- Added Product Contract v2.3 / REQ-026 and the Loop 039 evidence record.
-- No dependency, service, backend, storage, remote asset, paid feature, or Vercel deployment is introduced.
-- **Validation: pending. Do not merge until exact PR-head Node/content tests, production build, and all Chromium journeys pass.**
-- **Last known-good application commit:** `34ed6280c9f0d5551c81a9952a8075fc7194b20e` (Loop 038 + validated state record).
+- Added browser regressions for reaction timeout, continued correct-move reactions, and leaving/reopening Pawprint Rhythm while playback is active.
+- Added and accepted Product Contract v2.3 / REQ-026; evidence is recorded in `evidence/loop-039-game-reaction-lifecycle.md`.
+- Exact PR-head CI and post-merge main CI both passed the Node/content tests, production build, and all 62 Chromium journeys.
+- No dependency, service, backend, storage, remote asset, paid feature, or analytics was introduced.
+- No manual Vercel deployment was initiated. Production alias, screen-reader, physical-device, and human audio-quality QA remain owner/manual checks.
+- Current state: `WAITING_FOR_CONTINUE`.
 
 ## Loop 038 — Mimi's Reactions Match the Words (merged and validated)
 

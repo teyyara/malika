@@ -1,6 +1,6 @@
 # Product Contract v2.3 — Malika Birthday Universe
 
-Status: Loop 039 candidate — validation pending. Product Contract v2.2 remains the accepted baseline until the next change is validated and merged.
+Status: ACCEPTED — Loop 039 merged and validated in PR #53 at 79febb97bbfa69f65e6ce190f1a87c76c7fd1cd3. Product Contract v2.3 is now the accepted baseline for REQ-026; previously accepted requirements remain in force.
 
 ## Change request CR-039 — Arcade reactions and cues have a clean lifecycle
 
@@ -21,3 +21,11 @@ Status: Loop 039 candidate — validation pending. Product Contract v2.2 remains
 **Risk:** R1 timed UI/game-state behavior.
 
 **Validation:** exact PR-head Node/content tests, production build, and Playwright Chromium browser journeys. New browser assertions cover the timed return to curiosity, successful reactions after a wrong move, and leaving/reopening Pawprint Rhythm while the preview is in progress. Passing automation does not certify physical-device, human screen-reader, sound-quality, or production-alias behavior.
+
+
+## Validation record — Loop 039
+
+- Exact PR-head workflow [38733162968](https://github.com/teyyara/malika/actions/runs/38733162968): PASS — Node/content tests, production build, and 62 Chromium browser journeys.
+- Post-merge main workflow [38733810002](https://github.com/teyyara/malika/actions/runs/38733810002): PASS — Node/content tests, production build, and 62 Chromium browser journeys.
+- Merge commit: `79febb97bbfa69f65e6ce190f1a87c76c7fd1cd3`.
+- Deployment / production alias: not manually deployed or certified by these checks; owner-managed.

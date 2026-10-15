@@ -3,23 +3,24 @@
 Date: 15 October 2026  
 Repository: https://github.com/teyyara/malika  
 Release branch: `main`  
-Latest completed/validated loop: **039 — Timed Arcade Reaction Lifecycle** (merged and validated)  
-Latest validated application checkpoint: `79febb97bbfa69f65e6ce190f1a87c76c7fd1cd3`  
-Current candidate: **Loop 040 — Contextual Arcade Hints** (`fix/loop-040-contextual-game-hints`)  
-Candidate state: **VALIDATING_CANDIDATE — exact PR-head CI required before merge**  
-Deployment policy: **Owner-managed; do not initiate Vercel deployments.**
+Latest completed/validated loop: **040 — Contextual Arcade Hints** (PR #54 merged and validated)  
+Latest validated application checkpoint: `df18310c616af7c418a9930ead7e889cb84df900`  
+Current candidate: **None — waiting for a new CONTINUE instruction**  
+Exact PR-head validation: [workflow 38736617748](https://github.com/teyyara/malika/actions/runs/38736617748) — Node/content tests, production build, and 62 Chromium browser journeys passed.  
+Post-merge main validation: [workflow 38737299677](https://github.com/teyyara/malika/actions/runs/38737299677) — Node/content tests, production build, and 62 Chromium browser journeys passed.  
+Next state: **WAITING_FOR_CONTINUE**  
+Deployment policy: **Owner-managed. No manual Vercel deployment was initiated.**
 
-## Loop 040 — Contextual Arcade Hints (candidate)
+## Loop 040 — Contextual Arcade Hints (merged and validated)
 
-- Branch: `fix/loop-040-contextual-game-hints`, based on the latest validated Loop 039 main checkpoint (the repository state/evidence commit is `ed281d9986b1c1c9b7ad74add68c29282b2ea5ff`).
-- Separated discovery toasts from incorrect in-game answers: game errors now show contextual feedback inside the current minigame instead of a global toast with an unrelated “Open Secret Arcade” action.
-- Hints live in an inline polite status region and are cleared when correct play resumes, the rhythm preview is replayed, a game changes, the arcade closes, or a quest completes.
-- Genuine discoveries retain the original toast and navigation behavior.
-- Added browser regression coverage for the constellation, rhythm, firefly, and wish-jar wrong-answer flows and for clearing feedback on recovery.
-- Added Product Contract v2.4 / REQ-027 and Loop 040 evidence.
-- No new dependency, backend, browser storage, remote asset, paid feature, analytics, or outside service is introduced.
-- **Validation: pending. Do not merge until exact PR-head Node/content tests, production build, and all Chromium browser journeys pass.**
-- **Last known-good application merge:** `79febb97bbfa69f65e6ce190f1a87c76c7fd1cd3`.
+- PR [#54](https://github.com/teyyara/malika/pull/54) merged at `df18310c616af7c418a9930ead7e889cb84df900`.
+- Wrong answers show hints inside the active arcade dialog instead of a global discovery toast with an unrelated “Open Secret Arcade” action.
+- Hints use a polite live region and clear when correct play resumes, the rhythm is replayed, a game changes, the arcade closes, or a quest completes.
+- Real discoveries retain the global toast and its navigation action.
+- Added Product Contract v2.4 / REQ-027 and `evidence/loop-040-contextual-game-hints.md`.
+- Exact PR-head and post-merge main CI both passed Node/content tests, production build, and all 62 Chromium browser journeys.
+- No new package, backend, storage, remote asset, paid feature, or service was introduced.
+- No manual Vercel deployment was initiated. Production alias and human screen-reader, device, and audio QA remain owner/manual checks.
 
 ## Loop 039 — Timed Arcade Reaction Lifecycle (merged and validated)
 

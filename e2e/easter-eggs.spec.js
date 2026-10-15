@@ -436,3 +436,22 @@ test("Mimi visibly reacts to mistakes and correct moves in all five arcade games
   await expect(companion).toHaveAttribute("data-mimi-mood", "love");
   await expect(mimiArt).toHaveClass(/cat-reaction-love/);
 });
+
+test("leaving a running pawprint preview cancels its cues and restores a fresh game", async ({ page }) => {
+  await openArcade(page);
+  await page.getByRole("button", { name: /Pawprint rhythm/ }).click();
+
+  const watch = page.locator(".egg-rhythm-watch");
+  const paw = page.getByRole("button", { name: "Play pawprints" });
+  await watch.click();
+  await expect(paw).toBeDisabled();
+  await expect(page.getByTestId("rhythm-cue")).toContainText("🐾");
+
+  await page.getByRole("button", { name: /Back to arcade/ }).click();
+  await expect(page.getByRole("dialog", { name: "The secret arcade" })).toBeVisible();
+
+  await page.getByRole("button", { name: /Pawprint rhythm/ }).click();
+  await expect(page.getByTestId("rhythm-cue")).toContainText("THE CODE IS HIDING");
+  await expect(paw).toBeEnabled();
+  await expect(watch).toBeEnabled();
+});

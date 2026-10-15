@@ -20,7 +20,16 @@ Wish Sky initialized `chosenPreparedId` to the first preset even with an empty t
 
 ## Validation record
 
-- Candidate validation: PENDING — exact PR-head Node/content tests, production build, and full Chromium browser journeys must pass before merge.
+- Candidate validation: PASS. PR #55 exact head `3e95ab99b5e9c2498966b51f97cae44f8df74e9a` passed Node/content tests, production build, and all 62 Chromium browser journeys in [workflow 38739679561](https://github.com/teyyara/malika/actions/runs/38739679561).
 - Last known-good checkpoint: `fb607aadfd183bb36f5942732779094fd6fec0cc`, with all 62 Chromium browser journeys passing.
 - No manual Vercel deployment is initiated; the owner remains responsible for production deployment and live verification.
 - Human screen-reader, physical-device, and production-alias checks remain outside automated CI.
+
+
+## Completed validation
+
+- PR #55 exact head `3e95ab99b5e9c2498966b51f97cae44f8df74e9a` passed Node/content tests, production build, and all 62 Chromium browser journeys in [workflow 38739679561](https://github.com/teyyara/malika/actions/runs/38739679561).
+- PR #55 was merged into `main` at `c85852fca289ef6ed65a3734944c1c36e844aea0` after exact-head validation passed.
+- Post-merge main workflow [38741098379](https://github.com/teyyara/malika/actions/runs/38741098379) passed Node/content tests, production build, and all 62 Chromium browser journeys.
+- No manual Vercel deployment was initiated; production alias verification remains owner-managed.
+- Human screen-reader and physical-device QA are not certified by automated tests.

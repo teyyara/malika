@@ -1,6 +1,6 @@
 # Product Contract v2.5 — Malika Birthday Universe
 
-Status: Loop 041 candidate — validation pending. Product Contract v2.4 remains the accepted baseline until this change is validated and merged.
+Status: ACCEPTED — Loop 041 merged and validated in PR #55 at c85852fca289ef6ed65a3734944c1c36e844aea0. Product Contract v2.5 is now the accepted baseline for REQ-028; previously accepted requirements remain in force.
 
 ## Change request CR-041 — Prepared-wish selection reflects the current draft
 
@@ -22,3 +22,11 @@ Status: Loop 041 candidate — validation pending. Product Contract v2.4 remains
 **Risk:** R1 interaction-state coherence.
 
 **Validation:** exact PR-head Node/content tests, production build, and Playwright Chromium journeys. New assertions cover initial, selected, custom-edited, and released states. Passing automation does not certify physical-device, human screen-reader, or production-alias behavior.
+
+
+## Validation record — Loop 041
+
+- Exact PR-head workflow [38739679561](https://github.com/teyyara/malika/actions/runs/38739679561): PASS — Node/content tests, production build, and 62 Chromium browser journeys.
+- Post-merge main workflow [38741098379](https://github.com/teyyara/malika/actions/runs/38741098379): PASS — Node/content tests, production build, and 62 Chromium browser journeys.
+- Merge commit: `c85852fca289ef6ed65a3734944c1c36e844aea0`.
+- Deployment / production alias: not manually deployed or certified by these checks; owner-managed.

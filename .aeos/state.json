@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.0",
-  "runId": "malika-20261015-039",
-  "activeKeyphrase": "Malika Birthday Universe — Loop 039: Timed Arcade Reaction Lifecycle",
+  "runId": "malika-20261015-040",
+  "activeKeyphrase": "Malika Birthday Universe — Loop 040: Contextual Arcade Hints",
   "repository": "teyyara/malika",
   "releaseBranch": "main",
-  "progressionBranch": "fix/loop-039-game-reaction-lifecycle",
-  "currentLoop": 39,
-  "candidate": "malika-birthday-039-game-reaction-lifecycle",
-  "status": "VALIDATED_MERGED",
-  "orchestrationState": "WAITING_FOR_CONTINUE",
+  "progressionBranch": "fix/loop-040-contextual-game-hints",
+  "currentLoop": 40,
+  "candidate": "malika-birthday-040-contextual-game-hints",
+  "status": "CANDIDATE_VALIDATION_PENDING",
+  "orchestrationState": "VALIDATING_CANDIDATE",
   "validatedApplicationCheckpoint": "79febb97bbfa69f65e6ce190f1a87c76c7fd1cd3",
   "personalization": {
     "recipientName": "Malika",
@@ -16,7 +16,7 @@
     "birthday": "12 October"
   },
   "automatedBrowserQA": {
-    "status": "PASS",
+    "status": "PASS — PREVIOUS VALIDATED MAIN CHECKPOINT ONLY",
     "specsPassed": 62,
     "coverage": [
       "Core navigation and all primary birthday scenes",
@@ -55,7 +55,7 @@
       "Loop 039: completed quest remains celebratory on the victory screen",
       "Loop 039: leaving and reopening Pawprint Rhythm during active cue playback cancels the prior sequence and starts cleanly"
     ],
-    "note": "Exact PR-head workflow 38733162968 and post-merge main workflow 38733810002 both passed Node/content tests, production build, and all 62 Chromium browser journeys. Automation does not certify human screen-reader, physical-device, production-alias, or subjective audio-quality behavior. The connected GitHub Vercel app may attach preview feedback checks to pull requests; no manual Vercel deployment was initiated."
+    "note": "The 62 Chromium journeys recorded in Loop 039 validate application commit 79febb97bbfa69f65e6ce190f1a87c76c7fd1cd3, not the Loop 040 candidate. Do not transfer that PASS to the candidate; see candidateValidation."
   },
   "deployment": {
     "target": "Vercel",
@@ -82,9 +82,11 @@
   "screenReaderQA": "NOT_YET_OBSERVED",
   "realMobileDeviceQA": "NOT_TESTED",
   "nextHighValueWork": [
-    "Wait for a new standalone CONTINUE instruction before beginning another feature loop.",
-    "Keep additions local-only, keyboard-accessible, responsive, and reduced-motion-aware.",
-    "Do not initiate a manual Vercel deployment or claim production-alias verification."
+    "Open the Loop 040 candidate as a pull request to main.",
+    "Run exact PR-head Node/content tests, production build, and all Chromium browser journeys; fix failures before merge.",
+    "Merge to main only after all required PR-head checks pass, then verify post-merge main CI.",
+    "Do not initiate a Vercel deployment; the repository owner handles deployment and production verification.",
+    "After the validated checkpoint is merged, stop and wait for the next standalone CONTINUE."
   ],
   "arcadeMastery": {
     "games": [
@@ -131,19 +133,12 @@
     "chromiumJourneysPassed": 62
   },
   "currentCandidate": {
-    "branch": "fix/loop-039-game-reaction-lifecycle",
-    "feature": "Timed Arcade Reaction Lifecycle",
-    "requirement": "REQ-026",
-    "validation": "PR #53 merged at 79febb97bbfa69f65e6ce190f1a87c76c7fd1cd3. Exact PR-head workflow 38733162968 and post-merge main workflow 38733810002 both passed Node/content tests, production build, and all 62 Chromium browser journeys."
+    "branch": "fix/loop-040-contextual-game-hints",
+    "feature": "Contextual Arcade Hints",
+    "requirement": "REQ-027",
+    "validation": "PENDING — exact PR-head Node/content tests, production build, and Chromium browser journeys must pass before merge."
   },
-  "pullRequest": {
-    "url": "https://github.com/teyyara/malika/pull/53",
-    "number": 53,
-    "state": "MERGED",
-    "headSha": "4a73f984aa4fd36dd54e89856aa33837299d5863",
-    "baseSha": "34ed6280c9f0d5551c81a9952a8075fc7194b20e",
-    "mergeCommitSha": "79febb97bbfa69f65e6ce190f1a87c76c7fd1cd3"
-  },
+  "pullRequest": null,
   "latestPassingWorkflowForCandidate": {
     "runId": 38733162968,
     "url": "https://github.com/teyyara/malika/actions/runs/38733162968",
@@ -163,34 +158,21 @@
     "note": "This run contains only Loop 034 release-documentation changes. The latest application-code main run is 38481311313 and passed all 58 Chromium journeys. Do not claim this separate documentation checkpoint run passed unless rechecked."
   },
   "candidateValidation": {
-    "status": "PASS",
-    "branch": "fix/loop-039-game-reaction-lifecycle",
-    "baseCommit": "34ed6280c9f0d5551c81a9952a8075fc7194b20e",
-    "candidateHeadSha": "4a73f984aa4fd36dd54e89856aa33837299d5863",
-    "nodeContentTests": "PASS",
-    "productionBuild": "PASS",
-    "chromiumBrowserJourneys": "PASS",
-    "chromiumJourneysPassed": 62,
-    "prWorkflowRun": {
-      "id": 38733162968,
-      "url": "https://github.com/teyyara/malika/actions/runs/38733162968",
-      "conclusion": "success"
-    },
-    "mergeCommit": "79febb97bbfa69f65e6ce190f1a87c76c7fd1cd3",
-    "postMergeMainWorkflow": {
-      "id": 38733810002,
-      "url": "https://github.com/teyyara/malika/actions/runs/38733810002",
-      "conclusion": "success"
-    },
-    "mergeGate": "PASSED — exact PR-head validation completed before merge.",
-    "deployment": "Owner-managed; no manual Vercel deployment was initiated."
+    "status": "PENDING",
+    "branch": "fix/loop-040-contextual-game-hints",
+    "baseCommit": "ed281d9986b1c1c9b7ad74add68c29282b2ea5ff",
+    "nodeContentTests": "PENDING",
+    "productionBuild": "PENDING",
+    "chromiumBrowserJourneys": "PENDING",
+    "mergeGate": "Exact PR-head CI must pass before merge to main.",
+    "deployment": "Owner-managed; no Vercel deployment may be initiated."
   },
   "previousPullRequest": {
-    "url": "https://github.com/teyyara/malika/pull/52",
-    "number": 52,
+    "url": "https://github.com/teyyara/malika/pull/53",
+    "number": 53,
     "state": "MERGED",
-    "headSha": "dd066b3bf8e41e203db5a097845d394dd7e3be15",
-    "baseSha": "6353eff85240f23a7338b38c0769a6fd55ffd527",
-    "mergeCommitSha": "ad94781b15af0c35a34f935bd4e80d53f1e8f902"
+    "headSha": "4a73f984aa4fd36dd54e89856aa33837299d5863",
+    "baseSha": "34ed6280c9f0d5551c81a9952a8075fc7194b20e",
+    "mergeCommitSha": "79febb97bbfa69f65e6ce190f1a87c76c7fd1cd3"
   }
 }

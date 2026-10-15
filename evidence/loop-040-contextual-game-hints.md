@@ -21,7 +21,16 @@ The global `announce()` handler served both discovery events and incorrect game 
 
 ## Validation record
 
-- Candidate validation: PENDING — exact PR-head Node/content tests, production build, and full Chromium browser journeys must pass before merge.
+- Candidate validation: PASS. PR #54 exact head `7452fd181901405d1cd80aa144833cf84fbacb2d` passed Node/content tests, production build, and all 62 Chromium browser journeys in [workflow 38736617748](https://github.com/teyyara/malika/actions/runs/38736617748).
 - Last known-good application checkpoint: `ed281d9986b1c1c9b7ad74add68c29282b2ea5ff`.
 - No manual Vercel deployment is initiated; the owner remains responsible for production deployment and live verification.
 - Human screen-reader, physical-device, and subjective audio QA remain separate from automated checks.
+
+
+## Completed validation
+
+- Initial run `38735796374` exposed two outdated E2E assertions that still expected a global toast for game errors. The assertions were corrected to expect contextual hints and retry behavior.
+- Updated PR #54 head `7452fd181901405d1cd80aa144833cf84fbacb2d` passed Node/content tests, production build, and 62 Chromium browser journeys in [workflow 38736617748](https://github.com/teyyara/malika/actions/runs/38736617748).
+- PR #54 was merged into `main` at `df18310c616af7c418a9930ead7e889cb84df900` after exact-head validation passed.
+- Post-merge main workflow [38737299677](https://github.com/teyyara/malika/actions/runs/38737299677) passed Node/content tests, production build, and all 62 Chromium browser journeys.
+- No manual Vercel deployment was initiated; production alias verification remains owner-managed.

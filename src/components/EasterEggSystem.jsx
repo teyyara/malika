@@ -568,12 +568,12 @@ export default function EasterEggSystem() {
             aria-label={caught ? "Star " + star.id + " caught" : "Tap sky star " + star.id}
             onClick={() => {
               if (!star.step) {
-                announce("A glittery decoy! Mimi made it extra convincing on purpose. Follow the faint heart trail, detective.");
+                announceGameHint("A glittery decoy! Mimi made it extra convincing on purpose. Follow the faint heart trail, detective.");
                 return;
               }
               const expectedStep = caughtStars.length + 1;
               if (star.step !== expectedStep) {
-                announce("Mimi caught you skipping ahead. The heart trail starts at the left curl and must be followed in order. No progress lost—yet.");
+                announceGameHint("Mimi caught you skipping ahead. The heart trail starts at the left curl and must be followed in order. No progress lost—yet.");
                 return;
               }
               const next = [...caughtStars, star.id];
@@ -647,7 +647,7 @@ export default function EasterEggSystem() {
             aria-label={caught ? "Firefly " + fly.id + " caught" : "Tap glowing firefly " + fly.id}
             onClick={() => {
               if (!fly.isTarget) {
-                announce("Mimi planted a fake light. Nice try. The real fireflies glow pearl-white; the violet ones are just showing off.");
+                announceGameHint("Mimi planted a fake light. Nice try. The real fireflies glow pearl-white; the violet ones are just showing off.");
                 return;
               }
               const next = [...caughtFireflies, fly.id];

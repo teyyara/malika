@@ -1,22 +1,22 @@
 {
   "schemaVersion": "1.0",
-  "runId": "malika-20261014-038",
-  "activeKeyphrase": "Malika Birthday Universe — Loop 038: Mood-Consistent Mimi and Reactive Arcade Games",
+  "runId": "malika-20261015-039",
+  "activeKeyphrase": "Malika Birthday Universe — Loop 039: Timed Arcade Reaction Lifecycle",
   "repository": "teyyara/malika",
   "releaseBranch": "main",
-  "progressionBranch": "fix/loop-038-mimi-reactive-gameplay",
-  "currentLoop": 38,
-  "candidate": "malika-birthday-038-mimi-reactive-gameplay",
-  "status": "VALIDATED_MERGED",
-  "orchestrationState": "WAITING_FOR_CONTINUE",
-  "validatedApplicationCheckpoint": "ad94781b15af0c35a34f935bd4e80d53f1e8f902",
+  "progressionBranch": "fix/loop-039-game-reaction-lifecycle",
+  "currentLoop": 39,
+  "candidate": "malika-birthday-039-game-reaction-lifecycle",
+  "status": "CANDIDATE_VALIDATION_PENDING",
+  "orchestrationState": "VALIDATING_CANDIDATE",
+  "validatedApplicationCheckpoint": "34ed6280c9f0d5551c81a9952a8075fc7194b20e",
   "personalization": {
     "recipientName": "Malika",
     "senderName": "Zack",
     "birthday": "12 October"
   },
   "automatedBrowserQA": {
-    "status": "PASS",
+    "status": "PASS — PREVIOUS VALIDATED MAIN CHECKPOINT ONLY",
     "specsPassed": 61,
     "coverage": [
       "Core navigation and all primary birthday scenes",
@@ -51,7 +51,7 @@
       "Loop 038: Mimi daily-life ribbon play, nap, cuddle, and whispered-secret expressions match their text",
       "Loop 038: all five Secret Arcade games display Mimi and test surprised wrong-move, delighted/caring correct-move, and celebratory win states"
     ],
-    "note": "Exact PR-head workflow 38649741358 and post-merge main workflow 38650387617 both passed the Node/content tests, production build, and all 61 Chromium browser journeys. Automation does not certify human screen-reader, physical-device, production-alias, or human sound-quality behavior."
+    "note": "The 61 Chromium journeys recorded in Loop 038 validate commit 34ed6280c9f0d5551c81a9952a8075fc7194b20e, not this Loop 039 candidate. Do not transfer that PASS to the candidate; see candidateValidation."
   },
   "deployment": {
     "target": "Vercel",
@@ -78,9 +78,11 @@
   "screenReaderQA": "NOT_YET_OBSERVED",
   "realMobileDeviceQA": "NOT_TESTED",
   "nextHighValueWork": [
-    "Wait for a new standalone CONTINUE instruction before beginning another feature loop.",
-    "Keep additions local-only, keyboard-accessible, responsive, and reduced-motion-aware.",
-    "Do not initiate a manual Vercel deployment or claim production-alias verification."
+    "Open the Loop 039 candidate as a pull request to main.",
+    "Run exact PR-head Node/content tests, production build, and all Chromium browser journeys; fix failures before merge.",
+    "Merge to main only after all required PR-head checks pass, then verify post-merge main CI.",
+    "Do not initiate a Vercel deployment; the repository owner handles deployment and production verification.",
+    "After the validated checkpoint is merged, stop and wait for the next standalone CONTINUE."
   ],
   "arcadeMastery": {
     "games": [
@@ -127,19 +129,12 @@
     "chromiumJourneysPassed": 61
   },
   "currentCandidate": {
-    "branch": "fix/loop-038-mimi-reactive-gameplay",
-    "feature": "Mimi's Reactions Match the Words",
-    "requirement": "REQ-025",
-    "validation": "PR #52 merged at ad94781b15af0c35a34f935bd4e80d53f1e8f902. Exact PR-head workflow 38649741358 and post-merge main workflow 38650387617 both passed Node/content tests, production build, and all 61 Chromium journeys."
+    "branch": "fix/loop-039-game-reaction-lifecycle",
+    "feature": "Timed Arcade Reaction Lifecycle",
+    "requirement": "REQ-026",
+    "validation": "PENDING — exact PR-head Node/content tests, production build, and Chromium browser journeys must pass before merge."
   },
-  "pullRequest": {
-    "url": "https://github.com/teyyara/malika/pull/52",
-    "number": 52,
-    "state": "MERGED",
-    "headSha": "dd066b3bf8e41e203db5a097845d394dd7e3be15",
-    "baseSha": "6353eff85240f23a7338b38c0769a6fd55ffd527",
-    "mergeCommitSha": "ad94781b15af0c35a34f935bd4e80d53f1e8f902"
-  },
+  "pullRequest": null,
   "latestPassingWorkflowForCandidate": {
     "runId": 38649741358,
     "url": "https://github.com/teyyara/malika/actions/runs/38649741358",
@@ -159,34 +154,21 @@
     "note": "This run contains only Loop 034 release-documentation changes. The latest application-code main run is 38481311313 and passed all 58 Chromium journeys. Do not claim this separate documentation checkpoint run passed unless rechecked."
   },
   "candidateValidation": {
-    "status": "PASS",
-    "branch": "fix/loop-038-mimi-reactive-gameplay",
-    "baseCommit": "6353eff85240f23a7338b38c0769a6fd55ffd527",
-    "candidateHeadSha": "dd066b3bf8e41e203db5a097845d394dd7e3be15",
-    "nodeContentTests": "PASS",
-    "productionBuild": "PASS",
-    "chromiumBrowserJourneys": "PASS",
-    "chromiumJourneysPassed": 61,
-    "prWorkflowRun": {
-      "id": 38649741358,
-      "url": "https://github.com/teyyara/malika/actions/runs/38649741358",
-      "conclusion": "success"
-    },
-    "mergeCommit": "ad94781b15af0c35a34f935bd4e80d53f1e8f902",
-    "postMergeMainWorkflow": {
-      "id": 38650387617,
-      "url": "https://github.com/teyyara/malika/actions/runs/38650387617",
-      "conclusion": "success"
-    },
-    "mergeGate": "PASSED — exact PR-head validation completed before merge.",
-    "deployment": "Owner-managed; no Vercel deployment was initiated."
+    "status": "PENDING",
+    "branch": "fix/loop-039-game-reaction-lifecycle",
+    "baseCommit": "34ed6280c9f0d5551c81a9952a8075fc7194b20e",
+    "nodeContentTests": "PENDING",
+    "productionBuild": "PENDING",
+    "chromiumBrowserJourneys": "PENDING",
+    "mergeGate": "Exact PR-head CI must pass before merge to main.",
+    "deployment": "Owner-managed; no Vercel deployment may be initiated."
   },
   "previousPullRequest": {
-    "url": "https://github.com/teyyara/malika/pull/49",
-    "number": 49,
+    "url": "https://github.com/teyyara/malika/pull/52",
+    "number": 52,
     "state": "MERGED",
-    "headSha": "3a0ebc4662e8920a6d196bcb7a111a8227975391",
-    "baseSha": "73767abae28833b94cc700337128add446e64f01",
-    "mergeCommitSha": "5b86e56ef2c2ef03beec934144d130a5212aac6d"
+    "headSha": "dd066b3bf8e41e203db5a097845d394dd7e3be15",
+    "baseSha": "6353eff85240f23a7338b38c0769a6fd55ffd527",
+    "mergeCommitSha": "ad94781b15af0c35a34f935bd4e80d53f1e8f902"
   }
 }
